@@ -1,0 +1,20 @@
+{
+    "name": "@repo/config",
+    "scripts": {
+        "dev": "tsc --noEmit --watch",
+        "build": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@types/react": "catalog:react18"
+    },
+    "devDependencies": {
+        "@repo/eslint-config": "workspace:*",
+        "typescript": "catalog:"
+    },
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "default": "./src/index.ts"
+        }
+    }
+}

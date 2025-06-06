@@ -1,31 +1,22 @@
 {
   "name": "@repo/ui",
-  "version": "0.0.0",
-  "private": true,
   "scripts": {
-    "ui": "pnpm dlx shadcn@latest",
-    "lint": "eslint ."
-  },
-  "peerDependencies": {
-    "react": "^18"
-  },
-  "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@types/node": "catalog:",
-    "@types/react": "catalog:react18",
-    "autoprefixer": "^10",
-    "postcss": "^8",
-    "postcss-load-config": "^6",
-    "tailwindcss": "catalog:",
-    "typescript": "catalog:"
-  },
-  "dependencies": {
-    "lucide-react": "catalog:",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7"
+    "dev": "tsc --noEmit --watch",
+    "build": "tsc --noEmit"
   },
   "exports": {
+    "./components": {
+      "types": "./src/components/index.ts",
+      "default": "./src/components/index.ts"
+    },
+    "./layouts": {
+      "types": "./src/layouts/index.ts",
+      "default": "./src/layouts/index.ts"
+    },
+    "./styles": {
+      "types": "./src/styles/index.ts",
+      "default": "./src/styles/index.ts"
+    },
     "./globals.css": "./src/globals.css",
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",
@@ -33,7 +24,9 @@
     "./hooks/*": [
       "./src/hooks/*.ts",
       "./src/hooks/*.tsx"
-    ],
-    "./components/*": "./src/components/*.tsx"
+    ]
+  },
+  "devDependencies": {
+    "typescript": "catalog:"
   }
 }
