@@ -21,6 +21,16 @@ declare module '@mui/material/styles' {
       light: string;
       dark: string;
     };
+    blue: {
+      300: string;
+      400: string;
+      450: string;
+      500: string;
+      600: string;
+      700: string;
+      800: string;
+      900: string;
+    };
   }
 
   interface PaletteOptions {
@@ -42,6 +52,16 @@ declare module '@mui/material/styles' {
       default?: string;
       light?: string;
       dark?: string;
+    };
+    blue?: {
+      300?: string;
+      400?: string;
+      450?: string;
+      500?: string;
+      600?: string;
+      700?: string;
+      800?: string;
+      900?: string;
     };
   }
 }
