@@ -11,6 +11,16 @@ declare module '@mui/material/styles' {
       secondaryDark: string;
       disabled: string;
     };
+    sidebar: {
+      default: string;
+      light: string;
+      dark: string;
+    };
+    navbar: {
+      default: string;
+      light: string;
+      dark: string;
+    };
   }
 
   interface PaletteOptions {
@@ -22,6 +32,16 @@ declare module '@mui/material/styles' {
       secondaryLight?: string;
       secondaryDark?: string;
       disabled?: string;
+    };
+    sidebar?: {
+      default?: string;
+      light?: string;
+      dark?: string;
+    };
+    navbar?: {
+      default?: string;
+      light?: string;
+      dark?: string;
     };
   }
 }
