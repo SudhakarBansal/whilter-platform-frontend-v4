@@ -5,7 +5,9 @@
         "build": "tsc --noEmit"
     },
     "dependencies": {
-        "@types/react": "catalog:react18"
+        "@types/react": "catalog:react18",
+        "lodash": "^4.17.21",
+        "@types/lodash": "^4.14.202"
     },
     "devDependencies": {
         "@repo/eslint-config": "workspace:*",
