@@ -5,7 +5,7 @@ interface ThemeTypographyOptions {
   fontFamily?: string;
   allVariants?: {
     fontFamily: string;
-    textTransform: CSSProperties['textTransform'];
+    textTransform: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'full-width' | 'full-size-kana';
     fontSize: number;
   };
   textColor?: string;

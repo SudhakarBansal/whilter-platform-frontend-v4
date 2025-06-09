@@ -41,7 +41,7 @@ export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
       fontFamily: ['Rubik', 'Regular', 'sans-serif'].join(','),
       allVariants: {
         fontFamily: 'Rubik, sans-serif',
-        textTransform: 'none',
+        textTransform: 'none' as const,
         fontSize: 16,
       },
       button: {
