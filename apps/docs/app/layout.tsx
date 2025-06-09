@@ -1,8 +1,8 @@
-import "@repo/ui/globals.css";
+import "@whilter/ui/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ThemeConfig } from "@repo/config";
-import { MainLayout} from "@repo/ui/layouts"
+import { ThemeConfig } from "@whilter/config";
+import { MainLayout} from "@whilter/ui/layouts"
 
 const inter = Inter({ subsets: ["latin"] });
 

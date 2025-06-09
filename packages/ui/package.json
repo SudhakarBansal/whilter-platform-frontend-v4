@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui",
+  "name": "@whilter/ui",
   "scripts": {
     "dev": "tsc --noEmit --watch",
     "build": "tsc --noEmit"

@@ -1,1 +1,1 @@
-# `@repo/ui`
+# `@whilter/ui`

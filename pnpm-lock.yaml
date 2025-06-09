@@ -109,10 +109,10 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
     devDependencies:
-      '@repo/eslint-config':
+      '@whilter/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
-      '@repo/typescript-config':
+      '@whilter/typescript-config':
         specifier: workspace:*
         version: link:packages/typescript-config
       prettier:
@@ -124,10 +124,10 @@ importers:
 
   apps/docs:
     dependencies:
-      '@repo/config':
+      '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@repo/ui':
+      '@whilter/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       next:
@@ -143,10 +143,10 @@ importers:
       '@next/eslint-plugin-next':
         specifier: 14.2.8
         version: 14.2.8
-      '@repo/eslint-config':
+      '@whilter/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      '@repo/typescript-config':
+      '@whilter/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/eslint':
@@ -189,7 +189,7 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
-      '@repo/eslint-config':
+      '@whilter/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
       typescript:

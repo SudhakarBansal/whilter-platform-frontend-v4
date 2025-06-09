@@ -8,11 +8,11 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "ui": "pnpm --filter @repo/ui ui"
+    "ui": "pnpm --filter @whilter/ui ui"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@whilter/eslint-config": "workspace:*",
+    "@whilter/typescript-config": "workspace:*",
     "prettier": "catalog:",
     "turbo": "2.1.1"
   },

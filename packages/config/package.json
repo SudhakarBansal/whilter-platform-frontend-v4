@@ -1,5 +1,5 @@
 {
-    "name": "@repo/config",
+    "name": "@whilter/config",
     "scripts": {
         "dev": "tsc --noEmit --watch",
         "build": "tsc --noEmit"
@@ -10,7 +10,7 @@
         "@types/lodash": "^4.14.202"
     },
     "devDependencies": {
-        "@repo/eslint-config": "workspace:*",
+        "@whilter/eslint-config": "workspace:*",
         "typescript": "catalog:"
     },
     "exports": {
