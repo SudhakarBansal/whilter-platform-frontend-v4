@@ -1,4 +1,6 @@
-/* Typography Definitions */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Page Title - Top Left */
 .page-title {
