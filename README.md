@@ -60,7 +60,8 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
+- `main`: a [Next.js](https://nextjs.org/) app
+- `marketplace`: a [Next.js](https://nextjs.org/) app
 - `@whilter/ui`: a stub React component library (🚀 powered by **shadcn/ui**)
 - `@whilter/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@whilter/typescript-config`: `tsconfig.json`s used throughout the monorepo
@@ -95,7 +96,7 @@ pnpm dev
 
 ### Remote Caching
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/main/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
 By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
@@ -116,12 +117,12 @@ npx turbo link
 
 Learn more about the power of Turborepo:
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [Tasks](https://turbo.build/repo/main/core-concepts/monorepos/running-tasks)
+- [Caching](https://turbo.build/repo/main/core-concepts/caching)
+- [Remote Caching](https://turbo.build/repo/main/core-concepts/remote-caching)
+- [Filtering](https://turbo.build/repo/main/core-concepts/monorepos/filtering)
+- [Configuration Options](https://turbo.build/repo/main/reference/configuration)
+- [CLI Usage](https://turbo.build/repo/main/reference/command-line-reference)
 
 Learn more about shadcn/ui:
 
