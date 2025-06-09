@@ -40,8 +40,12 @@ export const colors = {
   navBackgroundLight: '#F9F9F9',
   mainBackgroundLight: '#F5F5F5',
   button: {
+    primaryMain: '#1F3E9E',
     primaryLight: '#3F5FCC',
     primaryDark: '#0E2058',
+    secondaryLight: '#6AE2B4',
+    secondaryMain: '#31C48D',
+    secondaryDark: '#21805E',
     buttonDisabled: '#636363',
     defaultBackground: '#FFFFFF',
   },
