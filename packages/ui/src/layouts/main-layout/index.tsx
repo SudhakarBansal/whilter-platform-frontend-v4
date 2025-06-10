@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     const sidebarWidth = sidebarOpen ? 280 : 64;
 
     return (
-        <Box className="flex min-h-screen bg-background">
+        <Box className="flex min-h-screen">
             <Sidebar
                 isOpen={sidebarOpen}
                 onToggle={handleSidebarToggle}
@@ -36,8 +36,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                     component="main"
                     sx={{
                         flexGrow: 1,
-                        pt: '10rem', // Account for AppBar height
-                        backgroundColor: 'background.default',
+                        pt: '3rem', // Account for AppBar height
+                        background: `linear-gradient(to bottom, ${theme.palette.blue[700]}, ${theme.palette.blue[900]})`,
                     }}
                 >
                     {children}

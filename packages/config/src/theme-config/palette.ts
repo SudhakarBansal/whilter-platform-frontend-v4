@@ -73,6 +73,7 @@ interface ThemeOptions {
   textDark?: string;
   textColor?: string;
   paper?: string;
+  darkPaper?:string;
   backgroundDefault?: string;
   background?: string;
   darkBottomNav?: string;
@@ -127,7 +128,7 @@ export default function themePalette(theme: ThemeOptions): PaletteOptions {
     },
     background: {
       paper: theme.paper,
-      default: theme.background,  // Changed from 'main' to 'default'
+      default: theme.darkPaper,  // Changed from 'main' to 'default'
     },
     navbar: {
       default: theme.colors?.navbar?.default,

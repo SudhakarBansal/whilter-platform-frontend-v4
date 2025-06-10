@@ -13,7 +13,7 @@ export default function MainSidebar() {
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: "95px",
-          backgroundColor: theme.palette.sidebar.default, // Sidebar background from theme
+          backgroundColor: theme.palette.sidebar.dark,
           color: theme.palette.common.white, // Text color from theme
         },
       }}

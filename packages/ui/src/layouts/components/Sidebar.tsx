@@ -108,6 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onToggle,
   selectedItem,
   onItemSelect,
+  theme
 }) => {
   const sidebarWidth = isOpen ? SIDEBAR_WIDTH : SIDEBAR_COLLAPSED_WIDTH;
   const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
@@ -136,11 +137,11 @@ const Sidebar: React.FC<SidebarProps> = ({
           size="small"
           className="ml-auto"
           sx={{
-            backgroundColor: 'background.paper',
+            backgroundColor: `${theme.palette.text.primary}`,
             border: '1px solid',
             borderColor: 'divider',
             '&:hover': {
-              backgroundColor: 'secondary.main',
+              backgroundColor: `${theme.palette.text.secondary}`,
             },
           }}
         >
@@ -181,6 +182,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                       minWidth: 0,
                       mr: isOpen ? 3 : 'auto',
                       justifyContent: 'center',
+                      color: `${theme.palette.text.primary}`
                     }}
                   >
                     <Icon />
@@ -189,9 +191,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                     <>
                       <ListItemText
                         primary={item.label}
-                        primaryTypographyProps={{
-                          fontSize: '0.875rem',
-                          fontWeight: 500,
+                        slotProps={{
+                          primary: {
+                            fontSize: '0.875rem',
+                            fontWeight: 500,
+                          }
                         }}
                       />
                       {hasSubItems && (
@@ -237,20 +241,27 @@ const Sidebar: React.FC<SidebarProps> = ({
                                 pr: 2.5,
                               }}
                             >
-                              <ListItemIcon
+                                <ListItemIcon
                                 sx={{
                                   minWidth: 0,
                                   mr: 3,
                                   justifyContent: 'center',
+                                  color: `${theme.palette.text.primary}`,
+                                  '& svg': {
+                                  fontSize: '1rem', 
+                                  },
                                 }}
-                              >
+                                >
                                 <SubIcon />
-                              </ListItemIcon>
+                                </ListItemIcon>
                               <ListItemText
                                 primary={subItem.label}
-                                primaryTypographyProps={{
-                                  fontSize: '0.8125rem',
-                                  fontWeight: 400,
+                                sx={{
+                                  '& .MuiListItemText-primary': {
+                                    fontSize: '0.8125rem',
+                                    fontWeight: 400,
+                                    color: `${theme.palette.text.primary}`
+                                  }
                                 }}
                               />
                             </ListItemButton>
@@ -288,6 +299,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           boxSizing: 'border-box',
           transition: 'width 0.3s ease-in-out',
           overflowX: 'hidden',
+          backgroundColor: theme.palette.sidebar.default,
+          color: theme.palette.text.primary,
         },
       }}
     >

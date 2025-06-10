@@ -25,6 +25,7 @@ export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
       colors: color,
       heading: color.primaryMain,
       paper: color.paper,
+      darkPaper:color.darkPaper,
       background: color.background,
       darkTextSecondary: color.gray400,
       textColor: color.textColor,
