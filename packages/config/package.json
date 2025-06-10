@@ -1,5 +1,8 @@
 {
     "name": "@whilter/config",
+    "version": "0.0.0",
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
     "scripts": {
         "dev": "tsc --noEmit --watch",
         "build": "tsc --noEmit"
@@ -17,6 +20,10 @@
         ".": {
             "types": "./src/index.ts",
             "default": "./src/index.ts"
+        },
+        "./theme-config/*": {
+            "types": "./src/theme-config/*.ts",
+            "default": "./src/theme-config/*.ts"
         }
     }
 }

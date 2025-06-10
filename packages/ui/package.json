@@ -9,6 +9,10 @@
       "types": "./src/components/index.ts",
       "default": "./src/components/index.ts"
     },
+    "./contexts": {
+      "types": "./src/contexts/index.ts",
+      "default": "./src/contexts/index.ts"
+    },
     "./layouts": {
       "types": "./src/layouts/index.ts",
       "default": "./src/layouts/index.ts"
