@@ -3,7 +3,7 @@ import { Box, IconButton } from '@mui/material';
 import { ChevronRight as ChevronRightIcon, ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
 import { SidebarHeaderProps } from '../types/sidebar.types';
 import Logo from '@whilter/assets/public/Logo.svg';
-// import SmallLogo from '@whilter/assets/public/SmallLogo.svg';
+import LogoSmall from '@whilter/assets/public/LogoSmall.svg';
 
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   isOpen,
@@ -16,7 +16,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
       {isOpen ? (
         <img src={Logo.src} alt="Whilter Logo" className="h-full" />
       ) : (
-        <img src={Logo.src} alt="Whilter Icon" className="h-8 w-8" />
+        <img src={LogoSmall.src} alt="Whilter Icon" className="h-8 w-8" />
       )}
     </Box>
     
