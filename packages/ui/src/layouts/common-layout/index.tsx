@@ -1,7 +1,6 @@
 "use client";
 
 import { Box, CssBaseline, useTheme } from "@mui/material";
-import MainSidebar from "../components/main-sidebar";
 import MainNavbar from "../components/main-navbar";
 import "../../globals.css";
 
@@ -13,8 +12,6 @@ export default function Layout({ children }: { children: ReactNode }) {
     return (
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            {/* Sidebar */}
-            <MainSidebar />
             <Box
                 component="main"
                 className="hide-scrollbar"

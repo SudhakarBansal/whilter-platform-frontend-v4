@@ -4,10 +4,10 @@ import { Box, CssBaseline, useTheme } from "@mui/material";
 import { ReactNode } from "react";
 import "../../globals.css";
 import { Sidebar } from "../components/Sidebar";
+import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from "../components/Sidebar/constants/sidebar.constants";
 
 export default function Layout({ children }: { children: ReactNode }) {
-    const theme = useTheme(); // Access the theme
-
+    const theme = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [selectedItem, setSelectedItem] = useState('dashboard');
 
@@ -20,10 +20,16 @@ export default function Layout({ children }: { children: ReactNode }) {
         console.log(`Navigated to: ${item}`);
     };
 
-    const sidebarWidth = sidebarOpen ? 280 : 64;
-
     return (
-        <Box className="flex min-h-screen">
+        <Box 
+            className="flex min-h-screen"
+            sx={{
+                transition: theme.transitions.create(['margin', 'width'], {
+                    easing: theme.transitions.easing.sharp,
+                    duration: theme.transitions.duration.shortest,
+                }),
+            }}
+        >
             <Sidebar
                 isOpen={sidebarOpen}
                 onToggle={handleSidebarToggle}
@@ -31,13 +37,26 @@ export default function Layout({ children }: { children: ReactNode }) {
                 onItemSelect={handleItemSelect}
                 theme={theme}
             />
-            <Box className="flex-1 flex flex-col">
+            <Box 
+                className="flex-1 flex flex-col"
+                sx={{
+                    marginLeft: 0,
+                    transition: theme.transitions.create(['margin', 'width'], {
+                        easing: theme.transitions.easing.sharp,
+                        duration: theme.transitions.duration.shortest,
+                    }),
+                }}
+            >
                 <Box
                     component="main"
                     sx={{
                         flexGrow: 1,
-                        pt: '3rem', // Account for AppBar height
+                        pt: '3rem',
                         background: `linear-gradient(to bottom, ${theme.palette.blue[700]}, ${theme.palette.blue[900]})`,
+                        transition: theme.transitions.create('margin', {
+                            easing: theme.transitions.easing.sharp,
+                            duration: theme.transitions.duration.shortest,
+                        }),
                     }}
                 >
                     {children}

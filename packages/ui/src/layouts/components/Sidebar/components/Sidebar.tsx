@@ -20,13 +20,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
       sx={{
         width: sidebarWidth,
         flexShrink: 0,
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.shortest
+        }),
         '& .MuiDrawer-paper': {
           width: sidebarWidth,
           boxSizing: 'border-box',
-          transition: 'width 0.3s ease-in-out',
+          whiteSpace: 'nowrap',
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.shortest
+          }),
           overflowX: 'hidden',
           backgroundColor: theme.palette.sidebar.default,
           color: theme.palette.text.primary,
+          borderRight: `1px solid ${theme.palette.divider}`,
         },
       }}
     >

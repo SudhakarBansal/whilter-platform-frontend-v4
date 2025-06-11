@@ -1,8 +1,10 @@
-import React from 'react';
-import { Box, List, Divider, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, List, Divider } from '@mui/material';
 import { SidebarProps } from '../types/sidebar.types';
 import { SidebarHeader } from './SidebarHeader';
 import { MenuItem } from './MenuItem';
+import { ProfileSection } from './ProfileSection';
+import { ProfileMenu } from './ProfileMenu';
 import { menuItems } from '../data/menuItems.data';
 import { useSidebarExpansion } from '../hooks/useSidebarExpansion';
 
@@ -18,19 +20,21 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
   theme
 }) => {
   const { isExpanded, handleExpandToggle } = useSidebarExpansion();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleProfileClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Box className="h-full flex flex-col">
-      {/* Header */}
-      <SidebarHeader
-        isOpen={isOpen}
-        onToggle={onToggle}
-        theme={theme}
-      />
-
+      <SidebarHeader isOpen={isOpen} onToggle={onToggle} theme={theme} />
       <Divider />
 
-      {/* Navigation Menu */}
       <Box className="flex-1 py-4">
         <List disablePadding>
           {menuItems.map((item) => (
@@ -48,14 +52,17 @@ export const SidebarContent: React.FC<SidebarContentProps> = ({
         </List>
       </Box>
 
-      {/* Footer */}
-      {isOpen && (
-        <Box className="p-4 border-t border-border">
-          <Typography variant="body2" className="text-muted-foreground text-center">
-            © 2024 Dashboard
-          </Typography>
-        </Box>
-      )}
+      <Divider />
+      <ProfileSection 
+        isOpen={isOpen}
+        onClick={handleProfileClick}
+        theme={theme}
+      />
+      <ProfileMenu 
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        theme={theme}
+      />
     </Box>
   );
 };
