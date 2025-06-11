@@ -1,10 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { Box, CssBaseline, useTheme } from "@mui/material";
+import  { useState } from "react";
+import { Box, useTheme } from "@mui/material";
 import { ReactNode } from "react";
 import "../../globals.css";
 import { Sidebar } from "../components/Sidebar";
-import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from "../components/Sidebar/constants/sidebar.constants";
 
 export default function Layout({ children }: { children: ReactNode }) {
     const theme = useTheme();

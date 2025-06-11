@@ -22,17 +22,19 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, the
       vertical: 'bottom',
       horizontal: 'right',
     }}
-    PaperProps={{
-      sx: {
-        mt: -1,
-        minWidth: 220,
-        backgroundColor: theme.palette.background.default,
-        '& .MuiMenuItem-root': {
-          minHeight: '40px',
-          fontSize: '0.875rem',
-          '& .MuiSvgIcon-root': {
-            fontSize: '1.25rem',
-            marginRight: '0.5rem'
+    slotProps={{
+      paper: {
+        sx: {
+          mt: -1,
+          minWidth: 220,
+          backgroundColor: theme.palette.background.default,
+          '& .MuiMenuItem-root': {
+            minHeight: '40px',
+            fontSize: '0.875rem',
+            '& .MuiSvgIcon-root': {
+              fontSize: '1.25rem',
+              marginRight: '0.5rem'
+            }
           }
         }
       }
