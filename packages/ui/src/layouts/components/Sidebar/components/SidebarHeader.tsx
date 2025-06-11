@@ -24,19 +24,20 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
     <IconButton
       onClick={onToggle}
       size="small"
-      className="absolute top-1/2 -translate-y-1/2 right-0 z-50"
+      className="absolute top-1/2 -translate-y-1/2 right-[-10px] z-50"
       sx={{
         width: 20,
         height: 20,
-        backgroundColor: `${theme.palette.background.paper}`,
+        backgroundColor: `${theme.palette.sidebarToggle.default}`,
         border: '1px solid',
-        borderColor: 'divider',
+        borderColor: "divider",
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
         '&:hover': {
-          backgroundColor: `${theme.palette.action.hover}`,
+          backgroundColor: `${theme.palette.sidebarToggle.default}`,
         },
         '& .MuiSvgIcon-root': {
-          fontSize: '14px',
+          fontSize: '20px',
+          color: `${theme.palette.primary.dark}`,
         }
       }}
     >

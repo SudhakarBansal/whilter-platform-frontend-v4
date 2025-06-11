@@ -13,7 +13,7 @@ interface ThemeColors {
   secondaryDark?: string;
   errorMain?: string;
   errorLight?: string;
-  errorDark?: string;  
+  errorDark?: string;
   warningLight?: string;
   warningMain?: string;
   warningDark?: string;
@@ -36,6 +36,7 @@ interface ThemeColors {
   blue700?: string;
   blue800?: string;
   blue900?: string;
+  magenta500?: string;
   darkTextPrimary?: string;
   darkLevel1?: string;
   darkLevel2?: string;
@@ -73,7 +74,7 @@ interface ThemeOptions {
   textDark?: string;
   textColor?: string;
   paper?: string;
-  darkPaper?:string;
+  darkPaper?: string;
   backgroundDefault?: string;
   background?: string;
   darkBottomNav?: string;
@@ -112,10 +113,14 @@ export default function themePalette(theme: ThemeOptions): PaletteOptions {
       800: theme.colors?.blue800,
       900: theme.colors?.blue900,
     },
-    
-    gray:{
-      400:theme.colors?.gray400,
-      800:theme.colors?.gray800,
+
+    sidebarToggle: {
+      default: theme.colors?.magenta500,
+    },
+
+    gray: {
+      400: theme.colors?.gray400,
+      800: theme.colors?.gray800,
     },
 
     dark: {

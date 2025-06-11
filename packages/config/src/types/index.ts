@@ -41,5 +41,8 @@ declare module '@mui/material/styles' {
       card?: string;
       modal?: string;
     };
+    sidebarToggle?: {
+      default?: string;
+    }
   }
 }

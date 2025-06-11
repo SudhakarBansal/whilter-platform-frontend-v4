@@ -32,7 +32,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.shortest
           }),
-          overflowX: 'hidden',
+          overflow: 'visible',
           backgroundColor: theme.palette.sidebar.default,
           color: theme.palette.text.primary,
           borderRight: `1px solid ${theme.palette.divider}`,
