@@ -52,6 +52,9 @@
     --color-sidebar: 8 16 40; /* #081028 */
     --color-sidebar-light: 243 244 246; /* #F3F4F6 */
     --color-sidebar-dark: 33 41 70; /* #212946 */
+
+    /* Radius */
+    --radius:40px;
   }
 }
 
