@@ -26,34 +26,34 @@ export default function themeTypography(theme: ThemeTypographyOptions): Typograp
     allVariants: theme?.allVariants,
     fontSize: 16,
     h6: {
-      fontWeight: 600,
+      fontWeight: 500,
       color: theme.textColor,
       fontSize: '0.75rem',
     },
     h5: {
       fontSize: '1rem',
       color: theme.textColor,
-      fontWeight: 600,
+      fontWeight: 500,
     },
     h4: {
       fontSize: '1.125rem',
       color: theme.textColor,
-      fontWeight: 600,
+      fontWeight: 500,
     },
     h3: {
       fontSize: '1.5rem',
       color: theme.textColor,
-      fontWeight: 600,
+      fontWeight: 500,
     },
     h2: {
       fontSize: '1.75rem',
       color: theme.textColor,
-      fontWeight: 600,
+      fontWeight: 500,
     },
     h1: {
       fontSize: '2rem',
       color: theme.textColor,
-      fontWeight: 600,
+      fontWeight: 500,
     },
     subtitle1: {
       fontSize: '1rem',
@@ -62,7 +62,7 @@ export default function themeTypography(theme: ThemeTypographyOptions): Typograp
     },
     subtitle2: {
       fontSize: '0.75rem',
-      fontWeight: 600,
+      fontWeight: 500,
       color: theme.textColor,
       textTransform: 'uppercase',
     },
