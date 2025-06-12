@@ -109,8 +109,7 @@ export interface PageLayoutProps extends Omit<ContainerProps, 'children'> {
 
 // Styled components with proper typing
 const StyledPageContainer = styled(Container)<{ config: PageLayoutConfig }>(({ theme, config }) => ({
-  padding: theme.spacing(config?.container?.padding || 3),
-  maxWidth: config?.container?.maxWidth || 'lg',
+  padding: theme.spacing(config?.container?.padding || 0),
   minHeight: config?.container?.minHeight || 'auto',
 }));
 
@@ -192,7 +191,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   // Default configuration
   const defaultConfig: PageLayoutConfig = {
     container: {
-      padding: 3,
+      padding: 0,
       maxWidth: 'lg',
       minHeight: 'auto',
     },
@@ -258,6 +257,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   const PageContent: React.FC = () => (
     <StyledPageContainer 
       config={mergedConfig}
+      maxWidth={mergedConfig.container?.maxWidth || 'lg'} // Pass maxWidth as prop
       className={`${className} transition-all duration-300`}
       {...props}
     >
@@ -430,12 +430,12 @@ export const pageLayoutPresets: Record<string, PageLayoutConfig> = {
 
   // Dashboard style
   dashboard: {
-    container: { padding: 4, maxWidth: 'xl' },
-    heading: { fontSize: '2.5rem', fontWeight: 'bold' },
+    container: { maxWidth: 'lg' },
+    heading: { fontSize: '2.5rem', fontWeight: 500 },
     description: { fontSize: '1.125rem' },
     buttons: { gap: 2 },
     content: { 
-      padding: 3,
+      padding: 0,
       borderRadius: 2
     },
     breadcrumbs: {

@@ -1,17 +1,25 @@
 'use client';
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { ServiceCard } from "@/components/ServiceCard";
-import { services } from "@/utils/data/services";
+import React from 'react';
+import { Box, Button, Stack } from '@mui/material';
 import PageLayout, { pageLayoutPresets } from '@/components/styled/page-layout';
+import { services } from "@/utils/data/services";
 
-function page() {
+import { ServiceCard } from '@/components/ServiceCard';
+
+interface Service {
+  id: string;
+  title: string;
+  image: string;
+}
+
+function Page() {
   const breadcrumbs = [
     { label: 'Login', href: '/' },
     { label: 'Services', href: '/products' },
   ];
 
   const buttons = [
-    <Button variant="glassmorphism">Brand Customisation</Button>,
+    <Button variant="glassmorphism">Brand Customisation</Button>
   ];
 
   return (
@@ -22,20 +30,17 @@ function page() {
       buttons={buttons}
       config={pageLayoutPresets.dashboard}
     >
-      <Box component="main">
-          <Grid container spacing={8} justifyContent="center">
-            {services.map((service) => (
-              <Grid item xs={12} sm={6} md={4} key={service.id}>
-                <ServiceCard
-                  title={service.title}
-                  image={service.image}
-                />
-              </Grid>
-            ))}
-          </Grid>
+      <Box className="grid grid-cols-1 md:grid-cols-3 gap-14 w-full">
+        {services.map((service) => (
+          <ServiceCard
+            key={service.id}
+            title={service.title}
+            image={service.image}
+          />
+        ))}
       </Box>
     </PageLayout>
   );
-}
+};
 
-export default page;
+export default Page;

@@ -9,20 +9,18 @@ interface ServiceCardProps {
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image }) => {
   return (
-    <Card className='relative cursor-pointer bg-transparent rounded-lg hover:[&_.overlay]:h-full aspect-[4/3]'
-      sx={{
-        background: 'linear-gradient(180deg, #0C2C88 0%, #010512 100%)',
-      }}
+    <Card
+      className='group relative cursor-pointer bg-transparent rounded-lg aspect-[16/10] bg-gradient-to-br from-blue-400 to-blue-800 hover:shadow-[-8px_5px_76.1px_0px_rgba(240,74,243,0.35)] overflow-hidden'
     >
       <CardMedia
         component="img"
         image={image}
         alt={title}
-        className=' h-full w-full object-cover'
+        className='h-full w-full object-cover'
       />
 
       <Box
-        className="overlay flex items-center justify-center absolute bottom-0 left-0 right-0 "
+        className="overlay flex items-center justify-center absolute bottom-0 left-0 right-0 group-hover:h-full"
         sx={{
           height: '35%',
           background: (theme) => `linear-gradient(to bottom, ${theme.palette.blue[300]}CC, ${theme.palette.blue[600]}FF)`,
@@ -32,7 +30,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image }) => {
       >
         <CardContent>
           <Typography
-            variant="body1"
+            className="text-white font-normal text-2xl"
           >
             {title}
           </Typography>
