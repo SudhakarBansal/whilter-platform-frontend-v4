@@ -8,6 +8,7 @@ declare module '@mui/material/Button' {
     flatPrimary: true;
     flatSecondary: true;
     outlinePrimary: true;
+    glassmorphism:true;
     outlineSecondary: true;
     contained: false;
     outlined: false;
@@ -49,6 +50,9 @@ declare module '@mui/material/styles' {
       800: string;
       900: string;
     };
+    sidebarToggle: {
+      default: string;
+    };
   }
 
   interface PaletteOptions {
@@ -81,6 +85,9 @@ declare module '@mui/material/styles' {
       700?: string;
       800?: string;
       900?: string;
+    };
+    sidebarToggle?: {
+      default?: string;
     };
   }
 }

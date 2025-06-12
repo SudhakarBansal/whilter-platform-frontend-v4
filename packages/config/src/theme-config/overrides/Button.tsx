@@ -70,6 +70,20 @@ export default function Button(theme: Theme) {
             pointerEvents: "none",
           },
         },
+        {
+          props: { variant: "glassmorphism" },
+          style: {
+            color: "#FFFFFF",
+            borderRadius: "40px",
+            background: "#FFFFFF14", // 8% opacity white background
+            border: "1px solid #FFFFFF24", // 14% opacity white border
+            backdropFilter: "blur(10px)",
+            "&:hover": {
+              background: "#FFFFFF1F", // Slightly more opaque on hover
+              border: "1px solid #FFFFFF30",
+            },
+          },
+        },
       ],
       styleOverrides: {
         root: {

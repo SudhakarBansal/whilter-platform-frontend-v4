@@ -21,7 +21,7 @@ export const colors = {
   blue400: "#0C2C88",
   blue450: "#1A3586",
   blue500: "#1D3991",
-  blue600: "#1F3E9E",
+  blue600: "#101F4E",
   blue700: "#000D35",
   blue800: "#010512",
   blue900: "#0B1638",
@@ -30,7 +30,7 @@ export const colors = {
   gray400: "#818181",
   gray800: "#333333",
 
-  textColor: '#1F1F1F',
+  textColor: '#FFFFFF',
   textDisabled: '#8F8F8F',
   background: '#F6F8FE',
   borderColor: '#D2D2D2',
@@ -58,7 +58,7 @@ export const colors = {
 
   // Sidebar Colors
   sidebar: {
-    default: '#111936',
+    default: '#081028',
     light: '#F3F4F6',
     dark: '#212946',
   },

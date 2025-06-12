@@ -1,0 +1,11 @@
+{
+    "name": "@whilter/assets",
+    "version": "1.0.0",
+    "private": true,
+    "files": [
+        "public/*"
+    ],
+    "exports": {
+        "./public/*": "./public/*"
+    }
+}

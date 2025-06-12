@@ -6,6 +6,6 @@
       "@whilter/ui/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/components", "../../apps/main/components/ServiceCard"],
   "exclude": ["node_modules"]
 }
