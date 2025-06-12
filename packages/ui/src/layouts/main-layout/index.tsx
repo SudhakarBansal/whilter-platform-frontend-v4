@@ -37,9 +37,8 @@ export default function Layout({ children }: { children: ReactNode }) {
                 theme={theme}
             />
             <Box 
-                className="flex-1 flex flex-col"
+                className="flex-1 flex flex-col m-0"
                 sx={{
-                    marginLeft: 0,
                     transition: theme.transitions.create(['margin', 'width'], {
                         easing: theme.transitions.easing.sharp,
                         duration: theme.transitions.duration.shortest,
