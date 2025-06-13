@@ -12,7 +12,7 @@ function Page() {
   ];
 
   const buttons = [
-    <Button variant="glassmorphism">Brand Customisation</Button>
+    <Button variant="glassmorphism" className='text-2xl p-4'>Brand Customisation</Button>
   ];
 
   return (

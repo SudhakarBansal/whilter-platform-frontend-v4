@@ -258,7 +258,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     <StyledPageContainer 
       config={mergedConfig}
       // maxWidth={mergedConfig.container?.maxWidth || 'lg'} // Pass maxWidth as prop
-      className={`${className} transition-all duration-300 max-w-[90vw] px-14`}
+      className={`${className} transition-all duration-300 max-w-[90vw] px-10`}
       {...props}
     >
       {/* Breadcrumbs Section */}
