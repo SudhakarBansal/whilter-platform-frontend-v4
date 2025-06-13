@@ -56,8 +56,8 @@ export default function themeTypography(theme: ThemeTypographyOptions): Typograp
       fontWeight: 500,
     },
     subtitle1: {
-      fontSize: '1rem',
-      fontWeight: 500,
+      fontSize: '1.125rem',
+      fontWeight: 400,
       color: theme.textColor,
     },
     subtitle2: {
