@@ -1,41 +1,67 @@
 "use client";
 
 import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
 
 interface ServiceCardProps {
   title: string;
   image: string;
 }
 
+const StyledCard = styled(Card)(({ theme }) => ({
+  position: 'relative',
+  cursor: 'pointer',
+  backgroundColor: 'transparent',
+  borderRadius: 'rounded-xl',
+  aspectRatio: '16/10',
+  background: `linear-gradient(to bottom right,${theme.palette.blue[400]}, ${theme.palette.blue[800]})`,
+  overflow: 'hidden',
+  transition: 'box-shadow 300ms ease-in-out',
+  '&:hover': {
+    boxShadow: `-8px 5px 76.1px 0px ${alpha(theme.palette.sidebarToggle.default,0.35)}`,
+  },
+  '&:hover .overlay': {
+    height: '100%',
+  },
+}));
+
+const OverlayBox = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: '35%',
+  background: `linear-gradient(to bottom,${alpha(theme.palette.blue[300],0.8)}, ${theme.palette.blue[600]})`,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  transition: 'height 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  willChange: 'height',
+}));
+
 export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image }) => {
   return (
-    <Card
-      className='group relative cursor-pointer bg-transparent rounded-lg aspect-[16/10] bg-gradient-to-br from-blue-400 to-blue-800 hover:shadow-[-8px_5px_76.1px_0px_rgba(240,74,243,0.35)] overflow-hidden'
-    >
+    <StyledCard>
       <CardMedia
         component="img"
         image={image}
         alt={title}
-        className='h-full w-full object-cover'
+        sx={{
+          height: '100%',
+          width: '100%',
+          objectFit: 'cover',
+        }}
       />
 
-      <Box
-        className="overlay flex items-center justify-center absolute bottom-0 left-0 right-0 group-hover:h-full"
-        sx={{
-          height: '35%',
-          background: (theme) => `linear-gradient(to bottom, ${theme.palette.blue[300]}CC, ${theme.palette.blue[600]}FF)`,
-          boxShadow: '-8px 5px 76.1px 0px rgba(240, 74, 243, 0.35)',
-          transition: 'height 300ms ease-in-out',
-        }}
-      >
+      <OverlayBox className="overlay">
         <CardContent>
           <Typography
-            className="text-white font-normal text-2xl"
+            className="font-normal text-2xl"
           >
             {title}
           </Typography>
         </CardContent>
-      </Box>
-    </Card>
+      </OverlayBox>
+    </StyledCard>
   );
 };
