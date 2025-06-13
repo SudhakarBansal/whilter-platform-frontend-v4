@@ -5,7 +5,7 @@ export default function Card(theme: Theme) {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: "12px",
+          borderRadius: "24px",
           boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
           overflow: "hidden",
           backgroundColor: "#000000",

@@ -19,7 +19,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                 component="img"
                 src={project.image}
                 alt={project.title}
-                className="w-20 h-20 object-cover rounded-xl bg-primary-dark flex-shrink-0"
+                className="w-20 h-20 object-cover rounded-2xl bg-primary-dark flex-shrink-0"
             />
 
             {project.status === 'completed' && (
