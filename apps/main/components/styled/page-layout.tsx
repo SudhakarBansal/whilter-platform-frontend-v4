@@ -257,8 +257,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   const PageContent: React.FC = () => (
     <StyledPageContainer 
       config={mergedConfig}
-      maxWidth={mergedConfig.container?.maxWidth || 'lg'} // Pass maxWidth as prop
-      className={`${className} transition-all duration-300`}
+      // maxWidth={mergedConfig.container?.maxWidth || 'lg'} // Pass maxWidth as prop
+      className={`${className} transition-all duration-300 max-w-[90vw] px-14`}
       {...props}
     >
       {/* Breadcrumbs Section */}
@@ -430,7 +430,7 @@ export const pageLayoutPresets: Record<string, PageLayoutConfig> = {
 
   // Dashboard style
   dashboard: {
-    container: { maxWidth: 'lg' },
+    container: { maxWidth: 'xl' },
     heading: { fontSize: '1.875rem', fontWeight: 500 },
     description: { fontSize: '1.125rem' },
     buttons: { gap: 2 },
