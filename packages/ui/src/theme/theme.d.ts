@@ -8,7 +8,7 @@ declare module '@mui/material/Button' {
     flatPrimary: true;
     flatSecondary: true;
     outlinePrimary: true;
-    glassmorphism:true;
+    glassmorphism: true;
     outlineSecondary: true;
     contained: false;
     outlined: false;
@@ -86,6 +86,9 @@ declare module '@mui/material/styles' {
       800?: string;
       900?: string;
     };
+    cyan?: {
+      400?: string;
+    }
     sidebarToggle?: {
       default?: string;
     };

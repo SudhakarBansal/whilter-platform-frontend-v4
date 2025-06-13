@@ -36,9 +36,9 @@ export default function themeTypography(theme: ThemeTypographyOptions): Typograp
       fontWeight: 500,
     },
     h4: {
-      fontSize: '1.125rem',
+      fontSize: '1.375rem',
       color: theme.textColor,
-      fontWeight: 500,
+      fontWeight: 400,
     },
     h3: {
       fontSize: '1.5rem',
@@ -46,7 +46,7 @@ export default function themeTypography(theme: ThemeTypographyOptions): Typograp
       fontWeight: 500,
     },
     h2: {
-      fontSize: '1.75rem',
+      fontSize: '1.875rem',
       color: theme.textColor,
       fontWeight: 500,
     },

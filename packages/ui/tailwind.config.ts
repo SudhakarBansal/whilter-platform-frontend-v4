@@ -16,21 +16,21 @@ const config = {
         // Base colors
         white: 'rgb(var(--color-white) / <alpha-value>)',
         black: 'rgb(var(--color-black) / <alpha-value>)',
-        
+
         // Primary colors
         primary: {
           light: 'rgb(var(--color-primary-light) / <alpha-value>)',
           DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
           dark: 'rgb(var(--color-primary-dark) / <alpha-value>)',
         },
-        
+
         // Secondary colors
         secondary: {
           light: 'rgb(var(--color-secondary-light) / <alpha-value>)',
           DEFAULT: 'rgb(var(--color-secondary) / <alpha-value>)',
           dark: 'rgb(var(--color-secondary-dark) / <alpha-value>)',
         },
-        
+
         // Blue scale
         blue: {
           300: 'rgb(var(--color-blue-300) / <alpha-value>)',
@@ -42,13 +42,17 @@ const config = {
           800: 'rgb(var(--color-blue-800) / <alpha-value>)',
           900: 'rgb(var(--color-blue-900) / <alpha-value>)',
         },
-        
+
+        cyan: {
+          400: 'rgb(var(--color-cyan-400) / <alpha-value>)',
+        },
+
         // Gray scale
         gray: {
           400: 'rgb(var(--color-gray-400) / <alpha-value>)',
           800: 'rgb(var(--color-gray-800) / <alpha-value>)',
         },
-        
+
         // UI colors
         magenta: {
           500: 'rgb(var(--color-magenta-500) / <alpha-value>)',
@@ -58,19 +62,19 @@ const config = {
           DEFAULT: 'rgb(var(--color-error) / <alpha-value>)',
           dark: 'rgb(var(--color-error-dark) / <alpha-value>)',
         },
-        
+
         // Background colors
         background: 'rgb(var(--color-background) / <alpha-value>)',
         paper: 'rgb(var(--color-paper) / <alpha-value>)',
         'dark-paper': 'rgb(var(--color-dark-paper) / <alpha-value>)',
-        
+
         // Navbar colors
         navbar: {
           DEFAULT: 'rgb(var(--color-navbar) / <alpha-value>)',
           light: 'rgb(var(--color-navbar-light) / <alpha-value>)',
           dark: 'rgb(var(--color-navbar-dark) / <alpha-value>)',
         },
-        
+
         // Sidebar colors
         sidebar: {
           DEFAULT: 'rgb(var(--color-sidebar) / <alpha-value>)',

@@ -36,6 +36,7 @@ interface ThemeColors {
   blue700?: string;
   blue800?: string;
   blue900?: string;
+  cyan400?:string;
   magenta500?: string;
   darkTextPrimary?: string;
   darkLevel1?: string;
@@ -112,6 +113,10 @@ export default function themePalette(theme: ThemeOptions): PaletteOptions {
       700: theme.colors?.blue700,
       800: theme.colors?.blue800,
       900: theme.colors?.blue900,
+    },
+
+    cyan:{
+      400 : theme.colors?.cyan400
     },
 
     sidebarToggle: {

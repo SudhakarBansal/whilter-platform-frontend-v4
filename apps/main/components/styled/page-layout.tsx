@@ -431,7 +431,7 @@ export const pageLayoutPresets: Record<string, PageLayoutConfig> = {
   // Dashboard style
   dashboard: {
     container: { maxWidth: 'lg' },
-    heading: { fontSize: '2.5rem', fontWeight: 500 },
+    heading: { fontSize: '1.875rem', fontWeight: 500 },
     description: { fontSize: '1.125rem' },
     buttons: { gap: 2 },
     content: { 
@@ -440,7 +440,7 @@ export const pageLayoutPresets: Record<string, PageLayoutConfig> = {
     },
     breadcrumbs: {
       marginBottom: 3,
-      fontSize: '0.875rem'
+      fontSize: '0.75rem'
     }
   },
 
