@@ -5,6 +5,7 @@ import PageLayout, { pageLayoutPresets } from '@/components/styled/page-layout';
 import { services } from "@/utils/data/services";
 
 import { ServiceCard } from '@/components/ServiceCard';
+import { RecentProjects } from '@/components/RecentsProjects';
 
 interface Service {
   id: string;
@@ -39,6 +40,7 @@ function Page() {
           />
         ))}
       </Box>
+      <RecentProjects/>
     </PageLayout>
   );
 };
