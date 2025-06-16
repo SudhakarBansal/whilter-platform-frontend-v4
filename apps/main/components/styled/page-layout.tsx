@@ -393,7 +393,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             <Skeleton variant="text" width="80%" />
           </Stack>
         ) : (
-          children
+          <Stack spacing={12}>
+          {children}
+          </Stack>
         )}
       </StyledContent>
     </StyledPageContainer>

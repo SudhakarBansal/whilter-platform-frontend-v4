@@ -1,0 +1,25 @@
+import React from 'react';
+import { Box } from '@mui/material';
+import { ProjectStatus } from '@/types';
+import { ProjectsHeader } from './projectsHeader';
+import { FolderCard } from './FolderCard';
+import { projectData } from '@/utils/data/projects';
+
+export const FolderCardSection = () => {
+    return (
+        <Box className="w-full my-20">
+            <ProjectsHeader />
+
+            <Box className="flex flex-row flex-wrap sm:gap-6 md:gap-14 py-4">
+                {projectData.folders.map((folder, index) => (
+                    <FolderCard
+                        key={index}
+                        title={folder.title}
+                        projectCount={folder.projectCount}
+                        avatars={folder.avatars}
+                    />
+                ))}
+            </Box>
+        </Box>
+    );
+};

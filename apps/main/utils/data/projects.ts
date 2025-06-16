@@ -1,7 +1,7 @@
 export const projectData = {
     "folders": [
         {
-            "title": "Design System",
+            "title": "Tools Projects",
             "projectCount": 15,
             "avatars": [
                 { "initial": "A", "bgColor": "bg-red-500" },
@@ -11,7 +11,7 @@ export const projectData = {
             ]
         },
         {
-            "title": "Marketing Assets",
+            "title": "Charp.ai Projects",
             "projectCount": 8,
             "avatars": [
                 { "initial": "J", "bgColor": "bg-amber-500" },
@@ -20,7 +20,7 @@ export const projectData = {
             ]
         },
         {
-            "title": "Tools Projects",
+            "title": "Whilter Marketplace",
             "projectCount": 10,
             "avatars": [
                 { "initial": "J", "bgColor": "bg-amber-500" },
