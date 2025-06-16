@@ -55,9 +55,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image }) => {
 
       <OverlayBox className="overlay">
         <CardContent>
-          <Typography
-            className="font-normal text-2xl"
-          >
+          <Typography variant='h4'>
             {title}
           </Typography>
         </CardContent>

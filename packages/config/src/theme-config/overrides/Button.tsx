@@ -73,7 +73,7 @@ export default function Button(theme: Theme) {
         {
           props: { variant: "glassmorphism" },
           style: {
-            color: "#FFFFFF",
+            color: theme.palette.button.defaultBackground,
             borderRadius: "40px",
             background: "#FFFFFF14", // 8% opacity white background
             border: "1px solid #FFFFFF24", // 14% opacity white border
