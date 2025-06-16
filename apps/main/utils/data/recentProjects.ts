@@ -1,4 +1,4 @@
-export const projects = [
+export const recentProjects = [
     {
         id: 1,
         title: 'TTS Audio Project',
