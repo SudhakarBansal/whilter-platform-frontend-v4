@@ -21,6 +21,10 @@
       "types": "./src/styles/index.ts",
       "default": "./src/styles/index.ts"
     },
+    "./types": {
+      "types": "./src/types/index.ts",
+      "default": "./src/types/index.ts"
+    },
     "./globals.css": "./src/globals.css",
     "./postcss.config": "./postcss.config.mjs",
     "./tailwind.config": "./tailwind.config.ts",

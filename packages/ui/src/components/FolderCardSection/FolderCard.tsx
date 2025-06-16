@@ -1,18 +1,5 @@
-import React from 'react';
 import { Box, Typography, Avatar } from '@mui/material';
-
-interface AvatarData {
-    id?: string;
-    imageUrl?: string;
-    count?: string; // For "+2" style avatars
-    bgColor?: string; // Tailwind class like bg-red-500, used for count avatars
-}
-
-interface FolderCardProps {
-    title: string;
-    projectCount: number;
-    avatars: AvatarData[];
-}
+import { FolderCardProps } from '@whilter/ui/types';
 
 export function FolderCard({ title, projectCount, avatars }: FolderCardProps) {
     return (

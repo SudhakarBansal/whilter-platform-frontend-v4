@@ -1,17 +1,16 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { recentProjects } from '@/utils/data/recentProjects';
-import { ProjectStatus } from '@/types';
+import { ProjectStatus, RecentProjectProps } from '@whilter/ui/types';
 import { RecentProjectsHeader } from './RecentProjectsHeader';
 import { ProjectCard } from './ProjectCard';
 
-export const RecentProjects = () => {
+export const RecentProjects:React.FC<RecentProjectProps> = ({data}) => {
   return (
     <Box className="w-full">
       <RecentProjectsHeader />
 
       <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-14 py-4">
-        {recentProjects.map((project) => (
+        {data.map((project) => (
           <ProjectCard key={project.id}
             project={{
               ...project,

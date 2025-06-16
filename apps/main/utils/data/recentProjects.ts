@@ -1,4 +1,6 @@
-export const recentProjects = [
+import { RecentProject } from "@whilter/ui/types";
+
+export const recentProjects:RecentProject[] = [
     {
         id: 1,
         title: 'TTS Audio Project',

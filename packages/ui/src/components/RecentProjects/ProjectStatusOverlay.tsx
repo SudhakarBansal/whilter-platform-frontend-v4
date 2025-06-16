@@ -1,4 +1,4 @@
-import { ProjectStatusOverlayProps } from "@/types";
+import { ProjectStatusOverlayProps } from '@whilter/ui/types';
 import { Box, LinearProgress, Stack, Typography } from "@mui/material";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 

@@ -2,11 +2,11 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import PageLayout, { pageLayoutPresets } from '@/components/styled/page-layout';
-import { RecentProjects } from '@/components/RecentProjects';
+import { RecentProjects } from '@whilter/ui/components';
 import { ServiceCards } from '@/components/ServiceCards';
-import { FolderCard } from '@/components/FolderCardSection/FolderCard';
 import { projectData } from '@/utils/data/projects';
-import { FolderCardSection } from '@/components/FolderCardSection';
+import  {FolderCardSection} from '@whilter/ui/components'
+import { recentProjects } from '@/utils/data/recentProjects';
 
 function Page() {
   const actionButtons = [
@@ -22,8 +22,8 @@ function Page() {
       config={pageLayoutPresets.dashboard}
     >
       <ServiceCards />
-      <RecentProjects />
-      <FolderCardSection/>
+      <RecentProjects data={recentProjects}/>
+      <FolderCardSection data={projectData}/>
     </PageLayout>
   );
 };
