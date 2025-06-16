@@ -2,8 +2,10 @@ import React from 'react';
 import { Box, Typography, Avatar } from '@mui/material';
 
 interface AvatarData {
-    initial: string;
-    bgColor: string; // Tailwind class like bg-red-500
+    id?: string;
+    imageUrl?: string;
+    count?: string; // For "+2" style avatars
+    bgColor?: string; // Tailwind class like bg-red-500, used for count avatars
 }
 
 interface FolderCardProps {
@@ -24,8 +26,8 @@ export function FolderCard({ title, projectCount, avatars }: FolderCardProps) {
             >
                 <defs>
                     <linearGradient id="bgGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#2E51C0" /> {/* from-blue-300 */}
-                        <stop offset="100%" stopColor="#101F4E" /> {/* to-blue-600 */}
+                        <stop offset="0%" stopColor="#2E51C0" />
+                        <stop offset="100%" stopColor="#101F4E" />
                     </linearGradient>
                 </defs>
                 <path
@@ -63,20 +65,25 @@ export function FolderCard({ title, projectCount, avatars }: FolderCardProps) {
                     </Box>
 
                     {/* Avatar Group */}
-                    <Box className="flex items-center -space-x-3">
+                    <Box className="flex items-center -space-x-2">
                         {avatars.map((avatar, index) => (
                             <Avatar
-                                key={index}
+                                key={avatar.id || index}
+                                src={avatar.imageUrl}
                                 sx={{
                                     width: 24,
                                     height: 24,
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     zIndex: 30 - index * 10,
-                                    bgcolor: 'transparent',
+                                    bgcolor: avatar.count ? 'transparent' : '#e5e7eb',
                                 }}
-                                className={`border-2 border-white text-white font-medium ${avatar.bgColor}`}
+                                className={`border-2 border-white ${
+                                    avatar.count 
+                                        ? `text-white font-medium ${avatar.bgColor}` 
+                                        : ''
+                                }`}
                             >
-                                {avatar.initial}
+                                {avatar.count || ''}
                             </Avatar>
                         ))}
                     </Box>
