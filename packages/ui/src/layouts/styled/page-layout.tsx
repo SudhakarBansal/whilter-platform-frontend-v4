@@ -177,7 +177,7 @@ const StyledContent = styled(Box)<{ config: PageLayoutConfig }>(({ theme, config
   border: config?.content?.border || 'none',
 }));
 
-const PageLayout: React.FC<PageLayoutProps> = ({ 
+export const PageLayout: React.FC<PageLayoutProps> = ({ 
   heading, 
   description, 
   buttons = [], 
@@ -473,5 +473,3 @@ export const pageLayoutPresets: Record<string, PageLayoutConfig> = {
     }
   }
 };
-
-export default PageLayout;

@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import "../../globals.css";
 import { Sidebar } from "../components/Sidebar";
 
-export default function Layout({ children }: { children: ReactNode }) {
+export function Layout({ children }: { children: ReactNode }) {
     const theme = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [selectedItem, setSelectedItem] = useState('dashboard');
