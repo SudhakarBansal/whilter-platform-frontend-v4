@@ -37,6 +37,7 @@ const OverlayBox = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   transition: 'height 300ms cubic-bezier(0.4, 0, 0.2, 1)',
   willChange: 'height',
+  boxShadow:"0px -9px 17px 0px #00000033",
 }));
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image }) => {
