@@ -314,7 +314,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         <Stack 
           direction={{ xs: 'column', sm: 'row' }} 
           justifyContent="space-between" 
-          alignItems={{ xs: 'stretch', sm: 'flex-start' }}
+          alignItems={{ xs: 'stretch', sm: 'flex-center' }}
           spacing={2}
         >
           {/* Title and Description */}
