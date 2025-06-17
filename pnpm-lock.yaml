@@ -122,6 +122,61 @@ importers:
         specifier: 2.1.1
         version: 2.1.1
 
+  apps/charp-ai:
+    dependencies:
+      '@whilter/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@whilter/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      next:
+        specifier: 14.2.8
+        version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
+      react:
+        specifier: catalog:react18
+        version: 18.3.1
+      react-dom:
+        specifier: catalog:react18
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@next/eslint-plugin-next':
+        specifier: 14.2.8
+        version: 14.2.8
+      '@types/eslint':
+        specifier: 'catalog:'
+        version: 8.56.2
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.11.6
+      '@types/react':
+        specifier: catalog:react18
+        version: 18.3.11
+      '@types/react-dom':
+        specifier: catalog:react18
+        version: 18.3.1
+      '@whilter/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@whilter/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      autoprefixer:
+        specifier: ^10
+        version: 10.4.19(postcss@8.4.49)
+      eslint:
+        specifier: 'catalog:'
+        version: 8.57.0
+      postcss:
+        specifier: ^8
+        version: 8.4.49
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 3.4.13
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
   apps/main:
     dependencies:
       '@whilter/config':
@@ -178,6 +233,61 @@ importers:
         version: 5.6.3
 
   apps/marketplace:
+    dependencies:
+      '@whilter/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@whilter/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      next:
+        specifier: 14.2.8
+        version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
+      react:
+        specifier: catalog:react18
+        version: 18.3.1
+      react-dom:
+        specifier: catalog:react18
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@next/eslint-plugin-next':
+        specifier: 14.2.8
+        version: 14.2.8
+      '@types/eslint':
+        specifier: 'catalog:'
+        version: 8.56.2
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.11.6
+      '@types/react':
+        specifier: catalog:react18
+        version: 18.3.11
+      '@types/react-dom':
+        specifier: catalog:react18
+        version: 18.3.1
+      '@whilter/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@whilter/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      autoprefixer:
+        specifier: ^10
+        version: 10.4.19(postcss@8.4.49)
+      eslint:
+        specifier: 'catalog:'
+        version: 8.57.0
+      postcss:
+        specifier: ^8
+        version: 8.4.49
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 3.4.13
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
+  apps/media-tools:
     dependencies:
       '@whilter/config':
         specifier: workspace:*
