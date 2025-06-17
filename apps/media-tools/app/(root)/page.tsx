@@ -11,15 +11,17 @@ export default function Page() {
   ];
 
   return (
-    <PageLayout
-      // breadcrumbs={breadcrumbs}
-      heading="Featured Tools"
-      buttons={actionButtons}
-      config={pageLayoutPresets.dashboard}
-    >
-      <h1>welcome to media tools</h1>
-      <RecentProjects data={recentProjects} />
+    <>
+      <h1 className="mb-10">welcome to media tools</h1>
+      <PageLayout
+        // breadcrumbs={breadcrumbs}
+        heading="Featured Tools"
+        buttons={actionButtons}
+        config={pageLayoutPresets.dashboard}
+      >
+        <RecentProjects data={recentProjects} />
 
-    </PageLayout>
+      </PageLayout>
+    </>
   );
 }
