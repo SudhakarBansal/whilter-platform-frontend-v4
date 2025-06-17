@@ -23,7 +23,7 @@ export default function Button(theme: Theme) {
         {
           props: { variant: "flatSecondary" },
           style: {
-            color: "#2E51C0",
+            color: `${theme.palette.blue[300]}`,
             borderRadius: "12px",
             background: theme.palette.button.secondary,
           },
@@ -64,7 +64,7 @@ export default function Button(theme: Theme) {
         {
           props: { variant: "disabled" },
           style: {
-            color: "#FFFFFF",
+            color: theme.palette.button.primaryLight,
             borderRadius: "12px",
             background: theme.palette.button.disabled,
             pointerEvents: "none",
@@ -78,12 +78,20 @@ export default function Button(theme: Theme) {
             background: "#FFFFFF14", // 8% opacity white background
             border: "1px solid #FFFFFF24", // 14% opacity white border
             backdropFilter: "blur(10px)",
+            transition: "all 0.3s ease",
             "&:hover": {
-              background: "#FFFFFF1F", // Slightly more opaque on hover
+              background: "#2D51C2", // Slightly more opaque on hover
               border: "1px solid #FFFFFF30",
+              boxShadow: `
+                0px 10px 20px 0px #0000004D,
+                0px 1px 0px 0px #FFFFFF66 inset,
+                0px -3px 0px 0px #00000033 inset,
+                0px 0px 180px 0px #9917FF
+              `,
             },
           },
-        },
+        }
+        
       ],
       styleOverrides: {
         root: {
@@ -91,7 +99,7 @@ export default function Button(theme: Theme) {
           fontWeight: 500,
           padding: "8px 16px",
           "&.Mui-disabled": {
-            color: "#FFFFFF",
+            color: theme.palette.button.primaryLight,
             background: theme.palette.button.disabled,
           },
         },
