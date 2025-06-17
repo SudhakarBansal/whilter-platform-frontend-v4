@@ -10,6 +10,7 @@ export const ServiceCards = () => {
                     key={service.id}
                     title={service.title}
                     image={service.image}
+                    href={service.href}
                 />
             ))}
         </Box>

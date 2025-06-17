@@ -10,5 +10,10 @@ export type {
     FolderCardSectionProps
 } from './FolderCardSection';
 
-export type {RecentProject,RecentProjectProps} from './RecentProjects'
+export type {
+    ServiceCardProps,
+    ServiceCardData
+} from './ServiceCard'
+
+export type { RecentProject, RecentProjectProps } from './RecentProjects'
 

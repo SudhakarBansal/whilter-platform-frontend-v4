@@ -1,15 +1,10 @@
-"use client";
-
+import { ServiceCardProps } from "@whilter/ui/types";
+import Link from "next/link";
 import React from "react";
 
-interface ServiceCardProps {
-  title: string;
-  image: string;
-}
-
-export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image }) => {
+export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image, href }) => {
   return (
-    <div className="relative cursor-pointer bg-transparent transition-shadow duration-300 ease-in-out rounded-[40px] aspect-[16/10] bg-gradient-to-br from-blue-400 to-blue-800 overflow-hidden group translate-z-0">
+    <Link href={href} className="relative cursor-pointer bg-transparent transition-shadow duration-300 ease-in-out rounded-[40px] aspect-[16/10] bg-gradient-to-br from-blue-400 to-blue-800 overflow-hidden group translate-z-0">
       {/* Background Image */}
       <img src={image} alt={title} className="h-full w-full object-cover" />
 
@@ -21,6 +16,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image }) => {
           </h4>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
