@@ -18,6 +18,16 @@ export default function Button(theme: Theme) {
             color: "#FFFFFF",
             borderRadius: "12px",
             background: `linear-gradient(180deg, ${theme.palette.button.primaryLight}, ${theme.palette.button.primaryDark})`,
+            transition: "all 0.3s ease",
+            "&:hover": {
+              background: "#2D51C2", // Slightly more opaque on hover
+              boxShadow: `
+                0px 10px 20px 0px #0000004D,
+                0px 1px 0px 0px #FFFFFF66 inset,
+                0px -3px 0px 0px #00000033 inset,
+                0px 0px 180px 0px #9917FF
+              `,
+            },
           },
         },
         {
