@@ -7,7 +7,7 @@ import { Sidebar } from "../components/Sidebar";
 
 export function Layout({ children }: { children: ReactNode }) {
     const theme = useTheme();
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState('dashboard');
 
     const handleSidebarToggle = () => {

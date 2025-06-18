@@ -12,8 +12,6 @@ export default function Page() {
   ];
 
   return (
-    <>
-      <h1 className="mb-10">welcome to media tools</h1>
       <PageLayout
         // breadcrumbs={breadcrumbs}
         heading="Featured Tools"
@@ -23,6 +21,5 @@ export default function Page() {
         <ToolsSection/>
         <RecentProjects data={recentProjects} />
       </PageLayout>
-    </>
   );
 }
