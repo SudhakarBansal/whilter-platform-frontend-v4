@@ -6,6 +6,8 @@ import { RecentProjects } from '@whilter/ui/components'
 import { ToolCardsGrid as ToolsSection } from '@/components/FeaturedTools/ToolsSection'
 import OtherToolsCardGrid from "@/components/OtherTools/OtherTools";
 
+const MAIN_URL = process.env.NEXT_PUBLIC_MAIN_URL;
+
 
 export default function Page() {
   const actionButtons = [
@@ -15,7 +17,7 @@ export default function Page() {
   const breadcrumbs = [
     {
       label: 'Home',
-      href: 'https://platform-whilter-main.netlify.app/',
+      href: MAIN_URL,
     },
     {
       label: 'Media Tools',
