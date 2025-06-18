@@ -6,7 +6,7 @@ import { FolderCardSectionProps } from '@whilter/ui/types';
 
 export const FolderCardSection: React.FC<FolderCardSectionProps> = ({ data }) => {
     return (
-        <Box className="w-full my-20">
+        <Box className="w-full">
             <ProjectsHeader />
 
             <Box className="flex flex-row flex-wrap sm:gap-6 md:gap-14 py-4">

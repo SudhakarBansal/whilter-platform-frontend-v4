@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { PageLayout, pageLayoutPresets } from "@whilter/ui/layouts";
 import { recentProjects } from '@/utils/recentProjects';
 import { RecentProjects } from '@whilter/ui/components'
+import {ToolCardsGrid as ToolsSection} from '@/components/ToolsSection'
 
 
 export default function Page() {
@@ -19,8 +20,8 @@ export default function Page() {
         buttons={actionButtons}
         config={pageLayoutPresets.dashboard}
       >
+        <ToolsSection/>
         <RecentProjects data={recentProjects} />
-
       </PageLayout>
     </>
   );
