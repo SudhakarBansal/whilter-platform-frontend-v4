@@ -393,7 +393,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             <Skeleton variant="text" width="80%" />
           </Stack>
         ) : (
-          <Stack spacing={12}>
+          <Stack spacing={12} paddingY={3}>
           {children}
           </Stack>
         )}
