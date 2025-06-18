@@ -1,9 +1,9 @@
 "use client";
 import React, { ReactNode } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Stack, 
+import {
+  Box,
+  Typography,
+  Stack,
   Divider,
   Container,
   Fade,
@@ -177,16 +177,16 @@ const StyledContent = styled(Box)<{ config: PageLayoutConfig }>(({ theme, config
   border: config?.content?.border || 'none',
 }));
 
-export const PageLayout: React.FC<PageLayoutProps> = ({ 
-  heading, 
-  description, 
-  buttons = [], 
+export const PageLayout: React.FC<PageLayoutProps> = ({
+  heading,
+  description,
+  buttons = [],
   breadcrumbs = [],
-  children, 
+  children,
   config = {},
   loading = false,
   className = "",
-  ...props 
+  ...props
 }) => {
   // Default configuration
   const defaultConfig: PageLayoutConfig = {
@@ -255,7 +255,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   const mergedConfig = mergeConfig(defaultConfig, config);
 
   const PageContent: React.FC = () => (
-    <StyledPageContainer 
+    <StyledPageContainer
       config={mergedConfig}
       // maxWidth={mergedConfig.container?.maxWidth || 'lg'} // Pass maxWidth as prop
       className={`${className} transition-all duration-300 max-w-[90vw] px-10`}
@@ -263,27 +263,27 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
     >
       {/* Breadcrumbs Section */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <StyledBreadcrumbs 
+        <StyledBreadcrumbs
           config={mergedConfig}
           className="animate-fade-in"
           aria-label="breadcrumb"
         >
           {breadcrumbs.map((crumb, index) => {
             const isLast = index === breadcrumbs.length - 1;
-            
+
             if (loading) {
               return (
-                <Skeleton 
-                  key={index} 
-                  variant="text" 
-                  width={60} 
-                  height={20} 
+                <Skeleton
+                  key={index}
+                  variant="text"
+                  width={60}
+                  height={20}
                 />
               );
             }
-            
+
             return isLast ? (
-              <StyledBreadcrumbText 
+              <StyledBreadcrumbText
                 key={index}
                 config={mergedConfig}
                 aria-current="page"
@@ -311,9 +311,9 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
 
       {/* Header Section */}
       <StyledHeader config={mergedConfig}>
-        <Stack 
-          direction={{ xs: 'column', sm: 'row' }} 
-          justifyContent="space-between" 
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          justifyContent="space-between"
           alignItems={{ xs: 'stretch', sm: 'flex-center' }}
           spacing={2}
         >
@@ -327,8 +327,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             ) : (
               <>
                 {heading && (
-                  <StyledHeading 
-                    variant="h1" 
+                  <StyledHeading
+                    variant="h1"
                     config={mergedConfig}
                     className="animate-fade-in"
                   >
@@ -336,7 +336,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
                   </StyledHeading>
                 )}
                 {description && (
-                  <StyledDescription 
+                  <StyledDescription
                     variant="body1"
                     config={mergedConfig}
                     className="animate-fade-in animation-delay-100"
@@ -350,7 +350,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
 
           {/* Action Buttons */}
           {buttons && buttons.length > 0 && (
-            <StyledButtonContainer 
+            <StyledButtonContainer
               config={mergedConfig}
               className="animate-fade-in animation-delay-200"
             >
@@ -372,17 +372,17 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
 
       {/* Divider */}
       {mergedConfig.divider?.show && (breadcrumbs?.length > 0 || heading || description || (buttons && buttons.length > 0)) && (
-        <Divider 
-          className="animate-fade-in animation-delay-300" 
-          sx={{ 
+        <Divider
+          className="animate-fade-in animation-delay-300"
+          sx={{
             my: mergedConfig.divider.margin,
-            opacity: 0.1 
-          }} 
+            opacity: 0.1
+          }}
         />
       )}
 
       {/* Main Content */}
-      <StyledContent 
+      <StyledContent
         config={mergedConfig}
         className="animate-fade-in animation-delay-400"
       >
@@ -394,7 +394,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
           </Stack>
         ) : (
           <Stack spacing={12} paddingY={3}>
-          {children}
+            {children}
           </Stack>
         )}
       </StyledContent>
@@ -418,12 +418,12 @@ export const pageLayoutPresets: Record<string, PageLayoutConfig> = {
   // Card-style layout
   card: {
     container: { padding: 2 },
-    header: { 
-      padding: 2, 
-      borderRadius: 1 
+    header: {
+      padding: 2,
+      borderRadius: 1
     },
-    content: { 
-      padding: 2, 
+    content: {
+      padding: 2,
     },
     breadcrumbs: {
       marginBottom: 1,
@@ -435,8 +435,11 @@ export const pageLayoutPresets: Record<string, PageLayoutConfig> = {
     container: { maxWidth: 'xl' },
     heading: { fontSize: '1.875rem', fontWeight: 500 },
     description: { fontSize: '1.125rem' },
-    buttons: { gap: 2 },
-    content: { 
+    buttons: {
+      gap: 2,
+      justify: "flex-start"
+    },
+    content: {
       padding: 0,
       borderRadius: 2
     },

@@ -9,7 +9,7 @@ export const RecentProjects:React.FC<RecentProjectProps> = ({data}) => {
     <Box className="w-full">
       <RecentProjectsHeader />
 
-      <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-14 py-4">
+      <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-14 py-4">
         {data.map((project) => (
           <ProjectCard key={project.id}
             project={{
