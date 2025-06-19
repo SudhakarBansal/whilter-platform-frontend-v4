@@ -101,6 +101,7 @@ export interface PageLayoutProps extends Omit<ContainerProps, 'children'> {
   description?: string;
   buttons?: ReactNode[];
   breadcrumbs?: BreadcrumbItem[];
+  hero?: ReactNode; // Add this line
   children?: ReactNode;
   config?: PageLayoutConfig;
   loading?: boolean;
@@ -186,6 +187,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   config = {},
   loading = false,
   className = "",
+  hero, // Destructure hero prop
   ...props
 }) => {
   // Default configuration
@@ -257,7 +259,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   const PageContent: React.FC = () => (
     <StyledPageContainer
       config={mergedConfig}
-      // maxWidth={mergedConfig.container?.maxWidth || 'lg'} // Pass maxWidth as prop
       className={`${className} transition-all duration-300 max-w-[90vw] px-10`}
       {...props}
     >
@@ -307,6 +308,13 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
             );
           })}
         </StyledBreadcrumbs>
+      )}
+
+      {/* Hero Section */}
+      {hero && (
+        <Box className="mb-20 animate-fade-in">
+          {hero}
+        </Box>
       )}
 
       {/* Header Section */}

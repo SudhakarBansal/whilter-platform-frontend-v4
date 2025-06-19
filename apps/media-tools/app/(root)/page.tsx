@@ -5,6 +5,7 @@ import { recentProjects } from '@/utils/recentProjects';
 import { RecentProjects } from '@whilter/ui/components'
 import { ToolCardsGrid as ToolsSection } from '@/components/FeaturedTools/ToolsSection'
 import OtherToolsCardGrid from "@/components/OtherTools/OtherTools";
+import HeroSection from "@/components/HeroSection";
 
 const MAIN_URL = process.env.NEXT_PUBLIC_MAIN_URL;
 
@@ -25,13 +26,13 @@ export default function Page() {
     },
   ];
 
-
   return (
     <PageLayout
       breadcrumbs={breadcrumbs}
       heading="Featured Tools"
       buttons={actionButtons}
       config={pageLayoutPresets.dashboard}
+      hero={<HeroSection />} // Add the hero section here
     >
       <ToolsSection />
       <RecentProjects data={recentProjects} />
