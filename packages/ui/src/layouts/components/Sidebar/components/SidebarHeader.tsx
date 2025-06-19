@@ -2,8 +2,8 @@ import React from 'react';
 import { Box, IconButton } from '@mui/material';
 import { ChevronRight as ChevronRightIcon, ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
 import { SidebarHeaderProps } from '../types/sidebar.types';
-import Logo from '@whilter/assets/public/Logo.svg';
-import LogoSmall from '@whilter/assets/public/LogoSmall.svg';
+import Logo from '@whilter/assets/icons/Logo.svg';
+import LogoSmall from '@whilter/assets/icons/LogoSmall.svg';
 
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   isOpen,

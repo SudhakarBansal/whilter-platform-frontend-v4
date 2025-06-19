@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "private": true,
     "files": [
-        "public/*"
+        "icons/*"
     ],
     "exports": {
-        "./public/*": "./public/*"
+        "./icons/*": "./icons/*"
     }
 }
