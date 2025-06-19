@@ -12,7 +12,7 @@ const MAIN_URL = process.env.NEXT_PUBLIC_MAIN_URL;
 
 export default function Page() {
   const actionButtons = [
-    <Button variant="flatPrimary" className='text-lg p-4'>Brand Customisation</Button>
+    <Button variant="flatPrimary" className='text-lg p-4'>Projects Library</Button>
   ];
 
   const breadcrumbs = [
