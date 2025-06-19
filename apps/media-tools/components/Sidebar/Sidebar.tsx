@@ -6,15 +6,10 @@ import {
 } from '@mui/material';
 import { menuItems } from '@/utils/menuItems.data';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export const Sidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const router = useRouter();
-
-  const handleNavigate = (href: string) => {
-    router.push(href);
-  };
 
   return (
     <>
@@ -76,45 +71,48 @@ export const Sidebar = () => {
                       placement="right"
                       arrow
                     >
-                      <IconButton
-                        onClick={() => handleNavigate(item.href)}
-                        className={`relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 ${isHovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                      <Link href={item.href} passHref>
+                        <IconButton
+                          component="span"
+                          className={`relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 ${
+                            isHovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                           }`}
-                        aria-label={item.label}
-                        sx={{
-                          // Responsive icon container size
-                          width: {
-                            xs: '32px',
-                            sm: '36px',
-                            md: '40px',
-                          },
-                          height: {
-                            xs: '32px',
-                            sm: '36px',
-                            md: '40px',
-                          },
-                          minWidth: 'auto',
-                          minHeight: 'auto',
-                          '&:focus': {
-                            outline: 'none',
-                            ring: 2,
-                            ringColor: 'white/30'
-                          }
-                        }}
-                      >
-                        <div className="relative w-full h-full">
-                          <Image
-                            src={item.icon}
-                            alt={item.label}
-                            fill
-                            className="object-contain transition-all duration-300"
-                            style={{
-                              filter: 'brightness(0) invert(1)',
-                            }}
-                            sizes="(max-width: 640px) 18px, (max-width: 768px) 20px, 24px"
-                          />
-                        </div>
-                      </IconButton>
+                          aria-label={item.label}
+                          sx={{
+                            // Responsive icon container size
+                            width: {
+                              xs: '32px',
+                              sm: '36px',
+                              md: '40px',
+                            },
+                            height: {
+                              xs: '32px',
+                              sm: '36px',
+                              md: '40px',
+                            },
+                            minWidth: 'auto',
+                            minHeight: 'auto',
+                            '&:focus': {
+                              outline: 'none',
+                              ring: 2,
+                              ringColor: 'white/30'
+                            }
+                          }}
+                        >
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={item.icon}
+                              alt={item.label}
+                              fill
+                              className="object-contain transition-all duration-300"
+                              style={{
+                                filter: 'brightness(0) invert(1)',
+                              }}
+                              sizes="(max-width: 640px) 18px, (max-width: 768px) 20px, 24px"
+                            />
+                          </div>
+                        </IconButton>
+                      </Link>
                     </Tooltip>
                   </Box>
                 ))}
