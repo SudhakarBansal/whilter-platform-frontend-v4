@@ -49,16 +49,9 @@ const HeroSection = () => {
                     </Typography>
 
                     <Typography
-                        variant="h2"
+                        variant="h5"
                         component="p"
-                        sx={{
-                            fontSize: { xs: '1.125rem', md: '1.25rem' },
-                            fontWeight: 400,
-                            lineHeight: 1.6,
-                            opacity: 0.95,
-                            textShadow: '0 1px 2px rgba(0,0,0,0.3)'
-                        }}
-                        className="text-lg md:text-xl leading-relaxed opacity-95 drop-shadow-md"
+                        className="leading-relaxed opacity-95 drop-shadow-md"
                     >
                         Create and customize media with easy-to-use tools. Get started by selecting a tool below.
                     </Typography>

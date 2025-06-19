@@ -32,7 +32,7 @@ export default function Page() {
       heading="Featured Tools"
       buttons={actionButtons}
       config={pageLayoutPresets.dashboard}
-      hero={<HeroSection />} // Add the hero section here
+      hero={<HeroSection />}
     >
       <ToolsSection />
       <RecentProjects data={recentProjects} />
