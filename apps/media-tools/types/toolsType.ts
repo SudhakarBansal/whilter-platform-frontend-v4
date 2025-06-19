@@ -6,6 +6,7 @@ export interface ToolCardData {
     icon: string;
     bgColor: string;
     iconColor: string;
+    href: string;
 }
 
 export interface ToolCardProps {
