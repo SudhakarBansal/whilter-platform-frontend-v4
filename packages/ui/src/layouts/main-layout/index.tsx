@@ -29,13 +29,13 @@ export function Layout({ children }: { children: ReactNode }) {
                 }),
             }}
         >
-            <Sidebar
+            {/* <Sidebar
                 isOpen={sidebarOpen}
                 onToggle={handleSidebarToggle}
                 selectedItem={selectedItem}
                 onItemSelect={handleItemSelect}
                 theme={theme}
-            />
+            /> */}
             <Box 
                 className="flex-1 flex flex-col m-0"
                 sx={{
