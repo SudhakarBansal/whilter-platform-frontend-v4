@@ -6,13 +6,15 @@ import {
 } from '@mui/material';
 import { menuItems } from '@/utils/menuItems.data';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
-interface SidebarProps {
-  className?: string;
-}
-
-export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
+export const Sidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
+
+  const handleNavigate = (href: string) => {
+    router.push(href);
+  };
 
   return (
     <>
@@ -24,9 +26,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         </defs>
       </Box>
 
-      <Box className={`fixed left-0 top-1/2 transform -translate-y-1/2 z-50 ${className}`}>
+      <Box className="fixed left-0 top-1/2 transform -translate-y-1/2 z-50 h-screen pointer-events-none">
         <Box
-          className="relative transition-all duration-300 ease-in-out"
+          className="absolute top-1/2 left-0 transform -translate-y-1/2 pointer-events-auto"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -75,9 +77,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                       arrow
                     >
                       <IconButton
-                        className={`relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 ${
-                          isHovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-                        }`}
+                        onClick={() => handleNavigate(item.href)}
+                        className={`relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 ${isHovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                          }`}
                         aria-label={item.label}
                         sx={{
                           // Responsive icon container size
