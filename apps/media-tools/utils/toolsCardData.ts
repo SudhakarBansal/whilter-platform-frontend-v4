@@ -7,7 +7,8 @@ export const toolsCardsData: ToolCardData[] = [
         "description": "Synchronize audio with video lip movements.",
         "icon": "/icons/lip-sync.svg",
         "bgColor": "#FEE2E2",
-        "iconColor": "#EF4444B2"
+        "iconColor": "#EF4444B2",
+        "href": "/lip-sync"
     },
     {
         "id": "2",
@@ -15,7 +16,8 @@ export const toolsCardsData: ToolCardData[] = [
         "description": "Adjust video dimensions and quality effortlessly.",
         "icon": "/icons/video-replace.svg",
         "bgColor": "#DCFCE7",
-        "iconColor": "#22C55E"
+        "iconColor": "#22C55E",
+        "href": "/video-image-replacement"
     },
     {
         "id": "3",
@@ -23,7 +25,8 @@ export const toolsCardsData: ToolCardData[] = [
         "description": "Create a digital copy of any voice with AI.",
         "icon": "/icons/voice-cloning.svg",
         "bgColor": "#F3E8FF",
-        "iconColor": "#9740EA"
+        "iconColor": "#9740EA",
+        "href": "/voice-cloning"
     },
     {
         "id": "4",
@@ -31,7 +34,8 @@ export const toolsCardsData: ToolCardData[] = [
         "description": "Convert your text into natural-sounding speech.",
         "icon": "/icons/text-to-speech.svg",
         "bgColor": "#FEF9C3",
-        "iconColor": "#EAB308"
+        "iconColor": "#EAB308",
+        "href": "/text-to-speech"
     },
     {
         "id": "5",
@@ -39,7 +43,8 @@ export const toolsCardsData: ToolCardData[] = [
         "description": "Enhance image and video quality with AI upscaling.",
         "icon": "/icons/super-resolution.svg",
         "bgColor": "#FCE7F3",
-        "iconColor": "#EC4899"
+        "iconColor": "#EC4899",
+        "href": "/super-resolution"
     },
     {
         "id": "6",
@@ -47,7 +52,8 @@ export const toolsCardsData: ToolCardData[] = [
         "description": "Resize and optimize your images with ease.",
         "icon": "/icons/image-scaler.svg",
         "bgColor": "#DBEAFE",
-        "iconColor": "#3B82F6"
+        "iconColor": "#3B82F6",
+        "href": "/image-scaler"
     },
     {
         "id": "7",
@@ -55,6 +61,7 @@ export const toolsCardsData: ToolCardData[] = [
         "description": "Create personalized avatar videos with AI.",
         "icon": "/icons/avatar-video.svg",
         "bgColor": "#E0E7FF",
-        "iconColor": "#6366F1"
+        "iconColor": "#6366F1",
+        "href": "/avatar-video"
     }
 ]
