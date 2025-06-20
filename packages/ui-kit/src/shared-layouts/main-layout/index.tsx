@@ -16,7 +16,6 @@ export function Layout({ children }: { children: ReactNode }) {
 
     const handleItemSelect = (item: string) => {
         setSelectedItem(item);
-        console.log(`Navigated to: ${item}`);
     };
 
     return (

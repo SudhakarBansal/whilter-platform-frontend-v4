@@ -82,7 +82,6 @@ interface ThemeOptions {
 }
 
 export default function themePalette(theme: ThemeOptions): PaletteOptions {
-  console.log('theme --00', theme);
   return {
     mode: theme?.navType,
     common: {

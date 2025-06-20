@@ -3,7 +3,6 @@ import { Theme } from '@mui/material/styles';
 // ==============================|| OVERRIDES - INPUT LABEL ||============================== //
 
 export default function InputLabel(theme: Theme) {
-  console.log("text input label", theme);
   return {
     MuiInputLabel: {
       styleOverrides: {

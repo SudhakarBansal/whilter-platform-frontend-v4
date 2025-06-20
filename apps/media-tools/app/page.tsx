@@ -1,6 +1,6 @@
 'use client';
 import { Button } from "@mui/material";
-import { PageLayout, pageLayoutPresets } from "@whilter/ui-kit/layouts";
+import { PageLayout, pageLayoutPresets } from "@whilter/ui-kit/shared-layouts";
 import { recentProjects } from '@/utils/recentProjects';
 import { RecentProjects } from '@whilter/ui-kit/components'
 import { ToolCardsGrid as ToolsSection } from '@/components/FeaturedTools/ToolsSection'
