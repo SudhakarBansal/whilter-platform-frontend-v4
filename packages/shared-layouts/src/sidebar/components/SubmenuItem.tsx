@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { SubMenuItemProps } from '../types/sidebar.types';
+import { SubMenuItemProps } from '../types/sidebar.types.js';
 
 export const SubMenuItem: React.FC<SubMenuItemProps> = ({
   subItem,

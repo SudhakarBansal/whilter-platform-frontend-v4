@@ -182,6 +182,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -380,6 +383,37 @@ importers:
       eslint-plugin-only-warn:
         specifier: ^1.1.0
         version: 1.1.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
+  packages/shared-layouts:
+    dependencies:
+      '@whilter/config':
+        specifier: workspace:*
+        version: link:../config
+      '@whilter/ui-kit':
+        specifier: workspace:*
+        version: link:../ui-kit
+      react:
+        specifier: ^18.0.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.0.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: catalog:react18
+        version: 18.3.11
+      '@types/react-dom':
+        specifier: catalog:react18
+        version: 18.3.1
+      '@whilter/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@whilter/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       typescript:
         specifier: 'catalog:'
         version: 5.6.3

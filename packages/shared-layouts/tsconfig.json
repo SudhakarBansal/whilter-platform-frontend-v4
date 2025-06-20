@@ -1,0 +1,20 @@
+{
+  "extends": "@whilter/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/shared-layouts/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "index.ts",
+    "../ui-kit/src/theme/theme.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

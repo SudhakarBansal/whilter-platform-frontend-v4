@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, IconButton } from '@mui/material';
 import { ChevronRight as ChevronRightIcon, ChevronLeft as ChevronLeftIcon } from '@mui/icons-material';
-import { SidebarHeaderProps } from '../types/sidebar.types';
+import { SidebarHeaderProps } from '../types/sidebar.types.js';
 import Logo from '@whilter/assets/icons/Logo.svg';
 import LogoSmall from '@whilter/assets/icons/LogoSmall.svg';
 
