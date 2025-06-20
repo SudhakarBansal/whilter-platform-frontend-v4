@@ -1,5 +1,5 @@
 {
-  "name": "@whilter/ui",
+  "name": "@whilter/ui-kit",
   "scripts": {
     "dev": "tsc --noEmit --watch",
     "build": "tsc --noEmit"

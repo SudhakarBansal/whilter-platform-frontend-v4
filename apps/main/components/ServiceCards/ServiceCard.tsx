@@ -1,4 +1,4 @@
-import { ServiceCardProps } from "@whilter/ui/types";
+import {type ServiceCardProps } from "@whilter/ui-kit/types";
 import Link from "next/link";
 import React from "react";
 

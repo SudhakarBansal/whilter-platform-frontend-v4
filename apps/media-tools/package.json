@@ -9,7 +9,7 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@whilter/ui": "workspace:*",
+    "@whilter/ui-kit": "workspace:*",
     "@whilter/config": "workspace:*",
     "next": "14.2.8",
     "react": "catalog:react18",

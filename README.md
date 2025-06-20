@@ -64,7 +64,7 @@ This Turborepo includes the following packages/apps:
 - `marketplace`: a [Next.js](https://nextjs.org/) app
 - `media-tools`: a [Next.js](https://nextjs.org/) app
 - `charp-ai`: a [Next.js](https://nextjs.org/) app
-- `@whilter/ui`: a stub React component library (🚀 powered by **shadcn/ui**)
+- `@whilter/ui-kit`: a stub React component library (🚀 powered by **shadcn/ui**)
 - `@whilter/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@whilter/typescript-config`: `tsconfig.json`s used throughout the monorepo
 

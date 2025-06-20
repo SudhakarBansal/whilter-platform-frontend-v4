@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { ProjectsHeader } from './projectsHeader';
 import { FolderCard } from './FolderCard';
-import { FolderCardSectionProps } from '@whilter/ui/types';
+import { FolderCardSectionProps } from '@whilter/ui-kit/types';
 
 export const FolderCardSection: React.FC<FolderCardSectionProps> = ({ data }) => {
     return (

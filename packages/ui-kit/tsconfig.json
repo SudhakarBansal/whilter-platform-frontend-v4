@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@whilter/ui/*": ["./src/*"]
+      "@whilter/ui-kit/*": ["./src/*"]
     }
   },
   "include": ["src", "src/components", "../../apps/main/components/ServiceCard"],

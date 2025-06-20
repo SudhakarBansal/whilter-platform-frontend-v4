@@ -8,7 +8,7 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "ui": "pnpm --filter @whilter/ui ui"
+    "ui-kit": "pnpm --filter @whilter/ui-kit"
   },
   "devDependencies": {
     "@whilter/eslint-config": "workspace:*",
@@ -48,5 +48,7 @@
     "styled-components": "^6.1.15",
     "yup": "^1.6.1"
     
-  }
+  },
+  "sideEffects": false,
+  "type": "module"
 }

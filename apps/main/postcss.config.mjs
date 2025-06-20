@@ -1,1 +1,1 @@
-export { default } from "@whilter/ui/postcss.config";
+export { default } from "@whilter/ui-kit/postcss.config";

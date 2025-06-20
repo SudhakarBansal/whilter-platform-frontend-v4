@@ -1,8 +1,8 @@
-import "@whilter/ui/globals.css";
+import "@whilter/ui-kit/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
-import { MainLayout} from "@whilter/ui/layouts"
+import { MainLayout} from "@whilter/ui-kit/layouts"
 
 const inter = Inter({ subsets: ["latin"] });
 

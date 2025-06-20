@@ -127,9 +127,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@whilter/ui':
+      '@whilter/ui-kit':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../packages/ui-kit
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
@@ -182,9 +182,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@whilter/ui':
+      '@whilter/ui-kit':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../packages/ui-kit
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
@@ -237,9 +237,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@whilter/ui':
+      '@whilter/ui-kit':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../packages/ui-kit
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
@@ -292,9 +292,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@whilter/ui':
+      '@whilter/ui-kit':
         specifier: workspace:*
-        version: link:../../packages/ui
+        version: link:../../packages/ui-kit
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
@@ -386,7 +386,7 @@ importers:
 
   packages/typescript-config: {}
 
-  packages/ui:
+  packages/ui-kit:
     dependencies:
       '@whilter/assets':
         specifier: workspace:*

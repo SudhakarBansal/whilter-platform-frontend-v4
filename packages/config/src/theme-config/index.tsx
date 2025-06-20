@@ -9,7 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import colors from './scss/variables.module.scss';
 // import colors from "./theme.module.css";
 import { colors } from './variables'; 
-import componentsOverride from '../../../ui/src/atoms';
+import componentsOverride from '../../../ui-kit/src/atoms';
 import themePalette from './palette';
 import themeTypography from './typography';
 

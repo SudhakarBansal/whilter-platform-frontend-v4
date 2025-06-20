@@ -1,4 +1,4 @@
-import { ServiceCardData } from "@whilter/ui/types";
+import { type ServiceCardData } from "@whilter/ui-kit/types";
 
 const MEDIA_TOOLS_URL = process.env.NEXT_PUBLIC_MEDIA_TOOLS_URL;
 const CHARP_AI_URL = process.env.NEXT_PUBLIC_CHARP_AI_URL;
