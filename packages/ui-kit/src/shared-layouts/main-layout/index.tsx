@@ -3,7 +3,7 @@ import  { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { ReactNode } from "react";
 import "../../globals.css";
-import { Sidebar } from "../components/Sidebar";
+import { Sidebar } from "../sidebar";
 
 export function Layout({ children }: { children: ReactNode }) {
     const theme = useTheme();
