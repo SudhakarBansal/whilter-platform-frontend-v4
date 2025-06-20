@@ -38,7 +38,8 @@
     },
     "dependencies": {
         "@whilter/ui-kit": "workspace:*",
-        "@whilter/config": "workspace:*"
+        "@whilter/config": "workspace:*",
+        "@whilter/assets": "workspace:*"
     },
     "devDependencies": {
         "@types/react": "catalog:react18",

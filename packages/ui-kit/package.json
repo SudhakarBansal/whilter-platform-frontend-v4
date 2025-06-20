@@ -35,7 +35,6 @@
     ]
   },
   "dependencies": {
-    "@whilter/assets": "workspace:*",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -127,6 +127,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -240,6 +243,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -295,6 +301,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -389,6 +398,9 @@ importers:
 
   packages/shared-layouts:
     dependencies:
+      '@whilter/assets':
+        specifier: workspace:*
+        version: link:../assets
       '@whilter/config':
         specifier: workspace:*
         version: link:../config
@@ -422,9 +434,6 @@ importers:
 
   packages/ui-kit:
     dependencies:
-      '@whilter/assets':
-        specifier: workspace:*
-        version: link:../assets
       react:
         specifier: ^18
         version: 18.3.1
