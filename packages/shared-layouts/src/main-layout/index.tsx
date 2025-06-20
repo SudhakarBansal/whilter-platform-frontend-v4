@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { ReactNode } from "react";
-import "../../globals.css";
+import "@whilter/ui-kit/globals.css";
 import { Sidebar } from "../sidebar";
 
 export function MainLayout({ children }: { children: ReactNode }) {
