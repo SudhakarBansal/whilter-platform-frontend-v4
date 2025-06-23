@@ -10,8 +10,7 @@
   },
   "include": [
     "src",
-    "../ui-kit/src/theme/theme.d.ts",
-    "../ui-kit/src/atoms/**/*.{ts,tsx}"
+    "../shared-types/src/theme.d.ts"
   ],
   "exclude": [
     "node_modules",

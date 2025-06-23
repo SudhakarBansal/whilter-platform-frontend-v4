@@ -127,6 +127,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -182,6 +185,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -237,6 +243,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -292,6 +301,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/shared-layouts':
+        specifier: workspace:*
+        version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -346,9 +358,6 @@ importers:
 
   packages/config:
     dependencies:
-      '@types/lodash':
-        specifier: ^4.14.202
-        version: 4.17.17
       '@types/react':
         specifier: catalog:react18
         version: 18.3.11
@@ -356,6 +365,9 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
     devDependencies:
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.17
       '@whilter/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
@@ -384,13 +396,53 @@ importers:
         specifier: 'catalog:'
         version: 5.6.3
 
-  packages/typescript-config: {}
-
-  packages/ui-kit:
+  packages/shared-layouts:
     dependencies:
       '@whilter/assets':
         specifier: workspace:*
         version: link:../assets
+      '@whilter/config':
+        specifier: workspace:*
+        version: link:../config
+      '@whilter/ui-kit':
+        specifier: workspace:*
+        version: link:../ui-kit
+      react:
+        specifier: ^18.0.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.0.0
+        version: 18.3.1(react@18.3.1)
+    devDependencies:
+      '@types/react':
+        specifier: catalog:react18
+        version: 18.3.11
+      '@types/react-dom':
+        specifier: catalog:react18
+        version: 18.3.1
+      '@whilter/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@whilter/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
+  packages/shared-types:
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 20.11.6
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
+  packages/typescript-config: {}
+
+  packages/ui-kit:
+    dependencies:
       react:
         specifier: ^18
         version: 18.3.1
@@ -401,6 +453,9 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.13)
     devDependencies:
+      '@types/lodash':
+        specifier: ^4.14.202
+        version: 4.17.17
       '@types/react':
         specifier: catalog:react18
         version: 18.3.11

@@ -1,11 +1,11 @@
 "use client";
-import  { useState } from "react";
+import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { ReactNode } from "react";
-import "../../globals.css";
-import { Sidebar } from "../components/Sidebar";
+import "@whilter/ui-kit/globals.css";
+import { Sidebar } from "../sidebar";
 
-export function Layout({ children }: { children: ReactNode }) {
+export function MainLayout({ children }: { children: ReactNode }) {
     const theme = useTheme();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState('dashboard');
@@ -16,7 +16,6 @@ export function Layout({ children }: { children: ReactNode }) {
 
     const handleItemSelect = (item: string) => {
         setSelectedItem(item);
-        console.log(`Navigated to: ${item}`);
     };
 
     return (

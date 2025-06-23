@@ -1,2 +1,2 @@
-export type {ToolCardProps} from './toolsType';
-export type {OtherToolsCardProps} from './otherTools';
+export type {ToolCardProps} from './tools.type';
+export type {OtherToolsCardProps} from './otherTools.type';

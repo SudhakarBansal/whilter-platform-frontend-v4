@@ -3,15 +3,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@whilter/ui-kit/*": [
+      "@repo/shared-types/*": [
         "./src/*"
       ]
     }
   },
   "include": [
-    "src",
-    "src/components",
-    "../../packages/shared-types/src/theme.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "index.ts"
   ],
   "exclude": [
     "node_modules"

@@ -9,6 +9,7 @@ const config = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
     "../../packages/ui-kit/src/**/*.{ts,tsx}",
+    "../../packages/shared-layouts/src/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {

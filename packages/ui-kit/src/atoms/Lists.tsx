@@ -9,7 +9,6 @@ interface ThemeOption {
 }
 
 export default function Lists(theme: Theme, themeOption: ThemeOption) {
-  console.log('00000', theme);
   return {
     MuiListItemButton: {
       styleOverrides: {

@@ -13,9 +13,9 @@
       "types": "./src/contexts/index.ts",
       "default": "./src/contexts/index.ts"
     },
-    "./layouts": {
-      "types": "./src/layouts/index.ts",
-      "default": "./src/layouts/index.ts"
+    "./shared-layouts": {
+      "types": "./src/shared-layouts/index.ts",
+      "default": "./src/shared-layouts/index.ts"
     },
     "./styles": {
       "types": "./src/styles/index.ts",
@@ -35,16 +35,16 @@
     ]
   },
   "dependencies": {
-    "@whilter/assets": "workspace:*",
-    "tailwindcss-animate": "^1.0.7",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "peerDependencies": {
     "react": "^18"
   },
   "devDependencies": {
-    "typescript": "catalog:",
+    "@types/lodash": "^4.14.202",
     "@types/react": "catalog:react18",
-    "tailwindcss": "catalog:"
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
   }
 }

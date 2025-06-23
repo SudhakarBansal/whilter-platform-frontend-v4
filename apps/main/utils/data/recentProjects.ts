@@ -1,4 +1,4 @@
-import { RecentProject } from "@whilter/ui-kit/types";
+import {type  RecentProject } from "@whilter/ui-kit/types";
 
 export const recentProjects:RecentProject[] = [
     {
