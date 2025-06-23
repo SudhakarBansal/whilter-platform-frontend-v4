@@ -12,7 +12,7 @@ export interface FolderCardProps {
 }
 
 
-export interface FolderCardSectionProps {
+export interface FolderCardProps {
     data: {
         folders: FolderCardProps[];
     };

@@ -1,2 +1,2 @@
-export { FolderCardSection } from './FolderCardSection'
+export { FolderCard } from './FolderCard'
 export {RecentProjects} from './RecentProjects'
