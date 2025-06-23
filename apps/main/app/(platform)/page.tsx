@@ -1,7 +1,7 @@
-'use client';
 import React from 'react';
 import { Button } from '@mui/material';
-import { PageLayout, pageLayoutPresets } from '@whilter/shared-layouts/styled';
+import { PageLayout } from '@whilter/shared-layouts/styled';
+import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { RecentProjects } from '@whilter/ui-kit/components';
 import { ServiceCards } from '@/components/ServiceCards';
 import { projectData } from '@/utils/data/projects';
