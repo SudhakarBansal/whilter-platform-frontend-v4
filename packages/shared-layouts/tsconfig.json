@@ -11,7 +11,6 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "index.ts",
     "../shared-types/src/images.d.ts",
     "../shared-types/src/theme.d.ts"
   ],

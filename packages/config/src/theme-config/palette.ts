@@ -1,5 +1,4 @@
 import { PaletteOptions } from '@mui/material/styles';
-import "../types/index"
 
 interface ThemeColors {
   darkPaper?: string;

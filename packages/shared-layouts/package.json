@@ -28,8 +28,8 @@
             "import": "./src/sidebar/index.ts"
         },
         "./styled": {
-            "types": "./src/styled/page-layout.tsx",
-            "import": "./src/styled/page-layout.tsx"
+            "types": "./src/styled/index.ts",
+            "import": "./src/styled/index.ts"
         }
     },
     "peerDependencies": {
