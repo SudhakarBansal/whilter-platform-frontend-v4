@@ -4,7 +4,7 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import { otherToolsCardData } from '@/utils/otherToolsCardData';
+import { otherToolsCardData } from '@/lib/otherToolsCard.data';
 import { OtherToolsCard } from './OtherToolsCard';
 
 // Main Grid Component

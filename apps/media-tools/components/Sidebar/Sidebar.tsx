@@ -4,7 +4,7 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
-import { menuItems } from '@/utils/menuItems.data';
+import { menuItems } from '@/lib/menuItems.data';
 import Image from 'next/image';
 import Link from 'next/link';
 
