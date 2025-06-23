@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToolCardProps } from '@/types';
+import { type ToolCardProps } from '@/types';
 import Link from 'next/link';
 
 export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {

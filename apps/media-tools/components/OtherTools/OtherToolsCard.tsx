@@ -1,4 +1,4 @@
-import { OtherToolsCardProps } from '@/types';
+import {type OtherToolsCardProps } from '@/types';
 import {
     Typography,
     Box,
