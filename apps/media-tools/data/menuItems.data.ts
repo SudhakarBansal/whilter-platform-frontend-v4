@@ -12,31 +12,31 @@ export const menuItems = [
     {
         icon: '/icons/video-replace.svg',
         label: 'Video Replace',
-        href: '/not-found'
+        href: '/video-image-replacement'
     },
     {
         icon: '/icons/voice-cloning.svg',
         label: 'Voice Cloning',
-        href: '/not-found'
+        href: '/voice-cloning'
     },
     {
         icon: '/icons/text-to-speech.svg',
         label: 'Text to Speech',
-        href: '/not-found'
+        href: '/text-to-speech'
     },
     {
         icon: '/icons/super-resolution.svg',
         label: 'Super Resolution',
-        href: '/not-found'
+        href: '/super-resolution'
     },
     {
         icon: '/icons/image-scaler.svg',
         label: 'Image Scaler',
-        href: '/not-found'
+        href: '/image-scaler'
     },
     {
         icon: '/icons/avatar-video.svg',
         label: 'Avatar Video',
-        href: '/not-found'
+        href: '/avatar-video'
     }
 ];
