@@ -7,7 +7,7 @@ export const menuItems = [
     {
         icon: '/icons/lip-sync.svg',
         label: 'Lip Sync',
-        href: '/not-found'
+        href: '/lip-sync'
     },
     {
         icon: '/icons/video-replace.svg',
