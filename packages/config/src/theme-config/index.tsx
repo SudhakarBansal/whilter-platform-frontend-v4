@@ -1,6 +1,6 @@
 'use client'
 
-import { CssBaseline, StyledEngineProvider, Theme, ThemeOptions } from '@mui/material';
+import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import React, { useMemo, ReactNode } from 'react';
 import { Direction, ThemeProvider, createTheme } from '@mui/material/styles';
 
