@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { type ToolCardProps } from '@/types';
 import Link from 'next/link';
+import fetchToolsList  from '@whilter/shared-service';
 
 export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {
     const svgPath = data.icon || '/icons/default.svg';
 
+const [toolDetails, setToolDetails] = useState<any>(null);
+
+  useEffect(() => {
+  fetchToolsList() 
+    .then(setToolDetails)
+    .catch(console.error);
+}, []);
     return (
         <Link 
             href={data.href}
