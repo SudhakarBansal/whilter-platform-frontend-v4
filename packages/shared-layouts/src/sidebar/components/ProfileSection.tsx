@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Avatar } from '@mui/material';
-import { Theme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 
 interface ProfileSectionProps {
   isOpen: boolean;

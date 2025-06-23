@@ -1,5 +1,5 @@
 import React from 'react';
-import { Theme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 
 // Extend the Theme interface to include the 'colors' property
 declare module '@mui/material/styles' {

@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from 'react';
+import React, {type ReactNode } from 'react';
 import {
   Box,
   Typography,
@@ -10,9 +10,8 @@ import {
   Skeleton,
   Breadcrumbs,
   Link,
-  ContainerProps,
-  Theme
 } from '@mui/material';
+import type { ContainerProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 // Type definitions

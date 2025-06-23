@@ -1,4 +1,4 @@
-import { ProjectStatus } from "./ProjectCard.type";
+import type { ProjectStatus } from "./ProjectCard.type";
 
 export interface RecentProject {
   id: number;

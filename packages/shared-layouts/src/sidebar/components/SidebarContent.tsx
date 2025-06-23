@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, List, Divider } from '@mui/material';
-import { SidebarProps } from '../types/sidebar.types.js';
+import type { SidebarProps } from '../types/sidebar.types.js';
 import { SidebarHeader } from './SidebarHeader.js';
 import { MenuItem } from './MenuItem.js';
 import { ProfileSection } from './ProfileSection.js';

@@ -1,5 +1,5 @@
 import { Box, Typography, Avatar } from '@mui/material';
-import { FolderCardProps } from '@whilter/ui-kit/types';
+import type { FolderCardProps } from '@whilter/ui-kit/types';
 
 export function FolderCard({ title, projectCount, avatars }: FolderCardProps) {
     return (

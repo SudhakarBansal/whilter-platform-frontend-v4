@@ -1,4 +1,4 @@
-import { ProjectCardProps } from "@whilter/ui-kit/types";
+import type { ProjectCardProps } from "@whilter/ui-kit/types";
 import { Box, Card, CardContent, IconButton, Typography } from "@mui/material";
 import { ProjectStatusOverlay } from "./ProjectStatusOverlay";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';

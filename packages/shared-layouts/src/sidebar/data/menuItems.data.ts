@@ -15,7 +15,7 @@ import {
     Folder,
     Assignment,
   } from '@mui/icons-material';
-  import { MenuItem } from '../types/sidebar.types.js';
+  import type { MenuItem } from '../types/sidebar.types.js';
   
   export const menuItems: MenuItem[] = [
     { id: 'dashboard', label: 'Dashboard', icon: DashboardIcon },

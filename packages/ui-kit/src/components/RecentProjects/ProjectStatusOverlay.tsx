@@ -1,4 +1,4 @@
-import { ProjectStatusOverlayProps } from '@whilter/ui-kit/types';
+import type { ProjectStatusOverlayProps } from '@whilter/ui-kit/types';
 import { Box, LinearProgress, Stack, Typography } from "@mui/material";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
