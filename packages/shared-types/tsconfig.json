@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@repo/shared-layouts/*": [
+      "@repo/shared-types/*": [
         "./src/*"
       ]
     }
@@ -11,9 +11,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "index.ts",
-    "../shared-types/src/images.d.ts",
-    "../shared-types/src/theme.d.ts"
+    "src/**/*.d.ts",
+    "index.ts"
   ],
   "exclude": [
     "node_modules"

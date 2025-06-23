@@ -19,7 +19,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "../../packages/ui-kit/src/theme/theme.d.ts",
+    "../../packages/shared-types/src/theme.d.ts",
   ],
   "exclude": [
     "node_modules"
