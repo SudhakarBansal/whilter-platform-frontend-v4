@@ -1,5 +1,5 @@
 import React from 'react';
-import { toolsCardsData } from '@/lib/toolsCard.data'
+import { toolsCardsData } from '@/data/toolsCard.data'
 import { ToolCard } from './ToolsCard';
 
 
