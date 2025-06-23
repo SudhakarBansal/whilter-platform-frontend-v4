@@ -1,5 +1,4 @@
 import {type ServiceCardProps } from "@whilter/ui-kit/types";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -7,7 +6,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image, href }) 
   return (
     <Link href={href} className="relative cursor-pointer bg-transparent transition-shadow duration-300 ease-in-out rounded-[40px] aspect-[16/10] bg-gradient-to-br from-blue-400 to-blue-800 overflow-hidden group translate-z-0">
       {/* Background Image */}
-      <Image src={image} alt={title} className="h-full w-full object-cover" />
+      <img src={image} alt={title} className="h-full w-full object-cover" />
 
       {/* Overlay */}
       <div className="overlay absolute bottom-0 left-0 right-0 h-[35%] group-hover:h-full transition-all duration-300 ease-in-out bg-gradient-to-b from-blue-300/80 to-blue-600 flex items-center justify-center shadow-[0px_-9px_17px_0px_rgba(0,0,0,0.2)]">
