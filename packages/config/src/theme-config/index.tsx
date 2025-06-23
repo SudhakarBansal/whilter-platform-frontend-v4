@@ -2,7 +2,8 @@
 
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
 import React, { useMemo, type ReactNode } from 'react';
-import { Direction, ThemeProvider, createTheme } from '@mui/material/styles';
+import type { Direction } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
