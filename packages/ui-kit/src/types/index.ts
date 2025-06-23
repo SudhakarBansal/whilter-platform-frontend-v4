@@ -7,8 +7,8 @@ export type {
 export type {
     AvatarData,
     FolderCardProps,
-    FolderCardProps
-} from './FolderCard.type';
+    FolderCardSectionProps
+} from './FolderCardSection.type';
 
 export type {
     ServiceCardProps,

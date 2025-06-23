@@ -2,9 +2,9 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { ProjectsHeader } from './projectsHeader';
 import { FolderCard } from './FolderCard';
-import { FolderCardProps } from '@whilter/ui-kit/types';
+import { FolderCardSectionProps } from '@whilter/ui-kit/types';
 
-export const FolderCard: React.FC<FolderCardProps> = ({ data }) => {
+export const FolderCardSection: React.FC<FolderCardSectionProps> = ({ data }) => {
     return (
         <Box className="w-full">
             <ProjectsHeader />

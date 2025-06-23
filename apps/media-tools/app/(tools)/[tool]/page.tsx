@@ -4,7 +4,7 @@ import { buildToolBreadcrumbs } from '@/utils/breadcrumbs/buildToolBreadcrumbs';
 import { getToolBySlug } from '@/lib/getToolBySlug';
 import { PageLayout, pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { recentProjects } from '@/data/recentProjects.data';
-import { FolderCard, RecentProjects } from '@whilter/ui-kit/components'
+import { FolderCardSection, RecentProjects } from '@whilter/ui-kit/components'
 import { Plus } from 'lucide-react';
 import { projectData } from "@/data/projects.data";
 
@@ -41,7 +41,7 @@ export default function ToolPage({ params }: ToolPageProps) {
         </Button>
       </Box>
       <RecentProjects data={recentProjects} />
-      <FolderCard data={projectData} />
+      <FolderCardSection data={projectData} />
     </PageLayout>
   );
 }
