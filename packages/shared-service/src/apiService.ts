@@ -6,65 +6,68 @@ export default class ApiService extends ApiServiceBase {
     super(serviceType);
   }
 
+  private formatPath(path: string | string[]) {
+    return typeof path === 'string' ? { route: [path] } : { route: path };
+  }
+
   async get(path: string | string[]) {
     const instance = this.getAxiosInstance();
-      console.log("url",instance)
-    const urlPath = typeof path === 'string' ? { route: [path] } : { route: path };
+    const urlPath = this.formatPath(path);
+
     try {
-      console.log("url",urlPath)
       const res = await instance.get(this.getUrl(urlPath), this.getConfig(HttpContentType.Json));
-      return res.data.data ? res.data.data : res.data;
+      return res.data.data ?? res.data;
     } catch (err) {
       return Promise.reject(this.processError(err));
     }
   }
+
   async post(path: string | string[], body: any, contentType = HttpContentType.Json) {
     const instance = this.getAxiosInstance();
-    const urlPath = typeof path === 'string' ? { route: [path] } : { route: path };
+    const urlPath = this.formatPath(path);
+
     try {
       const res = await instance.post(this.getUrl(urlPath), body, this.getConfig(contentType));
-      return res.data.data ? res.data.data : res.data;
+      return res.data.data ?? res.data;
     } catch (err) {
       return Promise.reject(this.processError(err));
     }
   }
+
   async postMultipart(path: string | string[], body: any) {
-    const instance = this.getAxiosInstance();
-    const urlPath = typeof path === 'string' ? { route: [path] } : { route: path };
-    try {
-      const res = await instance.post(this.getUrl(urlPath), body, this.getConfig(HttpContentType.MultipartFormData));
-      return res.data.data ? res.data.data : res.data;
-    } catch (err) {
-      return Promise.reject(this.processError(err));
-    }
+    return this.post(path, body, HttpContentType.MultipartFormData);
   }
+
   async put(path: string | string[], body: any) {
     const instance = this.getAxiosInstance();
-    const urlPath = typeof path === 'string' ? { route: [path] } : { route: path };
+    const urlPath = this.formatPath(path);
+
     try {
       const res = await instance.put(this.getUrl(urlPath), body, this.getConfig(HttpContentType.Json));
-      return res.data.data ? res.data.data : res.data;
+      return res.data.data ?? res.data;
     } catch (err) {
       return Promise.reject(this.processError(err));
     }
   }
+
   async delete(path: string | string[]) {
     const instance = this.getAxiosInstance();
-    const urlPath = typeof path === 'string' ? { route: [path] } : { route: path };
+    const urlPath = this.formatPath(path);
+
     try {
       const res = await instance.delete(this.getUrl(urlPath), this.getConfig(HttpContentType.Json));
-      return res.data.data ? res.data.data : res.data;
+      return res.data.data ?? res.data;
     } catch (err) {
       return Promise.reject(this.processError(err));
     }
   }
-  
 
   async getCustom(path: string) {
     const instance = this.getAxiosInstance();
+
     try {
       const res = await instance.get(path, this.getConfig(HttpContentType.Json));
-      return res.data.data ? res.data.data : res.data;
+      return res.data.data ?? res.data;
     } catch (err) {
       return Promise.reject(this.processError(err));
     }

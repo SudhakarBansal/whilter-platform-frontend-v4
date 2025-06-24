@@ -1,25 +1,24 @@
-import AxiosInstance, { AxiosInstance as AxiosInstanceType, AxiosRequestConfig } from 'axios'
+import AxiosInstance from './axiosInstance';
+import type { AxiosRequestConfig } from 'axios';
 
-type QueryParams = Record<string, string | number | boolean | undefined>
+
+type QueryParams = Record<string, string | number | boolean | undefined>;
 
 type UrlPath = {
-  route?: string[]
-  query?: QueryParams
-}
+  route?: string[];
+  query?: QueryParams;
+};
 
 export default class ApiServiceBase {
-  private serviceType: string
-  private tokenSubscribers: any[] = []
+  private serviceType: string;
+  private tokenSubscribers: any[] = [];
 
   constructor(serviceType: string) {
-    this.serviceType = serviceType
+    this.serviceType = serviceType;
   }
 
-  /**
-   * Handle API error response
-   */
   processError(error: any): Error {
-    const errorCode: number = error.response ? error.response.status || 500 : 500
+    const errorCode: number = error.response ? error.response.status || 500 : 500;
 
     switch (errorCode) {
       case 401: {
@@ -28,12 +27,12 @@ export default class ApiServiceBase {
           error.response?.data?.error ||
           error.response?.data ||
           error.message ||
-          'Unauthorized'
-        return new Error(errorMessage)
+          'Unauthorized';
+        return new Error(errorMessage);
       }
 
       case 404:
-        return new Error('The request is not found')
+        return new Error('The request is not found');
 
       case 400:
       case 500: {
@@ -43,88 +42,70 @@ export default class ApiServiceBase {
           error.response?.data?.error ||
           error.response?.data ||
           error.message ||
-          'Internal server error'
-        return new Error(errorMessage)
+          'Internal server error';
+        return new Error(errorMessage);
       }
 
       case 422: {
-        const err = error.response?.data?.errors
+        const err = error.response?.data?.errors;
         if (Array.isArray(err) && err.length > 0) {
-          return new Error(err[0]?.message || err[0]?.Message || err[0]?.toString())
+          return new Error(err[0]?.message || err[0]?.Message || err[0]?.toString());
         } else if (err?.message || err?.Message || err?.error) {
-          return new Error(err.message || err.Message || err.error)
+          return new Error(err.message || err.Message || err.error);
         } else {
-          return new Error('Unprocessable entity')
+          return new Error('Unprocessable entity');
         }
       }
 
       default:
-        return new Error(error.message || 'Unknown error')
+        return new Error(error.message || 'Unknown error');
     }
   }
 
-  /**
-   * Return config for HTTP request
-   */
   getConfig(contentType: string = 'application/json'): AxiosRequestConfig {
     return {
       headers: {
         'Content-Type': contentType
       }
-    }
+    };
   }
 
-  /**
-   * Determine if auth token is required for the API request
-   */
   isAuthTokenRequired(path: string): boolean {
-    return path.includes('/api')
+    return path.includes('/api');
   }
 
-  /**
-   * Create a new Axios instance with interceptors
-   */
-  getAxiosInstance(): AxiosInstanceType {
-    const instance = AxiosInstance.create()
+  getAxiosInstance(): import('axios').AxiosInstance {
+    const instance = AxiosInstance;
 
     instance.interceptors.request.use(
       config => {
-        // store.dispatch(showLoader());
-        // const { token } = store.getState().auth;
-        // if (token) config.headers.Authorization = `Bearer ${token}`;
-        return config
+        // You can modify headers here
+        return config;
       },
       error => Promise.reject(error)
-    )
+    );
 
     instance.interceptors.response.use(
-      response => {
-        // store.dispatch(hideLoader());
-        return response
-      },
+      response => response,
       error => {
-        const status = error?.response?.status || 0
+        const status = error?.response?.status || 0;
         if (status === 401) {
-          // store.dispatch(logout());
+          // Optional logout trigger
         }
-        // store.dispatch(hideLoader());
-        return Promise.reject(error)
+        return Promise.reject(error);
       }
-    )
+    );
 
-    return instance
+    return instance;
   }
 
-  /**
-   * Format URL using path and query params
-   */
   getUrl(path: UrlPath): string {
-    let url = this.serviceType
+    let url = this.serviceType;
 
     if (path.route && path.route.length > 0) {
       for (const route of path.route) {
         if (route) {
-          url += url.endsWith('/') ? route : '/' + route
+          url += url.endsWith('/') ? route : '/' + route;
         }
       }
     }
@@ -136,13 +117,13 @@ export default class ApiServiceBase {
           ([key, value]) =>
             `${encodeURIComponent(key)}=${encodeURIComponent(value!.toString())}`
         )
-        .join('&')
+        .join('&');
 
       if (queryParams) {
-        url += `?${queryParams}`
+        url += `?${queryParams}`;
       }
     }
 
-    return url
+    return url;
   }
 }

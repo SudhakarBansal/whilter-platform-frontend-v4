@@ -1,4 +1,4 @@
-import { ServiceType } from "./config";
+import { ServiceType } from "./serviceType";
 import ApiService from "./apiService";
 
 export default function fetchToolsList() {
