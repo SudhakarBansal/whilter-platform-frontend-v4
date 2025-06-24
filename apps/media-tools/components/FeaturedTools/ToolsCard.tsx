@@ -1,7 +1,6 @@
 import React from 'react';
 import { type ToolCardProps } from '@/types';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {
     const svgPath = data.icon || '/icons/default.svg';
@@ -28,7 +27,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {
                     className="relative z-10 flex items-center justify-center py-10 group-hover:!bg-transparent transition-all duration-300"
                     style={{ backgroundColor: data.bgColor }}
                 >
-                    <Image
+                    <img
                         src={svgPath}
                         alt={data.title}
                         className="w-12 h-12 transition-all duration-300 ease-in-out"
