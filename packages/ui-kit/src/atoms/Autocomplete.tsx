@@ -1,7 +1,7 @@
 import React from 'react';
 // ----------------------------------------------------------------------
 
-import { Theme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 
 export default function Autocomplete(theme: Theme) {
   return {
@@ -9,6 +9,8 @@ export default function Autocomplete(theme: Theme) {
       styleOverrides: {
         paper: {
           boxShadow: theme.shadows[1],
+          backgroundColor: theme.palette.background.default,
+          color : theme.palette.text.primary,
         },
       },
     },

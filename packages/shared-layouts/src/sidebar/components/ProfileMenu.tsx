@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, MenuItem, Box, Typography, Divider } from '@mui/material';
 import { Settings as SettingsIcon, AccountCircle, NotificationsOutlined, Logout } from '@mui/icons-material';
-import { Theme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 
 interface ProfileMenuProps {
   anchorEl: HTMLElement | null;

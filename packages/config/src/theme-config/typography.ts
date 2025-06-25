@@ -1,5 +1,4 @@
-import { TypographyOptions } from '@mui/material/styles/createTypography';
-import { CSSProperties } from 'react';
+import type { TypographyOptions } from '@mui/material/styles/createTypography';
 
 interface ThemeTypographyOptions {
   fontFamily?: string;

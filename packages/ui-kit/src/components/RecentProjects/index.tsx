@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { ProjectStatus, RecentProjectProps } from '@whilter/ui-kit/types';
+import type { ProjectStatus } from '@whilter/ui-kit/types';
+import type { RecentProjectProps } from '@whilter/ui-kit/types';
 import { RecentProjectsHeader } from './RecentProjectsHeader';
 import { ProjectCard } from './ProjectCard';
 

@@ -26,6 +26,6 @@ function Page() {
       <FolderCardSection data={projectData} />
     </PageLayout>
   );
-};
+}
 
 export default Page;

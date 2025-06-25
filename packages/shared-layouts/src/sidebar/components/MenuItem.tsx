@@ -10,7 +10,7 @@ import {
   List
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { MenuItemProps } from '../types/sidebar.types.js';
+import type { MenuItemProps } from '../types/sidebar.types.js';
 import { SubMenuItem } from './SubmenuItem.js';
 
 export const MenuItem: React.FC<MenuItemProps> = ({

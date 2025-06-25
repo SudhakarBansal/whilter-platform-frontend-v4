@@ -1,8 +1,9 @@
 'use client'
 
-import { CssBaseline, StyledEngineProvider, Theme, ThemeOptions } from '@mui/material';
-import React, { useMemo, ReactNode } from 'react';
-import { Direction, ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, StyledEngineProvider } from '@mui/material';
+import React, { useMemo, type ReactNode } from 'react';
+import type { Direction } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';

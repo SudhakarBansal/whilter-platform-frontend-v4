@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import "@whilter/ui-kit/globals.css";
 import { Sidebar } from "../sidebar";
 

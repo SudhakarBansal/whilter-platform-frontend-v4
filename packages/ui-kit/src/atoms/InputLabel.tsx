@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material/styles';
+import type { Theme } from '@mui/material/styles';
 
 // ==============================|| OVERRIDES - INPUT LABEL ||============================== //
 
@@ -11,7 +11,7 @@ export default function InputLabel(theme: Theme) {
           color: theme.palette.text.primary,
           position: 'relative',
           fontSize: '0.875rem', // Ensure `label` exists in typography
-          transform: 'unset',
+          // transform: 'unset',
           '&.MuiFormLabel-root': {
             overflow: 'inherit',
           },
