@@ -9,21 +9,11 @@ export default function Input(theme: Theme): Record<string, unknown> {
     MuiInputBase: {
       styleOverrides: {
         root: ({ ownerState }: { ownerState: { size?: string; multiline?: boolean } }) => {
-          const { size, multiline } = ownerState;
+          const { size } = ownerState;
           return {
             '&.Mui-disabled': {
               '& svg': { color: theme.palette.text.disabled },
             },
-            ...(!multiline && {
-              height:
-                size === 'large'
-                  ? '52px'
-                  : size === 'medium'
-                  ? '40px'
-                  : size === 'small'
-                  ? '32px'
-                  : '40px',
-            }),
             fontWeight: theme.typography.fontWeightRegular,
             fontSize:
               size === 'large'
@@ -33,7 +23,6 @@ export default function Input(theme: Theme): Record<string, unknown> {
                 : size === 'small'
                 ? '12px'
                 : '14px',
-            background: theme.palette.background.paper,
           };
         },
         input: ({ ownerState }: { ownerState: { error?: boolean } }) => {
@@ -60,7 +49,7 @@ export default function Input(theme: Theme): Record<string, unknown> {
     MuiFilledInput: {
       styleOverrides: {
         root: {
-          backgroundColor: theme.palette.grey[500],
+          // backgroundColor: theme.palette.grey[500],
           '&:hover': {
             backgroundColor: theme.palette.grey[500],
           },
@@ -81,7 +70,7 @@ export default function Input(theme: Theme): Record<string, unknown> {
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          background: bgColor,
+          // background: bgColor,
           '& .MuiOutlinedInput-notchedOutline': {
             borderColor: theme.palette.grey[500],
           },
@@ -97,7 +86,7 @@ export default function Input(theme: Theme): Record<string, unknown> {
         input: ({ ownerState }: { ownerState: { size?: string } }) => {
           const { size } = ownerState;
           return {
-            background: bgColor,
+            // background: bgColor,
             borderRadius: `${theme?.shape?.borderRadius}px`,
             '&.MuiInputBase-inputSizeSmall': {
               '&.MuiInputBase-inputAdornedStart': {
@@ -105,7 +94,7 @@ export default function Input(theme: Theme): Record<string, unknown> {
               },
             },
             '&:-webkit-autofill': {
-              WebkitBoxShadow: '0 0 0 100px #fff inset',
+              WebkitBoxShadow: '0 0 0 100px #000000 inset',
             },
           };
         },

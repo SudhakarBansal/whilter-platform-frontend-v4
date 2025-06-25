@@ -8,7 +8,7 @@ import Card from './Card';
 import CardContent from './CardContent';
 import Checkbox from './Checkbox';
 import Chip from './Chip';
-import InputLabel from './InputLabel';
+// import InputLabel from './InputLabel';
 import Input from './Input';
 import LinearProgress from './LinearProgress';
 import Link from './Link';
@@ -39,7 +39,7 @@ export default function ComponentsOverrides(theme: any, themeOption: any) {
     Chip(theme),
     Divider(theme),
     Input(theme),
-    InputLabel(theme),
+    // InputLabel(theme),
     LinearProgress(theme),
     Link(),
     Switch(theme),

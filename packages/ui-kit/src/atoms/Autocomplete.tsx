@@ -9,6 +9,8 @@ export default function Autocomplete(theme: Theme) {
       styleOverrides: {
         paper: {
           boxShadow: theme.shadows[1],
+          backgroundColor: theme.palette.background.default,
+          color : theme.palette.text.primary,
         },
       },
     },

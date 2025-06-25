@@ -12,6 +12,7 @@
     "@whilter/ui-kit": "workspace:*",
     "@whilter/config": "workspace:*",
     "@whilter/shared-layouts": "workspace:*",
+    "@whilter/forms": "workspace:*",
     "next": "14.2.8",
     "react": "catalog:react18",
     "react-dom": "catalog:react18"
