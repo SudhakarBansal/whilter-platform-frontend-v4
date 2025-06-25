@@ -1,4 +1,3 @@
-'use client';
 import { Button } from "@mui/material";
 import { PageLayout, pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { recentProjects } from '@/data/recentProjects.data';
