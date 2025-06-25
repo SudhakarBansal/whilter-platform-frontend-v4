@@ -4,7 +4,7 @@ import {
   type PropsWithChildren,
   type ReactNode,
 } from 'react'
-import {FieldError} from 'react-hook-form'
+import type {FieldError} from 'react-hook-form'
 
 export type FormErrorProviderProps = {
   onError: (error: FieldError) => ReactNode

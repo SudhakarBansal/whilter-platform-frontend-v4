@@ -1,13 +1,13 @@
-import {FormEventHandler, FormHTMLAttributes, PropsWithChildren} from 'react'
-import {
+import type { FormEventHandler, FormHTMLAttributes, PropsWithChildren } from 'react'
+import type {
   FieldValues,
-  FormProvider,
   SubmitErrorHandler,
   SubmitHandler,
-  useForm,
   UseFormProps,
   UseFormReturn,
 } from 'react-hook-form'
+
+import { FormProvider, useForm } from 'react-hook-form'
 
 export type FormContainerProps<T extends FieldValues = FieldValues> =
   PropsWithChildren<
@@ -32,7 +32,7 @@ export function FormContainer<TFieldValues extends FieldValues = FieldValues>({
   if (!formContext) {
     return (
       <FormProviderWithoutContext<TFieldValues>
-        {...{onSuccess, onError, FormProps, children, ...useFormProps}}
+        {...{ onSuccess, onError, FormProps, children, ...useFormProps }}
       />
     )
   }
@@ -72,7 +72,7 @@ function FormProviderWithoutContext<
   const methods = useForm<TFieldValues>({
     ...useFormProps,
   })
-  const {handleSubmit} = methods
+  const { handleSubmit } = methods
 
   return (
     <FormProvider {...methods}>

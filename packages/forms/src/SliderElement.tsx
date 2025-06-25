@@ -1,23 +1,18 @@
-import {
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
-import {
-  FormControl,
-  FormControlProps,
-  FormHelperText,
-  FormLabel,
-  Slider,
-  SliderProps,
-} from '@mui/material'
-import {useFormError} from './FormErrorProvider'
-import {forwardRef, ReactNode, Ref, RefAttributes} from 'react'
-import {useTransform} from './useTransform'
+import { useController } from 'react-hook-form'
+import { FormControl, FormHelperText, FormLabel, Slider } from '@mui/material'
+import type { FormControlProps, SliderProps } from '@mui/material'
+import { useFormError } from './FormErrorProvider'
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import { forwardRef } from 'react'
+import { useTransform } from './useTransform'
 
 export type SliderElementProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -72,13 +67,13 @@ const SliderElement = forwardRef(function SliderElement<
     ...rules,
     ...(required &&
       !rules.required && {
-        required: 'This field is required',
-      }),
+      required: 'This field is required',
+    }),
   }
 
   const {
     field,
-    fieldState: {error, invalid},
+    fieldState: { error, invalid },
   } = useController({
     name,
     control,
@@ -86,7 +81,7 @@ const SliderElement = forwardRef(function SliderElement<
     rules: validationRules,
   })
 
-  const {value, onChange} = useTransform<
+  const { value, onChange } = useTransform<
     TFieldValues,
     TName,
     number | number[] | undefined

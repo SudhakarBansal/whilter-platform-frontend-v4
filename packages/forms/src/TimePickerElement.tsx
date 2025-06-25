@@ -1,28 +1,32 @@
 import {
-  PickerChangeHandlerContext,
   TimePicker,
+  validateTime,
+} from '@mui/x-date-pickers'
+import type {
+  PickerChangeHandlerContext,
   TimePickerProps,
   TimePickerSlotProps,
   TimeValidationError,
-  validateTime,
 } from '@mui/x-date-pickers'
-import {
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
-import {TextFieldProps, useForkRef} from '@mui/material'
-import {useFormError} from './FormErrorProvider'
-import {forwardRef, ReactNode, Ref, RefAttributes} from 'react'
-import {useLocalizationContext} from '@mui/x-date-pickers/internals'
-import {defaultErrorMessages} from './messages/TimePicker'
-import {useTransform} from './useTransform'
-import {getTimezone, readValueAsDate} from './utils'
-import {PickerValidDate} from '@mui/x-date-pickers/models'
+import { useController } from 'react-hook-form'
+import { useForkRef } from '@mui/material'
+import type { TextFieldProps } from '@mui/material'
+import { useFormError } from './FormErrorProvider'
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import { forwardRef } from 'react'
+import { useLocalizationContext } from '@mui/x-date-pickers/internals'
+import { defaultErrorMessages } from './messages/TimePicker'
+import { useTransform } from './useTransform'
+import { getTimezone, readValueAsDate } from './utils'
+import type { PickerValidDate } from '@mui/x-date-pickers/models'
 
 export type TimePickerElementProps<
   TFieldValues extends FieldValues = FieldValues,
