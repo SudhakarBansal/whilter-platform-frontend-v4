@@ -1,5 +1,4 @@
-import { Box, Button } from "@mui/material";
-import { notFound } from 'next/navigation';
+import { Box } from "@mui/material";
 import { buildToolBreadcrumbs } from '@/utils/breadcrumbs/buildToolBreadcrumbs';
 import { getToolBySlug } from '@/lib/getToolBySlug';
 import { PageLayout, pageLayoutPresets } from '@whilter/shared-layouts/styled';
@@ -8,9 +7,10 @@ import { FolderCardSection, RecentProjects } from '@whilter/ui-kit/components'
 import { Plus } from 'lucide-react';
 import { projectData } from "@/data/projects.data";
 import NotFound from "@/app/not-found";
+import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 
 interface ToolPageProps {
-  params: { tool?: string };
+  params: { tool: string };
 }
 
 export default function ToolPage({ params }: ToolPageProps) {
@@ -34,12 +34,13 @@ export default function ToolPage({ params }: ToolPageProps) {
       config={pageLayoutPresets.dashboard}
     >
       <Box sx={{ mb: 2 }}>
-        <Button
+        <ActionButton
           variant="outlineSecondary"
           startIcon={<Plus />}
+          href={`/${params.tool}/new`}
         >
           New Project
-        </Button>
+        </ActionButton>
       </Box>
       <RecentProjects data={recentProjects} />
       <FolderCardSection data={projectData} />
