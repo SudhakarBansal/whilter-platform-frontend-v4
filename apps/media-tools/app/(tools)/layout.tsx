@@ -23,10 +23,7 @@ export default function ToolsLayout({
             {/* Main Content */}
             <Box
                 component="main"
-                className="flex-1 px-6 py-4"
-                sx={{
-                    transition: 'all 0.3s ease-in-out',
-                }}
+                className="flex-1"
             >
                 {children}
             </Box>
