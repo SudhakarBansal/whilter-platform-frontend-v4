@@ -1,17 +1,18 @@
-import { ChangeEvent, forwardRef, ReactNode, Ref, RefAttributes } from 'react'
-import { MenuItem, TextField, TextFieldProps, useForkRef } from '@mui/material'
-import {
+import type { ChangeEvent, ReactNode, Ref, RefAttributes } from 'react'
+import { forwardRef } from 'react'
+import { MenuItem, TextField, useForkRef } from '@mui/material'
+import type { TextFieldProps } from '@mui/material'
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 import { useFormError } from './FormErrorProvider'
 import { useTransform } from './useTransform'
-import { propertyExists } from './utils'
 
 export type SelectElementProps<
   TFieldValues extends FieldValues = FieldValues,

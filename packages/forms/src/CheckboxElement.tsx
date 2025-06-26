@@ -1,25 +1,37 @@
-import {
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
 import {
-  Checkbox,
+  useController,
+} from 'react-hook-form'
+import type {
   CheckboxProps,
+  FormControlLabelProps,
+} from '@mui/material'
+import {
+  Checkbox,
   FormControl,
   FormControlLabel,
-  FormControlLabelProps,
   FormGroup,
   FormHelperText,
   useForkRef,
 } from '@mui/material'
-import {useFormError} from './FormErrorProvider'
-import {ChangeEvent, forwardRef, ReactNode, Ref, RefAttributes} from 'react'
-import {useTransform} from './useTransform'
+import { useFormError } from './FormErrorProvider'
+import type {
+  ChangeEvent,
+  ReactNode,
+  Ref,
+  RefAttributes,
+} from 'react'
+import {
+  forwardRef,
+} from 'react'
+import { useTransform } from './useTransform'
 
 export type CheckboxElementProps<
   TFieldValues extends FieldValues = FieldValues,

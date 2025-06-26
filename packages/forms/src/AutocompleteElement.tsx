@@ -1,34 +1,40 @@
-import {
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from "react-hook-form";
 import {
-  Autocomplete,
+  useController,
+} from "react-hook-form";
+import type {
   AutocompleteChangeDetails,
   AutocompleteChangeReason,
   AutocompleteFreeSoloValueMapping,
   AutocompleteProps,
   AutocompleteValue,
-  Checkbox,
   ChipTypeMap,
-  TextField,
   TextFieldProps,
+} from "@mui/material";
+import {
+  Autocomplete,
+  Checkbox,
+  TextField,
   useForkRef,
   CircularProgress,
 } from "@mui/material";
 import { useFormError } from "./FormErrorProvider";
-import {
+import type {
   ElementType,
-  forwardRef,
   ReactNode,
   Ref,
   RefAttributes,
   SyntheticEvent,
+} from "react";
+import {
+  forwardRef,
 } from "react";
 import { useTransform } from "./useTransform";
 import { propertyExists } from "./utils";
@@ -199,49 +205,49 @@ const AutocompleteElement = forwardRef(function AutocompleteElement<
         typeof transform?.input === "function"
           ? transform.input
           : (newValue) => {
-              return (
-                multiple
-                  ? (Array.isArray(newValue) ? newValue : []).map(
-                      matchOptionByValue
-                    )
-                  : matchOptionByValue(newValue) ?? null
-              ) as AutocompleteValue<
-                TValue,
-                Multiple,
-                DisableClearable,
-                FreeSolo
-              >;
-            },
+            return (
+              multiple
+                ? (Array.isArray(newValue) ? newValue : []).map(
+                  matchOptionByValue
+                )
+                : matchOptionByValue(newValue) ?? null
+            ) as AutocompleteValue<
+              TValue,
+              Multiple,
+              DisableClearable,
+              FreeSolo
+            >;
+          },
       output:
         typeof transform?.output === "function"
           ? transform.output
           : (
-              _event: SyntheticEvent,
-              newValue: AutocompleteValue<
-                TValue,
-                Multiple,
-                DisableClearable,
-                FreeSolo
-              >
-            ) => {
-              if (multiple) {
-                const newValues = Array.isArray(newValue) ? newValue : [];
-                return (
-                  matchId
-                    ? newValues.map((currentValue) =>
-                        propertyExists(currentValue, "id")
-                          ? currentValue.id
-                          : currentValue
-                      )
-                    : newValues
-                ) as PathValue<TFieldValues, TName>;
-              }
+            _event: SyntheticEvent,
+            newValue: AutocompleteValue<
+              TValue,
+              Multiple,
+              DisableClearable,
+              FreeSolo
+            >
+          ) => {
+            if (multiple) {
+              const newValues = Array.isArray(newValue) ? newValue : [];
               return (
-                matchId && propertyExists(newValue, "id")
-                  ? newValue.id
-                  : newValue
+                matchId
+                  ? newValues.map((currentValue) =>
+                    propertyExists(currentValue, "id")
+                      ? currentValue.id
+                      : currentValue
+                  )
+                  : newValues
               ) as PathValue<TFieldValues, TName>;
-            },
+            }
+            return (
+              matchId && propertyExists(newValue, "id")
+                ? newValue.id
+                : newValue
+            ) as PathValue<TFieldValues, TName>;
+          },
     },
   });
 
@@ -276,13 +282,13 @@ const AutocompleteElement = forwardRef(function AutocompleteElement<
         autocompleteProps?.renderOption ??
         (showCheckbox
           ? (props, option, { selected }) => {
-              return (
-                <li {...props} key={props.key}>
-                  <Checkbox sx={{ marginRight: 1 }} checked={selected} />
-                  {getOptionLabel(option)}
-                </li>
-              );
-            }
+            return (
+              <li {...props} key={props.key}>
+                <Checkbox sx={{ marginRight: 1 }} checked={selected} />
+                {getOptionLabel(option)}
+              </li>
+            );
+          }
           : undefined)
       }
       onBlur={(event) => {

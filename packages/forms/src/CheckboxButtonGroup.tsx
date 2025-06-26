@@ -1,27 +1,38 @@
+import type {
+  CheckboxProps,
+  FormControlLabelProps,
+} from '@mui/material'
 import {
   Checkbox,
-  CheckboxProps,
   FormControl,
   FormControlLabel,
-  FormControlLabelProps,
   FormGroup,
   FormHelperText,
   FormLabel,
   useTheme,
 } from '@mui/material'
-import {
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
-import {useFormError} from './FormErrorProvider'
-import {forwardRef, ReactNode, Ref, RefAttributes} from 'react'
-import {useTransform} from './useTransform'
-import {propertyExists} from './utils'
+import {
+  useController,
+} from 'react-hook-form'
+import { useFormError } from './FormErrorProvider'
+import type {
+  ReactNode,
+  Ref,
+  RefAttributes,
+} from 'react'
+import {
+  forwardRef,
+} from 'react'
+import { useTransform } from './useTransform'
+import { propertyExists } from './utils'
 
 export type CheckboxButtonGroupProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -95,16 +106,16 @@ const CheckboxButtonGroup = forwardRef(function CheckboxButtonGroup<
 
   const {
     field,
-    fieldState: {error, invalid},
+    fieldState: { error, invalid },
   } = useController({
     name,
-    rules: required ? {required: 'This field is required'} : rules,
+    rules: required ? { required: 'This field is required' } : rules,
     disabled,
     control,
     defaultValue: defaultValue as PathValue<TFieldValues, TName>,
   })
 
-  const {value: selectedOptions, onChange} = useTransform<
+  const { value: selectedOptions, onChange } = useTransform<
     TFieldValues,
     TName,
     TValue[]
@@ -116,8 +127,8 @@ const CheckboxButtonGroup = forwardRef(function CheckboxButtonGroup<
         typeof transform?.input === 'function'
           ? transform.input
           : (value) => {
-              return Array.isArray(value) ? value : ([] as TValue[])
-            },
+            return Array.isArray(value) ? value : ([] as TValue[])
+          },
       output: transform?.output,
     },
   })
