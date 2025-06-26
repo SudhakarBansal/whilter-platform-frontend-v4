@@ -30,7 +30,7 @@ export const toolsCardsData: ToolCardData[] = [
     },
     {
         "id": "4",
-        "title": "Text-to-Speech",
+        "title": "Text to Speech",
         "description": "Convert your text into natural-sounding speech.",
         "icon": "/icons/text-to-speech.svg",
         "bgColor": "#FEF9C3",
