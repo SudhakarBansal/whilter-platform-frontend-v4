@@ -25,6 +25,7 @@ import Avatar from './Avatar';
 import Switch from './Switch';
 import Radio from './Radio';
 import HelperText from './HelperText';
+import MenuItem from './MenuItem';
 
 // ==============================|| OVERRIDES - MAIN ||============================== //
 
@@ -53,6 +54,7 @@ export default function ComponentsOverrides(theme: any, themeOption: any) {
     Table(theme),
     Tabs(),
     Typography(theme),
-    HelperText(theme)
+    HelperText(theme),
+    MenuItem(theme)
   );
 }
