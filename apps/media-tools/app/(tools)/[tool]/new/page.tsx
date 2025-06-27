@@ -27,11 +27,7 @@ const toolConfigs: Record<string, ToolConfig> = {
         <p className="text-sm text-gray-600">{description}</p>
       </>
     ),
-    controls: (): JSX.Element => (
-      <LipSyncControls
-        projectName="New Project"
-      />
-    ),
+    controls: () => <LipSyncControls />,
     tool: () => <LipSyncMediaPanel />
   },
   'voice-cloning': {
@@ -41,11 +37,7 @@ const toolConfigs: Record<string, ToolConfig> = {
         <p className="text-sm text-gray-600">{description}</p>
       </>
     ),
-    controls: (): JSX.Element => (
-      <LipSyncControls
-        projectName="New Project"
-      />
-    ),
+    controls: () => <LipSyncControls />,
     tool: () => <VoiceCloningMediaPanel />
   },
 } as const;
