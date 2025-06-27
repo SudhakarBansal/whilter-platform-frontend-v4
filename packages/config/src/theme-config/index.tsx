@@ -55,6 +55,7 @@ export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
         secondaryDark: colors?.button?.secondaryDark,
         disabled: colors?.button?.buttonDisabled,
       },
+      divider:colors?.divider,
     }),
     [color],
   );
