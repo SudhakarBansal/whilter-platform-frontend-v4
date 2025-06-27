@@ -73,7 +73,7 @@ export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
           },
         },
       },
-      shape: { borderRadius: 4 },
+      shape: { borderRadius: 7 },
       typography: themeTypography(themeOption),
     }),
     [themeOption],
