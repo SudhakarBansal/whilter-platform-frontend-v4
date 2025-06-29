@@ -72,7 +72,7 @@ export const Sidebar = () => {
                       placement="right"
                       arrow
                     >
-                      <Link href={item.href} passHref>
+                      <Link href={item.href} prefetch={true} scroll={true}>
                         <IconButton
                           component="span"
                           className={`relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 ${

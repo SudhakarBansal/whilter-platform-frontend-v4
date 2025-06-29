@@ -8,7 +8,9 @@ export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {
     const svgPath = data.icon || '/icons/default.svg';
 
     return (
-        <Link 
+        <Link
+            prefetch={true}
+            scroll={true}
             href={data.href}
             className="block"
         >
