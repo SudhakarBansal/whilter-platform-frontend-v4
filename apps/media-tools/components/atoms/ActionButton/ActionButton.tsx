@@ -3,22 +3,21 @@
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import type { ActionButtonProps } from "@/types/action-button.types";
+import Link from "next/link";
 
 export const ActionButton = ({ href, children, ...props }: ActionButtonProps) => {
   const router = useRouter();
 
-  const handleClick = () => {
-    if (href) {
-      router.push(href);
-    }
-  };
-
   return (
-    <Button
-      {...props}
-      onClick={handleClick}
+    <Link
+      href={href || "#"}
+      prefetch={true}
     >
-      {children}
-    </Button>
+      <Button
+        {...props}
+      >
+        {children}
+      </Button>
+    </Link>
   );
 };
