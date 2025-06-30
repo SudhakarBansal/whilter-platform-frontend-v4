@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
   IconButton,
@@ -10,8 +9,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const Sidebar = () => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <>
       <Box component="svg" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
@@ -23,22 +20,23 @@ export const Sidebar = () => {
       </Box>
 
       <Box className="fixed left-0 top-1/2 transform -translate-y-1/2 z-50 h-screen pointer-events-none">
-        <Box
-          className="absolute top-1/2 left-0 transform -translate-y-1/2 pointer-events-auto"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
+        <Box className="absolute top-1/2 left-0 transform -translate-y-1/2 pointer-events-auto group">
+
+          {/* Sidebar container */}
           <Box
-            className={`relative shadow-2xl transition-all duration-300 ease-in-out`}
+            className="relative shadow-2xl transition-all duration-300 ease-in-out"
             sx={{
-              width: isHovered ? {
-                xs: '64px',
-                sm: '80px',
-                md: '88px',
-              } : {
+              width: {
                 xs: '20px',
                 sm: '24px',
                 md: '28px',
+              },
+              '&:hover': {
+                width: {
+                  xs: '64px',
+                  sm: '80px',
+                  md: '88px',
+                }
               },
               height: {
                 xs: 'min(85vh, 500px)',
@@ -66,21 +64,14 @@ export const Sidebar = () => {
                 }}
               >
                 {menuItems.map((item, index) => (
-                  <Box key={index} className="relative group flex justify-center">
-                    <Tooltip
-                      title={item.label}
-                      placement="right"
-                      arrow
-                    >
-                      <Link href={item.href} prefetch={true} scroll={true}>
+                  <Box key={index} className="relative group/item flex justify-center">
+                    <Tooltip title={item.label} placement="right" arrow>
+                      <Link href={item.href} prefetch scroll>
                         <IconButton
                           component="span"
-                          className={`relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 ${
-                            isHovered ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-                          }`}
+                          className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
                           aria-label={item.label}
                           sx={{
-                            // Responsive icon container size
                             width: {
                               xs: '32px',
                               sm: '36px',
@@ -96,7 +87,7 @@ export const Sidebar = () => {
                             '&:focus': {
                               outline: 'none',
                               ring: 2,
-                              ringColor: 'white/30'
+                              ringColor: 'white/30',
                             }
                           }}
                         >
@@ -121,14 +112,19 @@ export const Sidebar = () => {
             </Box>
           </Box>
 
-          {/* Hover indicator */}
+          {/* Hover Indicator */}
           <Box
-            className={`absolute top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out`}
+            className="absolute top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out"
             sx={{
               right: {
-                xs: isHovered ? '4px' : '2px',
-                sm: isHovered ? '6px' : '3px',
-                md: isHovered ? '8px' : '4px',
+                xs: '2px',
+                sm: '3px',
+                md: '4px',
+                '&:hover': {
+                  xs: '4px',
+                  sm: '6px',
+                  md: '8px',
+                }
               }
             }}
           >

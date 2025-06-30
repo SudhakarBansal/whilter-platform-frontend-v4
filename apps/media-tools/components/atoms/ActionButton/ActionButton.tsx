@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from "@mui/material";
 import type { ActionButtonProps } from "@/types/action-button.types";
 import Link from "next/link";
