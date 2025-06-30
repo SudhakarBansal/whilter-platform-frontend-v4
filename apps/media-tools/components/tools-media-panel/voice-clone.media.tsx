@@ -1,5 +1,5 @@
 
-export function VoiceCloningMediaPanel() {
+export function VoiceCloneMediaPanel() {
 
     return (
         <div>
