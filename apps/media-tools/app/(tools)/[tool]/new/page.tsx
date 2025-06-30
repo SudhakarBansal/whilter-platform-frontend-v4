@@ -1,6 +1,6 @@
 import NotFound from "@/app/not-found";
 import { LipSyncMediaPanel } from "@/components/tools-media-panel/lip-sync.media";
-import { VoiceCloningMediaPanel } from "@/components/tools-media-panel/voice-cloning.media";
+import { VoiceCloneMediaPanel } from "@/components/tools-media-panel/voice-clone.media";
 import { getToolBySlug } from "@/lib/getToolBySlug";
 import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
 import { ToolsLayout } from "@/layouts/tools-layout";
@@ -38,7 +38,7 @@ const toolConfigs: Record<string, ToolConfig> = {
       </>
     ),
     controls: () => <LipSyncControls />,
-    tool: () => <VoiceCloningMediaPanel />
+    tool: () => <VoiceCloneMediaPanel />
   },
 } as const;
 
