@@ -1,78 +1,33 @@
-import NotFound from "@/app/not-found";
-import { LipSyncMediaPanel } from "@/components/tools-media-panel/lip-sync.media";
-import { VoiceCloneMediaPanel } from "@/components/tools-media-panel/voice-clone.media";
-import { getToolBySlug } from "@/lib/getToolBySlug";
 import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
 import { ToolsLayout } from "@/layouts/tools-layout";
-import { LipSyncControls } from "@/components/tools-controls/lip-sync.controls";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
+import { getToolBySlug } from "@/lib/getToolBySlug";
+import type { ToolPageProps } from '@/types/tool.types';
+import { getDynamicToolConfig } from '@/hooks/getDynamicToolConfig';
+import NotFound from '@/app/not-found';
 
-// Define the ToolConfig interface
-interface ToolConfig {
-  header: (title: string, description: string) => JSX.Element;
-  controls: () => JSX.Element;
-  tool: () => JSX.Element;
-}
+export default async function ToolPage({ params }: ToolPageProps) {
+  const { tool: toolSlug } = params;
 
-interface NewToolPageProps {
-  params: { tool: string };
-}
+  // Validate tool existence
+  const tool = getToolBySlug(toolSlug);
+  if (!tool) return <NotFound />;
 
-// Combined configuration for all tool-related components
-const toolConfigs: Record<string, ToolConfig> = {
-  'lip-sync': {
-    header: (title: string, description: string): JSX.Element => (
-      <>
-        <h1 className="text-2xl font-bold text-black">{title}</h1>
-        <p className="text-sm text-gray-600">{description}</p>
-      </>
-    ),
-    controls: () => <LipSyncControls />,
-    tool: () => <LipSyncMediaPanel />
-  },
-  'voice-cloning': {
-    header: (title: string, description: string): JSX.Element => (
-      <>
-        <h1 className="text-2xl font-bold text-black">{title}</h1>
-        <p className="text-sm text-gray-600">{description}</p>
-      </>
-    ),
-    controls: () => <LipSyncControls />,
-    tool: () => <VoiceCloneMediaPanel />
-  },
-} as const;
+  // Load dynamic config
+  const config = await getDynamicToolConfig(toolSlug);
+  if (!config) return <NotFound />;
 
-export default function NewToolPage({ params }: NewToolPageProps) {
-  if (!params.tool) {
-    return <NotFound />;
-  }
-
-  const tool = getToolBySlug(params.tool);
-  if (!tool) {
-    return <NotFound />;
-  }
-
-  const config = toolConfigs[params.tool];
-  if (!config) {
-    return <NotFound />;
-  }
-
-  const breadcrumbs = buildToolBreadcrumbs(`${params.tool}`, 'new');
+  const breadcrumbs = buildToolBreadcrumbs(toolSlug, 'new');
 
   return (
     <ToolsLayout
-      // PageLayout props
       breadcrumbs={breadcrumbs}
       heading={tool.title}
       description={tool.description}
       config={pageLayoutPresets.dashboard}
-
-      // ToolsLayout specific props
-      headerSection={config.header(tool.title, tool.description)}
-      toolsSection={<config.tool />}
-      controlsSection={config.controls()}
-
-      // Layout configuration
+      headerSection={<config.header />}
+      toolsSection={<config.panel />}
+      controlsSection={<config.controls />}
       splitRatio={[8, 4]}
       spacing={3}
       elevation={1}
