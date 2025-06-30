@@ -1,4 +1,4 @@
-import { type ToolCardData } from "@/types/tools.type";
+import { type ToolCardData } from "@/types/tools-card.type";
 
 export const toolsCardsData: ToolCardData[] = [
     {
