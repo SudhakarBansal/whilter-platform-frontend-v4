@@ -3,7 +3,7 @@ import { ToolsLayout } from "@/layouts/tools-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { getToolBySlug } from "@/lib/getToolBySlug";
 import type { ToolPageProps } from '@/types/tool.types';
-import { getDynamicToolConfig } from '@/hooks/getDynamicToolConfig';
+import { getDynamicToolConfig } from '@/lib/getDynamicToolConfig';
 import NotFound from '@/app/not-found';
 
 export default async function ToolPage({ params }: ToolPageProps) {
