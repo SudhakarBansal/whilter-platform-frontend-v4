@@ -9,11 +9,11 @@ import { projectsData } from "@/data/projects.data";
 import NotFound from "@/app/not-found";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 
-interface ToolPageProps {
+interface ToolsListingPageProps {
   params: { tool: string };
 }
 
-export default function ToolPage({ params }: ToolPageProps) {
+export default function ToolsListingPage({ params }: ToolsListingPageProps) {
 
   // Check if params or params.tool is undefined
   if (!params || !params.tool) {
