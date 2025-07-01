@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { ProjectsHeader } from './projectsHeader';
+import { ProjectsHeader } from './ProjectsHeader';
 import { FolderCard } from './FolderCard';
 import type { FolderCardSectionProps } from '@whilter/ui-kit/types';
 
