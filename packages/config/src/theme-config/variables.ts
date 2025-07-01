@@ -1,3 +1,5 @@
+import { divide } from "lodash";
+
 export const colors = {
   paper: '#ffffff',
   darkPaper: '#111936',
@@ -10,7 +12,7 @@ export const colors = {
   primaryDark: '#0E2058',
 
   secondaryLight: '#6AE2B4',
-  secondaryMain: '#31C48D',
+  secondaryMain: '#9b9b9b',
   secondaryDark: '#21805E',
 
   errorLight: '#ef9a9a',
@@ -64,4 +66,5 @@ export const colors = {
     light: '#F3F4F6',
     dark: '#212946',
   },
+  divider:'#818181'
 };

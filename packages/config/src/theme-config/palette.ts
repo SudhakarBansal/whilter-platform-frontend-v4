@@ -64,6 +64,7 @@ interface ThemeColors {
     light?: string;
     dark?: string;
   };
+  divider?: string;
 }
 
 interface ThemeOptions {
@@ -162,5 +163,7 @@ export default function themePalette(theme: ThemeOptions): PaletteOptions {
       card: `0px 2px 8px ${theme.colors?.grey200}`,
       modal: `0px 10px 20px ${theme.colors?.grey200}80`,
     },
+
+    divider: theme.colors?.divider,
   };
 }

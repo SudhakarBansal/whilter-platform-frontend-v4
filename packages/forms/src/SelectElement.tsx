@@ -157,6 +157,11 @@ const SelectElement = forwardRef(function SelectElement<
         }
       }}
       select
+      sx={{
+        '& .MuiSelect-icon': {
+          color: theme => theme.palette.text.secondary,
+        },
+      }}
       required={required}
       error={!!error}
       helperText={

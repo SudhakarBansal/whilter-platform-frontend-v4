@@ -9,6 +9,7 @@ import CardContent from './CardContent';
 import Checkbox from './Checkbox';
 import Chip from './Chip';
 // import InputLabel from './InputLabel';
+import TextField from './TextField';
 import Input from './Input';
 import LinearProgress from './LinearProgress';
 import Link from './Link';
@@ -24,6 +25,7 @@ import Avatar from './Avatar';
 import Switch from './Switch';
 import Radio from './Radio';
 import HelperText from './HelperText';
+import MenuItem from './MenuItem';
 
 // ==============================|| OVERRIDES - MAIN ||============================== //
 
@@ -40,6 +42,7 @@ export default function ComponentsOverrides(theme: any, themeOption: any) {
     Divider(theme),
     Input(theme),
     // InputLabel(theme),
+    TextField(theme),
     LinearProgress(theme),
     Link(),
     Switch(theme),
@@ -51,6 +54,7 @@ export default function ComponentsOverrides(theme: any, themeOption: any) {
     Table(theme),
     Tabs(),
     Typography(theme),
-    HelperText(theme)
+    HelperText(theme),
+    MenuItem(theme)
   );
 }

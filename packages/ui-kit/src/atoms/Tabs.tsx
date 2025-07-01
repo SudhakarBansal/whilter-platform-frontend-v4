@@ -1,5 +1,3 @@
-import type { Theme } from '@mui/material/styles';
-
 // ==============================|| OVERRIDES - TABS ||============================== //
 
 export default function Tabs() {

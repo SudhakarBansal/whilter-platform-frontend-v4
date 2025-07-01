@@ -55,6 +55,7 @@ export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
         secondaryDark: colors?.button?.secondaryDark,
         disabled: colors?.button?.buttonDisabled,
       },
+      divider:colors?.divider,
     }),
     [color],
   );
@@ -72,7 +73,7 @@ export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
           },
         },
       },
-      shape: { borderRadius: 4 },
+      shape: { borderRadius: 7 },
       typography: themeTypography(themeOption),
     }),
     [themeOption],
