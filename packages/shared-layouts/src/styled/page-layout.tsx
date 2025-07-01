@@ -131,7 +131,7 @@ const StyledBreadcrumbLink = styled(Link)<{ config: PageLayoutConfig }>(({ theme
   cursor: 'pointer',
   '&:hover': {
     textDecoration: 'underline',
-    color: config?.breadcrumbs?.linkHoverColor || theme.palette.primary.dark,
+    color: config?.breadcrumbs?.currentColor || theme.palette.info.main,
   },
 }));
 

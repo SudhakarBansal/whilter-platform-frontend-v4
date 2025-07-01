@@ -41,7 +41,7 @@ export const Sidebar = () => {
               height: {
                 xs: 'min(85vh, 500px)',
                 sm: 'min(85vh, 500px)',
-                md: '85vh'
+                md: '90vh'
               },
               minHeight: {
                 xs: `${menuItems.length * 48 + 32}px`,
