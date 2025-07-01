@@ -16,8 +16,8 @@ import {
   PlayArrow,
   Download,
 } from '@mui/icons-material';
-import { 
-  SelectElement, 
+import {
+  SelectElement,
   TextFieldElement,
   SwitchElement,
   useForm,
@@ -37,30 +37,18 @@ interface LipSyncSettings {
   postProcessing: boolean;
 }
 
-interface LipSyncControlsProps {
-  onSettingsChange?: (settings: LipSyncSettings) => void;
-}
-
-export const LipSyncControls: React.FC<LipSyncControlsProps> = ({
-  onSettingsChange,
-}) => {
-  const { control } = useForm<LipSyncSettings>({
-    defaultValues: {
-      projectName: '',
-      speaker: 'default',
-      speakingRate: 1.0,
-      samplingRate: '22050',
-      pitch: 0,
-      outputFormat: 'wav',
-      customWidth: 1920,
-      customHeight: 1080,
-      postProcessing: true,
-    }
-  });
-
-  // Watch all form values
-  const formValues = useWatch({ control });
-  console.log('Form values:', formValues);
+export const LipSyncControls = () => {
+  const defaultValues: LipSyncSettings = {
+    projectName: '',
+    speaker: 'default',
+    speakingRate: 1.0,
+    samplingRate: '22050',
+    pitch: 0,
+    outputFormat: 'wav',
+    customWidth: 1920,
+    customHeight: 1080,
+    postProcessing: true,
+  }
 
   const speakerOptions = [
     { id: 'default', label: 'Default Voice' },
@@ -93,89 +81,86 @@ export const LipSyncControls: React.FC<LipSyncControlsProps> = ({
     { id: 'ogg', label: 'OGG' },
   ];
 
+  const onSubmit = (data: LipSyncSettings) => {
+    console.log('Form submitted with data:', data);
+  }
+
   return (
-    <FormContainer<LipSyncSettings>
-      onSuccess={(data) => {
-        console.log('Form submitted:', data);
-        onSettingsChange?.(data);
-      }}
-    >
+    <FormContainer onSuccess={onSubmit}>
       <Stack spacing={3}>
         {/* Project Header */}
         <Box>
           <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-            <Typography variant="h6">
+            {/* <Typography variant="h6">
               Projects Name
-            </Typography>
+            </Typography> */}
           </Stack>
-          
+
           <TextFieldElement
             name="projectName"
-            control={control}
             fullWidth
             variant="outlined"
             placeholder="Name your project"
             size="small"
             autoComplete='off'
+            label="Project Name"
             required
           />
         </Box>
 
-        <Divider />
-
         {/* Speaker Selection */}
         <Box>
-          <Typography variant="h6" mb={1}>
+          {/* <Typography variant="h6" mb={1}>
             Speaker
-          </Typography>
+          </Typography> */}
           <SelectElement
             name="speaker"
-            control={control}
             options={speakerOptions}
             fullWidth
             size="small"
+            label="Select Speaker"
           />
         </Box>
 
         {/* Speaking Rate */}
         <Box>
-          <Typography variant="h6" mb={1}>
+          {/* <Typography variant="h6" mb={1}>
             Speaking Rate
-          </Typography>
+          </Typography> */}
           <SelectElement
             name="speakingRate"
-            control={control}
             options={speakingRateOptions}
             fullWidth
             size="small"
+            label="Speaking Rate"
           />
         </Box>
 
         {/* Sampling Rate */}
         <Box>
-          <Typography variant="h6" mb={1}>
+          {/* <Typography variant="h6" mb={1}>
             Sampling Rate
-          </Typography>
+          </Typography> */}
           <SelectElement
             name="samplingRate"
-            control={control}
             options={samplingRateOptions}
             fullWidth
             size="small"
+            label="Sampling Rate"
           />
         </Box>
 
         {/* Output Format */}
         <Box>
-          <Typography variant="h6" mb={1}>
+          {/* <Typography variant="h6" mb={1}>
             Output Format
-          </Typography>
+          </Typography> */}
           <SelectElement
             name="outputFormat"
-            control={control}
             options={formatOptions}
             fullWidth
             size="small"
+            label="Output Format"
           />
         </Box>
 
@@ -187,7 +172,6 @@ export const LipSyncControls: React.FC<LipSyncControlsProps> = ({
           <Stack direction="row" spacing={2}>
             <TextFieldElement
               name="customWidth"
-              control={control}
               label="W"
               type="number"
               size="small"
@@ -195,7 +179,6 @@ export const LipSyncControls: React.FC<LipSyncControlsProps> = ({
             />
             <TextFieldElement
               name="customHeight"
-              control={control}
               label="H"
               type="number"
               size="small"
@@ -215,17 +198,13 @@ export const LipSyncControls: React.FC<LipSyncControlsProps> = ({
             <Stack spacing={2}>
               <SwitchElement
                 name="postProcessing"
-                control={control}
                 label="Enable Post Processing"
               />
-              
-              {formValues?.postProcessing && (
-                <Box>
-                  <Typography variant="caption" color="text.secondary">
-                    Additional processing options will appear here based on the selected tool.
-                  </Typography>
-                </Box>
-              )}
+              <Box>
+                <Typography variant="caption" color="text.secondary">
+                  Additional processing options will appear here based on the selected tool.
+                </Typography>
+              </Box>
             </Stack>
           </AccordionDetails>
         </Accordion>
@@ -241,7 +220,7 @@ export const LipSyncControls: React.FC<LipSyncControlsProps> = ({
           >
             Apply Changes
           </Button>
-          
+
           <Stack direction="row" spacing={1}>
             <Button
               variant="outlinePrimary"
