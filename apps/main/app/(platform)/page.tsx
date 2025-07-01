@@ -3,10 +3,10 @@ import { Button } from '@mui/material';
 import { PageLayout } from '@whilter/shared-layouts/styled';
 import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { RecentProjects } from '@whilter/ui-kit/components';
-import { ServiceCards } from '@/components/ServiceCards';
-import { projectsData } from '@/utils/data/projects';
+import { ServiceCardSection } from '@/components/service-cards/ServiceCardSection';
+import { projectsData } from '@/utils/data/projects.data';
 import { FolderCardSection } from '@whilter/ui-kit/components'
-import { recentProjects } from '@/utils/data/recentProjects';
+import { recentProjects } from '@/utils/data/recentProjects.data';
 
 function Page() {
   const actionButtons = [
@@ -21,7 +21,7 @@ function Page() {
       buttons={actionButtons}
       config={pageLayoutPresets.dashboard}
     >
-      <ServiceCards />
+      <ServiceCardSection />
       <RecentProjects data={recentProjects} />
       <FolderCardSection data={projectsData} />
     </PageLayout>

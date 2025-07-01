@@ -1,8 +1,8 @@
-import { services } from "@/utils/data/services";
+import { services } from "@/utils/data/services.data";
 import { Box } from "@mui/material";
 import { ServiceCard } from "./ServiceCard";
 
-export const ServiceCards = () => {
+export const ServiceCardSection = () => {
     return (
         <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-14 w-full">
             {services.map((service) => (
