@@ -1,4 +1,4 @@
-import { toolsCardsData } from "@/data/toolsCard.data";
+import { toolCardsData } from "@/data/toolCards.data";
 
 export function getToolBySlug(slug: string | null) {
 
@@ -11,7 +11,7 @@ export function getToolBySlug(slug: string | null) {
     // Handle both cases: with or without leading slash
     const normalizedSlug = slug.replace(/^\/+/, '');
 
-    const foundTool = toolsCardsData.find(tool => {
+    const foundTool = toolCardsData.find(tool => {
         const toolSlug = tool.href.replace(/^\/+/, '');
         return toolSlug === normalizedSlug;
     });

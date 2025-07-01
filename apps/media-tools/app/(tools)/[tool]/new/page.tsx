@@ -1,5 +1,5 @@
 import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
-import { ToolsLayout } from "@/layouts/tools-layout";
+import { ToolsLayout } from "@/layouts/tool-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { getToolBySlug } from "@/lib/getToolBySlug";
 import type { ToolPageProps } from '@/types/tool.types';

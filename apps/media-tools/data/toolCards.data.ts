@@ -1,6 +1,6 @@
-import { type ToolCardData } from "@/types/tools-card.type";
+import { type ToolCardData } from "@/types/toolsCard.types";
 
-export const toolsCardsData: ToolCardData[] = [
+export const toolCardsData: ToolCardData[] = [
     {
         "id": "1",
         "title": "Lip Syncing",

@@ -5,7 +5,7 @@ import { PageLayout, pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { recentProjects } from '@/data/recentProjects.data';
 import { FolderCardSection, RecentProjects } from '@whilter/ui-kit/components'
 import { Plus } from 'lucide-react';
-import { projectData } from "@/data/projects.data";
+import { projectsData } from "@/data/projects.data";
 import NotFound from "@/app/not-found";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 
@@ -43,7 +43,7 @@ export default function ToolPage({ params }: ToolPageProps) {
         </ActionButton>
       </Box>
       <RecentProjects data={recentProjects} />
-      <FolderCardSection data={projectData} />
+      <FolderCardSection data={projectsData} />
     </PageLayout>
   );
 }

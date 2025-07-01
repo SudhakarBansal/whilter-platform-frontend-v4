@@ -1,12 +1,12 @@
 import React from 'react';
-import { toolsCardsData } from '@/data/toolsCard.data'
-import { ToolCard } from './ToolsCard';
+import { toolCardsData } from '@/data/toolCards.data'
+import { ToolCard } from './ToolCard';
 
 
-export const ToolCardsGrid = () => {
+export const FeaturedToolsSection = () => {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-            {toolsCardsData.map((cardData) => (
+            {toolCardsData.map((cardData) => (
                 <ToolCard key={cardData.id} data={cardData} />
             ))}
         </div>

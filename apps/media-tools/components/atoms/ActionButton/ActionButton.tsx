@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import type { ActionButtonProps } from "@/types/action-button.types";
+import type { ActionButtonProps } from "@/types/actionButton.types";
 import Link from "next/link";
 
 export const ActionButton = ({ href, children, ...props }: ActionButtonProps) => {
