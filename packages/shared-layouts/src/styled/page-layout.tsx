@@ -1,5 +1,5 @@
 "use client";
-import React, {type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import {
   Box,
   Typography,
@@ -105,6 +105,7 @@ export interface PageLayoutProps extends Omit<ContainerProps, 'children'> {
   config?: PageLayoutConfig;
   loading?: boolean;
   className?: string;
+  onNavigate?: (path: string) => void;
 }
 
 // Styled components with proper typing
@@ -187,6 +188,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   loading = false,
   className = "",
   hero, // Destructure hero prop
+  onNavigate, // Destructure onNavigate prop
   ...props
 }) => {
   // Default configuration
@@ -268,41 +270,34 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
           className="animate-fade-in"
           aria-label="breadcrumb"
         >
-          {breadcrumbs.map((crumb, index) => {
+          {breadcrumbs.map((item, index) => {
             const isLast = index === breadcrumbs.length - 1;
 
-            if (loading) {
+            if (isLast) {
               return (
-                <Skeleton
-                  key={index}
-                  variant="text"
-                  width={60}
-                  height={20}
-                />
+                <StyledBreadcrumbText
+                  key={item.label}
+                  config={mergedConfig}
+                >
+                  {item.label}
+                </StyledBreadcrumbText>
               );
             }
 
-            return isLast ? (
-              <StyledBreadcrumbText
-                key={index}
-                config={mergedConfig}
-                aria-current="page"
-              >
-                {crumb.label}
-              </StyledBreadcrumbText>
-            ) : (
+            return (
               <StyledBreadcrumbLink
-                key={index}
+                key={item.label}
                 config={mergedConfig}
-                href={crumb.href}
                 onClick={(e) => {
-                  if (crumb.onClick) {
-                    e.preventDefault();
-                    crumb.onClick();
+                  e.preventDefault();
+                  if (item.onClick) {
+                    item.onClick();
+                  } else if (item.href && onNavigate) {
+                    onNavigate(item.href);
                   }
                 }}
               >
-                {crumb.label}
+                {item.label}
               </StyledBreadcrumbLink>
             );
           })}

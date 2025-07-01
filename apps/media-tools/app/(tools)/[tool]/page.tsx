@@ -8,6 +8,7 @@ import { Plus } from 'lucide-react';
 import { projectsData } from "@/data/projects.data";
 import NotFound from "@/app/not-found";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
+import PageClientLayout from "@/layouts/page-client-layout/PageClientLayout";
 
 interface ToolsListingPageProps {
   params: { tool: string };
@@ -27,7 +28,7 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
   const breadcrumbs = buildToolBreadcrumbs(params.tool);
 
   return (
-    <PageLayout
+    <PageClientLayout
       breadcrumbs={breadcrumbs}
       heading={tool.title + " Projects Library"}
       description={tool.description}
@@ -44,6 +45,6 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
       </Box>
       <RecentProjects data={recentProjects} />
       <FolderCardSection data={projectsData} />
-    </PageLayout>
+    </PageClientLayout>
   );
 }

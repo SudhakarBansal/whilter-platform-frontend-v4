@@ -2,14 +2,14 @@
 import React, { type ReactNode } from 'react';
 import {
     Box,
-    Stack,
     Paper,
     useTheme,
     useMediaQuery,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { PageLayout, type PageLayoutProps } from '@whilter/shared-layouts/styled';
+import type { PageLayoutProps } from '@whilter/shared-layouts/styled';
 import { ActionButton } from '@/components/atoms/ActionButton/ActionButton';
+import PageClientLayout from '@/layouts/page-client-layout/PageClientLayout';
 
 // Type definitions
 export interface ToolsLayoutProps extends Omit<PageLayoutProps, 'children'> {
@@ -153,7 +153,7 @@ export const ToolsLayout: React.FC<ToolsLayoutProps> = ({
     const gridStyle = getGridColumns();
 
     return (
-        <PageLayout {...pageLayoutProps}>
+        <PageClientLayout {...pageLayoutProps}>
             <StyledLayoutContainer>
                 {/* Header Section */}
                 {headerSection && (
@@ -213,6 +213,6 @@ export const ToolsLayout: React.FC<ToolsLayoutProps> = ({
                     </Box>
                 )}
             </StyledLayoutContainer>
-        </PageLayout>
+        </PageClientLayout>
     );
 };
