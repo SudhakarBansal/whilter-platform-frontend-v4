@@ -2,8 +2,8 @@ import { Button } from "@mui/material";
 import { PageLayout, pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { recentProjects } from '@/data/recentProjects.data';
 import { RecentProjects } from '@whilter/ui-kit/components'
-import { FeaturedToolsSection as ToolsSection } from '@/components/FeaturedTools/FeaturedToolsSection'
-import OtherToolsSection from "@/components/OtherTools/OtherToolsSection";
+import { FeaturedToolsSection as ToolsSection } from '@/components/featured-tools/FeaturedToolsSection'
+import OtherToolsSection from "@/components/other-tools/OtherToolsSection";
 import HeroSection from "@/components/HeroSection";
 import { baseBreadcrumbs } from "@/utils/breadcrumbs/breadcrumbs";
 

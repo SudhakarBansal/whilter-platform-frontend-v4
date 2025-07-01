@@ -7,7 +7,7 @@ export const getDynamicToolConfig = async (slug: string): Promise<ToolConfig | n
       case 'lip-sync':
         return {
           header: dynamic(() =>
-            import("@/components/tool-header/LipSyncHeader").then(mod => ({
+            import("@/components/tool-headers/LipSyncHeader").then(mod => ({
               default: mod.LipSyncHeader
             }))
           ),
@@ -17,7 +17,7 @@ export const getDynamicToolConfig = async (slug: string): Promise<ToolConfig | n
             }))
           ),
           panel: dynamic(() =>
-            import("@/components/tool-media-panel/LipSyncMediaPanel").then(mod => ({
+            import("@/components/tool-media-panels/LipSyncMediaPanel").then(mod => ({
               default: mod.LipSyncMediaPanel
             }))
           )
@@ -26,7 +26,7 @@ export const getDynamicToolConfig = async (slug: string): Promise<ToolConfig | n
       case 'voice-cloning':
         return {
           header: dynamic(() =>
-            import("@/components/tool-header/VoiceCloneHeader").then(mod => ({
+            import("@/components/tool-headers/VoiceCloneHeader").then(mod => ({
               default: mod.VoiceCloneHeader
             }))
           ),
@@ -36,7 +36,7 @@ export const getDynamicToolConfig = async (slug: string): Promise<ToolConfig | n
             }))
           ),
           panel: dynamic(() =>
-            import("@/components/tool-media-panel/VoiceCloneMediaPanel").then(mod => ({
+            import("@/components/tool-media-panels/VoiceCloneMediaPanel").then(mod => ({
               default: mod.VoiceCloneMediaPanel
             }))
           )
