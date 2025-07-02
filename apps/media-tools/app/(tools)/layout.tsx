@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { Sidebar } from '@/components/Sidebar/Sidebar';
+import { Sidebar } from '@/components/sidebar/Sidebar';
 
-export default function ToolsLayout({
+export default function ToolsListingLayout({
     children,
 }: {
     children: React.ReactNode;

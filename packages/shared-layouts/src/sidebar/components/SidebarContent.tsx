@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Box, List, Divider } from '@mui/material';
-import type { SidebarProps } from '../types/sidebar.types.js';
-import { SidebarHeader } from './SidebarHeader.js';
-import { MenuItem } from './MenuItem.js';
-import { ProfileSection } from './ProfileSection.js';
-import { ProfileMenu } from './ProfileMenu.js';
-import { menuItems } from '../data/menuItems.data.js';
-import { useSidebarExpansion } from '../hooks/useSidebarExpansion.js';
+import type { SidebarProps } from '../types/sidebar.types';
+import { SidebarHeader } from './SidebarHeader';
+import { MenuItem } from './MenuItem';
+import { ProfileSection } from './ProfileSection';
+import { ProfileMenu } from './ProfileMenu';
+import { menuItems } from '../data/menuItems.data';
+import { useSidebarExpansion } from '../hooks/useSidebarExpansion';
 
 interface SidebarContentProps extends Omit<SidebarProps, 'isOpen'> {
   isOpen: boolean;

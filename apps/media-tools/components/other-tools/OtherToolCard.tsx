@@ -7,7 +7,7 @@ import {
     CardContent,
 } from '@mui/material';
 
-export const OtherToolsCard: React.FC<OtherToolsCardProps> = ({ data }) => {
+export const OtherToolCard: React.FC<OtherToolsCardProps> = ({ data }) => {
     return (
         <Card className="relative transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer overflow-hidden flex flex-col h-full group">
             {/* Gradient overlay */}
