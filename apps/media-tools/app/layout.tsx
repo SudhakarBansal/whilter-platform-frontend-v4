@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeConfig>
-          <MainLayout>
+          <MainLayout showSidebar={false}>
             {children}
           </MainLayout>
         </ThemeConfig>
