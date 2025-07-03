@@ -61,46 +61,38 @@
 //     },
 //   ];
 
+import { Assignment as TasksIcon } from '@mui/icons-material';
 export const menuItems = [
     {
-        icon: '/icons/Home.svg',
+        icon: TasksIcon,
         label: 'Home',
         href: '/'
     },
     {
-        icon: '/icons/lip-sync.svg',
+        icon: TasksIcon,
         label: 'Lip Sync',
         href: '/lip-sync'
     },
     {
-        icon: '/icons/video-replace.svg',
+        icon: TasksIcon,
         label: 'Video Replace',
         href: '/video-image-replacement'
     },
     {
-        icon: '/icons/voice-cloning.svg',
+        icon: TasksIcon,
         label: 'Voice Cloning',
         href: '/voice-cloning'
     },
     {
-        icon: '/icons/text-to-speech.svg',
+       icon: TasksIcon,
         label: 'Text to Speech',
         href: '/text-to-speech'
     },
     {
-        icon: '/icons/super-resolution.svg',
+      icon: TasksIcon,
         label: 'Super Resolution',
         href: '/super-resolution'
     },
-    {
-        icon: '/icons/image-scaler.svg',
-        label: 'Image Scaler',
-        href: '/image-scaler'
-    },
-    {
-        icon: '/icons/avatar-video.svg',
-        label: 'Avatar Video',
-        href: '/avatar-video'
-    }
+   
 ];
   
