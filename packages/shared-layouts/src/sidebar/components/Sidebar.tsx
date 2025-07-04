@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, IconButton, Tooltip } from '@mui/material';
-import { menuItems } from '../data/menuItems.data';
+import { menuItems } from '../data/charpaiMenuItems.data';
 
 export interface MenuItem {
   label: string;
@@ -62,7 +62,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                       <LinkComponent href={item.href} prefetch scroll>
                         <IconButton
                           component="span"
-                          className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+                          className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto flex items-center justify-center"
                           aria-label={item.label}
                           sx={{
                             width: { xs: '32px', sm: '36px', md: '40px' },
@@ -76,19 +76,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
                             },
                           }}
                         >
-                          <div className="relative w-full h-full">
-                            <ImageComponent
-                              src={item.icon}
-                              alt={item.label}
-                              fill
-                              className="object-contain transition-all duration-300"
+                          <div className="w-5 h-5 flex items-center justify-center">
+                            <item.icon
                               style={{
+                                width: '100%',
+                                height: '100%',
+                                color: 'white',
                                 filter: 'brightness(0) invert(1)',
                               }}
-                              sizes="(max-width: 640px) 18px, (max-width: 768px) 20px, 24px"
                             />
                           </div>
                         </IconButton>
+
                       </LinkComponent>
                     </Tooltip>
                   </Box>
