@@ -1,21 +1,20 @@
 import React from 'react';
 import { Box, IconButton, Tooltip } from '@mui/material';
-import { menuItems } from '../data/charpaiMenuItems.data';
 
 export interface MenuItem {
   label: string;
   href: string;
-  icon: string;
+  icon: React.ElementType; 
 }
 
 interface SidebarProps {
-
+  menuItems: MenuItem[]; 
   LinkComponent: React.ElementType;
   ImageComponent: React.ElementType;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
-
+  menuItems,
   LinkComponent,
   ImageComponent,
 }) => {
@@ -31,7 +30,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       <Box className="fixed left-0 top-1/2 transform -translate-y-1/2 z-50 h-screen pointer-events-none">
         <Box className="absolute top-1/2 left-0 transform -translate-y-1/2 pointer-events-auto group">
-          {/* Sidebar container */}
           <Box
             className="relative shadow-2xl transition-all duration-300 ease-in-out"
             sx={{
@@ -56,69 +54,46 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   gap: { xs: 2, sm: 2, md: 3 },
                 }}
               >
-                {menuItems.map((item, index) => (
-                  <Box key={index} className="relative group/item flex justify-center">
-                    <Tooltip title={item.label} placement="right" arrow>
-                      <LinkComponent href={item.href} prefetch scroll>
-                        <IconButton
-                          component="span"
-                          className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto flex items-center justify-center"
-                          aria-label={item.label}
-                          sx={{
-                            width: { xs: '32px', sm: '36px', md: '40px' },
-                            height: { xs: '32px', sm: '36px', md: '40px' },
-                            minWidth: 'auto',
-                            minHeight: 'auto',
-                            '&:focus': {
-                              outline: 'none',
-                              ring: 2,
-                              ringColor: 'white/30',
-                            },
-                          }}
-                        >
-                          <div className="w-5 h-5 flex items-center justify-center">
-                            <item.icon
-                              style={{
-                                width: '100%',
-                                height: '100%',
-                                color: 'white',
-                                filter: 'brightness(0) invert(1)',
-                              }}
-                            />
-                          </div>
-                        </IconButton>
-
-                      </LinkComponent>
-                    </Tooltip>
-                  </Box>
-                ))}
+                {menuItems.map((item, index) => {
+                  const Icon = item.icon; 
+                  return (
+                    <Box key={index} className="relative group/item flex justify-center">
+                      <Tooltip title={item.label} placement="right" arrow>
+                        <LinkComponent href={item.href} prefetch scroll>
+                          <IconButton
+                            component="span"
+                            className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto flex items-center justify-center"
+                            aria-label={item.label}
+                            sx={{
+                              width: { xs: '32px', sm: '36px', md: '40px' },
+                              height: { xs: '32px', sm: '36px', md: '40px' },
+                              minWidth: 'auto',
+                              minHeight: 'auto',
+                              '&:focus': {
+                                outline: 'none',
+                                ring: 2,
+                                ringColor: 'white/30',
+                              },
+                            }}
+                          >
+                            <div className="w-5 h-5 flex items-center justify-center">
+                              <Icon
+                                style={{
+                                  width: '100%',
+                                  height: '100%',
+                                  color: 'white',
+                                  filter: 'brightness(0) invert(1)',
+                                }}
+                              />
+                            </div>
+                          </IconButton>
+                        </LinkComponent>
+                      </Tooltip>
+                    </Box>
+                  );
+                })}
               </Box>
             </Box>
-          </Box>
-
-          {/* Hover Indicator */}
-          <Box
-            className="absolute top-1/2 transform -translate-y-1/2 transition-all duration-300 ease-in-out"
-            sx={{
-              right: {
-                xs: '2px',
-                sm: '3px',
-                md: '4px',
-                '&:hover': {
-                  xs: '4px',
-                  sm: '6px',
-                  md: '8px',
-                },
-              },
-            }}
-          >
-            <Box
-              className="backdrop-blur-sm bg-paper rounded-full transition-all duration-300 ease-in-out"
-              sx={{
-                height: { xs: '48px', sm: '56px', md: '64px' },
-                width: '4px',
-              }}
-            />
           </Box>
         </Box>
       </Box>

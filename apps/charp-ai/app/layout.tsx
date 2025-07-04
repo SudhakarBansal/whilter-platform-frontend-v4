@@ -6,7 +6,7 @@ import { MainLayout } from "@whilter/shared-layouts/main";
 import { Sidebar } from "@whilter/shared-layouts/sidebar"; 
 import NextLink from "next/link";
 import NextImage from "next/image";
-// import { menuItems } from "@/data/menuItems.data";
+import { menuItems } from "../data/menuItems.data";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +28,7 @@ export default function RootLayout({
             showSidebar={true}
             sidebarComponent={
               <Sidebar
-               // menuItems={menuItems}
+                menuItems={menuItems}
                 LinkComponent={NextLink}
                 ImageComponent={NextImage}
               />
