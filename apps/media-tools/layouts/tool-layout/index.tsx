@@ -78,14 +78,10 @@ const StyledToolsContainer = styled(Box)(({ theme }) => ({
 }));
 
 const StyledToolsSection = styled(Paper)(({ theme }) => ({
-    padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
     minHeight: '500px',
-    backgroundColor: theme.palette.background.paper,
-    [theme.breakpoints.down('md')]: {
-        padding: theme.spacing(2),
-    },
+    backgroundColor: 'transparent',
 }));
 
 const StyledControlsSection = styled(Paper)(({ theme }) => ({

@@ -7,7 +7,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     const needsOverlay = project.status === 'in-process' || project.status === 'failed';
 
     return (
-        <Card className="relative flex items-center bg-paper px-4 py-2 w-full"
+        <Card className="relative flex items-center px-4 py-2 w-full"
             sx={{
                 boxShadow: "0px 12px 50.6px 0px #00000073"
             }}
