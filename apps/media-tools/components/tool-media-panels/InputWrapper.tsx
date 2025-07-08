@@ -12,7 +12,6 @@ import {
     CardContent
 } from '@mui/material';
 import {
-    CloudUpload,
     AudioFile,
     VideoFile,
     Image as ImageIcon,
@@ -22,6 +21,7 @@ import {
     Pause,
     VolumeUp
 } from '@mui/icons-material';
+import { CloudUpload } from 'lucide-react';
 
 // Type definitions
 type FileType = 'audio' | 'video' | 'image' | 'document';
@@ -169,7 +169,7 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
 
     // Get dropzone styles
     const getDropzoneStyle = () => {
-        let baseStyle = 'border-2 border-dashed rounded-[12px] p-8 text-center transition-all duration-200 cursor-pointer';
+        let baseStyle = 'border-2 border-dashed rounded-[12px] p-8 text-center transition-all duration-200';
 
         if (isDragAccept) {
             return `${baseStyle} border-green-400 bg-green-50`;
@@ -257,18 +257,24 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                     <div {...getRootProps({ className: getDropzoneStyle() })}>
                         <input {...getInputProps()} />
 
-                        <CloudUpload className="mx-auto mb-4 text-6xl text-blue-400" />
+                        <CloudUpload size={50} className="mx-auto text-2xl mb-4 text-blue-400" />
                         <Typography variant="body1" className="text-gray-600">
-                            {isDragActive && (
+                            {isDragActive ? (
                                 isDragAccept ? (
                                     "Drop the file here..."
                                 ) : (
                                     "File not supported..."
                                 )
+                            ) : (
+                                <>
+                                    Drag your file or{' '}
+                                    <span className='text-blue-400 hover:underline cursor-pointer font-bold' onClick={open}>
+                                        browse
+                                    </span>
+                                </>
                             )}
                         </Typography>
                         <Typography variant="body1" className="text-gray-700">
-                            Drag your file or <span className='text-blue-300' onClick={open}>browse</span>
                         </Typography>
                     <Typography variant="body2" className="text-gray-500 mt-1">
                             Max {maxFileSize}MB files are allowed
