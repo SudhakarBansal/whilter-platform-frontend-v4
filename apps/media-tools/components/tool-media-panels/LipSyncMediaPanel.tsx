@@ -11,8 +11,6 @@ function handleUpload(uploadedFile: UploadedFile) {
 // This handles the selected file (before upload)
 function handleFileSelected(file: File) {
     console.log("File selected:", file);
-    // This is the raw File object selected by the user
-    console.log(`Selected: ${file.name}, Size: ${file.size} bytes`);
 }
 
 export function LipSyncMediaPanel() {

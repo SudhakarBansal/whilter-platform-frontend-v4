@@ -1,4 +1,3 @@
-'use client';
 import React, { useState, useRef, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import {
