@@ -50,7 +50,7 @@ export const colors = {
     secondaryLight: '#FFFFFF',
     secondaryMain: '#FFFFFF',
     secondaryDark: '#21805E',
-    buttonDisabled: '#636363',
+    buttonDisabled: '#D2D2D2',
     defaultBackground: '#FFFFFF',
   },
 
