@@ -3,7 +3,7 @@ export const menuItems = [
     {
         icon: TasksIcon,
         label: 'Home',
-        href: '/'
+        href: '/brand'
     },
     {
         icon: TasksIcon,

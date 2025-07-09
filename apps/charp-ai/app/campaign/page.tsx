@@ -15,9 +15,7 @@ export default function ViewCampaignPage() {
       heading="Campaigns of Dominos Pizza"
       description="Choose campaign to view details"
       config={pageLayoutPresets.dashboard}
-
-    >
-
+ >
     </DashboardLayout>
   );
 }
