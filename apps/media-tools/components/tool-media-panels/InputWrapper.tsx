@@ -277,7 +277,7 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                         </Typography>
                         <Typography variant="body1" className="text-gray-700">
                         </Typography>
-                    <Typography variant="body2" className="text-gray-500 mt-1">
+                        <Typography variant="body2" className="text-gray-500 mt-1">
                             Max {maxFileSize}MB files are allowed
                         </Typography>
                     </div>
