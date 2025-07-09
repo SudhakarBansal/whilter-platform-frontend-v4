@@ -26,7 +26,7 @@ import { CloudUpload } from 'lucide-react';
 // Type definitions
 type FileType = 'audio' | 'video' | 'image' | 'document';
 
-interface UploadedFile {
+export interface UploadedFile {
     url: string;
     name: string;
 }
@@ -66,7 +66,7 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     // Convert accepted formats to MIME types for dropzone
-    const getMimeTypes = (formats: string[]): string[] => {
+    const getMimeTypes = (formats: string[] | undefined): string[] => {
         const mimeMap: { [key: string]: string[] } = {
             '.wav': ['audio/wav', 'audio/x-wav'],
             '.mp3': ['audio/mpeg', 'audio/mp3'],
@@ -84,9 +84,10 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
         };
 
         const mimeTypes: string[] = [];
-        formats.forEach(format => {
-            if (mimeMap[format.toLowerCase()]) {
-                mimeTypes.push(...mimeMap[format.toLowerCase()]);
+        (formats ?? []).forEach(format => {
+            const lowerFormat = format.toLowerCase();
+            if (mimeMap[lowerFormat]) {
+                mimeTypes.push(...mimeMap[lowerFormat]);
             }
         });
         return mimeTypes;
@@ -321,10 +322,9 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
 
                         <div className="mt-4 flex justify-end">
                             <Button
-                                variant="contained"
+                                variant="outlinePrimary"
                                 onClick={handleUpload}
                                 disabled={uploading}
-                                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg"
                             >
                                 {uploading ? (
                                     <>

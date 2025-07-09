@@ -1,8 +1,8 @@
 'use client';
-import FileUploadWrapper from "./InputWrapper";
+import FileUploadWrapper, { type UploadedFile } from "./InputWrapper";
 
 // This handles the uploaded file (after upload completion)
-function handleUpload(uploadedFile) {
+function handleUpload(uploadedFile:UploadedFile) {
     console.log("File uploaded successfully:", uploadedFile);
     // This is the uploaded file with its URL
     console.log(`File: ${uploadedFile.name}, URL: ${uploadedFile.url}`);
