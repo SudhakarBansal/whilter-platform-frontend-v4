@@ -17,13 +17,11 @@ const campaigns = [
         activeCampaigns: 1,
         isSelected: true,
     },
-    
+
 ]
 
 export default function CampaignCardSection() {
-
     return (
-
         <div className="w-full grid justify-center gap-12 [grid-template-columns:repeat(auto-fill,minmax(260px,max-content))]">
             {campaigns.map((campaign, idx) => (
                 <CampaignCard key={idx} {...campaign} />

@@ -14,7 +14,7 @@ export default function Page() {
       key="view-campaign"
       variant="flatPrimary"
       className="text-lg p-4"
-      onClick={() => router.push("/campaign")}
+      onClick={() => router.push("/campaigns")}
     >
       View Campaigns
     </Button>,

@@ -1,8 +1,11 @@
-// data/formInitialValues.ts
-export const brandFormInitialValues = {
+export interface BrandFormValues {
+  brandName: string;
+  brandLogo: string;
+  referenceDoc: string;
+}
+
+export const brandFormInitialValues: BrandFormValues = {
   brandName: "",
   brandLogo: "",
   referenceDoc: ""
 };
-
-export type BrandFormValues = typeof brandFormInitialValues;

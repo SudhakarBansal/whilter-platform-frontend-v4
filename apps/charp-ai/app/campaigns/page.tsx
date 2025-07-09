@@ -14,26 +14,25 @@ export default function ViewCampaignPage() {
       key="view-campaign"
       variant="flatPrimary"
       className="text-lg p-4"
-      onClick={() => router.push("/new-brand")}
+      onClick={() => router.push("/new-campaign")}
     >
-      Add New Brand
+      Add New Campaign
     </Button>,
   ];
 
   const breadcrumbs = buildBreadcrumbs([
     { label: "Dashboard", href: "/" },
-    { label: "Campaigns", href: "/campaign" },
+    { label: "Campaigns", href: "/campaigns" },
   ]);
 
   return (
     <DashboardLayout
       breadcrumbs={breadcrumbs}
-      heading="Brand List"
-      description="Choose Brand to manage campaigns"
+      heading="Campaigns List"
+      description="Choose Campaigns to manage"
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <CampaignCardSection />
 
     </DashboardLayout>
   );
