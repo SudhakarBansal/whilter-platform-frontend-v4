@@ -372,17 +372,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         </Stack>
       </StyledHeader>
 
-      {/* Divider */}
-      {mergedConfig.divider?.show && (breadcrumbs?.length > 0 || heading || description || (buttons && buttons.length > 0)) && (
-        <Divider
-          className="animate-fade-in animation-delay-300"
-          sx={{
-            my: mergedConfig.divider.margin,
-            opacity: 0.1
-          }}
-        />
-      )}
-
       {/* Main Content */}
       <StyledContent
         config={mergedConfig}

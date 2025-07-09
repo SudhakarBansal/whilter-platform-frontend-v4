@@ -20,7 +20,7 @@ export function LipSyncMediaPanel() {
         <FileUploadWrapper
             type="audio"
             heading="Upload Source Audio"
-            subheading="Add your Files here, and you can upload up to 5 files max"
+            subheading="Add your Files here"
             footer="Only support .wav, mp3 and Audio files"
             acceptedFormats={['.wav', '.mp3', '.m4a']}
             maxFileSize={10}

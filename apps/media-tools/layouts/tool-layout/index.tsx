@@ -36,7 +36,6 @@ const StyledLayoutContainer = styled(Box)(({ theme }) => ({
 const StyledHeaderSection = styled(Paper, {
     shouldForwardProp: (prop) => prop !== 'stickyHeader',
 })<{ stickyHeader?: boolean }>(({ theme, stickyHeader }) => ({
-    padding: theme.spacing(2, 0),
     display: 'flex',
     alignItems: 'center',
     backgroundColor: "transparent",
