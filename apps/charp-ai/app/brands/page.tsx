@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import CampaignCardSection from "@/components/campaign-section/CampaignCardSection";
 
-export default function ViewCampaignPage() {
+export default function ViewBrandPage() {
   const router = useRouter();
 
   const actionButtons = [
@@ -14,7 +14,7 @@ export default function ViewCampaignPage() {
       key="view-campaign"
       variant="flatPrimary"
       className="text-lg p-4"
-      onClick={() => router.push("/new-brand")}
+      onClick={() => router.push("/brands/new")}
     >
       Add New Brand
     </Button>,
@@ -22,7 +22,7 @@ export default function ViewCampaignPage() {
 
   const breadcrumbs = buildBreadcrumbs([
     { label: "Dashboard", href: "/" },
-    { label: "Campaigns", href: "/campaign" },
+    { label: "Brands", href: "/brands" },
   ]);
 
   return (
