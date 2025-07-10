@@ -1,14 +1,33 @@
 {
-  "name": "@whilter/shared-hooks",
-  "version": "1.0.0",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^1.6.0"
-  },
-  "devDependencies": {
-    "@types/node": "^24.0.3",
-    "typescript": "^5.0.0"
-  }
+    "name": "@whilter/shared-hooks",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
+    "scripts": {
+        "build": "tsc --noEmit",
+        "dev": "tsc --noEmit --watch",
+        "lint": "eslint src/ --ext .ts,.tsx",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+    },
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "import": "./src/index.ts"
+        }
+    },
+    "dependencies": {
+        "tailwind-merge": "^2.3.0",
+        "tailwindcss-animate": "^1.0.7",
+        "@whilter/ui-kit": "workspace:*"
+    },
+    "peerDependencies": {
+        "react": "^18"
+    },
+    "devDependencies": {
+        "@types/react": "catalog:react18",
+        "@types/react-dom": "catalog:react18",
+        "tailwindcss": "catalog:",
+        "typescript": "catalog:"
+    }
 }
