@@ -1,0 +1,17 @@
+{
+  "extends": "@whilter/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+  "@whilter/shared-hooks": ["../shared-hooks/src/index.ts"],
+  "@whilter/shared-hooks/*": ["../shared-hooks/src/*"]
+}
+  },
+  "include": [
+  "src/**/*.ts",
+  "src/**/*.tsx"
+],
+  "exclude": [
+    "node_modules"
+  ]
+}

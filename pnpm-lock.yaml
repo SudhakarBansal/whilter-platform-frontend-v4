@@ -139,6 +139,9 @@ importers:
       '@whilter/forms':
         specifier: workspace:*
         version: link:../../packages/forms
+      '@whilter/shared-hooks':
+        specifier: workspace:*
+        version: link:../../packages/shared-hooks
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts
@@ -440,6 +443,19 @@ importers:
         version: 3.4.13
       typescript:
         specifier: 'catalog:'
+        version: 5.6.3
+
+  packages/shared-hooks:
+    dependencies:
+      axios:
+        specifier: ^1.6.0
+        version: 1.9.0
+    devDependencies:
+      '@types/node':
+        specifier: ^24.0.3
+        version: 24.0.3
+      typescript:
+        specifier: ^5.0.0
         version: 5.6.3
 
   packages/shared-layouts:
