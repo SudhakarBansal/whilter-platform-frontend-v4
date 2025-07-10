@@ -4,6 +4,7 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { Plus } from 'lucide-react';
 import { RecentProjects } from '@whilter/ui-kit/components'
 import {recentCampaigns} from "../../data/recentCampaigns.data";
 import BrandsCardSection from "@/components/brand-section/BrandCardSection";
@@ -14,8 +15,8 @@ export default function ViewBrandPage() {
   const actionButtons = [
     <Button
       key="view-campaign"
-      variant="flatPrimary"
-      className="text-lg p-4"
+      startIcon={<Plus />}
+      variant="glassmorphism"
       onClick={() => router.push("/brands/new")}
     >
       Add New Brand

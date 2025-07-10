@@ -11,7 +11,7 @@ export const RecentProjectsHeader = ({ label }: RecentHeaderProps) => {
       justifyContent="space-between"
       alignItems="center"
     >
-      <Typography variant="h2">{label}</Typography>
+      <Typography variant="h3">{label}</Typography>
       <Typography
         variant="body2"
         className="text-cyan-400 cursor-pointer hover:text-cyan-300"
