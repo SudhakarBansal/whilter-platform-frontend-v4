@@ -4,7 +4,9 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
-import CampaignCardSection from "@/components/campaign-section/CampaignCardSection";
+import { RecentProjects } from '@whilter/ui-kit/components'
+import {recentCampaigns} from "../../data/recentCampaigns.data";
+import BrandsCardSection from "@/components/brand-section/BrandCardSection";
 
 export default function ViewBrandPage() {
   const router = useRouter();
@@ -33,9 +35,8 @@ export default function ViewBrandPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-
-      <CampaignCardSection />
-
+      <BrandsCardSection />
+      <RecentProjects data={recentCampaigns} label="Recent Campaigns" />
     </DashboardLayout>
   );
 }

@@ -1,8 +1,8 @@
-import CampaignCard from "./CampaignCard"
 import usePagination from "../../hooks/usePagination"
 import { Plus } from "lucide-react"
+import BrandCard from "./BrandCard"
 
-const campaigns = [
+const brands = [
     {
         companyName: "HDFC BANK",
         logoUrl: "/placeholder.svg?height=32&width=32",
@@ -19,18 +19,17 @@ const campaigns = [
         activeCampaigns: 1,
         isSelected: true,
     },
-    
+
 
 ]
 
-export default function CampaignCardSection() {
-    const { visibleItems, viewAll, toggleViewAll } = usePagination(campaigns, 4);
+export default function BrandCardSection() {
 
     return (
         <>
             <div className="grid justify-center gap-12 [grid-template-columns:repeat(auto-fill,minmax(260px,max-content))]">
-                {campaigns.map((campaign, idx) => (
-                    <CampaignCard key={idx} {...campaign} />
+                {brands.map((brand, idx) => (
+                    <BrandCard key={idx} {...brand} />
                 ))}
                 <div className="w-[120px] h-[260px] flex items-center justify-center">
                     <div
@@ -40,7 +39,6 @@ export default function CampaignCardSection() {
                     </div>
                 </div>
             </div >
-
-        </>
+         </>
     )
 }

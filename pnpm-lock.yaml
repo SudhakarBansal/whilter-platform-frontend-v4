@@ -447,21 +447,18 @@ importers:
 
   packages/shared-hooks:
     dependencies:
-      '@whilter/assets':
-        specifier: workspace:*
-        version: link:../assets
-      '@whilter/config':
-        specifier: workspace:*
-        version: link:../config
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../ui-kit
       react:
-        specifier: ^18.0.0
+        specifier: ^18
         version: 18.3.1
-      react-dom:
-        specifier: ^18.0.0
-        version: 18.3.1(react@18.3.1)
+      tailwind-merge:
+        specifier: ^2.3.0
+        version: 2.6.0
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.13)
     devDependencies:
       '@types/react':
         specifier: catalog:react18
@@ -469,12 +466,9 @@ importers:
       '@types/react-dom':
         specifier: catalog:react18
         version: 18.3.1
-      '@whilter/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@whilter/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 3.4.13
       typescript:
         specifier: 'catalog:'
         version: 5.6.3

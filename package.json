@@ -4,9 +4,9 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "turbo build",
-    "dev": "pnpm turbo run dev --concurrency=20",
-    "lint": "turbo lint",
+    "dev": "turbo run dev --concurrency=20",
+    "build": "turbo run build --concurrency=20",
+    "lint": "turbo run lint --concurrency=20",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "ui-kit": "pnpm --filter @whilter/ui-kit"
   },

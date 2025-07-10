@@ -1,4 +1,6 @@
+
 import React from "react";
+
 
 interface StatCardProps {
   title: string;
@@ -30,6 +32,7 @@ export default function StatCard({
           {change}
         </span>
       </div>
+
       <div className="text-white text-[20px] font-normal opacity-85">
         {subValue}
       </div>

@@ -11,7 +11,7 @@ interface CampaignCardProps {
     onManageClick?: () => void
 }
 
-export default function CampaignCard({
+export default function BrandCard({
     type = "campaign",
     companyName,
     logoUrl,

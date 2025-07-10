@@ -5,10 +5,10 @@ import type { RecentProjectProps } from '@whilter/ui-kit/types';
 import { RecentProjectsHeader } from './RecentProjectsHeader';
 import { ProjectCard } from './ProjectCard';
 
-export const RecentProjects:React.FC<RecentProjectProps> = ({data}) => {
+export const RecentProjects:React.FC<RecentProjectProps> = ({data,label}) => {
   return (
     <Box className="w-full">
-      <RecentProjectsHeader />
+      <RecentProjectsHeader  label={label}/>
 
       <Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-14 py-4">
         {data.map((project) => (
