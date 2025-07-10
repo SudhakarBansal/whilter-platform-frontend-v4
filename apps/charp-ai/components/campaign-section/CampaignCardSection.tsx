@@ -17,6 +17,38 @@ const campaigns = [
         activeCampaigns: 1,
         isSelected: true,
     },
+    {
+        companyName: "Domino's Pizza",
+        logoUrl: "/placeholder.svg?height=32&width=32",
+        totalCampaigns: 5,
+        liveCampaigns: 1,
+        activeCampaigns: 1,
+        isSelected: true,
+    },
+    {
+        companyName: "Domino's Pizza",
+        logoUrl: "/placeholder.svg?height=32&width=32",
+        totalCampaigns: 5,
+        liveCampaigns: 1,
+        activeCampaigns: 1,
+        isSelected: true,
+    },
+    {
+        companyName: "Domino's Pizza",
+        logoUrl: "/placeholder.svg?height=32&width=32",
+        totalCampaigns: 5,
+        liveCampaigns: 1,
+        activeCampaigns: 1,
+        isSelected: true,
+    },
+    {
+        companyName: "Domino's Pizza",
+        logoUrl: "/placeholder.svg?height=32&width=32",
+        totalCampaigns: 5,
+        liveCampaigns: 1,
+        activeCampaigns: 1,
+        isSelected: true,
+    },
 
 ]
 
