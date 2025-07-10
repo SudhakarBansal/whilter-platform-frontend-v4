@@ -1,5 +1,12 @@
-import { baseBreadcrumbs } from "./baseBreadcrumbs";
+export type BreadcrumbItem = {
+  label: string;
+  href: string;
+  isCurrent?: boolean;
+};
 
-export function buildBreadcrumbs(extra: { label: string; href: string }[]) {
+import { baseBreadcrumbs } from "./baseBreadcrumbs";
+import { ROUTE_LABELS } from "./breadcrumbsRoute";
+
+export function buildBreadcrumbs(extra: BreadcrumbItem[]): BreadcrumbItem[] {
   return [...baseBreadcrumbs, ...extra];
 }

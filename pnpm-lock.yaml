@@ -139,6 +139,9 @@ importers:
       '@whilter/forms':
         specifier: workspace:*
         version: link:../../packages/forms
+      '@whilter/shared-hooks':
+        specifier: workspace:*
+        version: link:../../packages/shared-hooks
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts
@@ -444,18 +447,21 @@ importers:
 
   packages/shared-hooks:
     dependencies:
+      '@whilter/assets':
+        specifier: workspace:*
+        version: link:../assets
+      '@whilter/config':
+        specifier: workspace:*
+        version: link:../config
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../ui-kit
       react:
-        specifier: ^18
+        specifier: ^18.0.0
         version: 18.3.1
-      tailwind-merge:
-        specifier: ^2.3.0
-        version: 2.6.0
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.13)
+      react-dom:
+        specifier: ^18.0.0
+        version: 18.3.1(react@18.3.1)
     devDependencies:
       '@types/react':
         specifier: catalog:react18
@@ -463,9 +469,12 @@ importers:
       '@types/react-dom':
         specifier: catalog:react18
         version: 18.3.1
-      tailwindcss:
-        specifier: 'catalog:'
-        version: 3.4.13
+      '@whilter/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@whilter/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       typescript:
         specifier: 'catalog:'
         version: 5.6.3

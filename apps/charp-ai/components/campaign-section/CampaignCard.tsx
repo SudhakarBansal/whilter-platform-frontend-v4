@@ -1,5 +1,4 @@
 "use client"
-import { Plus } from "lucide-react"
 
 interface CampaignCardProps {
     type?: "campaign" | "add"
@@ -10,7 +9,6 @@ interface CampaignCardProps {
     activeCampaigns?: number
     isSelected?: boolean
     onManageClick?: () => void
-    onAddClick?: () => void
 }
 
 export default function CampaignCard({
@@ -22,19 +20,8 @@ export default function CampaignCard({
     activeCampaigns = 0,
     isSelected = false,
     onManageClick,
-    onAddClick,
 }: CampaignCardProps) {
-    if (type === "add") {
-        return (
-            <div
-                className="w-full h-[200px] rounded-[12px] bg-[#1e3a8a] flex items-center justify-center cursor-pointer hover:bg-[#1d4ed8] transition-colors shadow-lg"
-                onClick={onAddClick}
-            >
-                <Plus className="w-12 h-12 text-white" strokeWidth={3} />
-            </div>
-        )
-    }
-
+    
     return (
         <div
             className={`w-full lg:w-[300px] h-[260px] rounded-[12px] bg-white flex flex-col shadow-lg ${isSelected ? "ring-2 ring-[#1e3a8a]" : ""

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
+    "dev": "pnpm turbo run dev --concurrency=20",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "ui-kit": "pnpm --filter @whilter/ui-kit"

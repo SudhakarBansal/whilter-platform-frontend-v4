@@ -33,9 +33,6 @@ export default function ViewBrandPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <div className="text-right mb-4">
-        view all
-      </div>
 
       <CampaignCardSection />
 
