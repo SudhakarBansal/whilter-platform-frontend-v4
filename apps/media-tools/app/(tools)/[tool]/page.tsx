@@ -43,7 +43,7 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
           New Project
         </ActionButton>
       </Box>
-      <RecentProjects data={recentProjects} />
+      <RecentProjects data={recentProjects}  label="Recent Projects"/>
       <FolderCardSection data={projectsData} />
     </PageClientLayout>
   );

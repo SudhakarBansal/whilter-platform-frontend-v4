@@ -30,7 +30,7 @@ export default function Page() {
       hero={<HeroSection />}
     >
       <ToolsSection />
-      <RecentProjects data={recentProjects} />
+      <RecentProjects data={recentProjects} label="Recent Projects" />
       <OtherToolsSection />
     </PageClientLayout>
   );

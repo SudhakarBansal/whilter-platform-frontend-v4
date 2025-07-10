@@ -22,7 +22,7 @@ function Page() {
       config={pageLayoutPresets.dashboard}
     >
       <ServiceCardSection />
-      <RecentProjects data={recentProjects} />
+      <RecentProjects data={recentProjects} label="Recent Projects" />
       <FolderCardSection data={projectsData} />
     </PageLayout>
   );

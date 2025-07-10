@@ -13,7 +13,7 @@ interface CampaignCardProps {
     onAddClick?: () => void
 }
 
-export default function CampaignCard({
+export default function BrandCard({
     type = "campaign",
     companyName,
     logoUrl,

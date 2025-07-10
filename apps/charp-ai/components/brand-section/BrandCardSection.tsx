@@ -1,6 +1,6 @@
-import CampaignCard from "./CampaignCard"
+import BrandCard from "./BrandCard"
 
-const campaigns = [
+const brands = [
     {
         companyName: "HDFC BANK",
         logoUrl: "/placeholder.svg?height=32&width=32",
@@ -20,11 +20,11 @@ const campaigns = [
 
 ]
 
-export default function CampaignCardSection() {
+export default function BrandCardSection() {
     return (
         <div className="w-full grid justify-center gap-12 [grid-template-columns:repeat(auto-fill,minmax(260px,max-content))]">
-            {campaigns.map((campaign, idx) => (
-                <CampaignCard key={idx} {...campaign} />
+            {brands.map((brand, idx) => (
+                <BrandCard key={idx} {...brand} />
             ))}
         </div>
     )

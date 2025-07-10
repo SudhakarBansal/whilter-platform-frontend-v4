@@ -1,6 +1,6 @@
 import type { ProjectStatus } from "./project-card.types";
 
-export interface RecentProject {
+export interface RecentCampaigns {
   id: number;
   title: string;
   date: string;
@@ -9,10 +9,8 @@ export interface RecentProject {
   progress: number;
 }
 
-export interface RecentProjectProps{
-  data : RecentProject[];
+export interface RecentCampaignProps{
+  data : RecentCampaigns[];
   label: string;
 }
-
-
 

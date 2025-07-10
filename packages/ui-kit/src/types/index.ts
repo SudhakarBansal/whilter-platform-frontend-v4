@@ -15,5 +15,7 @@ export type {
     ServiceCardData
 } from './service-card.types'
 
+export type { RecentCampaigns, RecentCampaignProps } from './recent-campaigns.types'
+
 export type { RecentProject, RecentProjectProps } from './recent-projects.types'
 
