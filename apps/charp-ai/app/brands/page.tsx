@@ -2,22 +2,27 @@
 import DashboardLayout from "@/layouts/dashboard-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
-import { Button } from "@mui/material";
+import { Button ,Stack} from "@mui/material";
 import { useRouter } from "next/navigation";
 import { Plus } from 'lucide-react';
 import { RecentProjects } from '@whilter/ui-kit/components'
 import {recentCampaigns} from "../../data/recentCampaigns.data";
 import BrandsCardSection from "@/components/brand-section/BrandCardSection";
 
+
 export default function ViewBrandPage() {
   const router = useRouter();
+
+  const handleAddNewBrand = () => {
+    router.push("/brands/new");
+  };
 
   const actionButtons = [
     <Button
       key="view-campaign"
       startIcon={<Plus />}
       variant="glassmorphism"
-      onClick={() => router.push("/brands/new")}
+      onClick={handleAddNewBrand}
     >
       Add New Brand
     </Button>,
@@ -36,7 +41,7 @@ export default function ViewBrandPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <BrandsCardSection />
+      <BrandsCardSection onAddClick={handleAddNewBrand} />
       <RecentProjects data={recentCampaigns} label="Recent Campaigns" />
     </DashboardLayout>
   );
