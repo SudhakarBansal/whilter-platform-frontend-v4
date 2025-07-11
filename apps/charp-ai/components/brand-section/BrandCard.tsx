@@ -41,16 +41,23 @@ export default function BrandCard({
                 }`}
         >
             <div className="flex-1 p-4 flex flex-col">
-                <div className="flex items-center gap-3 mb-3 h-[80px]">
+                <div className="flex justify-center items-center mb-3 h-[80px] bg-gray-100">
                     {logoUrl ? (
-                        <img src={logoUrl || "/placeholder.svg"} alt={`${companyName} logo`} className="w-8 h-8 object-contain" />
+                        <img
+                            src={logoUrl || "/placeholder.svg"}
+                            alt={`${companyName} logo`}
+                            className="w-[94px] h-[84px] object-contain"
+                        />
                     ) : (
                         <div className="w-8 h-8 bg-gray-200 rounded flex items-center justify-center">
-                            <span className="text-xs font-bold text-gray-600">{companyName?.charAt(0)}</span>
+                            <span className="text-xs font-bold text-gray-600">
+                                {companyName?.charAt(0)}
+                            </span>
                         </div>
                     )}
-                    <div className="text-xs text-gray-500 font-medium">{companyName?.toUpperCase()}</div>
                 </div>
+
+
 
 
                 <div className="text-md font-semibold text-gray-800 mb-3">

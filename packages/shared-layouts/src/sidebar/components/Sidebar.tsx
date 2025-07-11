@@ -4,7 +4,7 @@ import { Box, IconButton, Tooltip } from '@mui/material';
 export interface MenuItem {
   label: string;
   href: string;
-  icon: React.ElementType;
+  icon: string;
 }
 
 interface SidebarProps {
