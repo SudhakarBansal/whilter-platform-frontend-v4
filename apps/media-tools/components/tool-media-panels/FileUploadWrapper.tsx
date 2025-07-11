@@ -62,32 +62,51 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
         noKeyboard: true
     });
 
+    // Show upload area only when no file is selected and no file is uploaded
+    const showUploadArea = !file && !uploadedFile;
+
     return (
         <Box>
-            {/* Upload Area */}
-            <Card>
-                <CardContent className="p-8 text-start">
-                    <Typography variant="h5" className="text-black mb-2">
-                        {heading}
-                    </Typography>
-                    <Typography variant="body2" className="text-gray-500 mb-4">
-                        {subheading}
-                    </Typography>
-                    <div {...getRootProps()}>
-                        <input {...getInputProps()} />
-                        <DropZone
-                            isDragActive={isDragActive}
-                            isDragAccept={isDragAccept}
-                            isDragReject={isDragReject}
-                            onBrowseClick={open}
-                            maxFileSize={maxFileSize}
+            {/* Upload Area - Only show when no file is selected/uploaded */}
+            {showUploadArea && (
+                <Card>
+                    <CardContent className="p-8 text-start">
+                        <Typography variant="h5" className="text-black mb-2">
+                            {heading}
+                        </Typography>
+                        <Typography variant="body2" className="text-gray-500 mb-4">
+                            {subheading}
+                        </Typography>
+                        <div {...getRootProps()}>
+                            <input {...getInputProps()} />
+                            <DropZone
+                                isDragActive={isDragActive}
+                                isDragAccept={isDragAccept}
+                                isDragReject={isDragReject}
+                                onBrowseClick={open}
+                                maxFileSize={maxFileSize}
+                            />
+                        </div>
+                        <Typography variant="body2" className="text-gray-500 mt-4">
+                            {footer}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            )}
+
+            {/* Selected File - Show when file is selected but not uploaded */}
+            {file && !uploadedFile && (
+                <Card>
+                    <CardContent className="p-8 text-start">
+                        <SelectedFile
+                            file={file}
+                            uploading={uploading}
+                            onRemove={removeFile}
+                            onUpload={handleUpload}
                         />
-                    </div>
-                    <Typography variant="body2" className="text-gray-500 mt-4">
-                        {footer}
-                    </Typography>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            )}
 
             {/* Error Message */}
             {error && (
@@ -96,17 +115,7 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                 </Alert>
             )}
 
-            {/* Selected File */}
-            {file && (
-                <SelectedFile
-                    file={file}
-                    uploading={uploading}
-                    onRemove={removeFile}
-                    onUpload={handleUpload}
-                />
-            )}
-
-            {/* Uploaded File with Player */}
+            {/* Uploaded File with Player - Show when file is uploaded */}
             {uploadedFile && (
                 <UploadedFile
                     uploadedFile={uploadedFile}

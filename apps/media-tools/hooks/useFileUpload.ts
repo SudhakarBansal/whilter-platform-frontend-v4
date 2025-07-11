@@ -33,6 +33,7 @@ export const useFileUpload = ({
 
         setError('');
         setFile(selectedFile);
+        setUploadedFile(null); // Clear any previously uploaded file
         if (onFileSelected) {
             onFileSelected(selectedFile);
         }
