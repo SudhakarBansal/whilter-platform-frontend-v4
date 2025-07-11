@@ -1,5 +1,6 @@
 'use client';
-import FileUploadWrapper, { type UploadedFile } from "./InputWrapper";
+import type { UploadedFile } from "@/types";
+import FileUploadWrapper from "./FileUploadWrapper";
 
 // This handles the uploaded file (after upload completion)
 function handleUpload(uploadedFile: UploadedFile) {
