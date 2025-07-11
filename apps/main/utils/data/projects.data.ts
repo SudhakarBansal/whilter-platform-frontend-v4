@@ -1,4 +1,4 @@
-export const projectData = {
+export const projectsData = {
     "folders": [
         {
             "title": "Tools Projects",

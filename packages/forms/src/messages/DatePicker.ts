@@ -1,4 +1,4 @@
-import {DateValidationError} from '@mui/x-date-pickers'
+import type {DateValidationError} from '@mui/x-date-pickers'
 
 export const defaultErrorMessages: {
   [v in NonNullable<DateValidationError>]: string

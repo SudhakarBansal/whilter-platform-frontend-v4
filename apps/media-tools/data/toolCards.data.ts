@@ -1,6 +1,6 @@
-import { type ToolCardData } from "@/types/tools.type";
+import { type ToolCardData } from "@/types/toolsCard.types";
 
-export const toolsCardsData: ToolCardData[] = [
+export const toolCardsData: ToolCardData[] = [
     {
         "id": "1",
         "title": "Lip Syncing",
@@ -30,7 +30,7 @@ export const toolsCardsData: ToolCardData[] = [
     },
     {
         "id": "4",
-        "title": "Text-to-Speech",
+        "title": "Text to Speech",
         "description": "Convert your text into natural-sounding speech.",
         "icon": "/icons/text-to-speech.svg",
         "bgColor": "#FEF9C3",

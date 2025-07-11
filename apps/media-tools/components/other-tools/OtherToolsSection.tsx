@@ -4,11 +4,11 @@ import {
     Typography,
     Box,
 } from '@mui/material';
-import { otherToolsCardData } from '@/data/otherToolsCard.data';
-import { OtherToolsCard } from './OtherToolsCard';
+import { otherToolCardsData } from '@/data/otherToolCards.data';
+import { OtherToolCard } from './OtherToolCard';
 
 // Main Grid Component
-const OtherToolsCardGrid: React.FC = () => {
+const OtherToolsSection: React.FC = () => {
     return (
         <Box className="w-full">
             <Stack direction="row" alignItems="center" className="mb-6">
@@ -19,12 +19,12 @@ const OtherToolsCardGrid: React.FC = () => {
 
             {/* Cards Grid */}
             <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-                {otherToolsCardData.map((cardData) => (
-                    <OtherToolsCard key={cardData.id} data={cardData} />
+                {otherToolCardsData.map((cardData) => (
+                    <OtherToolCard key={cardData.id} data={cardData} />
                 ))}
             </Box>
         </Box>
     );
 };
 
-export default OtherToolsCardGrid;
+export default OtherToolsSection;

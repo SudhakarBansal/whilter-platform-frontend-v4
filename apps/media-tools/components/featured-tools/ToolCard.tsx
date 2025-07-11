@@ -6,7 +6,9 @@ export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {
     const svgPath = data.icon || '/icons/default.svg';
 
     return (
-        <Link 
+        <Link
+            prefetch={true}
+            scroll={true}
             href={data.href}
             className="block"
         >
@@ -14,9 +16,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {
                 className="relative rounded-2xl transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer overflow-hidden flex text-center flex-col h-full group shadow-[0px_9px_10.2px_0px_#000000]"
                 style={{
                     transition: 'all 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-                }}
-                onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow = `0px 0px 50.2px -20px ${data.iconColor}`;
+                    boxShadow: `0px 0px 50.2px -20px ${data.iconColor}`
                 }}
             >
                 {/* Gradient overlay */}

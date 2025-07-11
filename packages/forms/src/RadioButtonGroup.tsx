@@ -1,28 +1,31 @@
-import {forwardRef, ReactNode, Ref, RefAttributes} from 'react'
-import {
+import { forwardRef } from 'react'
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
-  UseControllerProps,
 } from 'react-hook-form'
+import {
+  useController,
+  type UseControllerProps,
+} from 'react-hook-form'
+import type { FormControlLabelProps, FormLabelProps, RadioGroupProps, RadioProps } from '@mui/material'
 import {
   FormControl,
   FormControlLabel,
-  FormControlLabelProps,
   FormHelperText,
   FormLabel,
-  FormLabelProps,
   Radio,
   RadioGroup,
-  RadioGroupProps,
-  RadioProps,
   useTheme,
 } from '@mui/material'
-import {useFormError} from './FormErrorProvider'
-import {useTransform} from './useTransform'
+import { useFormError } from './FormErrorProvider'
+import { useTransform } from './useTransform'
+
+// Define a more specific type for options
+type OptionType = Record<string, any>
 
 export type RadioButtonGroupProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -104,12 +107,12 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
 
   const rulesTmp = {
     ...rules,
-    ...(required && !rules.required && {required: 'This field is required'}),
+    ...(required && !rules.required && { required: 'This field is required' }),
   }
 
   const {
     field,
-    fieldState: {error},
+    fieldState: { error },
   } = useController({
     name,
     rules: rulesTmp,
@@ -117,7 +120,7 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
     control,
   })
 
-  const {value, onChange} = useTransform<TFieldValues, TName, TValue | string>({
+  const { value, onChange } = useTransform<TFieldValues, TName, TValue | string>({
     value: field.value,
     onChange: field.onChange,
     transform: {
@@ -125,17 +128,17 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
         typeof transform?.input === 'function'
           ? transform.input
           : (value) => {
-              return value || ('' as TValue)
-            },
+            return value || ('' as TValue)
+          },
       output:
         typeof transform?.output === 'function'
           ? transform?.output
           : (_event, value) => {
-              if (value && type === 'number') {
-                return Number(value)
-              }
-              return value
-            },
+            if (value && type === 'number') {
+              return Number(value)
+            }
+            return value
+          },
     },
   })
 
@@ -147,12 +150,34 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
 
   const onRadioChange: RadioGroupProps['onChange'] = (event, radioValue) => {
     const returnValue = returnObject
-      ? options.find((items) => items[valueKey] === radioValue)
+      ? options.find((items) => {
+        // Type guard to ensure items is an object
+        if (typeof items === 'object' && items !== null && valueKey in items) {
+          return (items as OptionType)[valueKey] === radioValue
+        }
+        return false
+      })
       : radioValue
     onChange(event, returnValue)
     if (typeof rest.onChange === 'function') {
       rest.onChange(returnValue)
     }
+  }
+
+  // Helper function to safely get property from option
+  const getOptionProperty = (option: TValue, key: string): any => {
+    if (typeof option === 'object' && option !== null && key in option) {
+      return (option as OptionType)[key]
+    }
+    return undefined
+  }
+
+  // Helper function to safely get value for comparison
+  const getValueForComparison = (value: TValue | string | undefined): any => {
+    if (returnObject && typeof value === 'object' && value !== null && valueKey in value) {
+      return (value as OptionType)[valueKey]
+    }
+    return value
   }
 
   return (
@@ -179,20 +204,25 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
             value=""
           />
         )}
-        {options.map((option: any) => {
-          const optionKey = option[valueKey]
-          const optionDisabled = option[disabledKey] || false
+        {options.map((option: TValue, index: number) => {
+          const optionKey = getOptionProperty(option, valueKey)
+          const optionDisabled = getOptionProperty(option, disabledKey) || false
+          const optionLabel = getOptionProperty(option, labelKey)
+
           if (optionKey === undefined) {
             console.error(
               `RadioButtonGroup: valueKey ${valueKey} does not exist on option`,
               option
             )
           }
-          let val = returnObject ? value?.[valueKey] : value
+
+          let val = getValueForComparison(value)
           if (type === 'number') {
             val = Number(val)
           }
+
           const isChecked = val === optionKey
+
           return (
             <FormControlLabel
               {...labelProps}
@@ -207,8 +237,8 @@ const RadioButtonGroup = forwardRef(function RadioButtonGroup<
                 />
               }
               value={optionKey}
-              label={option[labelKey]}
-              key={optionKey}
+              label={optionLabel}
+              key={optionKey !== undefined ? optionKey : index}
             />
           )
         })}

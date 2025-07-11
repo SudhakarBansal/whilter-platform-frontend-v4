@@ -1,25 +1,27 @@
-import {
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 import {
   FormControl,
   FormHelperText,
   FormLabel,
-  FormLabelProps,
   ToggleButton,
   ToggleButtonGroup,
+} from '@mui/material'
+import type {
+  FormLabelProps,
   ToggleButtonGroupProps,
   ToggleButtonProps,
 } from '@mui/material'
-import {MouseEvent, ReactNode} from 'react'
-import {useFormError} from './FormErrorProvider'
-import {useTransform} from './useTransform'
+import type { MouseEvent, ReactNode } from 'react'
+import { useFormError } from './FormErrorProvider'
+import { useTransform } from './useTransform'
 
 type SingleToggleButtonProps = Omit<
   ToggleButtonProps,
@@ -78,15 +80,15 @@ export default function ToggleButtonGroupElement<
     ...rules,
     ...(required &&
       !rules.required && {
-        required: 'This field is required',
-      }),
+      required: 'This field is required',
+    }),
   }
 
   const isRequired = required || !!rules?.required
 
   const {
     field,
-    fieldState: {error},
+    fieldState: { error },
   } = useController({
     name,
     control,
@@ -94,7 +96,7 @@ export default function ToggleButtonGroupElement<
     disabled: toggleButtonGroupProps.disabled,
   })
 
-  const {value, onChange} = useTransform<TFieldValues, TName, TValue>({
+  const { value, onChange } = useTransform<TFieldValues, TName, TValue>({
     value: field.value,
     onChange: field.onChange,
     transform: {
@@ -103,8 +105,8 @@ export default function ToggleButtonGroupElement<
         typeof transform?.output === 'function'
           ? transform.output
           : (_event: MouseEvent<HTMLElement, MouseEvent>, value: any) => {
-              return value
-            },
+            return value
+          },
     },
   })
 
@@ -125,7 +127,7 @@ export default function ToggleButtonGroupElement<
           {...formLabelProps}
           error={!!error}
           required={isRequired}
-          sx={{mb: 1, ...formLabelProps?.sx}}
+          sx={{ mb: 1, ...formLabelProps?.sx }}
         >
           {label}
         </FormLabel>
@@ -152,7 +154,7 @@ export default function ToggleButtonGroupElement<
           }
         }}
       >
-        {options.map(({label, id, ...toggleProps}) => (
+        {options.map(({ label, id, ...toggleProps }) => (
           <ToggleButton value={id} {...toggleProps} key={id}>
             {label}
           </ToggleButton>

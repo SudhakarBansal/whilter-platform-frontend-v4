@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { Sidebar } from '@/components/Sidebar/Sidebar';
+import { Sidebar } from '@/components/sidebar/Sidebar';
 
-export default function ToolsLayout({
+export default function ToolsListingLayout({
     children,
 }: {
     children: React.ReactNode;
@@ -23,10 +23,7 @@ export default function ToolsLayout({
             {/* Main Content */}
             <Box
                 component="main"
-                className="flex-1 px-6 py-4"
-                sx={{
-                    transition: 'all 0.3s ease-in-out',
-                }}
+                className="flex-1"
             >
                 {children}
             </Box>

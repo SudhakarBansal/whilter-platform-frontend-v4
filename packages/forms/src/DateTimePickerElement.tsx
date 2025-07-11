@@ -1,28 +1,28 @@
 import {
   DateTimePicker,
-  DateTimePickerProps,
-  DateTimePickerSlotProps,
-  DateTimeValidationError,
-  PickerChangeHandlerContext,
-  PickerValidDate,
+  type DateTimePickerProps,
+  type DateTimePickerSlotProps,
+  type DateTimeValidationError,
+  type PickerChangeHandlerContext,
+  type PickerValidDate,
   validateDateTime,
 } from '@mui/x-date-pickers'
-import {useLocalizationContext} from '@mui/x-date-pickers/internals'
+import { useLocalizationContext } from '@mui/x-date-pickers/internals'
 import {
-  Control,
-  FieldError,
-  FieldPath,
-  FieldValues,
-  PathValue,
+  type Control,
+  type FieldError,
+  type FieldPath,
+  type FieldValues,
+  type PathValue,
   useController,
-  UseControllerProps,
+  type UseControllerProps,
 } from 'react-hook-form'
-import {TextFieldProps, useForkRef} from '@mui/material'
-import {useFormError} from './FormErrorProvider'
-import {forwardRef, ReactNode, Ref, RefAttributes} from 'react'
-import {defaultErrorMessages} from './messages/DateTimePicker'
-import {useTransform} from './useTransform'
-import {getTimezone, readValueAsDate} from './utils'
+import { type TextFieldProps, useForkRef } from '@mui/material'
+import { useFormError } from './FormErrorProvider'
+import { forwardRef, type ReactNode, type Ref, type RefAttributes } from 'react'
+import { defaultErrorMessages } from './messages/DateTimePicker'
+import { useTransform } from './useTransform'
+import { getTimezone, readValueAsDate } from './utils'
 
 export type DateTimePickerElementProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -98,8 +98,8 @@ const DateTimePickerElement = forwardRef(function DateTimePickerElement<
     ...rules,
     ...(required &&
       !rules.required && {
-        required: 'This field is required',
-      }),
+      required: 'This field is required',
+    }),
     validate: {
       internal: (value: TValue | null) => {
         const date = readValueAsDate(adapter, value)
@@ -136,7 +136,7 @@ const DateTimePickerElement = forwardRef(function DateTimePickerElement<
 
   const {
     field,
-    fieldState: {error},
+    fieldState: { error },
   } = useController({
     name,
     rules: rulesTmp,
@@ -145,7 +145,7 @@ const DateTimePickerElement = forwardRef(function DateTimePickerElement<
     defaultValue: null as PathValue<TFieldValues, TName>,
   })
 
-  const {value, onChange} = useTransform<TFieldValues, TName, TValue | null>({
+  const { value, onChange } = useTransform<TFieldValues, TName, TValue | null>({
     value: field.value,
     onChange: field.onChange,
     transform: {
@@ -157,7 +157,7 @@ const DateTimePickerElement = forwardRef(function DateTimePickerElement<
         typeof transform?.output === 'function'
           ? transform.output
           : (newValue: TValue | null) =>
-              newValue as PathValue<TFieldValues, TName>,
+            newValue as PathValue<TFieldValues, TName>,
     },
   })
 

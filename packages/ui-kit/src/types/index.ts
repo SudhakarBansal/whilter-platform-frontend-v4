@@ -2,18 +2,18 @@ export type {
     ProjectCardProps,
     ProjectStatusOverlayProps,
     ProjectStatus
-} from './ProjectCard.type';
+} from './project-card.types';
 
 export type {
     AvatarData,
     FolderCardProps,
     FolderCardSectionProps
-} from './FolderCardSection.type';
+} from './folderCardSection.types';
 
 export type {
     ServiceCardProps,
     ServiceCardData
-} from './ServiceCard.type'
+} from './service-card.types'
 
-export type { RecentProject, RecentProjectProps } from './RecentProjects.type'
+export type { RecentProject, RecentProjectProps } from './recent-projects.types'
 

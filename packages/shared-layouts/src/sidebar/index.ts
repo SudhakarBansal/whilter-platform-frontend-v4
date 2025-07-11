@@ -1,11 +1,11 @@
-export { Sidebar } from './components/Sidebar.js';
-export { MenuItem } from './components/MenuItem.js';
-export { SubMenuItem } from './components/SubmenuItem.js';
-export { SidebarHeader } from './components/SidebarHeader.js';
-export { SidebarContent } from './components/SidebarContent.js';
-export { ProfileMenu } from './components/ProfileMenu.js';
-export { ProfileSection } from './components/ProfileSection.js';
-export { useSidebarExpansion } from './hooks/useSidebarExpansion.js';
-export { menuItems } from './data/menuItems.data.js';
-export { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from './constants/sidebar.constants.js';
-export type * from './types/sidebar.types.js';
+export { Sidebar} from '../sidebar/components/Sidebar'
+export { MenuItem } from './components/MenuItem';
+export { SubMenuItem } from './components/SubmenuItem';
+export { SidebarHeader } from './components/SidebarHeader';
+export { SidebarContent } from './components/SidebarContent';
+export { ProfileMenu } from './components/ProfileMenu';
+export { ProfileSection } from './components/ProfileSection';
+export { useSidebarExpansion } from './hooks/useSidebarExpansion';
+export { menuItems } from './data/menuItems.data';
+export { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from './constants/sidebar.constants';
+export type * from './types/sidebar.types';

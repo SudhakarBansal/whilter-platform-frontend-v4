@@ -1,28 +1,24 @@
-import {
-  TextareaAutosize,
-  TextField,
-  TextFieldProps,
-  useForkRef,
-} from '@mui/material'
-import {
+import { TextareaAutosize, TextField, useForkRef } from '@mui/material'
+import type { TextFieldProps } from '@mui/material'
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
-import {
+import { useController } from 'react-hook-form'
+import type {
   ChangeEvent,
   CSSProperties,
-  forwardRef,
   ReactNode,
   Ref,
   RefAttributes,
 } from 'react'
-import {useFormError} from './FormErrorProvider'
-import {useTransform} from './useTransform'
+import { forwardRef } from 'react'
+import { useFormError } from './FormErrorProvider'
+import { useTransform } from './useTransform'
 
 export type TextareaAutosizeElementProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -81,12 +77,12 @@ const TextareaAutosizeElement = forwardRef(function TextareaAutosizeElement<
 
   const rulesTmp = {
     ...rules,
-    ...(required && !rules.required && {required: 'This field is required'}),
+    ...(required && !rules.required && { required: 'This field is required' }),
   }
 
   const {
     field,
-    fieldState: {error},
+    fieldState: { error },
   } = useController({
     name,
     control,
@@ -94,7 +90,7 @@ const TextareaAutosizeElement = forwardRef(function TextareaAutosizeElement<
     disabled: rest.disabled,
   })
 
-  const {value, onChange} = useTransform<TFieldValues, TName, TValue>({
+  const { value, onChange } = useTransform<TFieldValues, TName, TValue>({
     value: field.value,
     onChange: field.onChange,
     transform: {
@@ -102,14 +98,14 @@ const TextareaAutosizeElement = forwardRef(function TextareaAutosizeElement<
         typeof transform?.input === 'function'
           ? transform.input
           : (value) => {
-              return value ?? ('' as TValue)
-            },
+            return value ?? ('' as TValue)
+          },
       output:
         typeof transform?.output === 'function'
           ? transform.output
           : (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-              return event.target.value as PathValue<TFieldValues, TName>
-            },
+            return event.target.value as PathValue<TFieldValues, TName>
+          },
     },
   })
 

@@ -1,4 +1,4 @@
-export const otherToolsCardData = [
+export const otherToolCardsData = [
     {
         id: 1,
         title: "Remove background",

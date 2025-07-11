@@ -15,14 +15,14 @@ export default function Input(theme: Theme): Record<string, unknown> {
               '& svg': { color: theme.palette.text.disabled },
             },
             fontWeight: theme.typography.fontWeightRegular,
-            fontSize:
-              size === 'large'
-                ? '16px'
-                : size === 'medium'
-                ? '14px'
-                : size === 'small'
-                ? '12px'
-                : '14px',
+            // fontSize:
+              // size === 'large'
+              //   ? '8px'
+              //   : size === 'medium'
+              //   ? '14px'
+              //   : size === 'small'
+              //   ? '12px'
+              //   : '14px',
           };
         },
         input: ({ ownerState }: { ownerState: { error?: boolean } }) => {

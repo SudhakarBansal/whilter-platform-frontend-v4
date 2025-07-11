@@ -1,16 +1,12 @@
-import {
-  forwardRef,
-  MouseEvent,
-  ReactNode,
-  Ref,
-  RefAttributes,
-  useState,
-} from 'react'
-import TextFieldElement, {TextFieldElementProps} from './TextFieldElement'
-import {IconButton, IconButtonProps, InputAdornment} from '@mui/material'
+import type { MouseEvent, ReactNode, Ref, RefAttributes } from 'react'
+import { forwardRef, useState } from 'react'
+import type { TextFieldElementProps } from './TextFieldElement'
+import TextFieldElement from './TextFieldElement'
+import type { IconButtonProps } from '@mui/material'
+import { IconButton, InputAdornment } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import {FieldPath, FieldValues} from 'react-hook-form'
+import type { FieldPath, FieldValues } from 'react-hook-form'
 
 export type PasswordElementProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -65,21 +61,21 @@ const PasswordElement = forwardRef(function PasswordEl<
       type={password ? 'password' : 'text'}
       {...(typeof slotProps === 'undefined'
         ? {
-            InputProps: {
+          InputProps: {
+            endAdornment,
+            ...InputProps,
+          },
+        }
+        : {
+          slotProps: {
+            ...slotProps,
+            input: {
               endAdornment,
               ...InputProps,
+              ...slotProps?.input,
             },
-          }
-        : {
-            slotProps: {
-              ...slotProps,
-              input: {
-                endAdornment,
-                ...InputProps,
-                ...slotProps?.input,
-              },
-            } as TextFieldElementProps['slotProps'],
-          })}
+          } as TextFieldElementProps['slotProps'],
+        })}
     />
   )
 })

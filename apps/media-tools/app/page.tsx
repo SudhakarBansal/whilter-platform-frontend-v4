@@ -1,12 +1,12 @@
-'use client';
 import { Button } from "@mui/material";
-import { PageLayout, pageLayoutPresets } from "@whilter/shared-layouts/styled";
+import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { recentProjects } from '@/data/recentProjects.data';
 import { RecentProjects } from '@whilter/ui-kit/components'
-import { ToolCardsGrid as ToolsSection } from '@/components/FeaturedTools/ToolsSection'
-import OtherToolsCardGrid from "@/components/OtherTools/OtherTools";
+import { FeaturedToolsSection as ToolsSection } from '@/components/featured-tools/FeaturedToolsSection'
+import OtherToolsSection from "@/components/other-tools/OtherToolsSection";
 import HeroSection from "@/components/HeroSection";
 import { baseBreadcrumbs } from "@/utils/breadcrumbs/breadcrumbs";
+import PageClientLayout from "../layouts/page-client-layout/PageClientLayout";
 
 export default function Page() {
   const actionButtons = [
@@ -22,7 +22,7 @@ export default function Page() {
   ];
 
   return (
-    <PageLayout
+    <PageClientLayout
       breadcrumbs={breadcrumbs}
       heading="Featured Tools"
       buttons={actionButtons}
@@ -31,7 +31,7 @@ export default function Page() {
     >
       <ToolsSection />
       <RecentProjects data={recentProjects} />
-      <OtherToolsCardGrid />
-    </PageLayout>
+      <OtherToolsSection />
+    </PageClientLayout>
   );
 }

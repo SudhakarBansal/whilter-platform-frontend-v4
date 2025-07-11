@@ -1,9 +1,9 @@
 // components/Sidebar/Sidebar.tsx
 import React from 'react';
 import { Drawer } from '@mui/material';
-import type { SidebarProps } from '../types/sidebar.types.js';
-import { SidebarContent } from './SidebarContent.js';
-import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from '../constants/sidebar.constants.js';
+import type { SidebarProps } from '../types/sidebar.types';
+import { SidebarContent } from './SidebarContent';
+import { SIDEBAR_WIDTH, SIDEBAR_COLLAPSED_WIDTH } from '../constants/sidebar.constants';
 
 export const Sidebar: React.FC<SidebarProps> = ({
   isOpen,

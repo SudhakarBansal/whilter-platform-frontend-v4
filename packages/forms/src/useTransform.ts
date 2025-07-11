@@ -1,4 +1,4 @@
-import {
+import type {
   FieldPath,
   FieldValues,
   PathValue,
@@ -39,7 +39,7 @@ export function useTransform<
       ? options.transform.input(options.value)
       : options.value
 
-  const onChange = (...event): void => {
+  const onChange = (...event: any[]): void => {
     if (typeof options.transform?.output === 'function') {
       options.onChange(options.transform.output(...event))
     } else {

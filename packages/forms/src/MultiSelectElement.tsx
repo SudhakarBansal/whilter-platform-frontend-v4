@@ -1,32 +1,32 @@
 import CloseIcon from '@mui/icons-material/Cancel'
-import {
+import type {
   Control,
   FieldError,
   FieldPath,
   FieldValues,
   PathValue,
-  useController,
   UseControllerProps,
 } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 import {
   Checkbox,
   Chip,
   FormControl,
-  FormControlProps,
+  type FormControlProps,
   FormHelperText,
   InputLabel,
-  InputLabelProps,
+  type InputLabelProps,
   ListItemText,
   MenuItem,
   Select,
-  SelectChangeEvent,
-  SelectProps,
+  type SelectChangeEvent,
+  type SelectProps,
   useForkRef,
 } from '@mui/material'
 import { useFormError } from './FormErrorProvider'
-import { forwardRef, ReactNode, Ref, RefAttributes } from 'react'
+import type { ReactNode, Ref, RefAttributes } from 'react'
+import { forwardRef } from 'react'
 import { useTransform } from './useTransform'
-import { propertyExists } from './utils'
 
 export type MultiSelectElementProps<
   TFieldValues extends FieldValues = FieldValues,
