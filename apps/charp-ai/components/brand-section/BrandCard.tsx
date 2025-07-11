@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 
-
 interface CampaignCardProps {
   type?: "campaign" | "add";
   companyName?: string;
@@ -25,7 +24,6 @@ export default function BrandCard({
     onManageClick,
 }: CampaignCardProps) {
 
-
   const router = useRouter();
 
   const handleClick = () => {
@@ -38,7 +36,7 @@ export default function BrandCard({
 
   return (
     <div
-      className={`w-full h-[260px] rounded-[12px] bg-white flex flex-col shadow-lg ${
+      className={`w-full h-[260px] rounded-[12px] bg-white flex flex-col shadow-lg mt-8 ${
         isSelected ? "ring-2 ring-[#1e3a8a]" : ""
       }`}
     >

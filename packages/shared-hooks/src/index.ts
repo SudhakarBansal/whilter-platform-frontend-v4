@@ -1,1 +1,1 @@
-export { default as SharedHooks } from './SharedHook';
+export { default as usePagination } from './pagination-hook';
