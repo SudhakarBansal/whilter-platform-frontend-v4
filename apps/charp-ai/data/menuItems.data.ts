@@ -1,34 +1,28 @@
 import { Assignment as TasksIcon } from '@mui/icons-material';
 export const menuItems = [
+    // {
+    //     icon: '/icons/avatar-video.svg',
+    //     label: 'Home',
+    //     href: '/'
+    // },
     {
-        icon: TasksIcon,
-        label: 'Home',
+        icon: '/icons/avatar-video.svg',
+        label: 'Brand',
         href: '/brands'
     },
     {
-        icon: TasksIcon,
-        label: 'Lip Sync',
+        icon: '/icons/avatar-video.svg',
+        label: 'Campaign',
         href: '/lip-sync'
     },
     {
-        icon: TasksIcon,
+        icon: '/icons/avatar-video.svg',
         label: 'Video Replace',
         href: '/video-image-replacement'
     },
     {
-        icon: TasksIcon,
+        icon: '/icons/avatar-video.svg',
         label: 'Voice Cloning',
         href: '/voice-cloning'
-    },
-    {
-       icon: TasksIcon,
-        label: 'Text to Speech',
-        href: '/text-to-speech'
-    },
-    {
-      icon: TasksIcon,
-        label: 'Super Resolution',
-        href: '/super-resolution'
-    },
-   
+    }
 ];

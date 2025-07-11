@@ -1,4 +1,3 @@
-import usePagination from "../../hooks/usePagination"
 import { Plus } from "lucide-react"
 import BrandCard from "./BrandCard"
 

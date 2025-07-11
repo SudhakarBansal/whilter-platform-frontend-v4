@@ -4,11 +4,11 @@ import { Box, IconButton, Tooltip } from '@mui/material';
 export interface MenuItem {
   label: string;
   href: string;
-  icon: React.ElementType; 
+  icon: React.ElementType;
 }
 
 interface SidebarProps {
-  menuItems: MenuItem[]; 
+  menuItems: MenuItem[];
   LinkComponent: React.ElementType;
   ImageComponent: React.ElementType;
 }
@@ -55,7 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 }}
               >
                 {menuItems.map((item, index) => {
-                  const Icon = item.icon; 
+                  const Icon = item.icon;
                   return (
                     <Box key={index} className="relative group/item flex justify-center">
                       <Tooltip title={item.label} placement="right" arrow>
@@ -76,14 +76,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                               },
                             }}
                           >
-                            <div className="w-5 h-5 flex items-center justify-center">
-                              <Icon
+                            <div className="relative w-full h-full">
+                              <ImageComponent
+                                src={item.icon}
+                                alt={item.label}
+                                fill
+                                className="object-contain transition-all duration-300"
                                 style={{
-                                  width: '100%',
-                                  height: '100%',
-                                  color: 'white',
                                   filter: 'brightness(0) invert(1)',
                                 }}
+                                sizes="(max-width: 640px) 18px, (max-width: 768px) 20px, 24px"
                               />
                             </div>
                           </IconButton>
