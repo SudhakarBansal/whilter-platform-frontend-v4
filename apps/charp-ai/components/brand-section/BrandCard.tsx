@@ -21,10 +21,10 @@ export default function BrandCard({
     isSelected = false,
     onManageClick,
 }: CampaignCardProps) {
-    
+
     return (
         <div
-            className={`w-full lg:w-[300px] h-[260px] rounded-[12px] bg-white flex flex-col shadow-lg ${isSelected ? "ring-2 ring-[#1e3a8a]" : ""
+            className={`w-full  h-[260px] rounded-[12px] bg-white flex flex-col shadow-lg ${isSelected ? "ring-2 ring-[#1e3a8a]" : ""
                 }`}
         >
             <div className="flex-1 p-4 flex flex-col">
@@ -43,14 +43,9 @@ export default function BrandCard({
                         </div>
                     )}
                 </div>
-
-
-
-
                 <div className="text-md font-semibold text-gray-800 mb-3">
                     {totalCampaigns} {companyName} Campaigns
                 </div>
-
                 <div className="space-y-1.5">
                     <div className="text-sm text-blue-600 font-medium">{liveCampaigns} Campaign LIVE</div>
                     <div className="text-sm text-green-600 font-medium">{activeCampaigns} Active Campaign</div>
@@ -58,7 +53,7 @@ export default function BrandCard({
             </div>
 
             <button
-                className="w-full h-[55px] bg-[#1e3a8a] text-white text-lg font-medium rounded-b-[12px] hover:bg-[#1d4ed8] transition-colors"
+                className="w-full h-[55px] bg-[#1e3a8a] text-white text-md font-medium rounded-b-[12px] hover:bg-[#1d4ed8] transition-colors"
                 onClick={onManageClick}
             >
                 Manage Campaigns

@@ -1,64 +1,12 @@
 import { Plus } from "lucide-react"
 import BrandCard from "./BrandCard"
+import { brands } from "@/data/brand.data"
 
-const brands = [
-    {
-        companyName: "HDFC BANK",
-        logoUrl: "/icons/HDFC.svg",
-        totalCampaigns: 8,
-        liveCampaigns: 1,
-        activeCampaigns: 3,
-        isSelected: false,
-    },
-    {
-        companyName: "Hero",
-        logoUrl: "/icons/hero.svg",
-        totalCampaigns: 5,
-        liveCampaigns: 1,
-        activeCampaigns: 1,
-        isSelected: true,
-    },
-    {
-        companyName: "Domino's Pizza",
-        logoUrl: "/icons/dominos.svg",
-        totalCampaigns: 5,
-        liveCampaigns: 1,
-        activeCampaigns: 1,
-        isSelected: true,
-    },
-    {
-        companyName: "HDFC BANK",
-        logoUrl: "/icons/HDFC.svg",
-        totalCampaigns: 8,
-        liveCampaigns: 1,
-        activeCampaigns: 3,
-        isSelected: false,
-    },
-    {
-        companyName: "Hero",
-        logoUrl: "/icons/hero.svg",
-        totalCampaigns: 5,
-        liveCampaigns: 1,
-        activeCampaigns: 1,
-        isSelected: true,
-    },
-    {
-        companyName: "Domino's Pizza",
-        logoUrl: "/icons/dominos.svg",
-        totalCampaigns: 5,
-        liveCampaigns: 1,
-        activeCampaigns: 1,
-        isSelected: true,
-    },
-
-
-]
 
 export default function BrandCardSection() {
-
     return (
         <>
-            <div className="grid gap-12 [grid-template-columns:repeat(auto-fill,minmax(260px,max-content))]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
                 {brands.map((brand, idx) => (
                     <BrandCard key={idx} {...brand} />
                 ))}
@@ -67,8 +15,7 @@ export default function BrandCardSection() {
                         <Plus size={34} className="text-white" />
                     </div>
                 </div>
-
-            </div >
+                </div>
         </>
     )
 }
