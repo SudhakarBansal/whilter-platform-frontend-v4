@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-  "@whilter/shared-hooks": ["../shared-hooks/src/index.ts"],
+  "@whilter/shared-hooks": ["src/index.tsx"],
   "@whilter/shared-hooks/*": ["../shared-hooks/src/*"]
 }
   },

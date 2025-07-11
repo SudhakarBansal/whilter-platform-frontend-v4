@@ -1,3 +1,4 @@
+import { Plus } from "lucide-react"
 import BrandCard from "./BrandCard"
 
 const brands = [
@@ -25,7 +26,7 @@ const brands = [
         activeCampaigns: 1,
         isSelected: true,
     },
-     {
+    {
         companyName: "HDFC BANK",
         logoUrl: "/icons/HDFC.svg",
         totalCampaigns: 8,
@@ -50,14 +51,24 @@ const brands = [
         isSelected: true,
     },
 
+
 ]
 
 export default function BrandCardSection() {
+
     return (
-        <div className="w-full grid gap-12 [grid-template-columns:repeat(auto-fill,minmax(260px,max-content))]">
-            {brands.map((brand, idx) => (
-                <BrandCard key={idx} {...brand} />
-            ))}
-        </div>
+        <>
+            <div className="grid gap-12 [grid-template-columns:repeat(auto-fill,minmax(260px,max-content))]">
+                {brands.map((brand, idx) => (
+                    <BrandCard key={idx} {...brand} />
+                ))}
+                <div className="w-full flex items-center">
+                    <div className="w-[90px] h-[90px] rounded-[10px] bg-gradient-to-b from-[#1e3a8a] to-[#0f172a] flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition-transform">
+                        <Plus size={34} className="text-white" />
+                    </div>
+                </div>
+
+            </div >
+        </>
     )
 }
