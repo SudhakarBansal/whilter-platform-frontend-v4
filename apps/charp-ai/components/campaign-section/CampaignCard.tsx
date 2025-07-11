@@ -1,11 +1,9 @@
 "use client";
 
-import React from "react";
 import DonutGraph from "../campaign-section/components/DonutGraph";
-import type { CampaignType, CampaignStatus } from "../../data/campaignStatus";
+import type { CampaignType, CampaignStatus } from "@/data/campaignStatus";
 
-
-interface CampaignCardProps {
+export interface CampaignCardProps {
   title: string;
   type: CampaignType;
   progressPercent: number;
@@ -41,6 +39,7 @@ export default function CampaignCard({
 }: CampaignCardProps) {
   return (
     <div className="w-[300px] h-[260px] rounded-[14px] bg-white shadow-xl flex flex-col">
+      {/* ---------- top half ---------- */}
       <div className="p-4 flex flex-col flex-1">
         <h3 className="text-sm font-semibold text-gray-800 leading-snug line-clamp-2">
           {title}
@@ -53,30 +52,30 @@ export default function CampaignCard({
           {type === "batch" ? "Batch Campaign" : "Real‑Time Campaign"}
         </span>
 
+        {/* -------- progress / chart -------- */}
         {type === "batch" ? (
           <div className="flex items-center gap-6 mt-4">
-            
             <div className="text-center">
-                <p className="text-md text-blue-500">Video Generated</p>
-              <p className="text-3xl font-bold text-gray-900">{progressPercent}%</p>
+              <p className="text-md text-blue-500">Video Generated</p>
+              <p className="text-3xl font-bold text-gray-900">
+                {progressPercent}%
+              </p>
               <p className="text-[11px] text-gray-500">
                 {generated}/{total}
               </p>
             </div>
+
             <DonutGraph
               success={success}
               pending={pending}
               fail={fail}
-              size={80}
-              thickness={12}
+              size={120}
+              thickness={18}
             />
           </div>
         ) : (
-          <svg
-            viewBox="0 0 120 44"
-            className="w-[120px] h-11 mt-5"
-            fill="none"
-          >
+          // ✔️ simple placeholder chart for realtime campaigns
+          <svg viewBox="0 0 120 44" className="w-[120px] h-11 mt-5">
             <path
               d="M0 22Q15 5 30 20T60 16T90 30T120 22"
               stroke="#10b981"
@@ -93,10 +92,11 @@ export default function CampaignCard({
         )}
       </div>
 
+      {/* ---------- status button ---------- */}
       <div className="p-3 pt-0">
         <button
           onClick={onStatusClick}
-          className={`px-4 py-[5px] rounded-md text-[12px] font-semibold leading-none ${statusClasses[status]} w-full`}
+          className={`w-full px-4 py-[5px] rounded-md text-[12px] font-semibold leading-none ${statusClasses[status]}`}
         >
           {status}
         </button>

@@ -3,20 +3,16 @@
 import React from "react";
 
 interface DonutGraphProps {
-  /** absolute counts or already‑scaled values */
   success: number;
   fail: number;
   pending: number;
-  /** diameter in px (default 120) */
   size?: number;
-  /** donut thickness in px (default 16) */
   thickness?: number;
-  /** color palette (optional override) */
   colors?: {
     success: string;
     fail: string;
     pending: string;
-    bg?: string; // inner circle color
+    bg?: string;
   };
 }
 
@@ -25,12 +21,12 @@ export default function DonutGraph({
   fail,
   pending,
   size = 120,
-  thickness = 16,
+  thickness = 18,
   colors = {
-    success: "#1e3a8a",   
-    fail: "#ef4444",    
-    pending: "#f59e0b",   
-    bg: "#ffffff", 
+    success: "#1e3a8a",
+    fail: "#ef4444",
+    pending: "#f59e0b",
+    bg: "#ffffff",
   },
 }: DonutGraphProps) {
   const total = Math.max(success + fail + pending, 1);
@@ -44,6 +40,7 @@ export default function DonutGraph({
       ${colors.fail} ${successDeg + pendingDeg}deg 360deg
   )`;
 
+
   return (
     <div
       style={{
@@ -52,6 +49,7 @@ export default function DonutGraph({
         background: gradient,
         borderRadius: "50%",
         position: "relative",
+        transform: "rotate(120deg)",
       }}
     >
       <div
@@ -60,8 +58,34 @@ export default function DonutGraph({
           inset: thickness,
           background: colors.bg,
           borderRadius: "50%",
+          transform: "rotate(-120deg)",
         }}
-      />
+        className="flex flex-col items-center justify-center text-[10px] font-medium text-center gap-[4px]"
+      >
+        <div className="flex items-center gap-[4px]">
+          <span
+            className="w-[8px] h-[8px] rounded-full"
+            style={{ backgroundColor: colors.success }}
+          />
+          <span className="text-black">Success</span>
+        </div>
+        <div className="flex items-center gap-[4px]">
+          <span
+            className="w-[8px] h-[8px] rounded-full"
+            style={{ backgroundColor: colors.fail }}
+          />
+          <span className="text-black">Fail</span>
+        </div>
+        <div className="flex items-center gap-[4px]">
+          <span
+            className="w-[8px] h-[8px] rounded-full"
+            style={{ backgroundColor: colors.pending }}
+          />
+          <span className="text-black">Pending</span>
+        </div>
+        
+      </div>
     </div>
+
   );
 }
