@@ -1,43 +1,21 @@
 import { Plus } from "lucide-react"
 import BrandCard from "./BrandCard"
+import { brands } from "@/data/brand.data"
 
-const brands = [
-    {
-        companyName: "HDFC BANK",
-        logoUrl: "/placeholder.svg?height=32&width=32",
-        totalCampaigns: 8,
-        liveCampaigns: 1,
-        activeCampaigns: 3,
-        isSelected: false,
-    },
-    {
-        companyName: "Domino's Pizza",
-        logoUrl: "/placeholder.svg?height=32&width=32",
-        totalCampaigns: 5,
-        liveCampaigns: 1,
-        activeCampaigns: 1,
-        isSelected: true,
-    },
-
-
-]
 
 export default function BrandCardSection() {
-
     return (
         <>
-            <div className="grid justify-center gap-12 [grid-template-columns:repeat(auto-fill,minmax(260px,max-content))]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
                 {brands.map((brand, idx) => (
                     <BrandCard key={idx} {...brand} />
                 ))}
-                <div className="w-[120px] h-[260px] flex items-center justify-center">
-                    <div
-                        className="w-[150px] h-[120px] rounded-[12px] bg-gradient-to-b from-[#1e3a8a] to-[#0f172a] flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition-transform"
-                    >
-                        <Plus size={50} className="text-white" />
+                <div className="w-full flex items-center">
+                    <div className="w-[90px] h-[90px] rounded-[10px] bg-gradient-to-b from-[#1e3a8a] to-[#0f172a] flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 transition-transform">
+                        <Plus size={34} className="text-white" />
                     </div>
                 </div>
-            </div >
-         </>
+                </div>
+        </>
     )
 }
