@@ -18,12 +18,13 @@ const formatTime = (seconds: number): string => {
 };
 
 export const AudioPlayer: React.FC<AudioPlayerProps> = ({
-    url,
+    url: propUrl,
     isPlaying,
     audioRef,
     onTogglePlayPause,
     onAudioEnded,
 }) => {
+    const url = "/audio.mp3";
     const containerRef = useRef<HTMLDivElement>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
