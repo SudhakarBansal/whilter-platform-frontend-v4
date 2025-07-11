@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Card, CardContent } from '@mui/material';
-import { AudioFile } from '@mui/icons-material';
 import { AudioPlayer } from './AudioPlayer';
 import type { UploadedFile as UploadedFileType } from '@/types';
 
