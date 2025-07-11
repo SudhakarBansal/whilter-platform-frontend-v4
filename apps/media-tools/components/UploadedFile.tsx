@@ -22,17 +22,9 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
     return (
         <Card>
             <CardContent>
-                <Typography variant="h6" className="mb-4">Uploaded File</Typography>
-                <div className="p-4 bg-gray-50 rounded-lg">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-3">
-                            <AudioFile className="text-blue-500" />
-                            <Typography variant="body2" className="font-medium">
-                                {uploadedFile.name}
-                            </Typography>
-                        </div>
-                    </div>
-
+                <Typography variant="h5" className="text-black text-start mb-2">
+                    Uploaded File
+                </Typography>
                     <AudioPlayer
                         url={uploadedFile.url}
                         isPlaying={isPlaying}
@@ -44,7 +36,6 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
                     <Typography variant="caption" className="text-gray-500 mt-2 block">
                         URL: {uploadedFile.url}
                     </Typography>
-                </div>
             </CardContent>
         </Card>
     );

@@ -19,14 +19,14 @@ export const SelectedFile: React.FC<SelectedFileProps> = ({
 }) => {
     return (
         <>
-            <Typography variant="h6" className="mb-4 text-black">
+            <Typography variant="h5" className="text-black mb-2">
                 Selected File
             </Typography>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-gray-100 rounded-lg">
                 <div className="flex items-center space-x-3">
                     <FileIcon fileType={file.type} />
                     <div>
-                        <Typography variant="body2" className="font-medium">
+                        <Typography variant="body2" className="text-blue-600">
                             {file.name}
                         </Typography>
                         <Typography variant="caption" className="text-gray-500">
