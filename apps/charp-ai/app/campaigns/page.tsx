@@ -4,6 +4,7 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
+import CampaignCardSection from "@/components/campaign-section/CampaignCardSection";
 
 export default function ViewCampaignPage() {
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function ViewCampaignPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
+      <CampaignCardSection />
 
     </DashboardLayout>
   );
