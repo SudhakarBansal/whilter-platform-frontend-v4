@@ -123,6 +123,7 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                     audioRef={audioRef}
                     onTogglePlayPause={togglePlayPause}
                     onAudioEnded={handleAudioEnded}
+                    mediaType = {type}
                 />
             )}
         </Box>

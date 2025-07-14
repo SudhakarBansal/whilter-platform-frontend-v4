@@ -1,4 +1,4 @@
-export type FileType = 'audio' | 'video' | 'image' | 'document';
+export type FileType = 'audio' | 'video';
 
 export interface UploadedFile {
     url: string;
@@ -6,7 +6,7 @@ export interface UploadedFile {
 }
 
 export interface FileUploadWrapperProps {
-    type?: FileType;
+    type: FileType;
     heading?: string;
     subheading?: string;
     footer?: string;

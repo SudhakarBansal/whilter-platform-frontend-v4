@@ -9,6 +9,7 @@ interface UploadedFileProps {
     audioRef: React.RefObject<HTMLAudioElement>;
     onTogglePlayPause: () => void;
     onAudioEnded: () => void;
+    mediaType: string;
 }
 
 export const UploadedFile: React.FC<UploadedFileProps> = ({
@@ -16,7 +17,8 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
     isPlaying,
     audioRef,
     onTogglePlayPause,
-    onAudioEnded
+    onAudioEnded,
+    mediaType
 }) => {
     return (
         <Card>
@@ -24,17 +26,21 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
                 <Typography variant="h5" className="text-black text-start mb-2">
                     Uploaded File
                 </Typography>
-                    <AudioPlayer
-                        url={uploadedFile.url}
-                        isPlaying={isPlaying}
-                        audioRef={audioRef}
-                        onTogglePlayPause={onTogglePlayPause}
-                        onAudioEnded={onAudioEnded}
-                    />
+                {
+                    mediaType === 'audio' ?
+                        <AudioPlayer
+                            url={uploadedFile.url}
+                            isPlaying={isPlaying}
+                            audioRef={audioRef}
+                            onTogglePlayPause={onTogglePlayPause}
+                            onAudioEnded={onAudioEnded}
+                        />
+                        : <></>
+                }
 
-                    <Typography variant="caption" className="text-gray-500 mt-2 block">
-                        URL: {uploadedFile.url}
-                    </Typography>
+                <Typography variant="caption" className="text-gray-500 mt-2 block">
+                    URL: {uploadedFile.url}
+                </Typography>
             </CardContent>
         </Card>
     );
