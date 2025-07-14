@@ -1,29 +1,85 @@
 'use client';
 
+import { useState } from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import { useRouter } from 'next/navigation';
+import { loginWithDummyToken } from '@/lib/auth';
+
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+    const router = useRouter();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    const success = loginWithDummyToken(email, password);
+    if (success) {
+      router.push('/platform');
+    } else {
+      setError('Invalid credentials');
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-xl font-semibold mb-4">Login</h1>
-        <form>
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full border rounded p-2 mb-4"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full border rounded p-2 mb-4"
-          />
+
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+        <h1 className="text-2xl font-bold mb-6 text-gray-500">Welcome back!</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Email Address
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email address"
+              className="w-full border border-gray-300 rounded-md p-3 text-sm text-gray-900"
+            />
+          </div>
+          <div className="mb-6 relative">
+            <label className="block text-sm font-medium text-gray-600 mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              className="w-full border border-gray-300 rounded-md p-3 text-sm text-gray-900"
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+            className="w-full bg-[#1E3A8A] hover:bg-[#1C3074] text-white font-medium py-3 rounded-full"
           >
-            Sign In
+            Create an account
           </button>
         </form>
+
+        {/* Divider */}
+        <div className="my-6 flex items-center">
+          <hr className="flex-grow border-gray-300" />
+          <span className="mx-3 text-sm text-gray-500">Continue with</span>
+          <hr className="flex-grow border-gray-300" />
+        </div>
+
+        {/* Google Login Button */}
+        <button className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition">
+          <FcGoogle className="text-xl" />
+          <span className="text-sm font-medium text-gray-500">Login with Google</span>
+        </button>
+
+        {/* Register Link */}
+        <p className="text-sm text-center text-gray-600 mt-6">
+          Don’t have an account?{' '}
+          <a href="#" className="text-blue-700 font-medium hover:underline">
+            Register
+          </a>
+        </p>
       </div>
-    </div>
+  
   );
 }
