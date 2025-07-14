@@ -60,7 +60,7 @@ export default function DonutGraph({
           borderRadius: "50%",
           transform: "rotate(-120deg)",
         }}
-        className="flex flex-col items-center justify-center text-[10px] font-medium text-center gap-[4px]"
+        className="flex flex-col items-start justify-center pl-[15%] gap-[6px] text-[10px] font-medium text-left"
       >
         <div className="flex items-center gap-[4px]">
           <span
