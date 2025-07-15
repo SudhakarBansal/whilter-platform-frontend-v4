@@ -33,9 +33,12 @@ export default function Button(theme: Theme) {
         {
           props: { variant: "flatSecondary" },
           style: {
-            color: `${theme.palette.blue[300]}`,
+            color: "#FFFFFF",
             borderRadius: "12px",
-            background: theme.palette.button.secondary,
+            background: theme.palette.button.primaryLight,
+            "&:hover": {
+              background: theme.palette.button.primaryDark
+            },
           },
         },
         {
@@ -101,7 +104,7 @@ export default function Button(theme: Theme) {
             },
           },
         }
-        
+
       ],
       styleOverrides: {
         root: {
