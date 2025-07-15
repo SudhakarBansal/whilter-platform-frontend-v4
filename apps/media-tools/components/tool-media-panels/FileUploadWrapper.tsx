@@ -4,9 +4,9 @@ import { Box, Typography, Alert, Card, CardContent } from '@mui/material';
 import type { FileUploadWrapperProps } from '@/types';
 import { getMimeTypes } from '@/utils/file-upload-wrapper/fileUploadWrapperUtils';
 import { useFileUpload,useMediaPlayer } from '@/hooks';
-import { DropZone } from '../DropZone';
-import { SelectedFile } from '../SelectedFile';
-import { UploadedFile } from '../UploadedFile';
+import { DropZone } from '../file-upload/DropZone';
+import { SelectedFile } from '../file-upload/SelectedFile';
+import { UploadedFile } from '../file-upload/UploadedFile';
 
 const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
     type,

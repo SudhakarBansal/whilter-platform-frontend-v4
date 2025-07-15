@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Typography, Card, CardContent, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { AudioPlayer } from './AudioPlayer';
+import { AudioPlayer } from '../media-players/AudioPlayer';
 import type { UploadedFile as UploadedFileType } from '@/types';
-import { VideoPlayer } from './VideoPlayer';
+import { VideoPlayer } from '../media-players/VideoPlayer';
 import { FileIcon } from './Fileicons';
 
 interface UploadedFileProps {

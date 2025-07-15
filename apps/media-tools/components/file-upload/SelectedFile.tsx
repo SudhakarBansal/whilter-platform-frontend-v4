@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, IconButton, Button, CircularProgress } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import { FileIcon } from './Fileicons';
+import { FileIcon } from '../file-upload/Fileicons';
 import { formatFileSize } from '@/utils/file-upload-wrapper/fileUploadWrapperUtils';
 
 interface SelectedFileProps {
