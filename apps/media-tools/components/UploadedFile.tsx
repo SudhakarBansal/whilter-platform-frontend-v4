@@ -24,9 +24,6 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
     return (
         <Card>
             <CardContent>
-                <Typography variant="h5" className="text-black text-start mb-2">
-                    Uploaded File
-                </Typography>
                 {
                     mediaType === 'audio' ?
                         <AudioPlayer
@@ -46,9 +43,9 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
                         />
                 }
 
-                <Typography variant="caption" className="text-gray-500 mt-2 block">
+                {/* <Typography variant="caption" className="text-gray-500 mt-2 block">
                     URL: {uploadedFile.url}
-                </Typography>
+                </Typography> */}
             </CardContent>
         </Card>
     );

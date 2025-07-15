@@ -29,9 +29,7 @@ export const VideoPlayer: React.FC<MediaPlayerProps> = ({
     const [isMuted, setIsMuted] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [showControls, setShowControls] = useState(true);
     const progressRef = useRef<HTMLDivElement>(null);
-    const controlsTimeoutRef = useRef<NodeJS.Timeout>();
 
     // Handle video loading and events
     useEffect(() => {
@@ -86,28 +84,6 @@ export const VideoPlayer: React.FC<MediaPlayerProps> = ({
             video.pause();
         }
     }, [isPlaying, mediaRef]);
-
-    // Auto-hide controls
-    useEffect(() => {
-        if (showControls && isPlaying) {
-            controlsTimeoutRef.current = setTimeout(() => {
-                setShowControls(false);
-            }, 3000);
-        }
-
-        return () => {
-            if (controlsTimeoutRef.current) {
-                clearTimeout(controlsTimeoutRef.current);
-            }
-        };
-    }, [showControls, isPlaying]);
-
-    const handleMouseMove = useCallback(() => {
-        setShowControls(true);
-        if (controlsTimeoutRef.current) {
-            clearTimeout(controlsTimeoutRef.current);
-        }
-    }, []);
 
     const handleProgressClick = useCallback((e: React.MouseEvent) => {
         if (!progressRef.current || !mediaRef.current) return;
@@ -180,13 +156,11 @@ export const VideoPlayer: React.FC<MediaPlayerProps> = ({
     }
 
     return (
-        <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-200">
+        <div >
             {/* Video Container */}
-            <div className="relative bg-black rounded-lg overflow-hidden mb-4">
+            <div className="relative rounded-md overflow-hidden mb-4">
                 <div
-                    className="relative w-full"
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={() => setShowControls(false)}
+                    className="relative"
                 >
                     <video
                         ref={mediaRef}
@@ -204,8 +178,6 @@ export const VideoPlayer: React.FC<MediaPlayerProps> = ({
                             </div>
                         </div>
                     )}
-
-
                 </div>
             </div>
 
@@ -223,70 +195,77 @@ export const VideoPlayer: React.FC<MediaPlayerProps> = ({
                 </div>
             </div>
 
+            {/* Controls Row */}
+            <div className="flex justify-center">
+                <div className="w-full max-w-2xl flex items-center justify-between">
+                    {/* Left Controls */}
+                    <div className="flex items-center space-x-4">
+                        {/* Volume Controls */}
+                        <div className="flex items-center space-x-2">
+                            <button
+                                onClick={toggleMute}
+                                className="text-gray-600 hover:text-gray-800 transition-colors"
+                            >
+                                {isMuted ? (
+                                    <VolumeX className="w-5 h-5" />
+                                ) : (
+                                    <Volume2 className="w-5 h-5" />
+                                )}
+                            </button>
+                            <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.1"
+                                value={isMuted ? 0 : volume}
+                                onChange={handleVolumeChange}
+                                className="w-20 accent-blue-500"
+                            />
+                        </div>
+                    </div>
 
-            {/* Main Play Button - centered */}
-            <div className="flex justify-center mb-4">
-                <button
-                    onClick={onTogglePlayPause}
-                    disabled={isLoading || !!error}
-                    className="flex items-center justify-center w-16 h-16 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 transition-colors shadow-lg"
-                >
-                    {isPlaying ? (
-                        <Pause className="w-8 h-8 text-white" />
-                    ) : (
-                        <Play className="w-8 h-8 text-white ml-1" />
-                    )}
-                </button>
-            </div>
-
-            {/* Secondary Controls Bar */}
-            <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                    <button
-                        onClick={handleRestart}
-                        disabled={isLoading || !!error}
-                        className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 transition-colors"
-                        title="Restart from beginning"
-                    >
-                        <RotateCcw className="w-4 h-4 text-gray-600" />
-                    </button>
-
-                    {/* Volume Controls */}
-                    <div className="flex items-center space-x-2">
+                    {/* Center Controls */}
+                    <div className="flex items-center space-x-4">
+                        {/* Restart Button */}
                         <button
-                            onClick={toggleMute}
-                            className="text-gray-600 hover:text-gray-800 transition-colors"
+                            onClick={handleRestart}
+                            disabled={isLoading || !!error}
+                            className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 transition-colors"
+                            title="Restart from beginning"
                         >
-                            {isMuted ? (
-                                <VolumeX className="w-5 h-5" />
+                            <RotateCcw className="w-4 h-4 text-gray-600" />
+                        </button>
+
+                        {/* Main Play Button */}
+                        <button
+                            onClick={onTogglePlayPause}
+                            disabled={isLoading || !!error}
+                            className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 transition-colors shadow-lg"
+                        >
+                            {isPlaying ? (
+                                <Pause className="w-6 h-6 text-white" />
                             ) : (
-                                <Volume2 className="w-5 h-5" />
+                                <Play className="w-6 h-6 text-white ml-1" />
                             )}
                         </button>
-                        <input
-                            type="range"
-                            min="0"
-                            max="1"
-                            step="0.1"
-                            value={isMuted ? 0 : volume}
-                            onChange={handleVolumeChange}
-                            className="w-20 accent-blue-500"
-                        />
-                    </div>
-                </div>
-
-                <div className="flex items-center space-x-4">
-                    <div className="text-sm text-gray-500 font-mono">
-                        {formatTime(currentTime)} / {formatTime(duration)}
                     </div>
 
-                    <button
-                        onClick={handleFullscreen}
-                        className="text-gray-600 hover:text-gray-800 transition-colors"
-                        title="Fullscreen"
-                    >
-                        <Maximize className="w-5 h-5" />
-                    </button>
+                    {/* Right Controls */}
+                    <div className="flex items-center space-x-4">
+                        {/* Time Display */}
+                        <div className="text-sm text-gray-500 font-mono">
+                            {formatTime(currentTime)} / {formatTime(duration)}
+                        </div>
+
+                        {/* Fullscreen Button */}
+                        <button
+                            onClick={handleFullscreen}
+                            className="text-gray-600 hover:text-gray-800 transition-colors"
+                            title="Fullscreen"
+                        >
+                            <Maximize className="w-5 h-5" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

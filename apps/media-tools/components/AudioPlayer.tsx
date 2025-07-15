@@ -166,49 +166,49 @@ export const AudioPlayer: React.FC<MediaPlayerProps> = ({
     }
 
     return (
-        <div className="flex items-center space-x-4 bg-white rounded-lg p-4 shadow-sm border border-gray-200">
-            <button
-                onClick={handlePlayPause}
-                disabled={!wavesurfer || isLoading || !!error}
-                className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 transition-colors"
-            >
-                {isPlaying ? (
-                    <Pause className="w-6 h-6 text-white" />
-                ) : (
-                    <Play className="w-6 h-6 text-white ml-0.5" />
-                )}
-            </button>
-
-            <button
-                onClick={handleRestart}
-                disabled={!wavesurfer || isLoading || !!error}
-                className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 transition-colors"
-                title="Restart from beginning"
-            >
-                <RotateCcw className="w-4 h-4 text-gray-600" />
-            </button>
-
-            <div className="flex-1 flex items-center space-x-3">
-                <div className="flex-1 relative">
-                    {(isLoading || !wavesurfer) && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded h-15">
-                            <div className="flex items-center space-x-2">
-                                <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-500 border-t-transparent"></div>
-                                <span className="text-gray-500 text-sm">
-                                    {isLoading ? 'Loading audio...' : 'Loading waveform...'}
-                                </span>
-                            </div>
+        <div className='px-6'>
+            {/* Waveform Container */}
+            <div className="mb-4 relative">
+                {(isLoading || !wavesurfer) && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-100 rounded h-20">
+                        <div className="flex items-center space-x-2">
+                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-500 border-t-transparent"></div>
+                            <span className="text-gray-600 text-sm">
+                                {isLoading ? 'Loading audio...' : 'Loading waveform...'}
+                            </span>
                         </div>
-                    )}
-                    <div
-                        ref={containerRef}
-                        className={`${(!wavesurfer || isLoading) ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 cursor-pointer`}
-                    />
-                </div>
+                    </div>
+                )}
+                <div
+                    ref={containerRef}
+                    className={`${(!wavesurfer || isLoading) ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 cursor-pointer min-h-[80px]`}
+                />
             </div>
 
-            <div className="text-sm text-gray-500 font-mono min-w-[80px] text-right">
-                {formatTime(currentTime)} / {formatTime(duration)}
+            {/* Main Play Button - centered like VideoPlayer */}
+            <div className="flex justify-center items-center gap-x-4">
+                <button
+                    onClick={handleRestart}
+                    disabled={!wavesurfer || isLoading || !!error}
+                    className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 disabled:bg-gray-50 transition-colors"
+                    title="Restart from beginning"
+                >
+                    <RotateCcw className="w-4 h-4 text-gray-600" />
+                </button>
+                <button
+                    onClick={handlePlayPause}
+                    disabled={!wavesurfer || isLoading || !!error}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 transition-colors shadow-lg"
+                >
+                    {isPlaying ? (
+                        <Pause className="w-6 h-6 text-white" />
+                    ) : (
+                        <Play className="w-6 h-6 text-white ml-1" />
+                    )}
+                </button>
+                <div className="text-sm text-gray-500 font-mono">
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                </div>
             </div>
 
             {/* Hidden audio element for compatibility - muted to prevent double audio */}
