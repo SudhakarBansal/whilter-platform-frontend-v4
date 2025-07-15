@@ -3,12 +3,12 @@ import { Play, Pause, AlertCircle, RotateCcw } from 'lucide-react';
 import { useWavesurfer } from '@wavesurfer/react';
 import Timeline from 'wavesurfer.js/dist/plugins/timeline.esm.js';
 
-interface AudioPlayerProps {
+interface MediaPlayerProps {
     url: string;
     isPlaying: boolean;
-    audioRef: React.RefObject<HTMLAudioElement>;
+    mediaRef: React.RefObject<HTMLAudioElement | HTMLVideoElement>;
     onTogglePlayPause: () => void;
-    onAudioEnded: () => void;
+    onMediaEnded: () => void;
 }
 
 const formatTime = (seconds: number): string => {
@@ -17,12 +17,12 @@ const formatTime = (seconds: number): string => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
 };
 
-export const AudioPlayer: React.FC<AudioPlayerProps> = ({
+export const AudioPlayer: React.FC<MediaPlayerProps> = ({
     url: propUrl,
     isPlaying,
-    audioRef,
+    mediaRef,
     onTogglePlayPause,
-    onAudioEnded,
+    onMediaEnded,
 }) => {
     const url = "/audio.mp3";
     const containerRef = useRef<HTMLDivElement>(null);
@@ -102,8 +102,8 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
         const handleSeek = () => {
             // Sync with hidden audio element if needed
-            if (audioRef.current) {
-                audioRef.current.currentTime = wavesurfer.getCurrentTime();
+            if (mediaRef.current) {
+                mediaRef.current.currentTime = wavesurfer.getCurrentTime();
             }
         };
 
@@ -129,7 +129,7 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
             wavesurfer.un('ready', handleReady);
             wavesurfer.un('error', handleError);
         };
-    }, [wavesurfer, onAudioEnded, audioRef]);
+    }, [wavesurfer, onMediaEnded, mediaRef]);
 
     const handlePlayPause = useCallback(() => {
         if (wavesurfer && !error) {
@@ -213,9 +213,9 @@ export const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
             {/* Hidden audio element for compatibility - muted to prevent double audio */}
             <audio
-                ref={audioRef}
+                ref={mediaRef}
                 src={url}
-                onEnded={onAudioEnded}
+                onEnded={onMediaEnded}
                 muted
                 className="hidden"
             />
