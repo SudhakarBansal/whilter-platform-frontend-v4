@@ -9,23 +9,23 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@whilter/ui-kit": "workspace:*",
     "@whilter/config": "workspace:*",
-    "@whilter/shared-layouts": "workspace:*",
     "@whilter/forms": "workspace:*",
     "@whilter/shared-hooks": "workspace:*",
+    "@whilter/shared-layouts": "workspace:*",
+    "@whilter/ui-kit": "workspace:*",
     "next": "14.2.8",
     "react": "catalog:react18",
     "react-dom": "catalog:react18"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.2.8",
-    "@whilter/eslint-config": "workspace:*",
-    "@whilter/typescript-config": "workspace:*",
     "@types/eslint": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",
+    "@whilter/eslint-config": "workspace:*",
+    "@whilter/typescript-config": "workspace:*",
     "autoprefixer": "^10",
     "eslint": "catalog:",
     "postcss": "^8",
