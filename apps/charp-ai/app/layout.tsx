@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
 import { MainLayout } from "@whilter/shared-layouts/main";
-import { Sidebar } from "@whilter/shared-layouts/sidebar"; 
+import { NavbarLayout } from "@whilter/shared-layouts/navbar";
+import { Sidebar } from "@whilter/shared-layouts/sidebar";
 import NextLink from "next/link";
 import NextImage from "next/image";
 import { menuItems } from "../data/menuItems.data";
@@ -24,18 +25,20 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeConfig>
-          <MainLayout
-            showSidebar={true}
-            sidebarComponent={
-              <Sidebar
-                menuItems={menuItems}
-                LinkComponent={NextLink}
-                ImageComponent={NextImage}
-              />
-            }
-          >
-            {children}
-          </MainLayout>
+          <NavbarLayout>
+            <MainLayout
+              showSidebar={true}
+              sidebarComponent={
+                <Sidebar
+                  menuItems={menuItems}
+                  LinkComponent={NextLink}
+                  ImageComponent={NextImage}
+                />
+              }
+            >
+              {children}
+            </MainLayout>
+          </NavbarLayout>
         </ThemeConfig>
       </body>
     </html>

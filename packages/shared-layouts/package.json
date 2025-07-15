@@ -23,6 +23,10 @@
             "types": "./src/main-layout/index.tsx",
             "import": "./src/main-layout/index.tsx"
         },
+        "./navbar": {
+            "types": "./src/navbar-layout/index.tsx",
+            "import": "./src/navbar-layout/index.tsx"
+        },
         "./sidebar": {
             "types": "./src/sidebar/index.ts",
             "import": "./src/sidebar/index.ts"

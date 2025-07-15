@@ -2,7 +2,8 @@ import "@whilter/ui-kit/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
-import { MainLayout} from "@whilter/shared-layouts/main"
+import { MainLayout } from "@whilter/shared-layouts/main"
+import { NavbarLayout } from "@whilter/shared-layouts/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeConfig>
-          <MainLayout showSidebar={false}>
-            {children}
-          </MainLayout>
+          <NavbarLayout>
+            <MainLayout showSidebar={false}>
+              {children}
+            </MainLayout>
+          </NavbarLayout>
         </ThemeConfig>
       </body>
     </html>
