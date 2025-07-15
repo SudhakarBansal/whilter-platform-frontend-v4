@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { Box, Typography, Alert, Card, CardContent } from '@mui/material';
 import type { FileUploadWrapperProps } from '@/types';
 import { getMimeTypes } from '@/utils/file-upload-wrapper/fileUploadWrapperUtils';
-import { useFileUpload,useAudioPlayer } from '@/hooks';
+import { useFileUpload,useMediaPlayer } from '@/hooks';
 import { DropZone } from '../DropZone';
 import { SelectedFile } from '../SelectedFile';
 import { UploadedFile } from '../UploadedFile';
@@ -37,10 +37,10 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
 
     const {
         currentPlaying,
-        audioRef,
+        mediaRef,
         togglePlayPause,
-        handleAudioEnded
-    } = useAudioPlayer();
+        handleMediaEnded
+    } = useMediaPlayer();
 
     const {
         getRootProps,
@@ -120,9 +120,9 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                 <UploadedFile
                     uploadedFile={uploadedFile}
                     isPlaying={currentPlaying}
-                    audioRef={audioRef}
+                    mediaRef={mediaRef}
                     onTogglePlayPause={togglePlayPause}
-                    onAudioEnded={handleAudioEnded}
+                    onMediaEnded={handleMediaEnded}
                     mediaType = {type}
                 />
             )}

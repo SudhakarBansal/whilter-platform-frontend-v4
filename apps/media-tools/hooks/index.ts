@@ -1,2 +1,2 @@
 export {useFileUpload} from './useFileUpload';
-export {useAudioPlayer} from './useAudioPlayer'
+export {useMediaPlayer} from './useMediaPlayer'
