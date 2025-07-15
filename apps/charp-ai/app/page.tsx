@@ -17,7 +17,7 @@ export default function Page() {
       onClick={() => router.push("/campaigns")}
     >
       View Campaigns
-    </Button>,
+    </Button>
   ];
 
   const breadcrumbs = buildBreadcrumbs([
