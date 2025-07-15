@@ -25,7 +25,7 @@ function handleFileRemoved(removedFile: UploadedFile) {
 
 export function VoiceCloneMediaPanel() {
     return (
-        <>
+        <div className="flex flex-col gap-6">
             <FileUploadWrapper
                 type="audio"
                 label="Source Audio"
@@ -51,18 +51,6 @@ export function VoiceCloneMediaPanel() {
                 onFileSelected={handleFileSelected}   // Called when file is selected
                 onFileRemoved={handleFileRemoved}     // Called when uploaded file is removed
             />
-
-            <FileUploadWrapper
-                type="video"
-                heading="Upload Source Video"
-                subheading="Add your Files here"
-                footer="Only support Video Files"
-                acceptedFormats={['.mp4']}
-                maxFileSize={10}
-                onUpload={handleUpload}               // Called after successful upload
-                onFileSelected={handleFileSelected}   // Called when file is selected
-                onFileRemoved={handleFileRemoved}     // Called when uploaded file is removed
-            />
-        </>
+        </div>
     );
 }
