@@ -1,6 +1,7 @@
 "use client";
 
 import DonutGraph from "../campaign-section/components/DonutGraph";
+import WaveGraph from "../campaign-section/components/WaveGraph";
 import type { CampaignType, CampaignStatus } from "@/data/campaignStatus";
 
 export interface CampaignCardProps {
@@ -39,20 +40,18 @@ export default function CampaignCard({
 }: CampaignCardProps) {
   return (
     <div className="w-[300px] h-[260px] rounded-[14px] bg-white shadow-xl flex flex-col">
-      {/* ---------- top half ---------- */}
+
       <div className="p-4 flex flex-col flex-1">
         <h3 className="text-sm font-semibold text-gray-800 leading-snug line-clamp-2">
           {title}
         </h3>
         <span
-          className={`text-[11px] ${
-            type === "batch" ? "text-sky-600" : "text-rose-500"
-          } font-semibold uppercase`}
+          className={`text-[11px] ${type === "batch" ? "text-sky-600" : "text-rose-500"
+            } font-semibold uppercase`}
         >
           {type === "batch" ? "Batch Campaign" : "Real‑Time Campaign"}
         </span>
 
-        {/* -------- progress / chart -------- */}
         {type === "batch" ? (
           <div className="flex items-center gap-6 mt-4">
             <div className="text-center">
@@ -73,26 +72,31 @@ export default function CampaignCard({
               thickness={18}
             />
           </div>
-        ) : (
-          // ✔️ simple placeholder chart for realtime campaigns
-          <svg viewBox="0 0 120 44" className="w-[120px] h-11 mt-5">
-            <path
-              d="M0 22Q15 5 30 20T60 16T90 30T120 22"
-              stroke="#10b981"
-              strokeWidth="2"
-              fill="none"
+        ) :
+          (
+            <div className="flex flex-col items-center mt-4 w-full">
+            <WaveGraph
+              success={success}
+              pending={pending}
+              fail={fail}
+              height={120} 
             />
-            <path
-              d="M0 30Q15 40 30 26T60 30T90 14T120 30"
-              stroke="#ef4444"
-              strokeWidth="2"
-              fill="none"
-            />
-          </svg>
-        )}
+        
+            <div className="flex items-center gap-6 mt-2">
+              <div className="flex items-center gap-1 text-xs text-gray-800">
+                <span className="w-[6px] h-[6px] rounded-full bg-[#10b981]" />
+                <span>Success</span>
+              </div>
+              <div className="flex items-center gap-1 text-xs text-gray-800">
+                <span className="w-[6px] h-[6px] rounded-full bg-[#f59e0b]" />
+                <span>Pending</span>
+              </div>
+            </div>
+          </div>
+          )
+        }
       </div>
 
-      {/* ---------- status button ---------- */}
       <div className="p-3 pt-0">
         <button
           onClick={onStatusClick}

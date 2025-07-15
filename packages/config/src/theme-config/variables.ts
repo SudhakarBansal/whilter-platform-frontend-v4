@@ -60,7 +60,6 @@ export const colors = {
     dark: '#1A223F',
   },
 
-  // Sidebar Colors
   sidebar: {
     default: '#081028',
     light: '#F3F4F6',

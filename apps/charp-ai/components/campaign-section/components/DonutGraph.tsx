@@ -1,4 +1,3 @@
-/* components/DonutGraph.tsx */
 "use client";
 import React from "react";
 
@@ -56,11 +55,10 @@ export default function DonutGraph({
         style={{
           position: "absolute",
           inset: thickness,
-          background: colors.bg,
           borderRadius: "50%",
           transform: "rotate(-120deg)",
         }}
-        className="flex flex-col items-start justify-center pl-[15%] gap-[6px] text-[10px] font-medium text-left"
+        className="flex flex-col bg-white items-start justify-center pl-[15%] gap-[6px] text-[10px] font-medium text-left"
       >
         <div className="flex items-center gap-[4px]">
           <span

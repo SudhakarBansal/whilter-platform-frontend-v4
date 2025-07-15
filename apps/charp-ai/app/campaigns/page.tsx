@@ -5,19 +5,24 @@ import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import CampaignCardSection from "@/components/campaign-section/CampaignCardSection";
+import { Plus } from 'lucide-react';
 
 export default function ViewCampaignPage() {
   const router = useRouter();
 
+  const handleAddNewCampaign = () => {
+    router.push("/campaigns/new");
+  };
+
   const actionButtons = [
     <Button
-      key="view-campaign"
-      variant="flatPrimary"
-      className="text-lg p-4"
-      onClick={() => router.push("/new-campaign")}
+      key="add-campaign"
+      startIcon={<Plus />}
+      variant="glassmorphism"
+      onClick={handleAddNewCampaign}
     >
-      Add New Campaign
-    </Button>,
+      New Campaign
+    </Button>
   ];
 
   const breadcrumbs = buildBreadcrumbs([
