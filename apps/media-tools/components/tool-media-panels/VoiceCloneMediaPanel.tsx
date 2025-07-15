@@ -42,7 +42,7 @@ export function VoiceCloneMediaPanel() {
             <FileUploadWrapper
                 type="audio"
                 label="Recorded Audio"
-                heading="Upload Source Audio"
+                heading="Upload Recorded Audio"
                 subheading="Add your Files here"
                 footer="Only support .wav, mp3 and Audio files"
                 acceptedFormats={['.wav', '.mp3', '.m4a']}
