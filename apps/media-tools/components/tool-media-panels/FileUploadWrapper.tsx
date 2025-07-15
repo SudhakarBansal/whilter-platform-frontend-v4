@@ -3,13 +3,14 @@ import { useDropzone } from 'react-dropzone';
 import { Box, Typography, Alert, Card, CardContent } from '@mui/material';
 import type { FileUploadWrapperProps } from '@/types';
 import { getMimeTypes } from '@/utils/file-upload-wrapper/fileUploadWrapperUtils';
-import { useFileUpload,useMediaPlayer } from '@/hooks';
+import { useFileUpload, useMediaPlayer } from '@/hooks';
 import { DropZone } from '../file-upload/DropZone';
 import { SelectedFile } from '../file-upload/SelectedFile';
 import { UploadedFile } from '../file-upload/UploadedFile';
 
 const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
     type,
+    label,
     heading,
     subheading,
     footer,
@@ -70,6 +71,9 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
 
     return (
         <Box>
+            <Typography variant="subtitle1" className="text-gray-300 my-2">
+                {label}
+            </Typography>
             {/* Upload Area - Only show when no file is selected/uploaded */}
             {showUploadArea && (
                 <Card>
