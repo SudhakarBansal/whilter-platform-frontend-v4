@@ -201,7 +201,7 @@ export const VideoPlayer: React.FC<MediaPlayerProps> = ({
                     {/* Left Controls */}
                     <div className="flex items-center space-x-4">
                         {/* Volume Controls */}
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center group relative">
                             <button
                                 onClick={toggleMute}
                                 className="text-gray-600 hover:text-gray-800 transition-colors"
@@ -219,7 +219,7 @@ export const VideoPlayer: React.FC<MediaPlayerProps> = ({
                                 step="0.1"
                                 value={isMuted ? 0 : volume}
                                 onChange={handleVolumeChange}
-                                className="w-20 accent-blue-500"
+                                className="w-20 h-1 absolute left-6 opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 origin-left accent-blue-500"
                             />
                         </div>
                     </div>
