@@ -2,22 +2,23 @@ import React from 'react';
 import { Typography, Card, CardContent } from '@mui/material';
 import { AudioPlayer } from './AudioPlayer';
 import type { UploadedFile as UploadedFileType } from '@/types';
+import { VideoPlayer } from './VideoPlayer';
 
 interface UploadedFileProps {
     uploadedFile: UploadedFileType;
     isPlaying: boolean;
-    audioRef: React.RefObject<HTMLAudioElement>;
+    mediaRef: React.RefObject<HTMLAudioElement | HTMLVideoElement>;
     onTogglePlayPause: () => void;
-    onAudioEnded: () => void;
+    onMediaEnded: () => void;
     mediaType: string;
 }
 
 export const UploadedFile: React.FC<UploadedFileProps> = ({
     uploadedFile,
     isPlaying,
-    audioRef,
+    mediaRef,
     onTogglePlayPause,
-    onAudioEnded,
+    onMediaEnded,
     mediaType
 }) => {
     return (
@@ -31,11 +32,18 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
                         <AudioPlayer
                             url={uploadedFile.url}
                             isPlaying={isPlaying}
-                            audioRef={audioRef}
+                            mediaRef={mediaRef}
                             onTogglePlayPause={onTogglePlayPause}
-                            onAudioEnded={onAudioEnded}
+                            onMediaEnded={onMediaEnded}
                         />
-                        : <></>
+                        :
+                        <VideoPlayer
+                            url={uploadedFile.url}
+                            isPlaying={isPlaying}
+                            mediaRef={mediaRef as React.RefObject<HTMLVideoElement>}
+                            onTogglePlayPause={onTogglePlayPause}
+                            onMediaEnded={onMediaEnded}
+                        />
                 }
 
                 <Typography variant="caption" className="text-gray-500 mt-2 block">

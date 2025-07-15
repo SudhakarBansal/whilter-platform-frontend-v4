@@ -16,6 +16,7 @@ function handleFileSelected(file: File) {
 
 export function VoiceCloneMediaPanel() {
     return (
+        <>
         <FileUploadWrapper
             type="audio"
             heading="Upload Source Audio"
@@ -26,5 +27,17 @@ export function VoiceCloneMediaPanel() {
             onUpload={handleUpload}           // Called after successful upload
             onFileSelected={handleFileSelected} // Called when file is selected
         />
+
+         <FileUploadWrapper
+            type="video"
+            heading="Upload Source Video"
+            subheading="Add your Files here"
+            footer="Only supporrt Video Files"
+            acceptedFormats={['.mp4']}
+            maxFileSize={10}
+            onUpload={handleUpload}           // Called after successful upload
+            onFileSelected={handleFileSelected} // Called when file is selected
+        />
+        </>
     );
 }
