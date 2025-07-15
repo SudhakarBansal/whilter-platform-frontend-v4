@@ -8,13 +8,15 @@ interface UseFileUploadProps {
     maxFileSize: number;
     onUpload?: (file: UploadedFile) => void;
     onFileSelected?: (file: File) => void;
+    onFileRemoved: (removedFile: UploadedFile) => void;
 }
 
 export const useFileUpload = ({
     acceptedFormats,
     maxFileSize,
     onUpload,
-    onFileSelected
+    onFileSelected,
+    onFileRemoved
 }: UseFileUploadProps) => {
     const [file, setFile] = useState<File | null>(null);
     const [uploading, setUploading] = useState<boolean>(false);
@@ -39,15 +41,31 @@ export const useFileUpload = ({
         }
     }, [acceptedFormats, maxFileSize, onFileSelected]);
 
-    const removeFile = (): void => {
+    const removeFile = useCallback((): void => {
         setFile(null);
         setError('');
         if (onFileSelected) {
             onFileSelected(null as any);
         }
-    };
+    }, [onFileSelected]);
 
-    const handleUpload = async (): Promise<void> => {
+    const removeUploadedFile = useCallback((): void => {
+        if (uploadedFile) {
+            // Call the callback with the removed file info
+            if (onFileRemoved) {
+                onFileRemoved(uploadedFile);
+            }
+
+            // Clear the uploaded file from state
+            setUploadedFile(null);
+            setError('');
+
+            // Optional: You might want to call a cleanup service to remove the file from server
+            // UploadService.deleteFile(uploadedFile.id);
+        }
+    }, [uploadedFile, onFileRemoved]);
+
+    const handleUpload = useCallback(async (): Promise<void> => {
         if (!file) return;
 
         setUploading(true);
@@ -66,9 +84,9 @@ export const useFileUpload = ({
         } finally {
             setUploading(false);
         }
-    };
+    }, [file, onUpload]);
 
-    const handleDropRejected = (fileRejections: any[]) => {
+    const handleDropRejected = useCallback((fileRejections: any[]) => {
         const rejection = fileRejections[0];
         if (rejection) {
             const errorCode = rejection.errors[0]?.code;
@@ -80,7 +98,14 @@ export const useFileUpload = ({
                 setError('File upload failed');
             }
         }
-    };
+    }, [maxFileSize]);
+
+    const resetAll = useCallback((): void => {
+        setFile(null);
+        setUploadedFile(null);
+        setError('');
+        setUploading(false);
+    }, []);
 
     return {
         file,
@@ -89,7 +114,9 @@ export const useFileUpload = ({
         error,
         handleFileSelect,
         removeFile,
+        removeUploadedFile, // New function to remove uploaded file
         handleUpload,
-        handleDropRejected
+        handleDropRejected,
+        resetAll // Utility function to reset everything
     };
 };

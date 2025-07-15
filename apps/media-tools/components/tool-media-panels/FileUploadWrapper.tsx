@@ -17,6 +17,7 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
     maxFileSize = 10,
     onUpload,
     onFileSelected,
+    onFileRemoved,
     ...props
 }) => {
     const {
@@ -26,13 +27,15 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
         error,
         handleFileSelect,
         removeFile,
+        removeUploadedFile,
         handleUpload,
         handleDropRejected
     } = useFileUpload({
         acceptedFormats,
         maxFileSize,
         onUpload,
-        onFileSelected
+        onFileSelected,
+        onFileRemoved
     });
 
     const {
@@ -123,7 +126,8 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                     mediaRef={mediaRef}
                     onTogglePlayPause={togglePlayPause}
                     onMediaEnded={handleMediaEnded}
-                    mediaType = {type}
+                    onRemove={removeUploadedFile}
+                    mediaType={type}
                 />
             )}
         </Box>
