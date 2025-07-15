@@ -71,9 +71,9 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
 
     return (
         <Box>
-            <Typography variant="subtitle1" className="text-gray-300 my-2">
+            {file && (<Typography variant="subtitle1" className="text-gray-300 my-2">
                 {label}
-            </Typography>
+            </Typography>)}
             {/* Upload Area - Only show when no file is selected/uploaded */}
             {showUploadArea && (
                 <Card>
