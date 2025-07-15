@@ -18,13 +18,12 @@ const formatTime = (seconds: number): string => {
 };
 
 export const AudioPlayer: React.FC<MediaPlayerProps> = ({
-    url: propUrl,
+    url,
     isPlaying,
     mediaRef,
     onTogglePlayPause,
     onMediaEnded,
 }) => {
-    const url = "/audio.mp3";
     const containerRef = useRef<HTMLDivElement>(null);
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +33,8 @@ export const AudioPlayer: React.FC<MediaPlayerProps> = ({
         waveColor: '#a0aec0',
         progressColor: '#1A3586',
         cursorColor: '#1A3586',
+        cursorWidth:3,
+        height:50,
         barWidth: 5,
         barRadius: 3,
         normalize: true,
@@ -181,7 +182,7 @@ export const AudioPlayer: React.FC<MediaPlayerProps> = ({
                 )}
                 <div
                     ref={containerRef}
-                    className={`${(!wavesurfer || isLoading) ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 cursor-pointer min-h-[80px]`}
+                    className={`${(!wavesurfer || isLoading) ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300 cursor-pointer`}
                 />
             </div>
 

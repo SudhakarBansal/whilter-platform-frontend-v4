@@ -72,7 +72,7 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
                     {/* Media Player */}
                     {mediaType === 'audio' ? (
                         <AudioPlayer
-                            url={uploadedFile.url}
+                            url="https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3"
                             isPlaying={isPlaying}
                             mediaRef={mediaRef}
                             onTogglePlayPause={onTogglePlayPause}
