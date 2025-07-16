@@ -51,6 +51,19 @@ export function VoiceCloneMediaPanel() {
                 onFileSelected={handleFileSelected}   // Called when file is selected
                 onFileRemoved={handleFileRemoved}     // Called when uploaded file is removed
             />
+            <div className="flex flex-col sm:flex-row gap-x-5">
+
+                <SelectElement name={'select'} label={'Select'} control={control} options={options} fullWidth />
+                <SelectElement name={'select'} label={'Select'} control={control} options={options} fullWidth />
+            </div>
+            <Button
+                variant="generateButton"
+                sx={{ mt: 2, padding: 2 }}
+                fullWidth
+                className="text-xl"
+            >
+                Generate Speech
+            </Button>
         </div>
     );
 }
