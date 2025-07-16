@@ -1,6 +1,8 @@
 'use client';
 import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "./FileUploadWrapper";
+import { SelectElement, useForm } from "@whilter/forms";
+import { Button } from "@mui/material";
 
 // This handles the uploaded file (after upload completion)
 function handleUpload(uploadedFile: UploadedFile) {
@@ -24,6 +26,38 @@ function handleFileRemoved(removedFile: UploadedFile) {
 }
 
 export function VoiceCloneMediaPanel() {
+    const {
+        control,
+        handleSubmit
+    } = useForm<{
+        multi_select: string[];
+        name: string;
+        auto: string;
+        auto_multi: string[];
+        select: string;
+        switch: boolean;
+        checkbox: string[];
+        check: boolean;
+        date: string;
+        radio: string;
+        password: string;
+        password_repeat: string;
+    }>({
+        defaultValues: {
+            name: ''
+        }
+    });
+    const options = [{
+        id: 'one',
+        label: 'One'
+    }, {
+        id: 'two',
+        label: 'Two'
+    }, {
+        id: 'three',
+        label: 'Three'
+    }];
+
     return (
         <div className="flex flex-col gap-6">
             <FileUploadWrapper
