@@ -1,6 +1,6 @@
 'use client';
 
-import FileUploadWrapper from "./FileUploadWrapper";
+import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 
 export function LipSyncMediaPanel() {
     return (

@@ -3,6 +3,7 @@ import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "./FileUploadWrapper";
 import { SelectElement, useForm } from "@whilter/forms";
 import { Button } from "@mui/material";
+import { Face } from "@mui/icons-material";
 
 // This handles the uploaded file (after upload completion)
 function handleUpload(uploadedFile: UploadedFile) {
