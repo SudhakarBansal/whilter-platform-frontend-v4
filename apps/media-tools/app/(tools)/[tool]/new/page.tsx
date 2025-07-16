@@ -5,6 +5,8 @@ import { getToolBySlug } from "@/lib/getToolBySlug";
 import type { ToolPageProps } from '@/types/tool.types';
 import { getDynamicToolConfig } from '@/lib/getDynamicToolConfig';
 import NotFound from '@/app/not-found';
+import { FormContainer } from "@whilter/forms";
+import type { VoiceCloneFormValues } from "@/types";
 
 export default async function ToolPage({ params }: ToolPageProps) {
   const { tool: toolSlug } = params;
@@ -19,18 +21,41 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
   const breadcrumbs = buildToolBreadcrumbs(toolSlug, 'new');
 
+  const defaultValues: VoiceCloneFormValues = {
+    projectName: '',
+    speaker: 'default',
+    speakingRate: 1.0,
+    samplingRate: '16000',
+    pitch: 0,
+    outputFormat: 'wav',
+    customWidth: 1920,
+    customHeight: 1080,
+    postProcessing: true,
+    modalSelection: '',
+    textContent: '',
+    selectOption1: '',
+    selectOption2: '',
+  };
+
+  const onSubmit = async (data: VoiceCloneFormValues) => {
+    console.log('Complete form data:', data);
+  }
+
+
   return (
-    <ToolsLayout
-      breadcrumbs={breadcrumbs}
-      heading={tool.title}
-      description={tool.description}
-      config={pageLayoutPresets.dashboard}
-      headerSection={<config.header />}
-      toolsSection={<config.panel />}
-      controlsSection={<config.controls />}
-      splitRatio={[8, 4]}
-      spacing={3}
-      elevation={1}
-    />
+    <FormContainer defaultValues={defaultValues} onSuccess={onSubmit}>
+      <ToolsLayout
+        breadcrumbs={breadcrumbs}
+        heading={tool.title}
+        description={tool.description}
+        config={pageLayoutPresets.dashboard}
+        headerSection={<config.header />}
+        toolsSection={<config.panel />}
+        controlsSection={<config.controls />}
+        splitRatio={[8, 4]}
+        spacing={3}
+        elevation={1}
+      />
+    </FormContainer>
   );
 }

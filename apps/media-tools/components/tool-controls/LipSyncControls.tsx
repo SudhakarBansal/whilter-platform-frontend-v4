@@ -19,37 +19,10 @@ import {
 import {
   SelectElement,
   TextFieldElement,
-  SwitchElement,
-  useForm,
-  useWatch,
-  FormContainer
+  SwitchElement
 } from '@whilter/forms';
 
-interface LipSyncSettings {
-  projectName: string;
-  speaker: string;
-  speakingRate: number;
-  samplingRate: string;
-  pitch: number;
-  outputFormat: string;
-  customWidth: number;
-  customHeight: number;
-  postProcessing: boolean;
-}
-
 export const LipSyncControls = () => {
-  const defaultValues: LipSyncSettings = {
-    projectName: '',
-    speaker: 'default',
-    speakingRate: 1.0,
-    samplingRate: '22050',
-    pitch: 0,
-    outputFormat: 'wav',
-    customWidth: 1920,
-    customHeight: 1080,
-    postProcessing: true,
-  }
-
   const speakerOptions = [
     { id: 'default', label: 'Default Voice' },
     { id: 'female1', label: 'Female Voice 1' },
@@ -81,166 +54,160 @@ export const LipSyncControls = () => {
     { id: 'ogg', label: 'OGG' },
   ];
 
-  const onSubmit = (data: LipSyncSettings) => {
-    console.log('Form submitted with data:', data);
-  }
-
   return (
-    <FormContainer onSuccess={onSubmit}>
-      <Stack spacing={3}>
-        {/* Project Header */}
-        <Box>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-            {/* <Typography variant="h6">
+    <Stack spacing={3}>
+      {/* Project Header */}
+      <Box>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
+          {/* <Typography variant="h6">
               Projects Name
             </Typography> */}
-          </Stack>
+        </Stack>
 
-          <TextFieldElement
-            name="projectName"
-            fullWidth
-            variant="outlined"
-            placeholder="Name your project"
-            size="small"
-            autoComplete='off'
-            label="Project Name"
-            required
-          />
-        </Box>
+        <TextFieldElement
+          name="projectName"
+          fullWidth
+          variant="outlined"
+          placeholder="Name your project"
+          size="small"
+          autoComplete='off'
+          label="Project Name"
+          required
+        />
+      </Box>
 
-        {/* Speaker Selection */}
-        <Box>
-          {/* <Typography variant="h6" mb={1}>
+      {/* Speaker Selection */}
+      <Box>
+        {/* <Typography variant="h6" mb={1}>
             Speaker
           </Typography> */}
-          <SelectElement
-            name="speaker"
-            options={speakerOptions}
-            fullWidth
-            size="small"
-            label="Select Speaker"
-          />
-        </Box>
+        <SelectElement
+          name="speaker"
+          options={speakerOptions}
+          fullWidth
+          size="small"
+          label="Select Speaker"
+        />
+      </Box>
 
-        {/* Speaking Rate */}
-        <Box>
-          {/* <Typography variant="h6" mb={1}>
+      {/* Speaking Rate */}
+      <Box>
+        {/* <Typography variant="h6" mb={1}>
             Speaking Rate
           </Typography> */}
-          <SelectElement
-            name="speakingRate"
-            options={speakingRateOptions}
-            fullWidth
-            size="small"
-            label="Speaking Rate"
-          />
-        </Box>
+        <SelectElement
+          name="speakingRate"
+          options={speakingRateOptions}
+          fullWidth
+          size="small"
+          label="Speaking Rate"
+        />
+      </Box>
 
-        {/* Sampling Rate */}
-        <Box>
-          {/* <Typography variant="h6" mb={1}>
+      {/* Sampling Rate */}
+      <Box>
+        {/* <Typography variant="h6" mb={1}>
             Sampling Rate
           </Typography> */}
-          <SelectElement
-            name="samplingRate"
-            options={samplingRateOptions}
-            fullWidth
-            size="small"
-            label="Sampling Rate"
-          />
-        </Box>
+        <SelectElement
+          name="samplingRate"
+          options={samplingRateOptions}
+          fullWidth
+          size="small"
+          label="Sampling Rate"
+        />
+      </Box>
 
-        {/* Output Format */}
-        <Box>
-          {/* <Typography variant="h6" mb={1}>
+      {/* Output Format */}
+      <Box>
+        {/* <Typography variant="h6" mb={1}>
             Output Format
           </Typography> */}
-          <SelectElement
-            name="outputFormat"
-            options={formatOptions}
-            fullWidth
+        <SelectElement
+          name="outputFormat"
+          options={formatOptions}
+          fullWidth
+          size="small"
+          label="Output Format"
+        />
+      </Box>
+
+      {/* Custom Dimensions */}
+      <Box>
+        <Typography variant="h6" mb={2}>
+          Custom Dimensions
+        </Typography>
+        <Stack direction="row" spacing={2}>
+          <TextFieldElement
+            name="customWidth"
+            label="W"
+            type="number"
             size="small"
-            label="Output Format"
+            sx={{ flex: 1 }}
           />
-        </Box>
+          <TextFieldElement
+            name="customHeight"
+            label="H"
+            type="number"
+            size="small"
+            sx={{ flex: 1 }}
+          />
+        </Stack>
+      </Box>
 
-        {/* Custom Dimensions */}
-        <Box>
-          <Typography variant="h6" mb={2}>
-            Custom Dimensions
-          </Typography>
-          <Stack direction="row" spacing={2}>
-            <TextFieldElement
-              name="customWidth"
-              label="W"
-              type="number"
-              size="small"
-              sx={{ flex: 1 }}
+      <Divider />
+
+      {/* Post Processing */}
+      <Accordion defaultExpanded>
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <Typography variant="subtitle2">Post Processing</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Stack spacing={2}>
+            <SwitchElement
+              name="postProcessing"
+              label="Enable Post Processing"
             />
-            <TextFieldElement
-              name="customHeight"
-              label="H"
-              type="number"
-              size="small"
-              sx={{ flex: 1 }}
-            />
+            <Box>
+              <Typography variant="caption" color="text.secondary">
+                Additional processing options will appear here based on the selected tool.
+              </Typography>
+            </Box>
           </Stack>
-        </Box>
+        </AccordionDetails>
+      </Accordion>
 
-        <Divider />
+      {/* Action Buttons */}
+      <Box sx={{ mt: 'auto', pt: 2 }}>
+        <Button
+          fullWidth
+          variant="flatPrimary"
+          // type="submit"
+          size="large"
+          sx={{ mb: 1, borderRadius: 2 }}
+        >
+          Apply Changes
+        </Button>
 
-        {/* Post Processing */}
-        <Accordion defaultExpanded>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Typography variant="subtitle2">Post Processing</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Stack spacing={2}>
-              <SwitchElement
-                name="postProcessing"
-                label="Enable Post Processing"
-              />
-              <Box>
-                <Typography variant="caption" color="text.secondary">
-                  Additional processing options will appear here based on the selected tool.
-                </Typography>
-              </Box>
-            </Stack>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* Action Buttons */}
-        <Box sx={{ mt: 'auto', pt: 2 }}>
+        <Stack direction="row" spacing={1}>
           <Button
-            fullWidth
-            variant="flatPrimary"
-            type="submit"
-            size="large"
-            sx={{ mb: 1, borderRadius: 2 }}
+            variant="outlinePrimary"
+            size="small"
+            startIcon={<PlayArrow />}
+            sx={{ flex: 1 }}
           >
-            Apply Changes
+            Preview
           </Button>
-
-          <Stack direction="row" spacing={1}>
-            <Button
-              variant="outlinePrimary"
-              size="small"
-              startIcon={<PlayArrow />}
-              sx={{ flex: 1 }}
-            >
-              Preview
-            </Button>
-            <Button
-              variant="outlineSecondary"
-              size="small"
-              startIcon={<Download />}
-              sx={{ flex: 1 }}
-            >
-              Export
-            </Button>
-          </Stack>
-        </Box>
-      </Stack>
-    </FormContainer>
+          <Button
+            variant="outlineSecondary"
+            size="small"
+            startIcon={<Download />}
+            sx={{ flex: 1 }}
+          >
+            Export
+          </Button>
+        </Stack>
+      </Box>
+    </Stack>
   );
 };

@@ -1,45 +1,12 @@
 'use client';
 import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
-import { SelectElement, TextareaAutosizeElement, useForm } from "@whilter/forms";
+import { SelectElement, TextareaAutosizeElement, useFormContext } from "@whilter/forms";
 import { Button } from "@mui/material";
 
-// This handles the uploaded file (after upload completion)
-function handleUpload(uploadedFile: UploadedFile) {
-    console.log("File uploaded successfully:", uploadedFile);
-    // This is the uploaded file with its URL
-    console.log(`File: ${uploadedFile.name}, URL: ${uploadedFile.url}`);
-}
-
-// This handles the selected file (before upload)
-function handleFileSelected(file: File) {
-    console.log("File selected:", file);
-}
-
-// This handles when an uploaded file is removed
-function handleFileRemoved(removedFile: UploadedFile) {
-    console.log("File removed:", removedFile);
-    // 1. Clean up any related state
-    // 2. Call an API to delete the file from server
-    // 3. Update any parent component state
-    // 4. Show a success message
-}
-
 export function VoiceCloneMediaPanel() {
-    const {
-        control,
-        handleSubmit
-    } = useForm<{
-        name: string;
-        select: string;
-        check: boolean;
-        radio: string;
-        textarea: string;
-    }>({
-        defaultValues: {
-            name: ''
-        }
-    });
+    const { setValue } = useFormContext();
+
     const options = [{
         id: 'one',
         label: 'One'
@@ -51,6 +18,23 @@ export function VoiceCloneMediaPanel() {
         label: 'Three'
     }];
 
+    // Handle file upload and set it in the form
+    function handleUpload(uploadedFile: UploadedFile) {
+        console.log("File uploaded successfully:", uploadedFile);
+        // Convert URL to file or store URL in form
+        setValue('sourceAudio', uploadedFile.url);
+    }
+
+    function handleFileSelected(file: File) {
+        console.log("File selected:", file);
+        setValue('sourceAudio', file);
+    }
+
+    function handleFileRemoved(removedFile: UploadedFile) {
+        console.log("File removed:", removedFile);
+        setValue('sourceAudio', undefined);
+    }
+
     return (
         <div className="flex flex-col gap-6">
             <FileUploadWrapper
@@ -61,26 +45,37 @@ export function VoiceCloneMediaPanel() {
                 footer="Only support .wav, mp3 and Audio files"
                 acceptedFormats={['.wav', '.mp3', '.m4a']}
                 maxFileSize={10}
-                onUpload={handleUpload}               // Called after successful upload
-                onFileSelected={handleFileSelected}   // Called when file is selected
-                onFileRemoved={handleFileRemoved}     // Called when uploaded file is removed
+                onUpload={handleUpload}
+                onFileSelected={handleFileSelected}
+                onFileRemoved={handleFileRemoved}
             />
 
             <TextareaAutosizeElement
                 placeholder="Enter your text here"
-                name="textarea"
-                control={control}
+                name="textContent"
             />
-            <div className="flex flex-col sm:flex-row gap-x-5">
 
-                <SelectElement name={'select'} label={'Select'} control={control} options={options} fullWidth />
-                <SelectElement name={'select'} label={'Select'} control={control} options={options} fullWidth />
+            <div className="flex flex-col sm:flex-row gap-x-5">
+                <SelectElement
+                    name="selectOption1"
+                    label="Select Option 1"
+                    options={options}
+                    fullWidth
+                />
+                <SelectElement
+                    name="selectOption2"
+                    label="Select Option 2"
+                    options={options}
+                    fullWidth
+                />
             </div>
+
             <Button
                 variant="generateButton"
                 sx={{ mt: 2, padding: 2 }}
                 fullWidth
                 className="text-xl"
+                type="submit"
             >
                 Generate Speech
             </Button>
