@@ -181,12 +181,6 @@ export const ToolsLayout: React.FC<ToolsLayoutProps> = ({
                             }}
                         >
                             {toolsSection}
-                            <ActionButton
-                                variant="outlineSecondary"
-                                sx={{ mt: 2 }}
-                            >
-                                generate new project
-                            </ActionButton>
                         </StyledToolsSection>
 
                         {/* Controls Section */}
