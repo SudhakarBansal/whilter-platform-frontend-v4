@@ -1,6 +1,6 @@
 'use client';
 import type { UploadedFile } from "@/types";
-import FileUploadWrapper from "./FileUploadWrapper";
+import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import { SelectElement, useForm } from "@whilter/forms";
 import { Button } from "@mui/material";
 import { Face } from "@mui/icons-material";
