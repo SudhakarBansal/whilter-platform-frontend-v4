@@ -1,9 +1,8 @@
 'use client';
 import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
-import { SelectElement, useForm } from "@whilter/forms";
+import { SelectElement, TextareaAutosizeElement, useForm } from "@whilter/forms";
 import { Button } from "@mui/material";
-import { Face } from "@mui/icons-material";
 
 // This handles the uploaded file (after upload completion)
 function handleUpload(uploadedFile: UploadedFile) {
@@ -31,18 +30,11 @@ export function VoiceCloneMediaPanel() {
         control,
         handleSubmit
     } = useForm<{
-        multi_select: string[];
         name: string;
-        auto: string;
-        auto_multi: string[];
         select: string;
-        switch: boolean;
-        checkbox: string[];
         check: boolean;
-        date: string;
         radio: string;
-        password: string;
-        password_repeat: string;
+        textarea: string;
     }>({
         defaultValues: {
             name: ''
@@ -74,17 +66,10 @@ export function VoiceCloneMediaPanel() {
                 onFileRemoved={handleFileRemoved}     // Called when uploaded file is removed
             />
 
-            <FileUploadWrapper
-                type="audio"
-                label="Recorded Audio"
-                heading="Upload Recorded Audio"
-                subheading="Add your Files here"
-                footer="Only support .wav, mp3 and Audio files"
-                acceptedFormats={['.wav', '.mp3', '.m4a']}
-                maxFileSize={10}
-                onUpload={handleUpload}               // Called after successful upload
-                onFileSelected={handleFileSelected}   // Called when file is selected
-                onFileRemoved={handleFileRemoved}     // Called when uploaded file is removed
+            <TextareaAutosizeElement
+                placeholder="Enter your text here"
+                name="textarea"
+                control={control}
             />
             <div className="flex flex-col sm:flex-row gap-x-5">
 
