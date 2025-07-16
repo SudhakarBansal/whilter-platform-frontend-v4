@@ -1,3 +1,4 @@
+// 'use client';
 import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
 import { ToolsLayout } from "@/layouts/tool-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
