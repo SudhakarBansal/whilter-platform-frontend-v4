@@ -3,7 +3,7 @@ import type { VoiceCloneFormValues } from "@/types";
 
 export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues {
     switch (toolSlug) {
-        case "voice-clone":
+        case "voice-cloning":
             return {
                 projectName: '',
                 speaker: 'default',
@@ -45,9 +45,9 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues {
                 speaker: 'default',
                 speakingRate: 1.0,
                 samplingRate: '',
-                pitch: 0,
+                pitch: 9,
                 outputFormat: 'wav',
-                customWidth: 1920,
+                customWidth: 1900,
                 customHeight: 1080,
                 postProcessing: true,
                 modalSelection: '',

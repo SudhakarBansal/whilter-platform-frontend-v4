@@ -1,47 +1,38 @@
-// 'use client';
+'use client';
+
 import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
 import { ToolsLayout } from "@/layouts/tool-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { getToolBySlug } from "@/lib/getToolBySlug";
 import type { ToolPageProps } from '@/types/tool.types';
-import { getDynamicToolConfig } from '@/lib/getDynamicToolConfig';
 import NotFound from '@/app/not-found';
 import { FormContainer } from "@whilter/forms";
 import type { VoiceCloneFormValues } from "@/types";
+import { toolComponentRegistry, type ToolSlug } from "@/lib/toolComponentRegistry";
+import { getToolDefaultValues } from "@/lib/getDefaultToolValues";
 
-export default async function ToolPage({ params }: ToolPageProps) {
+export default function ToolPage({ params }: ToolPageProps) {
   const { tool: toolSlug } = params;
 
   // Validate tool existence
   const tool = getToolBySlug(toolSlug);
   if (!tool) return <NotFound />;
 
-  // Load dynamic config
-  const config = await getDynamicToolConfig(toolSlug);
-  if (!config) return <NotFound />;
+  // Get components from registry
+  const componentConfig = toolComponentRegistry[toolSlug as ToolSlug];
+  if (!componentConfig) return <NotFound />;
 
   const breadcrumbs = buildToolBreadcrumbs(toolSlug, 'new');
 
-  const defaultValues: VoiceCloneFormValues = {
-    projectName: '',
-    speaker: 'default',
-    speakingRate: 1.0,
-    samplingRate: '16000',
-    pitch: 0,
-    outputFormat: 'wav',
-    customWidth: 1920,
-    customHeight: 1080,
-    postProcessing: true,
-    modalSelection: '',
-    textContent: '',
-    selectOption1: '',
-    selectOption2: '',
-  };
+  const defaultValues = getToolDefaultValues(toolSlug);
 
   const onSubmit = async (data: VoiceCloneFormValues) => {
     console.log('Complete form data:', data);
-  }
+  };
 
+  const HeaderComponent = componentConfig.header;
+  const PanelComponent = componentConfig.panel;
+  const ControlsComponent = componentConfig.controls;
 
   return (
     <FormContainer defaultValues={defaultValues} onSuccess={onSubmit}>
@@ -50,9 +41,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
         heading={tool.title}
         description={tool.description}
         config={pageLayoutPresets.dashboard}
-        headerSection={<config.header />}
-        toolsSection={<config.panel />}
-        controlsSection={<config.controls />}
+        headerSection={<HeaderComponent />}
+        toolsSection={<PanelComponent />}
+        controlsSection={<ControlsComponent />}
         splitRatio={[8, 4]}
         spacing={3}
         elevation={1}
