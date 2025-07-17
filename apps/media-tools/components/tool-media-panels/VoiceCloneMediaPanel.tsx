@@ -1,4 +1,3 @@
-'use client';
 import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import { SelectElement, TextareaAutosizeElement, useFormContext } from "@whilter/forms";
