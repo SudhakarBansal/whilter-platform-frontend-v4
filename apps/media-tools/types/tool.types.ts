@@ -1,7 +1,6 @@
 import type { ComponentType } from 'react';
 
 export interface ToolConfig {
-  header: ComponentType;
   controls: ComponentType;
   panel: ComponentType;
 }

@@ -30,7 +30,6 @@ export default function ToolPage({ params }: ToolPageProps) {
     console.log('Complete form data:', data);
   };
 
-  const HeaderComponent = componentConfig.header;
   const PanelComponent = componentConfig.panel;
   const ControlsComponent = componentConfig.controls;
 
@@ -41,7 +40,6 @@ export default function ToolPage({ params }: ToolPageProps) {
         heading={tool.title}
         description={tool.description}
         config={pageLayoutPresets.dashboard}
-        headerSection={<HeaderComponent />}
         toolsSection={<PanelComponent />}
         controlsSection={<ControlsComponent />}
         splitRatio={[8, 4]}

@@ -12,11 +12,9 @@ export interface VoiceCloneFormValues extends BaseDefaults {
     customWidth: number;
     customHeight: number;
     postProcessing: boolean;
-
-    // From VoiceCloneHeader
-    modalSelection: string;
-
+        
     // From VoiceCloneMediaPanel
+    modalSelection: string;
     sourceAudio?: File;
     textContent: string;
     selectOption1: string;

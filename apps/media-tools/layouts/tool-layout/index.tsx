@@ -13,15 +13,12 @@ import PageClientLayout from '@/layouts/page-client-layout/PageClientLayout';
 // Type definitions
 export interface ToolsLayoutProps extends Omit<PageLayoutProps, 'children'> {
     children?: ReactNode;
-    headerSection?: ReactNode;
     toolsSection: ReactNode;
     controlsSection: ReactNode;
     splitRatio?: [number, number]; // [left, right] ratio (default: [8, 4])
     spacing?: number;
     elevation?: number;
     borderRadius?: number;
-    headerHeight?: string;
-    stickyHeader?: boolean;
 }
 
 // Styled components
@@ -30,25 +27,6 @@ const StyledLayoutContainer = styled(Box)(({ theme }) => ({
     flexDirection: 'column',
     minHeight: '100vh',
     gap: theme.spacing(2),
-}));
-
-const StyledHeaderSection = styled(Paper, {
-    shouldForwardProp: (prop) => prop !== 'stickyHeader',
-})<{ stickyHeader?: boolean }>(({ theme, stickyHeader }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: "transparent",
-    ...(stickyHeader && {
-        position: 'sticky',
-        top: 0,
-        zIndex: theme.zIndex.appBar,
-    }),
-    [theme.breakpoints.down('md')]: {
-        padding: theme.spacing(1.5, 2),
-        flexDirection: 'column',
-        gap: theme.spacing(1),
-        alignItems: 'stretch',
-    },
 }));
 
 const StyledContentWrapper = styled(Box)(({ theme }) => ({
@@ -117,15 +95,12 @@ const StyledControlsSection = styled(Paper)(({ theme }) => ({
 }));
 
 export const ToolsLayout: React.FC<ToolsLayoutProps> = ({
-    headerSection,
     toolsSection,
     controlsSection,
     splitRatio = [8, 4],
     spacing = 3,
     elevation = 1,
     borderRadius = 2,
-    headerHeight = 'auto',
-    stickyHeader = false,
     children,
     ...pageLayoutProps
 }) => {
@@ -149,19 +124,6 @@ export const ToolsLayout: React.FC<ToolsLayoutProps> = ({
     return (
         <PageClientLayout {...pageLayoutProps}>
             <StyledLayoutContainer>
-                {/* Header Section */}
-                {headerSection && (
-                    <StyledHeaderSection
-                        elevation={elevation}
-                        stickyHeader={stickyHeader}
-                        sx={{
-                            borderRadius: borderRadius,
-                            height: headerHeight,
-                        }}
-                    >
-                        {headerSection}
-                    </StyledHeaderSection>
-                )}
 
                 {/* Main Content Wrapper */}
                 <StyledContentWrapper>
