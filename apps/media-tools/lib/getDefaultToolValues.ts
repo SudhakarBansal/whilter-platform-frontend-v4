@@ -1,7 +1,7 @@
 // File: lib/getToolDefaultValues.ts
-import type { VoiceCloneFormValues } from "@/types";
+import type { BaseDefaults, VoiceCloneFormValues } from "@/types";
 
-export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues {
+export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | BaseDefaults {
     switch (toolSlug) {
         case "voice-cloning":
             return {
@@ -42,18 +42,6 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues {
         default:
             return {
                 projectName: '',
-                speaker: 'default',
-                speakingRate: 1.0,
-                samplingRate: '',
-                pitch: 9,
-                outputFormat: 'wav',
-                customWidth: 1900,
-                customHeight: 1080,
-                postProcessing: true,
-                modalSelection: '',
-                textContent: '',
-                selectOption1: '',
-                selectOption2: '',
             };
     }
 }

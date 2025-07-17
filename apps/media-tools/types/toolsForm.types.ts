@@ -1,6 +1,9 @@
-export interface VoiceCloneFormValues {
-    // From VoiceCloneControls
+export interface BaseDefaults {
     projectName: string;
+}
+
+export interface VoiceCloneFormValues extends BaseDefaults {
+    // From VoiceCloneControls
     speaker: string;
     speakingRate: number;
     samplingRate: string;
