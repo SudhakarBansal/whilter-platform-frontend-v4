@@ -6,7 +6,8 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | B
         case "voice-cloning":
             return {
                 projectName: '',
-                speaker: 'default',
+                modalName :'',
+                language: '',
                 speakingRate: 1.0,
                 samplingRate: '',
                 pitch: 0,
@@ -16,25 +17,11 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | B
                 postProcessing: true,
                 modalSelection: '',
                 textContent: '',
-                selectOption1: '',
-                selectOption2: '',
             };
 
         case "text-to-speech":
             return {
                 projectName: 'TTS Project',
-                speaker: 'female1',
-                speakingRate: 1.2,
-                samplingRate: '44100',
-                pitch: 2,
-                outputFormat: 'mp3',
-                customWidth: 1280,
-                customHeight: 720,
-                postProcessing: false,
-                modalSelection: 'two',
-                textContent: 'Hello, this is a test.',
-                selectOption1: 'one',
-                selectOption2: 'two',
             };
 
         // Add more tools here...

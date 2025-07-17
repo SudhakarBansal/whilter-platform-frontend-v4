@@ -37,6 +37,20 @@ export function VoiceCloneMediaPanel() {
 
     return (
         <div className="flex flex-col gap-6">
+            <div className="flex flex-col sm:flex-row gap-x-5">
+                <SelectElement
+                    name="modalName"
+                    label="Select Modal"
+                    options={options}
+                    fullWidth
+                />
+                <SelectElement
+                    name="language"
+                    label="Select Language"
+                    options={options}
+                    fullWidth
+                />
+            </div>
             <FileUploadWrapper
                 type="audio"
                 label="Source Audio"
@@ -54,21 +68,6 @@ export function VoiceCloneMediaPanel() {
                 placeholder="Enter your text here"
                 name="textContent"
             />
-
-            <div className="flex flex-col sm:flex-row gap-x-5">
-                <SelectElement
-                    name="selectOption1"
-                    label="Select Option 1"
-                    options={options}
-                    fullWidth
-                />
-                <SelectElement
-                    name="selectOption2"
-                    label="Select Option 2"
-                    options={options}
-                    fullWidth
-                />
-            </div>
 
             <Button
                 variant="generateButton"
