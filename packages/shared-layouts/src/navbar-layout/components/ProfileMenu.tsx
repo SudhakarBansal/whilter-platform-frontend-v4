@@ -7,9 +7,10 @@ interface ProfileMenuProps {
   anchorEl: HTMLElement | null;
   onClose: () => void;
   theme: Theme;
+  onSettings?: (path: string) => void;
 }
 
-export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, theme }) => (
+export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, theme, onSettings }) => (
   <Menu
     anchorEl={anchorEl}
     open={Boolean(anchorEl)}
@@ -45,7 +46,12 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, the
       <Typography variant="caption" color="text.secondary">m@example.com</Typography>
     </Box>
     <Divider />
-    <MenuItem onClick={onClose}>
+    <MenuItem
+      onClick={() => {
+        onSettings?.("/users"); 
+        // onClose();
+      }}
+    >
       <SettingsIcon fontSize="small" />
       Settings
     </MenuItem>

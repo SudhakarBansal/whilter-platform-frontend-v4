@@ -8,6 +8,7 @@ import { projectsData } from '@/utils/data/projects.data';
 import { FolderCardSection } from '@whilter/ui-kit/components'
 import { recentProjects } from '@/utils/data/recentProjects.data';
 
+
 function Page() {
   const actionButtons = [
     <Button variant="glassmorphism" className='text-lg py-2 px-4'>Brand Customisation</Button>
