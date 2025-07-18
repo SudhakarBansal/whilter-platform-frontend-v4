@@ -74,21 +74,21 @@ const TextFieldElement = forwardRef(function TextFieldElement<
 
   const rulesTmp = {
     ...rules,
-    ...(required && !rules.required && {required: 'This field is required'}),
+    ...(required && !rules.required && { required: 'This field is required' }),
     ...(type === 'email' &&
       !rules.pattern && {
-        pattern: {
-          value:
-            // eslint-disable-next-line no-useless-escape
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-          message: 'Please enter a valid email address',
-        },
-      }),
+      pattern: {
+        value:
+          // eslint-disable-next-line no-useless-escape
+          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        message: 'Please enter a valid email address',
+      },
+    }),
   }
 
   const {
     field,
-    fieldState: {error},
+    fieldState: { error },
   } = useController({
     name,
     control,
@@ -96,7 +96,7 @@ const TextFieldElement = forwardRef(function TextFieldElement<
     rules: rulesTmp,
   })
 
-  const {value, onChange} = useTransform<TFieldValues, TName, TValue>({
+  const { value, onChange } = useTransform<TFieldValues, TName, TValue>({
     value: field.value,
     onChange: field.onChange,
     transform: {
@@ -104,27 +104,27 @@ const TextFieldElement = forwardRef(function TextFieldElement<
         typeof transform?.input === 'function'
           ? transform.input
           : (value) => {
-              return value ?? ('' as TValue)
-            },
+            return value ?? ('' as TValue)
+          },
       output:
         typeof transform?.output === 'function'
           ? transform.output
           : (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-              const value = event.target.value
-              if (type !== 'number') {
-                return value as PathValue<TFieldValues, TName>
-              }
+            const value = event.target.value
+            if (type !== 'number') {
+              return value as PathValue<TFieldValues, TName>
+            }
 
-              if (value === '') {
-                return null as PathValue<TFieldValues, TName>
-              }
+            if (value === '') {
+              return null as PathValue<TFieldValues, TName>
+            }
 
-              if (value == null) {
-                return value
-              }
+            if (value == null) {
+              return value
+            }
 
-              return Number(value) as PathValue<TFieldValues, TName>
-            },
+            return Number(value) as PathValue<TFieldValues, TName>
+          },
     },
   })
 
@@ -150,7 +150,7 @@ const TextFieldElement = forwardRef(function TextFieldElement<
         }
       }}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' || e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-') {
           e.preventDefault();
         }
       }}
