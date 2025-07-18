@@ -2,9 +2,11 @@ import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import { SelectElement, TextareaAutosizeElement, useFormContext } from "@whilter/forms";
 import { Button } from "@mui/material";
+import type { VoiceCloneFormValues } from "@/types";
+import { TagsInput } from "@/components/TagsInput"; // Import the new component
 
 export function VoiceCloneMediaPanel() {
-    const { setValue } = useFormContext();
+    const { setValue } = useFormContext<VoiceCloneFormValues>();
 
     const options = [{
         id: 'one',
@@ -21,7 +23,7 @@ export function VoiceCloneMediaPanel() {
     function handleUpload(uploadedFile: UploadedFile) {
         console.log("File uploaded successfully:", uploadedFile);
         // Convert URL to file or store URL in form
-        setValue('sourceAudio', uploadedFile.url);
+        setValue('sourceAudio', uploadedFile.url as any);
     }
 
     function handleFileSelected(file: File) {
@@ -66,6 +68,12 @@ export function VoiceCloneMediaPanel() {
             <TextareaAutosizeElement
                 placeholder="Enter your text here"
                 name="textContent"
+            />
+
+            {/* Add the Tags Input component */}
+            <TagsInput
+                name="tags"
+                label="Tags"
             />
 
             <Button

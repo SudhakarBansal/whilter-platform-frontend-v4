@@ -19,4 +19,5 @@ export interface VoiceCloneFormValues extends BaseDefaults {
     modalSelection: string;
     sourceAudio?: File;
     textContent: string;
+    tags: string[];
 }

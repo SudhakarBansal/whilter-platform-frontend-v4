@@ -6,7 +6,7 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | B
         case "voice-cloning":
             return {
                 projectName: '',
-                modalName :'',
+                modalName: '',
                 language: '',
                 speakingRate: 1.0,
                 samplingRate: '',
@@ -17,6 +17,7 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | B
                 postProcessing: true,
                 modalSelection: '',
                 textContent: '',
+                tags: []
             };
 
         case "text-to-speech":
