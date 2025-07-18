@@ -1,0 +1,17 @@
+{
+  "extends": "@whilter/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+  "@whilter/shared-service": ["../auth/src/index.ts"],
+  "@whilter/shared-service/*": ["../auth/src/*"]
+}
+  },
+  "include": [
+  "src/**/*.ts",
+  "src/**/*.tsx"
+],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -8,7 +8,6 @@ const dummyUsers = [
   { email: 'super@whilter.ai', password: 'super123', role: 'superAdmin' as UserRole }, 
 ];
 
-
   const user = dummyUsers.find(u => u.email === email && u.password === password);
   if (!user) throw new Error('Invalid credentials');
 
@@ -17,7 +16,6 @@ const dummyUsers = [
     role: user.role,
     exp: Math.floor(Date.now() / 1000) + 60 * 60, 
   };
-
 
   const token = `dummy.${btoa(JSON.stringify(payload))}.token`;
   console.log("token",token)
