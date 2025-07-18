@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt'
-import { PUBLIC_PATHS, ROLE_BASED_ROUTES } from './config/access-control'
-import { Role } from './utils/role-utils'
+import { PUBLIC_PATHS, ROLE_BASED_ROUTES } from '../config/access-control'
+import { Role } from '../utils/role-utils'
 
 export async function sharedMiddleware(req: NextRequest) {
   const { pathname } = req.nextUrl
