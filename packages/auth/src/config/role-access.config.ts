@@ -7,7 +7,7 @@ type RoleConfig = {
 
 export const ROLE_ROUTE_CONFIG: Record<string, RoleConfig> = {
   '/platform': {
-    allowedRoles: [Role.SUPER_ADMIN, Role.ADMIN],
+    allowedRoles: [Role.SUPER_ADMIN, Role.CLIENT_ADMIN],
     redirectAfterLogin: '/platform',
   },
   '/marketplace': {

@@ -1,28 +1,28 @@
-'use client';
+// app/page.tsx
+'use client'
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-import { PUBLIC_ROUTES } from '@whilter/config';
-import { getTokenPayload } from '@/lib/auth';
+import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
+import { authOptions, ROLE_ROUTE_CONFIG, Role } from '@whilter/auth'
 
-export default function HomeRedirect() {
-  
-  const router = useRouter();
-  useEffect(() => {
-    const token = Cookies.get('auth-token');
-    if (token) {
-      try {
-        const { role, exp } = getTokenPayload(token);
-        router.replace(PUBLIC_ROUTES.HOME[role]);
-      } catch (error) {
-        console.error('Invalid token:', error);
-        router.replace(PUBLIC_ROUTES.LOGIN);
-      }
-    } else {
-      router.replace(PUBLIC_ROUTES.LOGIN);
-    }
-  }, [router]);
+export default async function Home() {
+  const session = await getServerSession(authOptions)
 
-  return null;
+  if (!session?.user.role) {
+    // Not authenticated or role missing
+    redirect('/login')
+  }
+
+  const role = session.user.role as Role
+
+  const matchedRoute = Object.entries(ROLE_ROUTE_CONFIG).find(([_, config]) =>
+    config.allowedRoles.includes(role)
+  )
+
+  if (matchedRoute) {
+    redirect(matchedRoute[1].redirectAfterLogin)
+  }
+
+  // No match found for role
+  return <div>Unauthorized: No route configured for your role.</div>
 }
