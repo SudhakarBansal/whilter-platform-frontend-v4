@@ -1,25 +1,73 @@
 import axios from 'axios';
-import { getSession } from 'next-auth/react';
+import { getSession, signOut } from 'next-auth/react';
 import Router from 'next/router';
+import { authService } from '@whilter/api'; // your API service layer
+
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach(prom => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true
+  withCredentials: true,
 });
 
 instance.interceptors.request.use(async config => {
-  const session = await getSession();
+  const session = await getSession()
   // if (session?.accessToken) {
-  //   config.headers.Authorization = `Bearer ${session.accessToken}`;
+  //   config.headers.Authorization = `Bearer ${session.accessToken}`
   // }
-  return config;
-});
+  return config
+})
 
 instance.interceptors.response.use(
   response => response,
   async error => {
-    if (error.response?.status === 401) {
-      Router.replace('/login'); 
+    const originalRequest = error.config;
+    const status = error.response?.status;
+
+    if (status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({
+            resolve: (token: string) => {
+              originalRequest.headers['Authorization'] = 'Bearer ' + token;
+              resolve(instance(originalRequest));
+            },
+            reject: (err: any) => reject(err),
+          });
+        });
+      }
+
+      isRefreshing = true;
+
+      try {
+        const response = await authService.refreshToken();
+        const { accessToken } = response.data;
+        processQueue(null, accessToken);
+        isRefreshing = false;
+
+        originalRequest.headers['Authorization'] = 'Bearer ' + accessToken;
+        return instance(originalRequest);
+      } catch (err) {
+        processQueue(err, null);
+        isRefreshing = false;
+        signOut({ callbackUrl: '/login' });
+        return Promise.reject(err);
+      }
     }
     return Promise.reject(error);
   }

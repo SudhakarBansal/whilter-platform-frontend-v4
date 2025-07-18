@@ -1,4 +1,3 @@
-// packages/auth/src/next-auth/options.ts
 import { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
@@ -16,14 +15,12 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
 
-        // 🔐 Replace this with your real login API
         const { data } = await authService.loginWithEmail({
           email: credentials.email,
           password: credentials.password,
         })
 
-        // Ensure user object has all required fields
-        if (!data?.email || !data?.role || !data?.status) return null
+        if (!data?.email || !data?.role || !data?.accessToken) return null
 
         return {
           id: data.id,
@@ -33,6 +30,7 @@ export const authOptions: NextAuthOptions = {
           role: data.role,
           status: data.status,
           organization: data.organization,
+          accessToken: data.accessToken, 
         }
       },
     }),
@@ -50,22 +48,25 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
 
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = user.role
-        token.status = user.status
-        token.organization = user.organization
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.role = token.role as string
-        session.user.status = token.status as string
-        session.user.organization = token.organization as string
-      }
-      return session
-    },
+ callbacks: {
+  async jwt({ token, user }) {
+    if (user) {
+      token.role = user.role;
+      token.status = user.status;
+      token.organization = user.organization;
+      token.accessToken = user.accessToken; 
+    }
+    return token;
   },
+   async session({ session, token }) {
+    if (session.user) {
+      session.user.role = token.role as string;
+      session.user.status = token.status as string;
+      session.user.organization = token.organization as string;
+    }
+    session.accessToken = token.accessToken as string;
+    return session;
+  },
+  },
+  
 }

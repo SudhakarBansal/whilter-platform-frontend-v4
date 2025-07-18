@@ -18,6 +18,9 @@ export const authService = {
   signup: (data: SignupPayload) =>
     api.post('/auth/signup', data),
 
+  refreshToken: () =>
+    api.post('/auth/refresh-token'),
+
   forgotPassword: (data: ForgotPasswordPayload) =>
     api.post('/auth/forgot-password', data),
 
