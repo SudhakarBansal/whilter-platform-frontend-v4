@@ -1,5 +1,6 @@
 export enum Role {
-  CHARPAI_SUPER_ADMIN = 'charpai-super-admin',
+  GUEST='guest',
+  SUPER_ADMIN = 'super-admin',
   ADMIN='admin',
   CREATIVE_EDITOR = 'creative-editor',
   CREATIVE_CONTRIBUTOR = 'creative-contributor',
@@ -14,5 +15,5 @@ export function hasRole(user: any, roles: string[]) {
 }
 
 export function isSuperAdmin(user: any) {
-  return user?.role === Role.CHARPAI_SUPER_ADMIN;
+  return user?.role === Role.SUPER_ADMIN;
 }

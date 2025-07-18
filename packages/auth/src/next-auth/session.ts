@@ -1,7 +1,7 @@
 // packages/auth/session.ts
 import { getServerSession } from 'next-auth';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { authOptions } from './next-auth';
+import { authOptions } from './options';
 
 type Credentials = {
   email: string;

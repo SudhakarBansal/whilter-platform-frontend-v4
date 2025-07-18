@@ -3,8 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-  "@whilter/shared-service": ["../api/src/index.ts"],
-  "@whilter/shared-service/*": ["../api/src/*"]
+  "@whilter/api": ["../api/src/index.ts"],
+  "@whilter/api/*": ["../api/src/*"]
 }
   },
   "include": [

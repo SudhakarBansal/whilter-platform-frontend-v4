@@ -11,6 +11,8 @@
   "dependencies": {
     "@whilter/config": "workspace:*",
     "@whilter/shared-layouts": "workspace:*",
+    "@whilter/auth":"workspace:*",
+    "@whilter/api":"workspace:*",
     "@whilter/ui-kit": "workspace:*",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",

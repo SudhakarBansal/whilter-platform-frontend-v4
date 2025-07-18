@@ -1,5 +1,5 @@
 export * from './next-auth/session';
-export * from './next-auth/next-auth';
-export * from './utils/role-utils';
+export * from './next-auth/options';
+export * from './config/roles/role';
 export { sharedMiddleware as middleware } from './middleware/middleware'
-export * from './config/access-control';
+export * from './config/access-control.config';

@@ -124,6 +124,9 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1
     devDependencies:
+      '@whilter/api':
+        specifier: workspace:*
+        version: link:packages/api
       '@whilter/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
@@ -203,6 +206,12 @@ importers:
 
   apps/main:
     dependencies:
+      '@whilter/api':
+        specifier: workspace:*
+        version: link:../../packages/api
+      '@whilter/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config

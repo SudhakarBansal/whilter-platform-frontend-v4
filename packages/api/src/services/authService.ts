@@ -1,5 +1,3 @@
-// packages/api/services/auth.service.ts
-
 import axios from '../axiosInstance'
 import {
   LoginPayload,
