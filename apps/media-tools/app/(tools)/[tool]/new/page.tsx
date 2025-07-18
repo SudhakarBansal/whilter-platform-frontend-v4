@@ -41,18 +41,12 @@ export default function ToolPage({ params }: ToolPageProps) {
         description={tool.description}
         config={pageLayoutPresets.dashboard}
       >
-        {/* Layout Container */}
         <div className="flex flex-col min-h-screen gap-2">
-          {/* Content Wrapper */}
           <div className="flex flex-col flex-1 gap-3 md:gap-4">
-            {/* Tools Container */}
             <div className="grid gap-3 lg:gap-8 flex-1 grid-cols-1 lg:grid-cols-12 items-start">
-              {/* Tools Section - 8/12 columns */}
               <div className="lg:col-span-8 flex flex-col min-h-[500px] bg-transparent">
                 <PanelComponent />
               </div>
-
-              {/* Controls Section - 4/12 columns */}
               <div className="lg:col-span-4 p-6 md:p-6 flex flex-col min-h-[500px] h-full bg-gradient-to-b from-blue-400 to-blue-800 shadow-sm rounded-[1rem] lg:sticky lg:top-2 lg:self-start lg:h-auto">
                 <ControlsComponent />
               </div>
