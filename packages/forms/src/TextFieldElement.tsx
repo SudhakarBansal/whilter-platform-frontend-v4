@@ -65,6 +65,7 @@ const TextFieldElement = forwardRef(function TextFieldElement<
     inputRef,
     transform,
     onBlur,
+    onKeyDown,
     ...rest
   } = props
 
@@ -146,6 +147,11 @@ const TextFieldElement = forwardRef(function TextFieldElement<
         field.onBlur()
         if (typeof onBlur === 'function') {
           onBlur(event)
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
         }
       }}
       required={required}
