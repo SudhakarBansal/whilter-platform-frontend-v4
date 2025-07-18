@@ -14,6 +14,10 @@ export function hasRole(user: any, roles: string[]) {
   return roles.includes(user?.role);
 }
 
-export function isSuperAdmin(user: any) {
-  return user?.role === Role.SUPER_ADMIN;
+export function isSuperAdmin(role: Role) {
+  return role === Role.SUPER_ADMIN
+}
+
+export function isClientAdmin(role: Role) {
+  return role === Role.CLIENT_ADMIN
 }
