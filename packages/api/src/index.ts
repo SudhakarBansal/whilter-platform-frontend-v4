@@ -1,2 +1,2 @@
 export * from './axiosInstance';
-export * from './serviceLayer';
+export * from './services/authService';
