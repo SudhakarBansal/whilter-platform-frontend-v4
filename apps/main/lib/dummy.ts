@@ -1,37 +1,57 @@
-export const loginWithDummyToken = (email: string, password: string) => {
-  const users = [
-    {
-      email: 'super@whilter.ai',
-      password: 'super123',
-      role: 'SUPER_ADMIN',
-      section: 'Platform', // Optional if SUPER_ADMINs go to /platform by default
-      token: 'dummy-super-token',
-    },
-    {
-      email: 'admin@whilter.ai',
-      password: 'admin123',
-      role: 'CLIENT_ADMIN',
-      section: 'CharpAI',
-      token: 'dummy-client-token',
-    },
-    {
-      email: 'guest@whilter.ai',
-      password: 'guest123',
-      role: 'GUEST',
-      section: 'Marketplace',
-      token: 'dummy-guest-token',
-    },
-  ];
+import { Role } from '@whilter/auth'
 
-  const user = users.find((u) => u.email === email && u.password === password);
+type DummyUser = {
+  email: string
+  password: string
+  role: Role
+  section: string
+}
 
-  if (!user) {
-    throw new Error('Invalid credentials');
-  }
+const dummyUsers: DummyUser[] = [
+  {
+    email: 'superadmin@demo.com',
+    password: 'superadmin',
+    role: Role.SUPER_ADMIN,
+    section: 'platform',
+  },
+  {
+    email: 'admin@demo.com',
+    password: 'admin',
+    role: Role.CLIENT_ADMIN,
+    section: 'platform',
+  },
+  {
+    email: 'editor@demo.com',
+    password: 'editor',
+    role: Role.CREATIVE_EDITOR,
+    section: 'marketplace',
+  },
+  {
+    email: 'guest@demo.com',
+    password: 'guest',
+    role: Role.GUEST,
+    section: 'media-tools',
+  },
+]
 
-  return {
-    token: user.token,
+export function loginWithDummyToken(email: string, password: string) {
+  const user = dummyUsers.find(
+    (u) => u.email === email && u.password === password
+  )
+
+  if (!user) throw new Error('Invalid credentials')
+
+  const payload = {
+    email: user.email,
     role: user.role,
     section: user.section,
-  };
-};
+  }
+
+  const token = btoa(JSON.stringify(payload)) 
+
+  return {
+    token,
+    role: user.role,
+    section: user.section,
+  }
+}

@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const { data } = await authService.loginWithEmail({
+        const { data } = await authService.login({
           email: credentials.email,
           password: credentials.password,
         });

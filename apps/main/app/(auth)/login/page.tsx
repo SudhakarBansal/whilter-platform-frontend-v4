@@ -3,8 +3,11 @@
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useRouter } from 'next/navigation';
-import { loginWithDummyToken } from '../../../lib/dummy';
+import { loginWithDummyToken } from '../../../lib/loginWithDummyToken';
 import { getRedirectPath } from '@whilter/auth/src/utils/role.utils';
+import { decodeDummyAccessToken } from '@/lib/decodeToken';
+import { Role } from '@whilter/auth';
+import { authService } from '@whilter/api';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,21 +16,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+  setError('')
   try {
-    const { token, role, section } = loginWithDummyToken(email, password);
+    const response = await authService.login({ email, password })
 
-    // Set auth token cookie
-    document.cookie = `auth-token=${token}; path=/;`;
-    const redirectPath = getRedirectPath(section);
+    const { accessToken } = response.data 
+    document.cookie = `auth-token=${accessToken}; path=/; Secure; SameSite=Lax`
 
-    // Redirect user
-    router.push(redirectPath);
-  } catch (err) {
-    setError('Invalid credentials');
+    const claims = decodeDummyAccessToken(accessToken)
+    if (!claims) throw new Error('Invalid token')
+      const redirectPath = getRedirectPath(claims.section, claims.role as Role)
+      router.push(redirectPath)
+    } catch (err) {
+      setError('Invalid credentials')
+    }
   }
-};
 
   return (
     <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">

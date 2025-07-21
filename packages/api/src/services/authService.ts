@@ -9,12 +9,12 @@ import {
 } from '../types/auth.types';
 
 const api = axios.create({
-  baseURL: process.env.API_BASE_URL,
+  baseURL: process.env.NEXT_PUBLIC_APP_AUTH_URL,
 });
 
 export const authService = {
-  loginWithEmail: (data: LoginPayload) =>
-    api.post('/auth/login', data),
+  login: (data: LoginPayload) =>
+    api.post('/api/user/login', data),
 
   getUserPermissions: (data: getUserPermissions) =>
     api.post('/auth/permissions', data),
