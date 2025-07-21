@@ -6,16 +6,15 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | B
         case "voice-cloning":
             return {
                 projectName: '',
+                audioLengthMs: 0,
+                keepSilenceDurationMs: 0,
+                silenceLengthMs: 0,
+                speed: '',
+                pitch: 0,
+                speechRate: '',
                 modalName: '',
                 language: '',
-                speakingRate: 1.0,
-                samplingRate: '',
-                pitch: 0,
-                outputFormat: 'wav',
-                customWidth: 1920,
-                customHeight: 1080,
-                postProcessing: true,
-                modalSelection: '',
+                sourceAudio: '',
                 textContent: '',
                 tags: []
             };

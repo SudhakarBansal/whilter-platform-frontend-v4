@@ -4,20 +4,17 @@ export interface BaseDefaults {
 
 export interface VoiceCloneFormValues extends BaseDefaults {
     // From VoiceCloneControls
-    speaker: string;
-    speakingRate: number;
-    samplingRate: string;
+    audioLengthMs: number;
+    keepSilenceDurationMs: number;
+    silenceLengthMs: number;
+    speed: string;
     pitch: number;
-    outputFormat: string;
-    customWidth: number;
-    customHeight: number;
-    postProcessing: boolean;
+    speechRate: string;
 
     // From VoiceCloneMediaPanel
     modalName: string;
     language: string;
-    modalSelection: string;
-    sourceAudio?: File;
+    sourceAudio: string;
     textContent: string;
     tags: string[];
 }
