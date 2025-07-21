@@ -2,12 +2,12 @@ import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import { SelectElement, TextareaAutosizeElement, useFormContext, useWatch } from "@whilter/forms";
 import { Button } from "@mui/material";
-import type { VoiceCloneFormValues } from "@/types";
+import type { VoiceCloneFormInitialValues } from "@/types";
 import { TagsInput } from "@/components/TagsInput";
 import { useEffect } from "react";
 
 export function VoiceCloneMediaPanel() {
-    const { setValue } = useFormContext<VoiceCloneFormValues>();
+    const { setValue } = useFormContext<VoiceCloneFormInitialValues>();
 
     // Watch the inputOption field to conditionally render components
     const inputOption = useWatch({ name: 'inputOption' });
