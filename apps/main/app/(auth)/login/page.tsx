@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useRouter } from 'next/navigation';
 import { loginWithDummyToken } from '../../../lib/dummy';
-import { PUBLIC_ROUTES } from '@whilter/config';
+import { getRedirectPath } from '@whilter/auth/src/utils/role.utils';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,18 +13,21 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
- const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const { token, role } = loginWithDummyToken(email, password);
-      document.cookie = `auth-token=${token}; path=/;`;
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  try {
+    const { token, role, section } = loginWithDummyToken(email, password);
 
-      const redirectPath = PUBLIC_ROUTES.HOME[role];
-      router.push(redirectPath);
-    } catch (err) {
-      setError('Invalid credentials');
-    }
-  };
+    // Set auth token cookie
+    document.cookie = `auth-token=${token}; path=/;`;
+    const redirectPath = getRedirectPath(section);
+
+    // Redirect user
+    router.push(redirectPath);
+  } catch (err) {
+    setError('Invalid credentials');
+  }
+};
 
   return (
     <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">

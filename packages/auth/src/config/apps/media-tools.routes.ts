@@ -1,10 +1,12 @@
 
 import { Role } from '../roles/role'
-import { RouteAccessConfig } from '@whilter/auth/types/route.types'
+import { RouteAccessConfig } from '../../types/route.type'
 
 export const MEDIA_TOOLS_ROUTES: Record<string, RouteAccessConfig> = {
- '/media-tools': {
+'/media-tools/view': {
     allowedRoles: [Role.GUEST],
+    requiredPermissions: ['tools:review'],
+    requiredApp: 'media-tools'
   },
   
 }

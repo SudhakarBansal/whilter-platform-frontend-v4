@@ -1,23 +1,17 @@
 export enum Role {
-  GUEST='guest',
   SUPER_ADMIN = 'super-admin',
-  CLIENT_ADMIN='client-admin',
-  CREATIVE_EDITOR = 'creative-editor',
-  CREATIVE_CONTRIBUTOR = 'creative-contributor',
-  CREATIVE_REVIEWER = 'creative-reviewer',
-  CONTENT_CREATOR = 'content-creator',
+  GUEST='guest',
+  CLIENT_ADMIN = 'client-admin',
   CAMPAIGN_MANAGER = 'campaign-manager',
   CAMPAIGN_REVIEWER = 'campaign-reviewer',
+  VENDOR_MANAGER = 'vendor-manager',
+  PRODUCT_REVIEWER = 'product-reviewer',
+  CREATIVE_EDITOR='creative-editor',
+  CREATIVE_CONTRIBUTOR='creative-contributor',
+  MEDIA_EDITOR = 'media-editor',
+  MEDIA_VIEWER = 'media-viewer',
 }
 
-export function hasRole(user: any, roles: string[]) {
-  return roles.includes(user?.role);
-}
 
-export function isSuperAdmin(role: Role) {
-  return role === Role.SUPER_ADMIN
-}
 
-export function isClientAdmin(role: Role) {
-  return role === Role.CLIENT_ADMIN
-}
+

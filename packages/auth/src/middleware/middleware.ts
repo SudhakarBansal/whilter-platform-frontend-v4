@@ -1,32 +1,61 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { getToken } from 'next-auth/jwt'
-import { getRouteAccessMeta, isPublicRoute } from '@whilter/auth/utils/route-access'
-import { Role } from '@whilter/auth/config/roles/role'
+import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+import { getRouteConfig, isPublicRoute } from '../utils/role.utils';
+import { checkAccess } from '../utils/access-check';
+import { Role } from '../config/roles/role';
 
 export async function middleware(req: NextRequest) {
-  const { pathname } = req.nextUrl
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET })
+  const { pathname } = req.nextUrl;
 
-  // Allow public routes
-  if (!token && !isPublicRoute(pathname)) {
-    return NextResponse.redirect(new URL('/login', req.url))
+  // Skip static & internal assets
+  if (pathname.startsWith('/_next/') || pathname.startsWith('/static/')) {
+    return NextResponse.next();
   }
 
-  const routeConfig = getRouteAccessMeta(pathname)
-  const userRole = token?.role as Role
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
 
-  if (routeConfig?.allowedRoles) {
-    const isSuperAdmin = userRole === Role.SUPER_ADMIN
-    const disableSuperAdmin = routeConfig.disableSuperAdmin ?? false
+  //  If public route, but user is logged in → redirect based on section/role
+  if (isPublicRoute(pathname)) {
+    if (token) {
+      const section = token.section as string;
+      const role = token.role as Role;
 
-    // If not super admin or super admin is explicitly disabled
-    const isAccessAllowed =
-      (isSuperAdmin && !disableSuperAdmin) ||
-      routeConfig.allowedRoles.includes(userRole)
+      let redirectPath = '/platform';
 
-    if (!isAccessAllowed) {
-      return NextResponse.redirect(new URL('/', req.url))
+      if (section === 'CharpAI') {
+      redirectPath = '/charp-ai';
+    } else if (section === 'Marketplace') {
+      redirectPath = '/marketplace';
+    } else if (section === 'Media-tools') {
+      redirectPath = '/media-tools';
+    } else if (role === 'super-admin') {
+      redirectPath = '/platform';
     }
+      return NextResponse.redirect(new URL(redirectPath, req.url));
+    }
+    return NextResponse.next();
   }
-  return NextResponse.next()
+
+  //  Private route: Require login
+  if (!token) {
+    const { config } = getRouteConfig(pathname);
+    const redirectURL = config?.redirectUnauthenticated || '/login';
+    return NextResponse.redirect(new URL(redirectURL, req.url));
+  }
+
+
+  const { config } = getRouteConfig(pathname);
+  const userRole = token.role as Role;
+  const permissions = (token.permissions || []) as string[];
+
+  if (config && !checkAccess({ userRole, userPermissions: permissions, routeConfig: config })) {
+    const redirectURL = config.redirectUnauthorized || '/unauthorized';
+    return NextResponse.redirect(new URL(redirectURL, req.url));
+  }
+
+  return NextResponse.next();
 }
+
+export const config = {
+  matcher: ['/((?!api|_next|favicon.ico).*)'],
+};

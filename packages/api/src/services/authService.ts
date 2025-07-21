@@ -5,6 +5,7 @@ import {
   ForgotPasswordPayload,
   ResetPasswordPayload,
   CreateUserPayload,
+  getUserPermissions
 } from '../types/auth.types';
 
 const api = axios.create({
@@ -14,6 +15,9 @@ const api = axios.create({
 export const authService = {
   loginWithEmail: (data: LoginPayload) =>
     api.post('/auth/login', data),
+
+  getUserPermissions: (data: getUserPermissions) =>
+    api.post('/auth/permissions', data),
 
   signup: (data: SignupPayload) =>
     api.post('/auth/signup', data),

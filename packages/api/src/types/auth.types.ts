@@ -26,3 +26,7 @@ export interface CreateUserPayload {
   password: string;
   role?: string;
 }
+
+export interface getUserPermissions{
+    userId:string;
+}

@@ -1,8 +1,10 @@
-import { NextAuthOptions } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
-import GitHubProvider from 'next-auth/providers/github'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { authService } from '@whilter/api'
+import { NextAuthOptions } from 'next-auth';
+import GoogleProvider from 'next-auth/providers/google';
+import GitHubProvider from 'next-auth/providers/github';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { authService } from '@whilter/api';
+import {ROLES_HIERARCHY } from '../config/roles/hierachy';
+import { Role } from '../config/roles/role';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -13,14 +15,14 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) return null
+        if (!credentials?.email || !credentials?.password) return null;
 
         const { data } = await authService.loginWithEmail({
           email: credentials.email,
           password: credentials.password,
-        })
+        });
 
-        if (!data?.email || !data?.role || !data?.accessToken) return null
+        if (!data?.email || !data?.role || !data?.accessToken) return null;
 
         return {
           id: data.id,
@@ -30,8 +32,8 @@ export const authOptions: NextAuthOptions = {
           role: data.role,
           status: data.status,
           organization: data.organization,
-          accessToken: data.accessToken, 
-        }
+          accessToken: data.accessToken,
+        };
       },
     }),
     GoogleProvider({
@@ -48,25 +50,46 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
 
- callbacks: {
-  async jwt({ token, user }) {
-    if (user) {
-      token.role = user.role;
-      token.status = user.status;
-      token.organization = user.organization;
-      token.accessToken = user.accessToken; 
-    }
-    return token;
-  },
-   async session({ session, token }) {
-    if (session.user) {
-      session.user.role = token.role as string;
-      session.user.status = token.status as string;
-      session.user.organization = token.organization as string;
-    }
-    session.accessToken = token.accessToken as string;
-    return session;
-  },
-  },
-  
+  callbacks: {
+   async jwt({ token, user }) {
+  if (user) {
+    const roleHierarchy = ROLES_HIERARCHY[user.role as Role] || {};
+    
+    // Get permissions from API
+    const apiResponse = await authService.getUserPermissions({ userId: user.id });
+    const apiPermissions = apiResponse.data || [];
+    
+    // Get permissions from role hierarchy
+    const globalPermissions = roleHierarchy.globalPermissions || [];
+    const appPermissions = Object.values(roleHierarchy.appSpecificPermissions || {}).flat();
+    
+    return {
+      ...token,
+      id: user.id,
+      role: user.role,
+      organization: user.organization,
+      accessibleApps: roleHierarchy.accessibleApps || [],
+      permissions: [...apiPermissions, ...globalPermissions, ...appPermissions],
+    };
+  }
+  return token;
+},
+ async session({ session, token }) {
+  return {
+    ...session,
+    accessToken: token.accessToken,
+    user: {
+      ...session.user,
+      id: token.id,
+      name: token.name,
+      email: token.email,
+      role: token.role,
+      section: token.section,          
+      organization: token.organization,
+      accessibleApps: token.accessibleApps,
+      permissions: token.permissions,
+    },
+  };
 }
+  },
+};
