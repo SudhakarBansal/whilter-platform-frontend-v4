@@ -3,7 +3,7 @@ import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import { SelectElement, TextareaAutosizeElement, useFormContext } from "@whilter/forms";
 import { Button } from "@mui/material";
 import type { VoiceCloneFormValues } from "@/types";
-import { TagsInput } from "@/components/TagsInput"; // Import the new component
+import { TagsInput } from "@/components/TagsInput";
 
 export function VoiceCloneMediaPanel() {
     const { setValue } = useFormContext<VoiceCloneFormValues>();
@@ -19,21 +19,25 @@ export function VoiceCloneMediaPanel() {
         label: 'Three'
     }];
 
-    // Handle file upload and set it in the form
+    // Handle file upload - this is called after successful S3 upload
     function handleUpload(uploadedFile: UploadedFile) {
         console.log("File uploaded successfully:", uploadedFile);
-        // Convert URL to file or store URL in form
-        setValue('sourceAudio', uploadedFile.url as any);
+        // Set the S3 file path/URL as sourceAudio
+        setValue('sourceAudio', uploadedFile.url);
     }
 
+    // Handle file selection - this is called when file is selected but not yet uploaded
     function handleFileSelected(file: File) {
         console.log("File selected:", file);
-        setValue('sourceAudio', file);
+        // Clear the sourceAudio field when a new file is selected but not uploaded yet
+        setValue('sourceAudio', '');
     }
 
+    // Handle file removal
     function handleFileRemoved(removedFile: UploadedFile) {
         console.log("File removed:", removedFile);
-        setValue('sourceAudio', undefined);
+        // Clear the sourceAudio field when file is removed
+        setValue('sourceAudio', '');
     }
 
     return (
@@ -70,7 +74,6 @@ export function VoiceCloneMediaPanel() {
                 name="textContent"
             />
 
-            {/* Add the Tags Input component */}
             <TagsInput
                 name="tags"
                 label="Tags"

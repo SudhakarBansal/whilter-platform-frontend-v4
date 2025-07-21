@@ -8,7 +8,7 @@ interface UseFileUploadProps {
     maxFileSize: number;
     onUpload?: (file: UploadedFile) => void;
     onFileSelected?: (file: File) => void;
-    onFileRemoved: (removedFile: UploadedFile) => void;
+    onFileRemoved?: (removedFile: UploadedFile) => void;
 }
 
 export const useFileUpload = ({
@@ -44,10 +44,7 @@ export const useFileUpload = ({
     const removeFile = useCallback((): void => {
         setFile(null);
         setError('');
-        if (onFileSelected) {
-            onFileSelected(null as any);
-        }
-    }, [onFileSelected]);
+    }, []);
 
     const removeUploadedFile = useCallback((): void => {
         if (uploadedFile) {
@@ -72,14 +69,21 @@ export const useFileUpload = ({
         setError('');
 
         try {
+            // Upload file to S3 via UploadService
             const uploadResult = await UploadService.uploadFile(file);
+
+            // Set the uploaded file state with S3 response
             setUploadedFile(uploadResult);
+
+            // Clear the selected file since it's now uploaded
             setFile(null);
 
+            // Call the onUpload callback with the S3 upload result
             if (onUpload) {
                 onUpload(uploadResult);
             }
         } catch (error) {
+            console.error('Upload failed:', error);
             setError('Upload failed. Please try again.');
         } finally {
             setUploading(false);
@@ -114,9 +118,9 @@ export const useFileUpload = ({
         error,
         handleFileSelect,
         removeFile,
-        removeUploadedFile, // New function to remove uploaded file
+        removeUploadedFile,
         handleUpload,
         handleDropRejected,
-        resetAll // Utility function to reset everything
+        resetAll
     };
 };
