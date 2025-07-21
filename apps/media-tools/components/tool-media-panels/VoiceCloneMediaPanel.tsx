@@ -70,8 +70,9 @@ export function VoiceCloneMediaPanel() {
             />
 
             <TextareaAutosizeElement
-                placeholder="Enter your text here"
+                placeholder="Start typing here or paste any text you want to turn into speech..."
                 name="textContent"
+                variant='standard'
             />
 
             <TagsInput
