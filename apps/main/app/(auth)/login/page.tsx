@@ -3,9 +3,6 @@
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useRouter } from 'next/navigation';
-import { loginWithDummyToken } from '../../../lib/loginWithDummyToken';
-import { getRedirectPath } from '@whilter/auth/src/utils/role.utils';
-import { decodeDummyAccessToken } from '@/lib/decodeToken';
 import { Role } from '@whilter/auth';
 import { authService } from '@whilter/api';
 
@@ -21,14 +18,9 @@ export default function LoginPage() {
   setError('')
   try {
     const response = await authService.login({ email, password })
-
     const { accessToken } = response.data 
     document.cookie = `auth-token=${accessToken}; path=/; Secure; SameSite=Lax`
-
-    const claims = decodeDummyAccessToken(accessToken)
-    if (!claims) throw new Error('Invalid token')
-      const redirectPath = getRedirectPath(claims.section, claims.role as Role)
-      router.push(redirectPath)
+      //router.push(redirectPath)
     } catch (err) {
       setError('Invalid credentials')
     }
