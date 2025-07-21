@@ -7,9 +7,9 @@ export interface VoiceCloneFormValues extends BaseDefaults {
     audioLengthMs: number;
     keepSilenceDurationMs: number;
     silenceLengthMs: number;
-    speed: string;
+    speed: number;
     pitch: number;
-    speechRate: string;
+    speechRate: number;
 
     // From VoiceCloneMediaPanel
     modalName: string;
