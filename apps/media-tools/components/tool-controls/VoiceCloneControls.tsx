@@ -3,226 +3,262 @@ import {
     Box,
     Typography,
     Stack,
+    Paper,
     Divider,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Button,
+    Tooltip,
+    IconButton,
 } from '@mui/material';
 import {
-    ExpandMore,
-    PlayArrow,
-    Download,
-} from '@mui/icons-material';
-import {
-    SelectElement,
     TextFieldElement,
-    SwitchElement
+    SliderElement
 } from '@whilter/forms';
+import {
+    Info,
+} from '@mui/icons-material';
 
 export const VoiceCloneControls = () => {
-    const audioLengthOptions = [
-        { id: 0.5, label: '0.5x' },
-        { id: 0.75, label: '0.75x' },
-        { id: 1.0, label: '1.0x (Normal)' },
-        { id: 1.25, label: '1.25x' },
-        { id: 1.5, label: '1.5x' },
-        { id: 2.0, label: '2.0x' },
-    ];
-
-    const keepSilenceDurationOptions = [
-        { id: '16000', label: '16kHz' },
-        { id: '22050', label: '22.05kHz' },
-        { id: '44100', label: '44.1kHz' },
-        { id: '48000', label: '48kHz' },
-    ];
-
-    const silenceLengthOptions = [
-        { id: 'wav', label: 'WAV' },
-        { id: 'mp3', label: 'MP3' },
-        { id: 'flac', label: 'FLAC' },
-        { id: 'ogg', label: 'OGG' },
-    ];
-    const speedOptions = [
-        { id: '16000', label: '16kHz' },
-        { id: '22050', label: '22.05kHz' },
-        { id: '44100', label: '44.1kHz' },
-        { id: '48000', label: '48kHz' },
-    ];
-    const pitchOptions = [
-        { id: '16000', label: '16kHz' },
-        { id: '22050', label: '22.05kHz' },
-        { id: '44100', label: '44.1kHz' },
-        { id: '48000', label: '48kHz' },
-    ];
-    const speechRateOptions = [
-        { id: '16000', label: '16kHz' },
-        { id: '22050', label: '22.05kHz' },
-        { id: '44100', label: '44.1kHz' },
-        { id: '48000', label: '48kHz' },
-    ];
-
-
     return (
-        <Stack spacing={3}>
-            {/* Project Header */}
+        <Stack spacing={4} px={2}>
+            {/* Header Section */}
             <Box>
-                <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
-                    {/* <Typography variant="h6">
-              Projects Name
-            </Typography> */}
-                </Stack>
+                <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
+                    Settings
+                </Typography>
+                <Typography variant="body2" sx={{ mb: 3 }}>
+                    Configure your parameters for optimal results
+                </Typography>
+            </Box>
 
+            {/* Project Configuration */}
+            <Box>
                 <TextFieldElement
                     name="projectName"
                     fullWidth
                     variant="outlined"
-                    placeholder="Name your project"
+                    placeholder="Enter a descriptive project name"
                     size="small"
-                    autoComplete='off'
+                    autoComplete="off"
                     label="Project Name"
                     required
-                />
-            </Box>
-
-            {/* Speaking Rate */}
-            <Box>
-                {/* <Typography variant="h6" mb={1}>
-            Speaking Rate
-          </Typography> */}
-                <SelectElement
-                    name="audioLengthMs"
-                    options={audioLengthOptions}
-                    fullWidth
-                    size="small"
-                    label="Audio Length (in ms.)"
-                />
-            </Box>
-
-            {/* Sampling Rate */}
-            <Box>
-                {/* <Typography variant="h6" mb={1}>
-            Sampling Rate
-          </Typography> */}
-                <SelectElement
-                    name="keepSilenceDurationMs"
-                    options={keepSilenceDurationOptions}
-                    fullWidth
-                    size="small"
-                    label="Keep Silence Duration (in ms.)"
-                />
-            </Box>
-
-            {/* Output Format */}
-            <Box>
-                {/* <Typography variant="h6" mb={1}>
-            Output Format
-          </Typography> */}
-                <SelectElement
-                    name="silenceLengthMs"
-                    options={silenceLengthOptions}
-                    fullWidth
-                    size="small"
-                    label="Silence Length (in ms.)"
-                />
-            </Box>
-
-            {/* speed */}
-            <Box>
-                {/* <Typography variant="h6" mb={1}>
-            Output Format
-          </Typography> */}
-                <SelectElement
-                    name="speed"
-                    options={speedOptions}
-                    fullWidth
-                    size="small"
-                    label="Speed"
-                />
-            </Box>
-
-
-            {/* Pitch */}
-            <Box>
-                {/* <Typography variant="h6" mb={1}>
-            Output Format
-          </Typography> */}
-                <SelectElement
-                    name="pitch"
-                    options={pitchOptions}
-                    fullWidth
-                    size="small"
-                    label="Pitch"
-                />
-            </Box>
-
-
-            {/* Speech Rate */}
-            <Box>
-                {/* <Typography variant="h6" mb={1}>
-            Speech Rate
-          </Typography> */}
-                <SelectElement
-                    name="speechRate"
-                    options={speechRateOptions}
-                    fullWidth
-                    size="small"
-                    label="Speech Rate"
+                    helperText="Choose a meaningful name to identify this voice clone project"
                 />
             </Box>
 
             <Divider />
 
-            {/* Post Processing */}
-            <Accordion defaultExpanded>
-                <AccordionSummary expandIcon={<ExpandMore />}>
-                    <Typography variant="subtitle2">Post Processing</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Stack spacing={2}>
-                        <SwitchElement
-                            name="postProcessing"
-                            label="Enable Post Processing"
-                        />
-                        <Box>
-                            <Typography variant="caption" color="text.secondary">
-                                Additional processing options will appear here based on the selected tool.
-                            </Typography>
-                        </Box>
-                    </Stack>
-                </AccordionDetails>
-            </Accordion>
+            {/* Audio Configuration */}
+            <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Typography variant="subtitle2" color="text.primary">
+                        Audio Length
+                    </Typography>
+                    <Tooltip title={
+                        <>
+                            <div>Total duration of the audio sample:</div>
+                            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                <li><strong>3-10s:</strong> Quick testing, minimal processing</li>
+                                <li><strong>10-30s:</strong> Balanced quality and processing time</li>
+                                <li><strong>30-50s:</strong> Highest quality, requires more processing</li>
+                            </ul>
+                        </>
+                    }>
+                        <IconButton size="small" sx={{ color: 'text.primary' }}>
+                            <Info fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+                <SliderElement
+                    name="audioLengthMs"
+                    size="small"
+                    min={3000}
+                    max={50000}
+                    step={1000}
+                    marks={[
+                        { value: 3000, label: '3s' },
+                        { value: 50000, label: '50s' }
+                    ]}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${(value / 1000).toFixed(1)}s`}
+                />
+            </Box>
 
-            {/* Action Buttons */}
-            <Box sx={{ mt: 'auto', pt: 2 }}>
-                <Button
-                    fullWidth
-                    variant="flatPrimary"
-                    // type="submit"
-                    size="large"
-                    sx={{ mb: 1, borderRadius: 2 }}
-                >
-                    Apply Changes
-                </Button>
+            <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Typography variant="subtitle2" color="text.primary">
+                        Keep Silence Duration
+                    </Typography>
+                    <Tooltip title={
+                        <>
+                            <div>Amount of silence to preserve:</div>
+                            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                <li><strong>0ms:</strong> Remove all silence (aggressive trimming)</li>
+                                <li><strong>500-1500ms:</strong> Natural pauses in speech</li>
+                                <li><strong>1500-3000ms:</strong> Longer pauses for dramatic effect</li>
+                            </ul>
+                        </>
+                    }>
+                        <IconButton size="small" sx={{ color: 'text.primary' }}>
+                            <Info fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+                <SliderElement
+                    name="keepSilenceDurationMs"
+                    size="small"
+                    min={0}
+                    max={3000}
+                    step={100}
+                    marks={[
+                        { value: 0, label: '0ms' },
+                        { value: 3000, label: '3s' }
+                    ]}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${value}ms`}
+                />
+            </Box>
 
-                <Stack direction="row" spacing={1}>
-                    <Button
-                        variant="outlinePrimary"
-                        size="small"
-                        startIcon={<PlayArrow />}
-                        sx={{ flex: 1 }}
-                    >
-                        Preview
-                    </Button>
-                    <Button
-                        variant="outlineSecondary"
-                        size="small"
-                        startIcon={<Download />}
-                        sx={{ flex: 1 }}
-                    >
-                        Export
-                    </Button>
-                </Stack>
+            <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Typography variant="subtitle2" color="text.primary">
+                        Silence Length
+                    </Typography>
+                    <Tooltip title={
+                        <>
+                            <div>Duration of silence gaps between words:</div>
+                            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                <li><strong>100-500ms:</strong> Tight spacing for fast-paced speech</li>
+                                <li><strong>500-1500ms:</strong> Natural conversational pauses</li>
+                                <li><strong>1500-5000ms:</strong> Longer breaks for dramatic effect</li>
+                            </ul>
+                        </>
+                    }>
+                        <IconButton size="small" sx={{ color: 'text.primary' }}>
+                            <Info fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+                <SliderElement
+                    name="silenceLengthMs"
+                    size="small"
+                    min={100}
+                    max={5000}
+                    step={100}
+                    marks={[
+                        { value: 100, label: '0.1s' },
+                        { value: 5000, label: '5s' }
+                    ]}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${(value / 1000).toFixed(1)}s`}
+                />
+            </Box>
+
+            <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Typography variant="subtitle2" color="text.primary">
+                        Playback Speed
+                    </Typography>
+                    <Tooltip title={
+                        <>
+                            <div>Playback speed multiplier:</div>
+                            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                <li><strong>0.1-0.5x:</strong> Very slow (detailed analysis)</li>
+                                <li><strong>0.5-1.0x:</strong> Slowed down speech</li>
+                                <li><strong>1.0x:</strong> Normal speed</li>
+                                <li><strong>1.0-2.0x:</strong> Sped up speech</li>
+                                <li><strong>2.0-3.0x:</strong> Very fast (time compression)</li>
+                            </ul>
+                        </>
+                    }>
+                        <IconButton size="small" sx={{ color: 'text.primary' }}>
+                            <Info fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+                <SliderElement
+                    name="speed"
+                    size="small"
+                    min={0.1}
+                    max={3.0}
+                    step={0.1}
+                    marks={[
+                        { value: 0.1, label: '0.1x' },
+                        { value: 3.0, label: '3x' }
+                    ]}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${value}x`}
+                />
+            </Box>
+
+            <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Typography variant="subtitle2" color="text.primary">
+                        Speech Rate
+                    </Typography>
+                    <Tooltip title={
+                        <>
+                            <div>Natural speaking rate:</div>
+                            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                <li><strong>0.1-0.5x:</strong> Very slow, exaggerated pronunciation</li>
+                                <li><strong>0.5-1.0x:</strong> Slow to normal speech</li>
+                                <li><strong>1.0-2.0x:</strong> Fast speech while maintaining clarity</li>
+                                <li><strong>2.0-3.0x:</strong> Very fast, may reduce clarity</li>
+                            </ul>
+                        </>
+                    }>
+                        <IconButton size="small" sx={{ color: 'text.primary' }}>
+                            <Info fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+                <SliderElement
+                    name="speechRate"
+                    size="small"
+                    min={0.1}
+                    max={3.0}
+                    step={0.1}
+                    marks={[
+                        { value: 0.1, label: 'Slow' },
+                        { value: 3.0, label: 'Max' }
+                    ]}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${value}x`}
+                />
+            </Box>
+
+            <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                    <Typography variant="subtitle2" color="text.primary">
+                        Pitch
+                    </Typography>
+                    <Tooltip title={
+                        <>
+                            <div>Voice pitch level:</div>
+                            <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                                <li><strong>0.1-1.0x:</strong> Very deep, robotic voice</li>
+                                <li><strong>1.0-1.5x:</strong> Natural male voice range</li>
+                                <li><strong>1.5-2.5x:</strong> Natural female voice range</li>
+                                <li><strong>2.5-5.0x:</strong> Very high-pitched, cartoonish</li>
+                            </ul>
+                        </>
+                    }>
+                        <IconButton size="small" sx={{ color: 'text.primary' }}>
+                            <Info fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+                <SliderElement
+                    name="pitch"
+                    size="small"
+                    min={0.1}
+                    max={5.0}
+                    step={0.1}
+                    marks={[
+                        { value: 0.1, label: 'Low' },
+                        { value: 5.0, label: 'Max' }
+                    ]}
+                    valueLabelDisplay="auto"
+                    valueLabelFormat={(value) => `${value}x`}
+                />
             </Box>
         </Stack>
     );
