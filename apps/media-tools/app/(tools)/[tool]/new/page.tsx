@@ -6,9 +6,10 @@ import { getToolBySlug } from "@/lib/getToolBySlug";
 import type { ToolPageProps } from '@/types/tool.types';
 import NotFound from '@/app/not-found';
 import { FormContainer } from "@whilter/forms";
-import type { VoiceCloneFormValues } from "@/types";
+import type { VoiceCloneFormInitialValues, VoiceCloneFormValues } from "@/types";
 import { toolComponentRegistry, type ToolSlug } from "@/lib/toolComponentRegistry";
 import { getToolDefaultValues } from "@/lib/getDefaultToolValues";
+import { cleanVoiceCloneFormData, validateVoiceCloneFormData } from '@/utils/validations/voiceCloneValidations';
 import PageClientLayout from "@/layouts/page-client-layout/PageClientLayout";
 
 export default function ToolPage({ params }: ToolPageProps) {
@@ -26,8 +27,43 @@ export default function ToolPage({ params }: ToolPageProps) {
 
   const defaultValues = getToolDefaultValues(toolSlug);
 
-  const onSubmit = async (data: VoiceCloneFormValues) => {
-    console.log('Complete form data:', data);
+  const onSubmit = async (data: VoiceCloneFormInitialValues) => {
+    console.log('Raw form data:', data);
+
+    try {
+      // Validate the form data
+      const validationResult = validateVoiceCloneFormData(data);
+      if (!validationResult.isValid) {
+        console.error('Validation errors:', validationResult.errors);
+        // You can show these errors in a toast or form error display
+        alert('Validation errors:\n' + validationResult.errors.join('\n'));
+        return;
+      }
+
+      // Clean the data according to the discriminated union
+      const cleanedData: VoiceCloneFormValues = cleanVoiceCloneFormData(data);
+      console.log('Cleaned form data:', cleanedData);
+
+      // Make your API call with the cleaned data
+      const response = await fetch('/api/voice-clone', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cleanedData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      const result = await response.json();
+      console.log('Success:', result);
+
+    } catch (error) {
+      console.error('Submission error:', error);
+      // Handle error (show toast, etc.)
+    }
   };
 
   const PanelComponent = componentConfig.panel;
