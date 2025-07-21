@@ -1,10 +1,10 @@
-// File: lib/getToolDefaultValues.ts
-import type { BaseDefaults, VoiceCloneFormValues } from "@/types";
+import type { BaseDefaults, VoiceCloneFormInitialValues } from "@/types";
 
-export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | BaseDefaults {
+export function getToolDefaultValues(toolSlug: string): VoiceCloneFormInitialValues | BaseDefaults {
     switch (toolSlug) {
         case "voice-cloning":
             return {
+                inputOption: 'text',
                 projectName: '',
                 audioLengthMs: 0,
                 keepSilenceDurationMs: 0,
@@ -15,6 +15,7 @@ export function getToolDefaultValues(toolSlug: string): VoiceCloneFormValues | B
                 modalName: '',
                 language: '',
                 sourceAudio: '',
+                recordedAudio: '',
                 textContent: '',
                 tags: []
             };

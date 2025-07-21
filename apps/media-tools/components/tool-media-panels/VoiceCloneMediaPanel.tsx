@@ -1,12 +1,33 @@
 import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
-import { SelectElement, TextareaAutosizeElement, useFormContext } from "@whilter/forms";
+import { SelectElement, TextareaAutosizeElement, useFormContext, useWatch } from "@whilter/forms";
 import { Button } from "@mui/material";
 import type { VoiceCloneFormValues } from "@/types";
 import { TagsInput } from "@/components/TagsInput";
+import { useEffect } from "react";
 
 export function VoiceCloneMediaPanel() {
     const { setValue } = useFormContext<VoiceCloneFormValues>();
+
+    // Watch the inputOption field to conditionally render components
+    const inputOption = useWatch({ name: 'inputOption' });
+
+    useEffect(() => {
+        if (inputOption === 'text') {
+            // Clear audio-related fields when switching to text
+            setValue('sourceAudio', '');
+            setValue('recordedAudio', '');
+        } else if (inputOption === 'audioFile') {
+            // Clear text and recorded audio when switching to audio file
+            setValue('textContent', '');
+            setValue('recordedAudio', '');
+        } else if (inputOption === 'recordAudio') {
+            // Clear text and source audio when switching to record audio
+            setValue('textContent', '');
+            setValue('sourceAudio', '');
+        }
+    }, [inputOption, setValue]);
+
 
     const options = [{
         id: 'one',
@@ -18,6 +39,19 @@ export function VoiceCloneMediaPanel() {
         id: 'three',
         label: 'Three'
     }];
+
+    const InputOptions = [{
+        id: 'text',
+        label: 'Text'
+    }, {
+        id: 'audioFile',
+        label: 'Audio File'
+    },
+        // {
+        //     id: 'recordAudio',
+        //     label: 'Record Audio'
+        // }
+    ];
 
     // Handle file upload - this is called after successful S3 upload
     function handleUpload(uploadedFile: UploadedFile) {
@@ -56,24 +90,37 @@ export function VoiceCloneMediaPanel() {
                     fullWidth
                 />
             </div>
-            <FileUploadWrapper
-                type="audio"
-                label="Source Audio"
-                heading="Upload Source Audio"
-                subheading="Add your Files here"
-                footer="Only support .wav, mp3 and Audio files"
-                acceptedFormats={['.wav', '.mp3', '.m4a']}
-                maxFileSize={10}
-                onUpload={handleUpload}
-                onFileSelected={handleFileSelected}
-                onFileRemoved={handleFileRemoved}
+
+            <SelectElement
+                name="inputOption"
+                label="Select Input type"
+                options={InputOptions}
+                fullWidth
             />
 
-            <TextareaAutosizeElement
-                placeholder="Start typing here or paste any text you want to turn into speech..."
-                name="textContent"
-                variant='standard'
-            />
+            {/* Conditional rendering based on inputOption */}
+            {inputOption === 'text' && (
+                <TextareaAutosizeElement
+                    placeholder="Start typing here or paste any text you want to turn into speech..."
+                    name="textContent"
+                    variant='standard'
+                />
+            )}
+
+            {inputOption === 'audioFile' && (
+                <FileUploadWrapper
+                    type="audio"
+                    label="Source Audio"
+                    heading="Upload Source Audio"
+                    subheading="Add your Files here"
+                    footer="Only support .wav, mp3 and Audio files"
+                    acceptedFormats={['.wav', '.mp3', '.m4a']}
+                    maxFileSize={10}
+                    onUpload={handleUpload}
+                    onFileSelected={handleFileSelected}
+                    onFileRemoved={handleFileRemoved}
+                />
+            )}
 
             <TagsInput
                 name="tags"
