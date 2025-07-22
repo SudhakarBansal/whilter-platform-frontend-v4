@@ -1,7 +1,7 @@
 import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import { SelectElement, TextareaAutosizeElement, useFormContext, useWatch } from "@whilter/forms";
-import { Button, Typography, Paper, Box, Divider } from "@mui/material";
+import { Button, Typography, Box } from "@mui/material";
 import type { VoiceCloneFormInitialValues } from "@/types";
 import { TagsInput } from "@/components/TagsInput";
 import { useEffect } from "react";
