@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useRouter } from 'next/navigation';
-import { Role } from '@whilter/auth';
-import { authService } from '@whilter/api';
+import { signIn } from 'next-auth/react';
+
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,18 +13,30 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  setError('')
+const handleSubmit = async (e: React.FormEvent) => {
+
+  e.preventDefault();
+  setError('');
+
   try {
-    const response = await authService.login({ email, password })
-    const { accessToken } = response.data 
-    document.cookie = `auth-token=${accessToken}; path=/; Secure; SameSite=Lax`
-      //router.push(redirectPath)
-    } catch (err) {
-      setError('Invalid credentials')
+    const res = await signIn('credentials', {
+      redirect: false,
+      email,
+      password,
+      callbackUrl: '/', 
+    });
+
+    if (res?.ok && res.url) {
+      router.push(res.url); 
+    } else {
+      setError('Invalid credentials. Please try again.');
     }
+  } catch (err) {
+    console.error('Login error:', err);
+    setError('Something went wrong. Please try again later.');
   }
+};
+
 
   return (
     <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">

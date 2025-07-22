@@ -16,6 +16,17 @@ declare module 'next-auth' {
       permissions?: string[];
     };
   }
+  interface JWT {
+    id: string
+    name: string
+    email: string
+    role: Role
+    section?: string
+    organization?: string
+    accessToken?: string
+    accessibleApps: AppIdentifier[]
+    permissions: string[]
+  }
 
   interface User {
     id: string;

@@ -3,7 +3,7 @@
 const AUTH_BASE = process.env.NEXT_PUBLIC_APP_AUTH_URL || '';
 
 export const ServiceEndpoints = {
-  login: `${AUTH_BASE}/api/user/login`,
+  login: `${AUTH_BASE}/api/user/auth/login`,
   getUserPermissions: `${AUTH_BASE}/auth/permissions`,
   signup: `${AUTH_BASE}/auth/signup`,
   refreshToken: `${AUTH_BASE}/auth/refresh-token`,

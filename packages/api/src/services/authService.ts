@@ -1,5 +1,5 @@
 
-import axios from '../axiosInstance';
+import axios from '../axios/axiosInstance';
 import {
   LoginPayload,
   SignupPayload,
@@ -8,7 +8,7 @@ import {
   CreateUserPayload,
   getUserPermissions
 } from '../types/auth.types';
-import { ServiceEndpoints } from '../constants/serviceUrls';
+import { ServiceEndpoints } from './authServiceType';
 
 export const authService = {
   login: (data: LoginPayload) => axios.post(ServiceEndpoints.login, data),

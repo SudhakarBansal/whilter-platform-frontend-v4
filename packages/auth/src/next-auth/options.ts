@@ -17,10 +17,11 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
-        const { data } = await authService.login({
+        const response = await authService.login({
           email: credentials.email,
           password: credentials.password,
         });
+        const data = response?.data || {};
 
         if (!data?.email || !data?.role || !data?.accessToken) return null;
 
@@ -45,10 +46,10 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_CLIENT_SECRET!,
     }),
   ],
-
   session: {
-    strategy: 'jwt',
-  },
+  strategy: 'jwt',
+},
+
 
   callbacks: {
    async jwt({ token, user }) {
