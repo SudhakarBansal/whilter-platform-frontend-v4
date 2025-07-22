@@ -11,9 +11,12 @@ import { toolComponentRegistry, type ToolSlug } from "@/lib/toolComponentRegistr
 import { getToolDefaultValues } from "@/lib/getDefaultToolValues";
 import { cleanVoiceCloneFormData, validateVoiceCloneFormData } from '@/utils/validations/voiceCloneValidations';
 import PageClientLayout from "@/layouts/page-client-layout/PageClientLayout";
+import { toast } from "sonner";
+import { useState } from "react";
 
 export default function ToolPage({ params }: ToolPageProps) {
   const { tool: toolSlug } = params;
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Validate tool existence
   const tool = getToolBySlug(toolSlug);
@@ -28,15 +31,34 @@ export default function ToolPage({ params }: ToolPageProps) {
   const defaultValues = getToolDefaultValues(toolSlug);
 
   const onSubmit = async (data: VoiceCloneFormInitialValues) => {
-    console.log('Raw form data:', data);
+    if (isSubmitting) return; // Prevent double submission
+
+    setIsSubmitting(true);
+
+    // Show loading toast
+    const loadingToastId = toast.loading("Processing your request...");
 
     try {
       // Validate the form data
       const validationResult = validateVoiceCloneFormData(data);
       if (!validationResult.isValid) {
         console.error('Validation errors:', validationResult.errors);
-        // You can show these errors in a toast or form error display
-        alert('Validation errors:\n' + validationResult.errors.join('\n'));
+
+        // Dismiss loading toast
+        toast.dismiss(loadingToastId);
+
+        // Show validation errors
+        if (validationResult.errors.length === 1) {
+          // Single error - show as error toast
+          toast.error("Validation Error", {
+            description: validationResult.errors[0],
+          });
+        } else {
+          // Multiple errors - show as error with list
+          toast.error("Please fix the following errors:", {
+            description: validationResult.errors.join(" • "),
+          });
+        }
         return;
       }
 
@@ -53,16 +75,46 @@ export default function ToolPage({ params }: ToolPageProps) {
         body: JSON.stringify(cleanedData),
       });
 
+      // Dismiss loading toast
+      toast.dismiss(loadingToastId);
+
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.message || `Request failed with status ${response.status}`;
+
+        toast.error("Submission Failed", {
+          description: errorMessage,
+        });
+        return;
       }
 
       const result = await response.json();
       console.log('Success:', result);
 
+      // Show success toast
+      toast.success("Voice Clone Generated!", {
+        description: "Your speech has been successfully generated.",
+        action: {
+          label: "View",
+          onClick: () => {
+            // Navigate to result page or open result modal
+            console.log("Navigate to result:", result);
+          }
+        }
+      });
+
     } catch (error) {
       console.error('Submission error:', error);
-      // Handle error (show toast, etc.)
+
+      // Dismiss loading toast
+      toast.dismiss(loadingToastId);
+
+      // Show generic error toast
+      toast.error("Something went wrong", {
+        description: error instanceof Error ? error.message : "An unexpected error occurred. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

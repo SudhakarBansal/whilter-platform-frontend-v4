@@ -72,6 +72,10 @@ export function validateVoiceCloneFormData(data: VoiceCloneFormInitialValues): {
         errors.push('Please select a language');
     }
 
+     if (!data.projectName) {
+        errors.push('Please enter a valid project name');
+    }
+
     // Input-specific validations
     switch (data.inputOption) {
         case 'text':
