@@ -83,7 +83,7 @@ export function VoiceCloneMediaPanel() {
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex flex-col sm:flex-row gap-x-5">
+            <div className="flex flex-col gap-y-5 sm:flex-row sm:gap-x-5">
                 <SelectElement
                     name="modalName"
                     label="Select Modal"
@@ -96,14 +96,14 @@ export function VoiceCloneMediaPanel() {
                     options={options}
                     fullWidth
                 />
-            </div>
 
-            <SelectElement
-                name="inputOption"
-                label="Select Input type"
-                options={InputOptions}
-                fullWidth
-            />
+                <SelectElement
+                    name="inputOption"
+                    label="Select Input type"
+                    options={InputOptions}
+                    fullWidth
+                />
+            </div>
 
             {/* Conditional Content Based on Input Option */}
             {inputOption === 'text' && (
@@ -140,7 +140,7 @@ export function VoiceCloneMediaPanel() {
                     <Typography
                         variant="body2"
                         color={isOverLimit ? 'error.main' : 'text.secondary'}
-                        sx={{ fontWeight: isOverLimit ? 'medium' : 'normal',mt: 1 }}
+                        sx={{ fontWeight: isOverLimit ? 'medium' : 'normal', mt: 1 }}
                     >
                         {characterCount.toLocaleString()}/{maxCharacters.toLocaleString()} characters
                     </Typography>
@@ -195,7 +195,7 @@ export function VoiceCloneMediaPanel() {
                 fullWidth
                 className="text-xl"
                 type="submit"
-                disabled={isOverLimit} // Disable submit when over character limit
+                disabled={isOverLimit}
             >
                 Generate Speech
             </Button>

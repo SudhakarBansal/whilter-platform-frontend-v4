@@ -49,12 +49,11 @@ export const TagsInput: React.FC<TagInputProps> = ({
             name={name}
             options={options}
             multiple={true}
-            label={label}
             required={required}
             rules={validationRules}
             autocompleteProps={{
                 freeSolo: true,
-                disabled: disabled, // Don't disable when max reached, just prevent new input
+                disabled: disabled,
                 filterSelectedOptions: true,
                 ChipProps: {
                     variant: 'outlined',
@@ -79,6 +78,7 @@ export const TagsInput: React.FC<TagInputProps> = ({
             textFieldProps={{
                 helperText: enhancedHelperText,
                 variant: 'outlined',
+                placeholder:label,
                 fullWidth: true,
                 error: isMaxReached,
                 // Prevent typing when max is reached

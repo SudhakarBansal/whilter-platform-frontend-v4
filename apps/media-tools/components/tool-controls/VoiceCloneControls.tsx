@@ -3,7 +3,6 @@ import {
     Box,
     Typography,
     Stack,
-    Paper,
     Divider,
     Tooltip,
     IconButton,
@@ -18,7 +17,7 @@ import {
 
 export const VoiceCloneControls = () => {
     return (
-        <Stack spacing={4} px={2}>
+        <Stack spacing={4} px={1}>
             {/* Header Section */}
             <Box>
                 <Typography variant="h5" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
@@ -31,6 +30,17 @@ export const VoiceCloneControls = () => {
 
             {/* Project Configuration */}
             <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+
+                    <Typography variant="subtitle2" color="text.primary">
+                        Project Name
+                    </Typography>
+                    <Tooltip title="Choose a meaningful name to identify this voice clone project">
+                        <IconButton size="small" sx={{ color: 'text.primary' }}>
+                            <Info fontSize="small" />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
                 <TextFieldElement
                     name="projectName"
                     fullWidth
@@ -38,9 +48,7 @@ export const VoiceCloneControls = () => {
                     placeholder="Enter a descriptive project name"
                     size="small"
                     autoComplete="off"
-                    label="Project Name"
                     required
-                    helperText="Choose a meaningful name to identify this voice clone project"
                 />
             </Box>
 
