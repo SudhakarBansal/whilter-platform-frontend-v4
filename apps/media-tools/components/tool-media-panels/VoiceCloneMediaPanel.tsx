@@ -1,7 +1,7 @@
 import type { UploadedFile } from "@/types";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import { SelectElement, TextareaAutosizeElement, useFormContext, useWatch } from "@whilter/forms";
-import { Button } from "@mui/material";
+import { Button, Typography, Paper, Box, Divider } from "@mui/material";
 import type { VoiceCloneFormInitialValues } from "@/types";
 import { TagsInput } from "@/components/TagsInput";
 import { useEffect } from "react";
@@ -42,10 +42,10 @@ export function VoiceCloneMediaPanel() {
 
     const InputOptions = [{
         id: 'text',
-        label: 'Text'
+        label: 'Text Input'
     }, {
         id: 'audioFile',
-        label: 'Audio File'
+        label: 'Audio File Upload'
     },
         // {
         //     id: 'recordAudio',
@@ -98,13 +98,37 @@ export function VoiceCloneMediaPanel() {
                 fullWidth
             />
 
-            {/* Conditional rendering based on inputOption */}
+            {/* Conditional Content Based on Input Option */}
             {inputOption === 'text' && (
-                <TextareaAutosizeElement
-                    placeholder="Start typing here or paste any text you want to turn into speech..."
-                    name="textContent"
-                    variant='standard'
-                />
+                <Box sx={{
+                    p: 2,
+                    borderRadius: 2,
+                    transition: 'all 0.3s ease',
+                    background: "#FFFFFF",
+                    '&:hover': {
+                        borderColor: 'primary.main',
+                    }
+                }}
+                >
+                    <Typography
+                        variant="subtitle1"
+                        marginBottom={2}
+                        className="text-black"
+                    >
+                        Add Text
+                    </Typography>
+                    <TextareaAutosizeElement
+                        placeholder="Start typing here or paste any text you want to turn into speech..."
+                        name="textContent"
+                        variant="filled"
+                        rows={4}
+                        sx={
+                            {
+                                border: '2px dashed #e0e0e0',
+                            }
+                        }
+                    />
+                </Box>
             )}
 
             {inputOption === 'audioFile' && (
@@ -122,10 +146,16 @@ export function VoiceCloneMediaPanel() {
                 />
             )}
 
-            <TagsInput
-                name="tags"
-                label="Tags"
-            />
+            {/* Tags Section */}
+            <Box>
+                <Typography variant="h6" marginBottom={1}>
+                    Add Tags
+                </Typography>
+                <TagsInput
+                    name="tags"
+                    label="Add tags to organize your speech files"
+                />
+            </Box>
 
             <Button
                 variant="generateButton"
