@@ -2,7 +2,8 @@ import "@whilter/ui-kit/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
-import { MainLayout} from "@whilter/shared-layouts/main"
+import { MainLayout } from "@whilter/shared-layouts/main"
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Toaster
+          position="top-right"
+          expand={true}
+          richColors={true}
+          closeButton={true}
+          toastOptions={{
+            duration: 4000,
+          }} />
         <ThemeConfig>
           <MainLayout>
             {children}
