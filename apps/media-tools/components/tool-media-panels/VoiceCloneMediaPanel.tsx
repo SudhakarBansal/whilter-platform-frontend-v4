@@ -89,12 +89,14 @@ export function VoiceCloneMediaPanel() {
                     label="Select Modal"
                     options={options}
                     fullWidth
+                    required
                 />
                 <SelectElement
                     name="language"
                     label="Select Language"
                     options={options}
                     fullWidth
+                    required
                 />
 
                 <SelectElement
@@ -102,6 +104,7 @@ export function VoiceCloneMediaPanel() {
                     label="Select Input type"
                     options={InputOptions}
                     fullWidth
+                    required
                 />
             </div>
 
