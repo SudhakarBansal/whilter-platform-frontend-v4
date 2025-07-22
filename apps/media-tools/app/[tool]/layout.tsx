@@ -9,12 +9,7 @@ export default function ToolsListingLayout({
 }): JSX.Element {
     return (
         <Box className="relative flex min-h-screen">
-            {/* Sidebar Container - Fixed width */}
-            {/* <Box className="relative"> */}
-                <Sidebar />
-            {/* </Box> */}
-
-            {/* Main Content */}
+            <Sidebar />
             <Box
                 component="main"
                 className="flex-1"
