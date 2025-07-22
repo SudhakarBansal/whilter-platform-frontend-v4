@@ -1,4 +1,5 @@
-import axios from '../axiosInstance'
+
+import axios from '../axiosInstance';
 import {
   LoginPayload,
   SignupPayload,
@@ -7,33 +8,15 @@ import {
   CreateUserPayload,
   getUserPermissions
 } from '../types/auth.types';
-
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_APP_AUTH_URL,
-});
+import { ServiceEndpoints } from '../constants/serviceUrls';
 
 export const authService = {
-  login: (data: LoginPayload) =>
-    api.post('/api/user/login', data),
-
-  getUserPermissions: (data: getUserPermissions) =>
-    api.post('/auth/permissions', data),
-
-  signup: (data: SignupPayload) =>
-    api.post('/auth/signup', data),
-
-  refreshToken: () =>
-    api.post('/auth/refresh-token'),
-
-  forgotPassword: (data: ForgotPasswordPayload) =>
-    api.post('/auth/forgot-password', data),
-
-  resetPassword: (data: ResetPasswordPayload) =>
-    api.post('/auth/reset-password', data),
-
-  createUser: (user: CreateUserPayload) =>
-    api.post('/admin/create-user', user),
-
-  assignRole: (userId: string, role: string) =>
-    api.post('/admin/assign-role', { userId, role }),
+  login: (data: LoginPayload) => axios.post(ServiceEndpoints.login, data),
+  getUserPermissions: (data: getUserPermissions) => axios.post(ServiceEndpoints.getUserPermissions, data),
+  signup: (data: SignupPayload) => axios.post(ServiceEndpoints.signup, data),
+  refreshToken: () => axios.post(ServiceEndpoints.refreshToken),
+  forgotPassword: (data: ForgotPasswordPayload) => axios.post(ServiceEndpoints.forgotPassword, data),
+  resetPassword: (data: ResetPasswordPayload) => axios.post(ServiceEndpoints.resetPassword, data),
+  createUser: (user: CreateUserPayload) => axios.post(ServiceEndpoints.createUser, user),
+  assignRole: (userId: string, role: string) => axios.post(ServiceEndpoints.assignRole, { userId, role }),
 };
