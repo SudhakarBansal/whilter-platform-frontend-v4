@@ -14,7 +14,7 @@ export const Sidebar = () => {
       <Box component="svg" width="0" height="0" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <clipPath id="sidebar-clip" clipPathUnits="objectBoundingBox">
-            <path d="M0 0C0 0 0.15 0.05 0.45 0.08C0.75 0.11 0.85 0.15 0.85 0.2C0.85 0.25 0.85 0.75 0.85 0.75C0.85 0.8 0.85 0.85 0.85 0.85C0.85 0.89 0.75 0.92 0.45 0.95C0.15 0.98 0 1 0 1V0Z" />
+            <path d="M0 0C0 0 0.15 0.05 0.45 0.08C0.75 0.11 0.95 0.15 0.95 0.2C0.95 0.25 0.95 0.75 0.95 0.75C0.95 0.8 0.95 0.85 0.95 0.85C0.95 0.89 0.75 0.92 0.45 0.95C0.15 0.98 0 1 0 1V0Z" />
           </clipPath>
         </defs>
       </Box>
@@ -24,20 +24,8 @@ export const Sidebar = () => {
 
           {/* Sidebar container */}
           <Box
-            className="relative shadow-2xl transition-all duration-300 ease-in-out"
+            className="relative shadow-2xl transition-all duration-300 ease-in-out w-[20px] sm:w-[24px] md:w-[28px] group-hover:w-[64px] sm:group-hover:w-[80px] md:group-hover:w-[88px]"
             sx={{
-              width: {
-                xs: '20px',
-                sm: '24px',
-                md: '28px',
-              },
-              '&:hover': {
-                width: {
-                  xs: '64px',
-                  sm: '80px',
-                  md: '88px',
-                }
-              },
               height: {
                 xs: 'min(85vh, 500px)',
                 sm: 'min(85vh, 500px)',
