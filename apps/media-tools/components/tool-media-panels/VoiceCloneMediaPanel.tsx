@@ -5,12 +5,15 @@ import { Button, Typography, Box } from "@mui/material";
 import type { VoiceCloneFormInitialValues } from "@/types";
 import { TagsInput } from "@/components/TagsInput";
 import { useEffect } from "react";
+import { MAX_CHARACTERS_IN_TEXT_INPUT } from "@/constants";
 
 export function VoiceCloneMediaPanel() {
     const { setValue } = useFormContext<VoiceCloneFormInitialValues>();
 
     // Watch the inputOption field to conditionally render components
     const inputOption = useWatch({ name: 'inputOption' });
+    // Watch the textContent field to show word/character count
+    const textContent = useWatch({ name: 'textContent' }) || '';
 
     useEffect(() => {
         if (inputOption === 'text') {
@@ -28,6 +31,10 @@ export function VoiceCloneMediaPanel() {
         }
     }, [inputOption, setValue]);
 
+    // Calculate word count and character count
+    const characterCount = textContent.length;
+    const maxCharacters = MAX_CHARACTERS_IN_TEXT_INPUT;
+    const isOverLimit = characterCount > maxCharacters;
 
     const options = [{
         id: 'one',
@@ -121,13 +128,38 @@ export function VoiceCloneMediaPanel() {
                         placeholder="Start typing here or paste any text you want to turn into speech..."
                         name="textContent"
                         variant="filled"
-                        rows={4}
-                        sx={
-                            {
-                                border: '2px dashed #e0e0e0',
-                            }
-                        }
+                        minRows={4}
+                        sx={{
+                            border: '2px dashed',
+                            borderColor: isOverLimit ? 'error.main' : '#e0e0e0',
+                        }}
                     />
+
+                    {/* Character Limit Display */}
+
+                    <Typography
+                        variant="body2"
+                        color={isOverLimit ? 'error.main' : 'text.secondary'}
+                        sx={{ fontWeight: isOverLimit ? 'medium' : 'normal',mt: 1 }}
+                    >
+                        {characterCount.toLocaleString()}/{maxCharacters.toLocaleString()} characters
+                    </Typography>
+
+                    {/* Character Limit Disclaimer */}
+                    <Typography
+                        variant="caption"
+                        color={isOverLimit ? 'error.main' : 'text.secondary'}
+                        sx={{
+                            mt: 0.5,
+                            display: 'block',
+                            fontStyle: 'italic'
+                        }}
+                    >
+                        {isOverLimit
+                            ? `Text exceeds the ${maxCharacters.toLocaleString()} character limit. Please reduce the length.`
+                            : `Maximum ${maxCharacters.toLocaleString()} characters allowed.`
+                        }
+                    </Typography>
                 </Box>
             )}
 
@@ -163,6 +195,7 @@ export function VoiceCloneMediaPanel() {
                 fullWidth
                 className="text-xl"
                 type="submit"
+                disabled={isOverLimit} // Disable submit when over character limit
             >
                 Generate Speech
             </Button>

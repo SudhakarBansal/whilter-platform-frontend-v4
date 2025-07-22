@@ -1,0 +1,1 @@
+export {MAX_CHARACTERS_IN_TEXT_INPUT} from './voiceClone.constant'

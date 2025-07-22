@@ -1,0 +1,1 @@
+export const MAX_CHARACTERS_IN_TEXT_INPUT = 850;
