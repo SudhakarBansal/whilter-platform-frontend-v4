@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { buildToolBreadcrumbs } from '@/utils/breadcrumbs/buildToolBreadcrumbs';
 import { getToolBySlug } from '@/lib/getToolBySlug';
-import { PageLayout, pageLayoutPresets } from '@whilter/shared-layouts/styled';
+import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { recentProjects } from '@/data/recentProjects.data';
 import { FolderCardSection, RecentProjects } from '@whilter/ui-kit/components'
 import { Plus } from 'lucide-react';

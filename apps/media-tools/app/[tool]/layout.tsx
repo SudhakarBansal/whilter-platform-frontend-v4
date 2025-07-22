@@ -10,15 +10,9 @@ export default function ToolsListingLayout({
     return (
         <Box className="relative flex min-h-screen">
             {/* Sidebar Container - Fixed width */}
-            <Box className="relative" sx={{
-                width: {
-                    xs: '24px',  // Initial width on mobile
-                    sm: '28px',  // Initial width on tablet
-                    md: '32px',  // Initial width on desktop
-                }
-            }}>
+            {/* <Box className="relative"> */}
                 <Sidebar />
-            </Box>
+            {/* </Box> */}
 
             {/* Main Content */}
             <Box
