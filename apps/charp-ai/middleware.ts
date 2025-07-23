@@ -4,10 +4,11 @@ import { getToken } from 'next-auth/jwt';
 
 export async function middleware(request: NextRequest) {
   try {
-    const { pathname, hostname, port } = request.nextUrl;
-    const token = await getToken({ 
-      req: request, 
-      secret: process.env.NEXTAUTH_SECRET
+    const { pathname } = request.nextUrl;
+
+    const token = await getToken({
+      req: request,
+      secret: process.env.NEXTAUTH_SECRET,
     });
 
     const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_URL;
@@ -16,35 +17,38 @@ export async function middleware(request: NextRequest) {
     }
 
     const publicRoutes = ['/login', '/register', '/forgot-password'];
-    const currentOrigin = `${hostname}${port ? `:${port}` : ''}`;
-    const mainAppOrigin = new URL(MAIN_APP_URL).host;
 
-    if (pathname.startsWith('/_next/') || pathname.startsWith('/api/')) {
+    // Skip static files and internal routes
+    if (
+      pathname.startsWith('/_next/') ||
+      pathname.startsWith('/api/') ||
+      pathname === '/favicon.ico'
+    ) {
       return NextResponse.next();
     }
 
-    // Redirect to main page if user is logged in and visiting login
+    //  If on a public route
     if (publicRoutes.includes(pathname)) {
-      if (token && pathname === '/login') {
+      //  Already logged in? Redirect to the root of current app
+      if (token) {
         return NextResponse.redirect(new URL('/', request.url));
       }
       return NextResponse.next();
     }
 
-    // Redirect to login if not authenticated
-   if (!token) {
-  return NextResponse.redirect(new URL('/login', request.url));
-}
-    return NextResponse.next();
+    //  Not authenticated → redirect to login on MAIN app
+    if (!token) {
+      return NextResponse.redirect(new URL('/login', MAIN_APP_URL));
+    }
 
+    return NextResponse.next();
   } catch (error) {
     console.error('Middleware error:', error);
-    const loginUrl = new URL('/login', request.url);
-    return NextResponse.redirect(loginUrl);
+    const fallbackUrl = new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL || 'http://localhost:3000');
+    return NextResponse.redirect(fallbackUrl);
   }
 }
 
 export const config = {
   matcher: ['/((?!api|_next|static|favicon.ico|robots.txt|fonts|images).*)'],
 };
-

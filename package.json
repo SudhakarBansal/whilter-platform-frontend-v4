@@ -14,6 +14,7 @@
     "@whilter/eslint-config": "workspace:*",
     "@whilter/typescript-config": "workspace:*",
     "@whilter/api": "workspace:*",
+     "@whilter/auth": "workspace:*",
     "prettier": "catalog:",
     "turbo": "2.1.1"
   },

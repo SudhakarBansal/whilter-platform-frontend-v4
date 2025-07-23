@@ -127,6 +127,9 @@ importers:
       '@whilter/api':
         specifier: workspace:*
         version: link:packages/api
+      '@whilter/auth':
+        specifier: workspace:*
+        version: link:packages/auth
       '@whilter/eslint-config':
         specifier: workspace:*
         version: link:packages/eslint-config
@@ -142,6 +145,9 @@ importers:
 
   apps/charp-ai:
     dependencies:
+      '@whilter/auth':
+        specifier: workspace:*
+        version: link:../../packages/auth
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
@@ -160,6 +166,9 @@ importers:
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
+      next-auth:
+        specifier: ^4.24.11
+        version: 4.24.11(next@14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: catalog:react18
         version: 18.3.1
@@ -300,6 +309,9 @@ importers:
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
+      next-auth:
+        specifier: ^4.24.11
+        version: 4.24.11(next@14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: catalog:react18
         version: 18.3.1

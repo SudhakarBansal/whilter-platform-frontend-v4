@@ -1,4 +1,4 @@
-// pages/api/auth/[...nextauth].ts
+
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { authService } from '@whilter/api';

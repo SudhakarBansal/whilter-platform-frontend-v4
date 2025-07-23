@@ -1,7 +1,11 @@
 export * from './next-auth/session';
 export { authOptions } from './next-auth/options';
 export * from './config/roles/role';
+export * from './config/roles/hierachy';
 export * from './config/section';
 export * from './config';
-export { middleware } from './middleware/middleware'
+export * from './utils/access-check'
+export * from './utils/role.utils'
+export * from './config/roles/role'
+export { crossAppAuthMiddleware } from './middleware'
 
