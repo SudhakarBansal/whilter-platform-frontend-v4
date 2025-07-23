@@ -14,29 +14,39 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
+          if (!credentials?.email || !credentials?.password) return null;
+
           const response = await authService.login({
-            email: credentials?.email ?? '',
-            password: credentials?.password ?? '',
+            email: credentials.email,
+            password: credentials.password,
           });
-          
-          if (response?.data) {
-            return response.data;
-          }
-          return null;
+
+          const { accessToken } = response?.data || {};
+          if (!accessToken) return null;
+          const decoded = decodeJwt(accessToken);
+          if (!decoded) return null;
+          return {
+            id: decoded.userId,
+            email: decoded.email,
+            role: decoded.role,
+            userId: decoded.userId,
+            organization: decoded.organization,
+            section: decoded.section,
+            accessToken,
+          };
         } catch (error) {
           console.error('Login error:', error);
           return null;
         }
-      },
+      }
+
     }),
   ],
- 
+
   callbacks: {
     async jwt({ token, user }) {
       if (user?.accessToken) {
         token.accessToken = user.accessToken;
-        
-        // Decode and add claims to token
         const decoded = decodeJwt(user.accessToken);
         if (decoded) {
           token.role = decoded.role;

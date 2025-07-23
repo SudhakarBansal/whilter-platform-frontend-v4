@@ -7,15 +7,11 @@ import { getRedirectPath } from '../utils/role.utils';
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-
-  // Skip static & internal assets
   if (pathname.startsWith('/_next/') || pathname.startsWith('/static/')) {
     return NextResponse.next();
   }
 
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-  
-  // If public route, but user is logged in → redirect based on section/role
   if (isPublicRoute(pathname)) {
     if (token) {
       const section = token.section as string;
@@ -28,7 +24,6 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Private route: Require login
   if (!token) {
     const { config } = getRouteConfig(pathname);
     const redirectURL = config?.redirectUnauthenticated || '/login';

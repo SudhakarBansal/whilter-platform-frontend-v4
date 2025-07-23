@@ -56,16 +56,15 @@ instance.interceptors.response.use(
 
       try {
         const response = await authService.refreshToken();
-        const { accessToken } = response.data;
-        processQueue(null, accessToken);
+        processQueue(null, response.token);
         isRefreshing = false;
 
-        originalRequest.headers['Authorization'] = 'Bearer ' + accessToken;
+        originalRequest.headers['Authorization'] = 'Bearer ' + response.token;
         return instance(originalRequest);
       } catch (err) {
         processQueue(err, null);
         isRefreshing = false;
-        signOut({ callbackUrl: '/login' });
+        signOut({ callbackUrl: '/' });
         return Promise.reject(err);
       }
     }
