@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import AdminLayout from "@/layouts/admin-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
@@ -6,13 +7,19 @@ import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { Plus } from 'lucide-react';
 import { UserTableSection } from "@/components/user-listing-cards/UserTableSection"
+import { AddUser } from '@/components/user-listing-cards/AddUser'
 
 export default function ViewAdminPage() {
-  const router = useRouter();
+  const [isAddUserOpen, setIsAddUserOpen] = useState(false)
 
   const handleAddNewUser = () => {
-    router.push("/users/new");
-  };
+    setIsAddUserOpen(true)
+  }
+
+  const handleCloseAddUser = () => {
+    setIsAddUserOpen(false)
+  }
+
 
   const actionButtons = [
     <Button
@@ -38,8 +45,9 @@ export default function ViewAdminPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-
       <UserTableSection />
+
+      <AddUser open={isAddUserOpen} onClose={handleCloseAddUser} />
     </AdminLayout>
   );
 }

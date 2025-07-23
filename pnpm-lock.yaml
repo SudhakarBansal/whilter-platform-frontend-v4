@@ -203,6 +203,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/forms':
+        specifier: workspace:*
+        version: link:../../packages/forms
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts

@@ -1,18 +1,18 @@
 import { type User } from "@whilter/ui-kit/types"
-import { Trash2, Pencil } from "lucide-react"
+import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react"
 import clsx from "clsx"
 
 interface Props {
   user: User
 }
 
-const statusStyles: Record<User["status"], string> = {
-  Active: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  Inactive: "bg-gray-500/20 text-gray-400 border-gray-500/30",
-  Banned: "bg-red-500/20 text-red-400 border-red-500/30",
-  Pending: "bg-amber-500/20 text-amber-400 border-amber-500/30",
-  Suspended: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-}
+// const statusStyles: Record<User["status"], string> = {
+//   Active: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
+//   Inactive: "bg-gray-500/20 text-gray-400 border-gray-500/30",
+//   Banned: "bg-red-500/20 text-red-400 border-red-500/30",
+//   Pending: "bg-amber-500/20 text-amber-400 border-amber-500/30",
+//   Suspended: "bg-orange-500/20 text-orange-400 border-orange-500/30",
+// }
 
 const getInitials = (name: string) => {
   return name
@@ -24,17 +24,17 @@ const getInitials = (name: string) => {
 }
 
 const avatarColors = [
-  "from-purple-500 to-pink-500",
-  "from-blue-500 to-cyan-500",
-  "from-emerald-500 to-teal-500",
-  "from-orange-500 to-red-500",
-  "from-indigo-500 to-purple-500",
-  "from-pink-500 to-rose-500",
-  "from-cyan-500 to-blue-500",
-  "from-teal-500 to-emerald-500",
+  "bg-red-500",
+  "bg-green-500",
+  "bg-blue-500",
+  "bg-purple-500",
+  "bg-orange-500",
+  "bg-teal-500",
+  "bg-pink-500",
+  "bg-indigo-500",
 ]
 
-const getAvatarGradient = (name: string) => {
+const getAvatarColor = (name: string) => {
   let hash = 0
   for (let i = 0; i < name.length; i++) {
     hash = name.charCodeAt(i) + ((hash << 5) - hash)
@@ -44,51 +44,79 @@ const getAvatarGradient = (name: string) => {
 
 export const UserCard = ({ user }: Props) => {
   return (
-    <tr className="border-b border-slate-700/50 hover:bg-slate-800/30 transition-all duration-300 group">
-      <td className="px-6 py-4">
-        <div className="flex items-center gap-4">
-          <div
-            className={clsx(
-              "w-11 h-11 rounded-xl bg-gradient-to-br flex items-center justify-center text-white font-bold text-sm shadow-lg",
-              getAvatarGradient(user.fullName),
-            )}
-          >
-            {getInitials(user.fullName)}
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-200 min-w-[300px]">
+      <div className="p-5 h-full flex flex-col">
+        {/* Header with avatar, name and actions */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div
+              className={clsx(
+                "w-11 h-11 rounded-full flex items-center justify-center text-white font-semibold text-sm",
+                getAvatarColor(user.name),
+              )}
+            >
+              {getInitials(user.name)}
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-800 text-sm">{user.name}</h3>
+              <div className="flex items-center gap-2 mt-1">
+                <span
+                  className={clsx(
+                    "inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium",
+                    user.status ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-600",
+                  )}
+                >
+                  {user.status ? "Active" : "Inactive"}
+                </span>
+                {user.orgLevelAccess && (
+                  <span className="relative group">
+                    <Shield size={12} className="text-blue-500">
+                      <title>Organization Level Access</title>
+                    </Shield>
+                  </span>
+                )}
+
+              </div>
+            </div>
           </div>
-          <div className="font-semibold text-slate-200 group-hover:text-white transition-colors">{user.fullName}</div>
+
+          {/* Action buttons */}
+          <div className="flex items-center gap-1">
+            <button
+              className="p-1.5 text-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+              title="Edit user"
+            >
+              <Pencil size={14} />
+            </button>
+            <button
+              className="p-1.5 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors"
+              title="Delete user"
+            >
+              <Trash2 size={14} />
+            </button>
+          </div>
         </div>
-      </td>
-      <td className="px-6 py-4 text-slate-400 group-hover:text-slate-300 transition-colors">{user.email}</td>
-      <td className="px-6 py-4 text-slate-400 group-hover:text-slate-300 transition-colors">{user.username}</td>
-      <td className="px-6 py-4">
-        <span
-          className={clsx(
-            "inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-medium border backdrop-blur-sm",
-            statusStyles[user.status],
-          )}
-        >
-          {user.status}
-        </span>
-      </td>
-      <td className="px-6 py-4 text-slate-400 group-hover:text-slate-300 transition-colors">{user.role}</td>
-      <td className="px-6 py-4 text-slate-400 group-hover:text-slate-300 transition-colors">{user.joinedDate}</td>
-      <td className="px-6 py-4 text-slate-400 group-hover:text-slate-300 transition-colors">{user.lastActive}</td>
-      <td className="px-6 py-4">
-        <div className="flex items-center gap-2 opacity-70 group-hover:opacity-100 transition-opacity">
-          <button
-            className="p-2.5 text-blue-400 hover:text-blue-300 hover:bg-blue-500/10 rounded-lg transition-all duration-200 backdrop-blur-sm"
-            title="Edit user"
-          >
-            <Pencil size={16} />
-          </button>
-          <button
-            className="p-2.5 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all duration-200 backdrop-blur-sm"
-            title="Delete user"
-          >
-            <Trash2 size={16} />
-          </button>
+
+        {/* User details */}
+        <div className="space-y-3 flex-1">
+          <div className="text-sm text-gray-600 truncate">{user.email}</div>
+
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <Building2 size={12} className="text-gray-400 flex-shrink-0" />
+            <span className="truncate">{user.organizationName}</span>
+          </div>
+
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2 text-gray-600">
+              <Users size={12} className="text-gray-400" />
+              <span>{user.role}</span>
+            </div>
+            <span className="text-blue-600 font-medium text-xs bg-blue-50 px-2 py-1 rounded">
+              {user.preferredSection}
+            </span>
+          </div>
         </div>
-      </td>
-    </tr>
+      </div>
+    </div>
   )
 }
