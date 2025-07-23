@@ -1,5 +1,5 @@
 export * from './next-auth/session';
-export * from './next-auth/options';
+export { authOptions } from './next-auth/options';
 export * from './config/roles/role';
 export * from './config/section';
 export * from './config';

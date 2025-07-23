@@ -18,43 +18,41 @@ export function getAllInheritedRoles(role: Role): Set<Role> {
   return visited;
 }
 
-export function checkAccess({
-  userRole,
-  userPermissions,
-  routeConfig,
-}: {
+ export function checkAccess(params: {
   userRole: Role;
   userPermissions: string[];
   routeConfig: RouteAccessConfig;
 }): boolean {
-  const hierarchy = ROLES_HIERARCHY[userRole];
+  const { userRole, userPermissions, routeConfig } = params;
 
-  // If role is super admin → allow all
-  if (hierarchy?.globalPermissions?.includes('*')) return true;
-
-  // Check inherited roles
-  const userRoles = getAllInheritedRoles(userRole);
-
-  if (
-    routeConfig.allowedRoles &&
-    !routeConfig.allowedRoles.some((r) => userRoles.has(r))
-  ) {
+  // Check if role is allowed
+  if (routeConfig.allowedRoles && !routeConfig.allowedRoles.includes(userRole)) {
     return false;
   }
 
-  // App check
-  if (
-    routeConfig.requiredApp &&
-    !hierarchy?.accessibleApps.includes(routeConfig.requiredApp)
-  ) {
+  // Check role hierarchy
+  const roleHierarchy = ROLES_HIERARCHY[userRole];
+  if (routeConfig.allowedRoles && !roleHierarchy.inherits.some(r => routeConfig.allowedRoles?.includes(r))) {
     return false;
   }
 
-  // Permissions check
-  const requiredPerms = routeConfig.requiredPermissions || [];
-  const hasPermissions = requiredPerms.every((perm) =>
-    userPermissions.includes(perm)
-  );
+  // Check required permissions
+  if (routeConfig.requiredPermissions) {
+    const hasPermission = routeConfig.requiredPermissions.every(perm => 
+      userPermissions.includes(perm) || 
+      userPermissions.includes('*') || // SUPER_ADMIN has all permissions
+      roleHierarchy.globalPermissions?.includes('*') ||
+      roleHierarchy.globalPermissions?.some(p => p === perm) ||
+      roleHierarchy.appSpecificPermissions?.[routeConfig.requiredApp as AppIdentifier]?.includes(perm)
+    );
 
-  return hasPermissions;
+    if (!hasPermission) return false;
+  }
+
+  // Check required app access
+  if (routeConfig.requiredApp && !roleHierarchy.accessibleApps.includes(routeConfig.requiredApp)) {
+    return false;
+  }
+
+  return true;
 }

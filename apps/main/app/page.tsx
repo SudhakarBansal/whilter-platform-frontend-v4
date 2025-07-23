@@ -5,24 +5,29 @@ import { ALL_ROUTE_CONFIGS } from '@whilter/auth/src/config';
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+  
+  // If no session exists, redirect to login page
+  // if (!session) {
+  //   return redirect('/'); 
+  // }
 
-  // If session or role is missing, redirect to login
-  if (!session || !(session.user as any)?.role) {
-    return redirect('/login');
-  }
 
-  // Ensure role is correctly typed
-  const role = (session.user as { role: Role }).role;
+  // if (!(session.user as any)?.role) {
+  //   return redirect('/');
+  // }
 
-  // Find the first matching route for the user's role
-  const matchedRoute = Object.entries(ALL_ROUTE_CONFIGS).find(
-    ([, config]) => config.allowedRoles.includes(role)
-  );
+  // // Ensure role is correctly typed
+  // const role = (session.user as { role: Role }).role;
 
-  // Redirect to matched route or fallback
-  if (matchedRoute) {
-    return redirect(matchedRoute[1].redirectAfterLogin || '/');
-  }
+  // // Find the first matching route for the user's role
+  // const matchedRoute = Object.entries(ALL_ROUTE_CONFIGS).find(
+  //   ([, config]) => config.allowedRoles.includes(role)
+  // );
+
+  // // Redirect to matched route or fallback
+  // if (matchedRoute) {
+  //   return redirect(matchedRoute[1].redirectAfterLogin || '/');
+  // }
 
   return <div>No route assigned for your role.</div>;
 }

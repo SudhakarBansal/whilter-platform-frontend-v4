@@ -14,7 +14,6 @@ export default function LoginPage() {
   const [error, setError] = useState('');
 
 const handleSubmit = async (e: React.FormEvent) => {
-
   e.preventDefault();
   setError('');
 
@@ -23,11 +22,13 @@ const handleSubmit = async (e: React.FormEvent) => {
       redirect: false,
       email,
       password,
-      callbackUrl: '/', 
+      callbackUrl: '/',
     });
 
-    if (res?.ok && res.url) {
-      router.push(res.url); 
+    if (!res) {
+      setError('Unexpected error. Please try again.');
+    } else if (res.ok && res.url) {
+      router.push(res.url);
     } else {
       setError('Invalid credentials. Please try again.');
     }
@@ -36,7 +37,6 @@ const handleSubmit = async (e: React.FormEvent) => {
     setError('Something went wrong. Please try again later.');
   }
 };
-
 
   return (
     <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">

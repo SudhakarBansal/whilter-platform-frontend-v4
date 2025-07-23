@@ -13,32 +13,42 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET});
-
-  //  If public route, but user is logged in → redirect based on section/role
- if (isPublicRoute(pathname)) {
-  if (token) {
-    const section = token.section as string;
-    const role = token.role as Role;
-
-    const redirectPath = getRedirectPath(section, role, req.nextUrl.origin);
-    return NextResponse.redirect(redirectPath);
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  
+  // If public route, but user is logged in → redirect based on section/role
+  if (isPublicRoute(pathname)) {
+    if (token) {
+      const section = token.section as string;
+      const role = token.role as Role;
+      
+      // Redirect to the appropriate dashboard based on user's section
+      const redirectPath = getRedirectPath(section, role, req.nextUrl.origin);
+      return NextResponse.redirect(redirectPath);
+    }
+    return NextResponse.next();
   }
 
-  return NextResponse.next();
-}
-
-  //  Private route: Require login
+  // Private route: Require login
   if (!token) {
     const { config } = getRouteConfig(pathname);
     const redirectURL = config?.redirectUnauthenticated || '/login';
     return NextResponse.redirect(new URL(redirectURL, req.url));
   }
 
-  const { config } = getRouteConfig(pathname);
+  // Get user's role and permissions from token
   const userRole = token.role as Role;
+  const userSection = token.section as string;
   const permissions = (token.permissions || []) as string[];
 
+  // First check if user is trying to access their section's routes
+  if (!pathname.startsWith(`/${userSection.toLowerCase()}`)) {
+    // If not, redirect to their section's dashboard
+    const redirectPath = getRedirectPath(userSection, userRole, req.nextUrl.origin);
+    return NextResponse.redirect(redirectPath);
+  }
+
+  // Then check route-specific permissions
+  const { config } = getRouteConfig(pathname);
   if (config && !checkAccess({ userRole, userPermissions: permissions, routeConfig: config })) {
     const redirectURL = config.redirectUnauthorized || '/unauthorized';
     return NextResponse.redirect(new URL(redirectURL, req.url));
