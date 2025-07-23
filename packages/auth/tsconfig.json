@@ -8,6 +8,7 @@
 }
   },
   "include": [
+   "src/types",      
   "src/**/*.ts",
   "src/**/*.tsx"
 ],

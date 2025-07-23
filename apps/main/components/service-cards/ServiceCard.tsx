@@ -1,10 +1,22 @@
-import {type ServiceCardProps } from "@whilter/ui-kit/types";
-import Link from "next/link";
-import React from "react";
+'use client';
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image, href }) => {
+import { type ServiceCardProps } from '@whilter/ui-kit/types';
+import React from 'react';
+
+export const ServiceCard: React.FC<ServiceCardProps & { onCardClick?: () => void }> = ({
+  title,
+  image,
+  href,
+  onCardClick,
+}) => {
   return (
-    <Link href={href} className="relative cursor-pointer bg-transparent transition-shadow duration-300 ease-in-out rounded-[40px] aspect-[16/10] bg-gradient-to-br from-blue-400 to-blue-800 overflow-hidden group translate-z-0">
+    <div
+      onClick={(e) => {
+        e.preventDefault(); 
+        onCardClick?.();    
+      }}
+      className="relative cursor-pointer bg-transparent transition-shadow duration-300 ease-in-out rounded-[40px] aspect-[16/10] bg-gradient-to-br from-blue-400 to-blue-800 overflow-hidden group translate-z-0"
+    >
       {/* Background Image */}
       <img src={image} alt={title} className="h-full w-full object-cover" />
 
@@ -16,6 +28,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, image, href }) 
           </h4>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
+

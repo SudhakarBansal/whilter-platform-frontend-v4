@@ -1,6 +1,6 @@
 export enum Role {
   SUPER_ADMIN = 'SUPER_ADMIN',
-  GUEST='guest',
+  GUEST='GUEST',
   CLIENT_ADMIN = 'CLIENT_ADMIN',
   CAMPAIGN_MANAGER = 'campaign-manager',
   CAMPAIGN_REVIEWER = 'campaign-reviewer',
