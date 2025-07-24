@@ -12,11 +12,6 @@ import { recentProjects } from '@/utils/data/recentProjects.data';
 import { useSession } from 'next-auth/react';
 
 function Page() {
-  const { data: session } = useSession();
-  console.log("session123",session)
-  const role = session?.user?.role || '';
-  const section = session?.user?.section || ''; 
-
   const actionButtons = [
     <Button variant="glassmorphism" className='text-lg py-2 px-4'>Brand Customisation</Button>
   ];
@@ -28,7 +23,7 @@ function Page() {
       buttons={actionButtons}
       config={pageLayoutPresets.dashboard}
     >
-      <ServiceCardSection role={role} section={section} />
+      <ServiceCardSection />
       <RecentProjects data={recentProjects} label="Recent Projects" />
       <FolderCardSection data={projectsData} />
     </PageLayout>

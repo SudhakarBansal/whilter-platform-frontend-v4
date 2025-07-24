@@ -9,16 +9,17 @@ export type AccessMatrixType = Record<
 >;
 
 export const accessMatrix: AccessMatrixType = {
-  'media-tools': {
-    roles: [Role.SUPER_ADMIN],
+    
+  'Media-tools': {
+    roles: [Role.CLIENT_ADMIN],
     sections: ['media-tools', 'marketplace', 'charp-ai'],
   },
-  'charp-ai': {
-    roles: [Role.CLIENT_ADMIN, Role.CAMPAIGN_MANAGER],
-    sections: ['charp-ai'],
+  'Dashboard': {
+    roles: [ Role.SUPER_ADMIN,Role.CLIENT_ADMIN, Role.CAMPAIGN_MANAGER],
+    sections: ['Dashboard'],
   },
-  'marketplace': {
-    roles: [Role.SUPER_ADMIN, Role.CREATIVE_CONTRIBUTOR],
+  'Marketplace': {
+    roles: [Role.CLIENT_ADMIN, Role.CREATIVE_CONTRIBUTOR],
     sections: ['marketplace'],
   },
 };

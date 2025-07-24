@@ -12,7 +12,7 @@ export const services : ServiceCardData[] = [
         href: MEDIA_TOOLS_URL!
     },
     {
-        id: 'charp-ai',
+        id: 'Dashboard',
         title: "Explore Charp.AI",
         image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=400&fit=crop&crop=center",
         href: CHARP_AI_URL!

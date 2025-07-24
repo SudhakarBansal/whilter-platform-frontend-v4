@@ -1,39 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
+
+const PUBLIC_ROUTES = ['/login', '/unauthorized'];
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, origin, searchParams } = request.nextUrl;
 
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-
-  const MAIN_APP_URL = process.env.NEXT_PUBLIC_MAIN_URL || 'http://localhost:3000';
-  const publicRoutes = ['/login', '/register', '/forgot-password'];
-
-  // Skip static & internal routes
+  // Allow static files & public routes
   if (
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/api/') ||
-    pathname === '/favicon.ico'
+    pathname === '/favicon.ico' ||
+    PUBLIC_ROUTES.includes(pathname)
   ) {
     return NextResponse.next();
   }
 
-  // Public routes
-  if (publicRoutes.includes(pathname)) {
-    if (token && pathname === '/login') {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
-    return NextResponse.next();
-  }
+  const token =
+    request.cookies.get('__Secure-next-auth.session-token')?.value || 
+    request.cookies.get('next-auth.session-token')?.value || 
+    searchParams.get('token'); 
 
-  // If not authenticated → redirect to main login
   if (!token) {
-    return NextResponse.redirect(new URL('/login', MAIN_APP_URL));
+    return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
   }
 
-  // Authenticated → allow access
-  return NextResponse.next();
+  try {
+    return NextResponse.next();
+  } catch (err) {
+    console.error('Invalid token:', err);
+    return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
+  }
 }
