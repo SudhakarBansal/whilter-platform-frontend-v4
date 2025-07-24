@@ -1,32 +1,36 @@
 
 'use client';
 
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 interface UnauthorizedDialogProps {
-  open: boolean;
-  serviceName: string;
-  onClose: () => void;
+    open: boolean;
+    title: string;
+    onClose: () => void;
 }
 
 export const UnauthorizedDialog: React.FC<UnauthorizedDialogProps> = ({
-  open,
-  serviceName,
-  onClose,
+    open,
+    title,
+    onClose,
 }) => {
-  return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Access Denied</DialogTitle>
-      <DialogContent>
-        <Typography>
-          You don't have permission to access <strong>{serviceName}</strong>.
-        </Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} color="primary">
-          Close
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 text-center">
+                <h2 className="text-lg font-semibold text-red-600 mb-2">Access Denied</h2>
+                <p className="text-gray-700 text-sm mb-4">
+                    You currently do not have permission to access <strong>{title}</strong>.
+                    Please contact your administrator.
+                </p>
+
+                <Button
+                    variant="flatPrimary"
+                    onClick={() => onClose()}
+
+                >
+                    Close
+                </Button>
+            </div>
+        </div>
+    );
 };
