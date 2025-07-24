@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
             email: credentials.email,
             password: credentials.password,
           });
-
+console.log("respoinse",response)
           const { accessToken } = response?.data || {};
           if (!accessToken) return null;
           const decoded = decodeJwt(accessToken);

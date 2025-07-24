@@ -1,20 +1,28 @@
 
-import { accessMatrix } from "@whilter/auth";
-import { Role } from "@whilter/auth";
+import { roleAccessMatrix } from '@whilter/auth';
+import { Role } from '@whilter/auth';
+import type { Section } from '@whilter/auth';
+
 
 export const checkServiceAccess = (
-  serviceId: string,
   role: string,
-  section: string
+  userSections: string[], 
+  targetSection: string
 ): boolean => {
+  if (!role || !Array.isArray(userSections) || !targetSection) return false;
+debugger;
+  const roleTyped = role as Role;
+  const sectionTyped = targetSection as Section;
 
-  const accessConfig = accessMatrix[serviceId as keyof typeof accessMatrix];
-  if (!accessConfig) {
-    return false;
-  }
+  const allowedSections = roleAccessMatrix[roleTyped];
+  if (!allowedSections) return false;
 
-  const hasRole = accessConfig.roles.includes(role as Role);
-  const hasSection = !accessConfig.sections || accessConfig.sections.includes(section);
-  
-  return hasRole && hasSection;
+  return (
+    allowedSections.includes(sectionTyped) &&
+    userSections.includes(sectionTyped)
+  );
 };
+
+
+
+

@@ -1,17 +1,17 @@
+
 export enum Role {
   SUPER_ADMIN = 'SUPER_ADMIN',
-  GUEST='GUEST',
+  GUEST = 'GUEST',
   CLIENT_ADMIN = 'CLIENT_ADMIN',
   CAMPAIGN_MANAGER = 'campaign-manager',
-  CAMPAIGN_REVIEWER = 'campaign-reviewer',
-  VENDOR_MANAGER = 'vendor-manager',
-  PRODUCT_REVIEWER = 'product-reviewer',
-  CREATIVE_EDITOR='creative-editor',
-  CREATIVE_CONTRIBUTOR='creative-contributor',
-  MEDIA_EDITOR = 'media-editor',
-  MEDIA_VIEWER = 'media-viewer',
+  CREATIVE_CONTRIBUTOR = 'creative-contributor',
 }
 
+export const SECTIONS = {
+  DASHBOARD: 'DASHBOARD',
+  MEDIA_TOOLS: 'MEDIA_TOOLS',
+  CHARP_AI: 'CHARP_AI',
+  MARKETPLACE: 'MARKETPLACE'
+} as const;
 
-
-
+export type Section = (typeof SECTIONS)[keyof typeof SECTIONS];

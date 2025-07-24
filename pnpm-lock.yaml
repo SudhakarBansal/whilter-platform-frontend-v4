@@ -96,6 +96,9 @@ importers:
       lucide-react:
         specifier: ^0.479.0
         version: 0.479.0(react@19.0.0)
+      next-auth:
+        specifier: ^4.24.11
+        version: 4.24.11(next@14.2.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-dropzone:
         specifier: ^14.3.8
         version: 14.3.8(react@19.0.0)
@@ -224,12 +227,18 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@whilter/forms':
+        specifier: workspace:*
+        version: link:../../packages/forms
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -749,10 +758,6 @@ packages:
     resolution: {integrity: sha512-9uUYRm6OqQrCqQdG1iCBwBPZgN8ciDBro2nIOFaiRz1/BCxaI7CNvQbDHvsArAC7Tw9Hda/B3U+6ui9u4HWXPw==}
     engines: {node: '>=6.0.0'}
     hasBin: true
-
-  '@babel/runtime@7.24.7':
-    resolution: {integrity: sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==}
-    engines: {node: '>=6.9.0'}
 
   '@babel/runtime@7.27.6':
     resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
@@ -3191,9 +3196,6 @@ packages:
     resolution: {integrity: sha512-ECkTw8TmJwW60lOTR+ZkODISW6RQ8+2CL3COqtiJKLd6MmB45hN51HprHFziKLGkAuTGQhBb91V8cy+KHlaCjw==}
     engines: {node: '>= 0.4'}
 
-  regenerator-runtime@0.14.1:
-    resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-
   regexp-tree@0.1.27:
     resolution: {integrity: sha512-iETxpjK6YoRWJG5o6hXLwvjYAoW+FEZn9os0PD/b6AP6xQwsa/Y7lCVgIixBbUPMfhu+i2LtdeAqVTgGlQarfA==}
     hasBin: true
@@ -3860,10 +3862,6 @@ snapshots:
   '@babel/parser@7.24.7':
     dependencies:
       '@babel/types': 7.24.7
-
-  '@babel/runtime@7.24.7':
-    dependencies:
-      regenerator-runtime: 0.14.1
 
   '@babel/runtime@7.27.6': {}
 
@@ -5357,7 +5355,7 @@ snapshots:
 
   eslint-plugin-jsx-a11y@6.8.0(eslint@8.57.0):
     dependencies:
-      '@babel/runtime': 7.24.7
+      '@babel/runtime': 7.27.6
       aria-query: 5.3.0
       array-includes: 3.1.7
       array.prototype.flatmap: 1.3.2
@@ -6603,8 +6601,6 @@ snapshots:
       globalthis: 1.0.3
       which-builtin-type: 1.1.3
 
-  regenerator-runtime@0.14.1: {}
-
   regexp-tree@0.1.27: {}
 
   regexp.prototype.flags@1.5.1:
@@ -6689,7 +6685,7 @@ snapshots:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.1.2
-      source-map-js: 1.2.0
+      source-map-js: 1.2.1
     optionalDependencies:
       '@parcel/watcher': 2.5.1
 

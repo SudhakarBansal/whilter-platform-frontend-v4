@@ -18,9 +18,12 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   const [showDialog, setShowDialog] = useState(false);
 
   const handleClick = () => {
+    debugger;
     const role = (session?.user as any)?.role;
-    const section = (session?.user as any)?.section;
-    const hasAccess = checkServiceAccess(serviceId, role, section);
+    const userSections = (session?.user as any)?.section || [];
+    const targetSection = serviceId;
+
+    const hasAccess = checkServiceAccess(role, userSections, targetSection);
 
     if (hasAccess) {
       router.push(href);
@@ -28,6 +31,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
       setShowDialog(true);
     }
   };
+
 
   return (
     <>

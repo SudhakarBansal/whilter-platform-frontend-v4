@@ -19,3 +19,5 @@ export type { RecentCampaigns, RecentCampaignProps } from './recent-campaigns.ty
 
 export type { RecentProject, RecentProjectProps } from './recent-projects.types'
 
+export type { User } from './user.types'
+

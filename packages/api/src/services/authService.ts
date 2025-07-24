@@ -10,11 +10,14 @@ import {
 import { ServiceEndpoints } from './authServiceType';
 
 export const authService = {
+  
   async login(data: LoginPayload): Promise<{ status: number; data: LoginResponse }> {
+    debugger
+    console.log("responseservcie123")
     try {
       const response = await axiosInstance.post(ServiceEndpoints.login, data);
       const responseData = response.data;
-
+console.log("responseservcie",response)
       return {
         status: 200,
         data: {
@@ -23,12 +26,18 @@ export const authService = {
         },
       };
     } catch (error: any) {
+      console.log("error",error);
       return {
         status: error?.response?.status || 500,
         data: { isAuthenticated: false },
       };
     }
+    finally{
+      console.log("working function")
+    }
   },
+
+  
 
   async signup(data: SignupPayload): Promise<{ status: number; message: string }> {
     try {

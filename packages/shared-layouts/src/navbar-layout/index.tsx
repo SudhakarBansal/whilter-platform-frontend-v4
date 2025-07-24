@@ -5,7 +5,12 @@ import { Box, useTheme } from "@mui/material";
 import { ProfileSection } from "./components/ProfileSection";
 import { ProfileMenu } from "./components/ProfileMenu";
 
-export function NavbarLayout({ children }: { children: React.ReactNode }) {
+interface Props {
+  children: React.ReactNode;
+  onSettings?: (path: string) => void;                         
+}
+
+export function NavbarLayout({ children, onSettings }: Props) {
   const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -45,7 +50,7 @@ export function NavbarLayout({ children }: { children: React.ReactNode }) {
       </Box>
 
       {/* Profile Menu Dropdown */}
-      <ProfileMenu anchorEl={anchorEl} onClose={handleMenuClose} theme={theme} />
+      <ProfileMenu anchorEl={anchorEl} onClose={handleMenuClose} theme={theme} onSettings={onSettings}/>
 
       {/* Main content */}
       <Box className="flex-1">

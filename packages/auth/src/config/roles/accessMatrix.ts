@@ -1,25 +1,28 @@
-import { Role } from "./role";
+// accessMatrix.ts
 
-export type AccessMatrixType = Record<
-  string,
-  {
-    roles: Role[];
-    sections?: string[];
-  }
->;
+import { Role } from './role';
+import { SECTIONS, Section } from './role';
 
-export const accessMatrix: AccessMatrixType = {
-    
-  'Media-tools': {
-    roles: [Role.CLIENT_ADMIN],
-    sections: ['media-tools', 'marketplace', 'charp-ai'],
-  },
-  'Dashboard': {
-    roles: [ Role.SUPER_ADMIN,Role.CLIENT_ADMIN, Role.CAMPAIGN_MANAGER],
-    sections: ['Dashboard'],
-  },
-  'Marketplace': {
-    roles: [Role.CLIENT_ADMIN, Role.CREATIVE_CONTRIBUTOR],
-    sections: ['marketplace'],
-  },
+export type RoleAccessMatrix = Record<Role, Section[]>;
+
+export const roleAccessMatrix: RoleAccessMatrix = {
+  [Role.SUPER_ADMIN]: [
+    SECTIONS.DASHBOARD,
+    SECTIONS.MEDIA_TOOLS,
+    SECTIONS.MARKETPLACE,
+    SECTIONS.CHARP_AI,
+  ],
+  [Role.CLIENT_ADMIN]: [
+    SECTIONS.MEDIA_TOOLS,
+    SECTIONS.CHARP_AI,
+  ],
+  [Role.GUEST]: [
+    SECTIONS.MEDIA_TOOLS,
+  ],
+  [Role.CAMPAIGN_MANAGER]: [
+    SECTIONS.CHARP_AI,
+  ],
+  [Role.CREATIVE_CONTRIBUTOR]: [
+    SECTIONS.MARKETPLACE,
+  ],
 };
