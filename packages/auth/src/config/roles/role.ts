@@ -5,6 +5,7 @@ export enum Role {
   CLIENT_ADMIN = 'CLIENT_ADMIN',
   CAMPAIGN_MANAGER = 'campaign-manager',
   CREATIVE_CONTRIBUTOR = 'creative-contributor',
+  CREATIVE_EDITOR="CREATIVE_EDITOR"
 }
 
 export const SECTIONS = {

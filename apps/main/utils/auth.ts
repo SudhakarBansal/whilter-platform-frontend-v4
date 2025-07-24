@@ -10,7 +10,7 @@ export const checkServiceAccess = (
   targetSection: string
 ): boolean => {
   if (!role || !Array.isArray(userSections) || !targetSection) return false;
-debugger;
+
   const roleTyped = role as Role;
   const sectionTyped = targetSection as Section;
 

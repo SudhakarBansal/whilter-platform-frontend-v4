@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import encryptPassword from '@/utils/password-encryption';
 
 
 export default function LoginPage() {
@@ -16,12 +17,13 @@ export default function LoginPage() {
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   setError('');
+  const encryptedPassword = encryptPassword(password);
 
   try {
     const res = await signIn('credentials', {
       redirect: false,
       email,
-      password,
+      password:encryptedPassword,
       callbackUrl: '/',
     });
 

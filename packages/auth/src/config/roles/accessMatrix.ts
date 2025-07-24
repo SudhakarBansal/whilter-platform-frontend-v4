@@ -19,6 +19,9 @@ export const roleAccessMatrix: RoleAccessMatrix = {
   [Role.GUEST]: [
     SECTIONS.MEDIA_TOOLS,
   ],
+   [Role.CREATIVE_EDITOR]: [
+    SECTIONS.MEDIA_TOOLS,
+  ],
   [Role.CAMPAIGN_MANAGER]: [
     SECTIONS.CHARP_AI,
   ],
