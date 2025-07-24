@@ -64,14 +64,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
             onClose={onClose}
             maxWidth="sm"
             fullWidth
-            PaperProps={{
-                sx: {
-                    background: "linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)",
-                    color: "white",
-                    width: "500px",
-                    maxWidth: "500px",
-                },
-            }}
+            classes={{ paper: "bg-gradient-to-br from-blue-900 to-blue-800 text-white max-w-[550px] w-full" }}
         >
             <FormContainer>
                 <div className="relative p-6">
@@ -96,7 +89,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                             {/* Full Name and Email */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                 <Box>
-                                    <Typography >Full Name</Typography>
+                                    <Typography>Full Name</Typography>
                                     <TextFieldElement
                                         name="fullName"
                                         fullWidth
@@ -118,15 +111,12 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                         size="small"
                                         autoComplete='off'
                                         required
-                                        variant="standard"
                                     />
                                 </Box>
 
                             </div>
 
 
-
-                            {/* Organization and User Role */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Box>
                                     <Typography>Organization</Typography>
@@ -153,164 +143,52 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                                 <Box>
+                                    <Typography>Password</Typography>
                                     <PasswordElement
                                         name="password"
-                                        label="Password"
+                                        label=""
                                         required
                                         fullWidth
                                         placeholder="••••••••••••••••••"
-                                        iconColor="default"
-                                        // sx={{
-                                        //     "& .MuiFilledInput-root": {
-                                        //         backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                        //         color: "white",
-                                        //         "&:hover": {
-                                        //             backgroundColor: "rgba(255, 255, 255, 0.15)",
-                                        //         },
-                                        //         "&.Mui-focused": {
-                                        //             backgroundColor: "rgba(255, 255, 255, 0.2)",
-                                        //         },
-                                        //     },
-                                        //     "& .MuiInputLabel-root": {
-                                        //         color: "rgba(255, 255, 255, 0.8)",
-                                        //     },
-                                        //     "& .MuiInputLabel-root.Mui-focused": {
-                                        //         color: "white",
-                                        //     },
-                                        //     "& .MuiFilledInput-input::placeholder": {
-                                        //         color: "rgba(255, 255, 255, 0.6)",
-                                        //         opacity: 1,
-                                        //     },
-                                        // }}
-                                        variant="filled"
                                     />
 
                                 </Box>
 
-                                <TextField
-                                    fullWidth
-                                    label="Password"
-                                    type={showPassword ? "text" : "password"}
-                                    placeholder="••••••••••••••••••"
-                                    value={formData.password}
-                                    onChange={handleChange("password")}
-                                    variant="filled"
-                                    sx={{
-                                        "& .MuiFilledInput-root": {
-                                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                            color: "white",
-                                            "&:hover": {
-                                                backgroundColor: "rgba(255, 255, 255, 0.15)",
-                                            },
-                                            "&.Mui-focused": {
-                                                backgroundColor: "rgba(255, 255, 255, 0.2)",
-                                            },
-                                        },
-                                        "& .MuiInputLabel-root": {
-                                            color: "rgba(255, 255, 255, 0.8)",
-                                        },
-                                        "& .MuiInputLabel-root.Mui-focused": {
-                                            color: "white",
-                                        },
-                                        "& .MuiFilledInput-input::placeholder": {
-                                            color: "rgba(255, 255, 255, 0.6)",
-                                            opacity: 1,
-                                        },
-                                    }}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end" sx={{ color: "white" }}>
-                                                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                />
 
-                                {/* <TextField
-                                    fullWidth
-                                    label="Confirm Password"
-                                    type={showConfirm ? "text" : "password"}
-                                    placeholder="••••••••"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange("confirmPassword")}
-                                    variant="filled"
-                                    sx={{
-                                        "& .MuiFilledInput-root": {
-                                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                            color: "white",
-                                            "&:hover": {
-                                                backgroundColor: "rgba(255, 255, 255, 0.15)",
-                                            },
-                                            "&.Mui-focused": {
-                                                backgroundColor: "rgba(255, 255, 255, 0.2)",
-                                            },
-                                        },
-                                        "& .MuiInputLabel-root": {
-                                            color: "rgba(255, 255, 255, 0.8)",
-                                        },
-                                        "& .MuiInputLabel-root.Mui-focused": {
-                                            color: "white",
-                                        },
-                                        "& .MuiFilledInput-input::placeholder": {
-                                            color: "rgba(255, 255, 255, 0.6)",
-                                            opacity: 1,
-                                        },
-                                    }}
-                                    InputProps={{
-                                        endAdornment: (
-                                            <InputAdornment position="end">
-                                                <IconButton onClick={() => setShowConfirm(!showConfirm)} edge="end" sx={{ color: "white" }}>
-                                                    {showConfirm ? <VisibilityOff /> : <Visibility />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        ),
-                                    }}
-                                /> */}
+                                <Box>
+                                    <Typography>Confirm Password</Typography>
+                                    <PasswordElement
+                                        name="confirmPassword"
+                                        label=""
+                                        required
+                                        fullWidth
+                                        placeholder="••••••••••••••••••"
+                                    />
+
+                                </Box>
+
                             </div>
 
-                            {/* Mobile Number */}
-                            <TextField
-                                fullWidth
-                                label="Mobile Number"
-                                placeholder="+91 830 796 8900"
-                                value={formData.mobileNumber}
-                                onChange={handleChange("mobileNumber")}
-                                variant="filled"
-                                sx={{
-                                    "& .MuiFilledInput-root": {
-                                        backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                        color: "white",
-                                        "&:hover": {
-                                            backgroundColor: "rgba(255, 255, 255, 0.15)",
-                                        },
-                                        "&.Mui-focused": {
-                                            backgroundColor: "rgba(255, 255, 255, 0.2)",
-                                        },
-                                    },
-                                    "& .MuiInputLabel-root": {
-                                        color: "rgba(255, 255, 255, 0.8)",
-                                    },
-                                    "& .MuiInputLabel-root.Mui-focused": {
-                                        color: "white",
-                                    },
-                                    "& .MuiFilledInput-input::placeholder": {
-                                        color: "rgba(255, 255, 255, 0.6)",
-                                        opacity: 1,
-                                    },
-                                }}
-                            />
+                            <Box>
+                                <Typography>Mobile Number</Typography>
+                                <TextFieldElement
+                                    name="mobileNumber"
+                                    fullWidth
+                                    variant="outlined"
+                                    placeholder="+91 9996979999"
+                                    size="small"
+                                    autoComplete='off'
+                                    required
+                                />
+                            </Box>
 
-                            {/* Account Status */}
-                            <div className="space-y-3 pt-2">
-                                <Typography variant="subtitle2" className="text-white font-medium">
-                                    ACCOUNT STATUS
-                                </Typography>
-                                <div className="flex items-center justify-between">
-                                    <Typography variant="body2" className="text-blue-100">
-                                        Active
-                                    </Typography>
+
+                            <div className="space-y-1">
+                                <Typography>Account Status</Typography>
+                                <div className="flex items-center justify-between rounded border border-white/30 px-3 py-1 bg-white/5">
+                                    <span className="text-white text-sm">
+                                        {formData.status ? "Active" : "Inactive"}
+                                    </span>
                                     <Switch
                                         checked={formData.status}
                                         onChange={(e) => setFormData({ ...formData, status: e.target.checked })}
@@ -326,36 +204,17 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                 </div>
                             </div>
 
-                            {/* Action Buttons */}
-                            <div className="flex justify-end gap-3 pt-6 border-t border-blue-400">
+
+                            <div className="flex justify-end gap-3 pt-4">
                                 <Button
-                                    variant="text"
+                                    variant="outlinePrimary"
                                     onClick={onClose}
-                                    sx={{
-                                        px: 3,
-                                        py: 1.5,
-                                        textTransform: "none",
-                                        color: "rgba(255, 255, 255, 0.8)",
-                                        "&:hover": {
-                                            backgroundColor: "rgba(255, 255, 255, 0.1)",
-                                            color: "white",
-                                        },
-                                    }}
                                 >
                                     Cancel
                                 </Button>
                                 <Button
                                     type="submit"
-                                    // variant="contained"
-                                    sx={{
-                                        px: 3,
-                                        py: 1.5,
-                                        textTransform: "none",
-                                        backgroundColor: "#3b82f6",
-                                        "&:hover": {
-                                            backgroundColor: "#2563eb",
-                                        },
-                                    }}
+                                    variant="flatPrimary"
                                 >
                                     Register
                                 </Button>
