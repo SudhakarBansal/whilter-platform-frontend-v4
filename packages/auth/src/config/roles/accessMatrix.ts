@@ -1,4 +1,3 @@
-// accessMatrix.ts
 
 import { Role } from './role';
 import { SECTIONS, Section } from './role';

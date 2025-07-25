@@ -12,7 +12,6 @@ import { ServiceEndpoints } from './authServiceType';
 export const authService = {
   
   async login(data: LoginPayload): Promise<{ status: number; data: LoginResponse }> {
-          console.log("data",data)
     try {
       const response = await axiosInstance.post(ServiceEndpoints.login, data);
       const responseData = response.data;
