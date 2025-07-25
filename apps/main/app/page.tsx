@@ -1,7 +1,3 @@
-import { getServerSession } from 'next-auth';
-import { redirect } from 'next/navigation';
-import { authOptions, Role } from '@whilter/auth';
-import { ALL_ROUTE_CONFIGS } from '@whilter/auth/src/config';
 
 export default async function Home() {
 

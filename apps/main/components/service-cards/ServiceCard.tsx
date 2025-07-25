@@ -31,7 +31,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     }
   };
 
-
   return (
     <>
       <div
@@ -47,8 +46,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Simple Dialog */}
       {showDialog && (
         <UnauthorizedDialog open={showDialog}
           onClose={() => setShowDialog(false)}

@@ -1,13 +1,7 @@
 
 'use client';
-
 import { Button } from "@mui/material";
-
-interface UnauthorizedDialogProps {
-    open: boolean;
-    title: string;
-    onClose: () => void;
-}
+import type { UnauthorizedDialogProps } from "@/types/unauthorized.types";
 
 export const UnauthorizedDialog: React.FC<UnauthorizedDialogProps> = ({
     open,
@@ -22,12 +16,9 @@ export const UnauthorizedDialog: React.FC<UnauthorizedDialogProps> = ({
                     You currently do not have permission to access <strong>{title}</strong>.
                     Please contact your administrator.
                 </p>
-
                 <Button
                     variant="flatPrimary"
-                    onClick={() => onClose()}
-
-                >
+                    onClick={() => onClose()}>
                     Close
                 </Button>
             </div>

@@ -19,11 +19,8 @@ import CloseIcon from "@mui/icons-material/Close"
 import Visibility from "@mui/icons-material/Visibility"
 import VisibilityOff from "@mui/icons-material/VisibilityOff"
 import { TextFieldElement, FormContainer, SelectElement, PasswordElement } from '@whilter/forms';
+import type { AddUserProps } from "@/types/addUser.types"
 
-interface AddUserProps {
-    open: boolean
-    onClose: () => void
-}
 
 export const AddUser = ({ open, onClose }: AddUserProps) => {
     const [showPassword, setShowPassword] = useState(false)

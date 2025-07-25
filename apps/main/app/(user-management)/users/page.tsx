@@ -4,9 +4,8 @@ import AdminLayout from "@/layouts/admin-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { Plus } from 'lucide-react';
-import { UserTableSection } from "@/components/user-listing-cards/UserTableSection"
+import { UserCardSection } from "@/components/user-listing-cards/UserCardSection";
 import { AddUser } from '@/components/user-listing-cards/AddUser'
 
 export default function ViewAdminPage() {
@@ -20,10 +19,9 @@ export default function ViewAdminPage() {
     setIsAddUserOpen(false)
   }
 
-
   const actionButtons = [
     <Button
-      key="add-campaign"
+      key="add-user"
       startIcon={<Plus />}
       variant="glassmorphism"
       onClick={handleAddNewUser}
@@ -31,7 +29,6 @@ export default function ViewAdminPage() {
       New User
     </Button>
   ];
-
 
   const breadcrumbs = buildBreadcrumbs([
     { label: "User", href: "/users" },
@@ -45,8 +42,7 @@ export default function ViewAdminPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <UserTableSection />
-
+      <UserCardSection />
       <AddUser open={isAddUserOpen} onClose={handleCloseAddUser} />
     </AdminLayout>
   );

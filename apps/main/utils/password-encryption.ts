@@ -3,7 +3,6 @@ import JSEncrypt from 'jsencrypt';
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_RSA_PUBLIC_KEY;
 
 export const RSA_ENCRYPT = (message: string) => {
-    console.log("Encrypting message:", message);
     const publicKey = PUBLIC_KEY || '';
     if (!publicKey) {
         throw new Error("Public key is not defined");
@@ -11,7 +10,6 @@ export const RSA_ENCRYPT = (message: string) => {
     if (!message) {
         throw new Error("Message to encrypt cannot be empty");
     }
-    console.log("Public Key:", publicKey);
     const jsEncrypt = new JSEncrypt();
     jsEncrypt.setPublicKey(publicKey);
     const encryptedMessage = jsEncrypt.encrypt(message);
@@ -27,7 +25,4 @@ const encryptPassword = (password: string): string => {
     }
     return RSA_ENCRYPT(password);
 };
-
-
 export default encryptPassword;
- 
