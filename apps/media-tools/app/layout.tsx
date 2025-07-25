@@ -2,6 +2,7 @@ import "@whilter/ui-kit/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
+import { Toaster } from 'sonner';
 import { MainLayout } from "@whilter/shared-layouts/main"
 import { NavbarLayout } from "@whilter/shared-layouts/navbar";
 
@@ -20,6 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Toaster
+          position="top-right"
+          expand={true}
+          richColors={true}
+          closeButton={true}
+          toastOptions={{
+            duration: 4000,
+          }} />
         <ThemeConfig>
           <NavbarLayout>
             <MainLayout showSidebar={false}>
