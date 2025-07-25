@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, MenuItem, Box, Typography, Divider } from '@mui/material';
-import { Settings as SettingsIcon, AccountCircle, NotificationsOutlined, Logout } from '@mui/icons-material';
+import { Settings as SettingsIcon,AccountCircle, NotificationsOutlined, Logout } from '@mui/icons-material';
+
 import type { Theme } from '@mui/material/styles';
 
 interface ProfileMenuProps {
@@ -42,7 +43,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, the
     }}
   >
     <Box className="px-4 py-1.5">
-      <Typography variant="subtitle2" sx={{ fontSize: '0.875rem' }}>Sudhakar</Typography>
+      <Typography variant="subtitle2" sx={{ fontSize: '0.875rem' }}>Guest</Typography>
       <Typography variant="caption" color="text.secondary">m@example.com</Typography>
     </Box>
     <Divider />
@@ -53,7 +54,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, the
       }}
     >
       <SettingsIcon fontSize="small" />
-      Settings
+     Manage Users
     </MenuItem>
     <MenuItem onClick={onClose}>
       <AccountCircle fontSize="small" />

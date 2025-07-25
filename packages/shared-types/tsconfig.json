@@ -3,11 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@repo/shared-types/*": [
-        "./src/*"
-      ]
-    }
-  },
+  "@whilter/shared-types": ["../shared-types/src/index.ts"],
+  "@whilter/shared-types/*": ["../shared-types/src/*"]
+  }
+},
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
