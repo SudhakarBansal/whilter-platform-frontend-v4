@@ -33,9 +33,12 @@ export default function Button(theme: Theme) {
         {
           props: { variant: "flatSecondary" },
           style: {
-            color: `${theme.palette.blue[300]}`,
+            color: "#FFFFFF",
             borderRadius: "12px",
-            background: theme.palette.button.secondary,
+            background: theme.palette.button.primaryLight,
+            "&:hover": {
+              background: theme.palette.button.primaryDark
+            },
           },
         },
         {
@@ -100,8 +103,20 @@ export default function Button(theme: Theme) {
               `,
             },
           },
+        },
+        {
+          props: { variant: "generateButton" },
+          style: {
+            color: "#FFFFFF",
+            borderRadius: "40px",
+            background: `linear-gradient(180deg, #8F71EC, #111A99 )`,
+            transition: "all 0.3s ease",
+            "&:hover": {
+              boxShadow: "0px 12px 52.5px 0px #000000"
+            },
+          },
         }
-        
+
       ],
       styleOverrides: {
         root: {

@@ -1,0 +1,17 @@
+{
+  "extends": "@whilter/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+  "@whilter/api": ["../api/src/index.ts"],
+  "@whilter/api/*": ["../api/src/*"]
+}
+  },
+  "include": [
+  "src/**/*.ts",
+  "src/**/*.tsx"
+],
+  "exclude": [
+    "node_modules"
+  ]
+}

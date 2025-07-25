@@ -1,12 +1,15 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { Button } from '@mui/material';
 import { PageLayout } from '@whilter/shared-layouts/styled';
 import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { RecentProjects } from '@whilter/ui-kit/components';
 import { ServiceCardSection } from '@/components/service-cards/ServiceCardSection';
 import { projectsData } from '@/utils/data/projects.data';
-import { FolderCardSection } from '@whilter/ui-kit/components'
+import { FolderCardSection } from '@whilter/ui-kit/components';
 import { recentProjects } from '@/utils/data/recentProjects.data';
+import { useSession } from 'next-auth/react';
 
 
 function Page() {
@@ -16,7 +19,6 @@ function Page() {
 
   return (
     <PageLayout
-      // breadcrumbs={breadcrumbs}
       heading="Our Services"
       description="Select a service to continue"
       buttons={actionButtons}

@@ -6,7 +6,7 @@ import { brandFormInitialValues,  type BrandFormValues } from "../../../data/for
 
 export default function AddNewBrand(): JSX.Element {
   const handleSubmit = (data: BrandFormValues) => {
-    console.log(data);
+
   };
 
   return (

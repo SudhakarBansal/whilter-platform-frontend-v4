@@ -8,7 +8,6 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import type { PageLayoutProps } from '@whilter/shared-layouts/styled';
-import { ActionButton } from '@/components/atoms/ActionButton/ActionButton';
 import PageClientLayout from '@/layouts/page-client-layout/PageClientLayout';
 
 // Type definitions
@@ -181,12 +180,6 @@ export const ToolsLayout: React.FC<ToolsLayoutProps> = ({
                             }}
                         >
                             {toolsSection}
-                            <ActionButton
-                                variant="outlineSecondary"
-                                sx={{ mt: 2 }}
-                            >
-                                generate new project
-                            </ActionButton>
                         </StyledToolsSection>
 
                         {/* Controls Section */}

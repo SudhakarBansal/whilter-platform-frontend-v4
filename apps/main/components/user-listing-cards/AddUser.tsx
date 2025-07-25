@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useState } from "react"
 import {
     Dialog,
@@ -19,11 +18,8 @@ import CloseIcon from "@mui/icons-material/Close"
 import { Controller } from "react-hook-form"
 import { TextFieldElement, FormContainer, SelectElement, PasswordElement } from '@whilter/forms';
 import { userFormInitialValues, type UserFormValues } from "@/utils/data/userFormInitialValues"
+import type { AddUserProps } from "@/types/addUser.types"
 
-interface AddUserProps {
-    open: boolean
-    onClose: () => void
-}
 
 export const AddUser = ({ open, onClose }: AddUserProps) => {
     const [showPassword, setShowPassword] = useState(false)
@@ -96,9 +92,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                         required
                                     />
                                 </Box>
-
                             </div>
-
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Box>
@@ -124,7 +118,6 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                                 <Box>
                                     <Typography>Password</Typography>
                                     <PasswordElement

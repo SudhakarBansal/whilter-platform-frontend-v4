@@ -2,7 +2,7 @@ export const menuItems = [
     {
         icon: '/icons/Home.svg',
         label: 'Home',
-        href: '/'
+        href: '/platform'
     },
     {
         icon: '/icons/lip-sync.svg',

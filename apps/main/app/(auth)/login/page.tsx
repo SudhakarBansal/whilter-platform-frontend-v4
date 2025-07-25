@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useRouter } from 'next/navigation';
-import { loginWithDummyToken } from '../../../lib/dummy';
-import { PUBLIC_ROUTES } from '@whilter/config';
+import { signIn } from 'next-auth/react';
+import encryptPassword from '@/utils/password-encryption';
+
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,18 +14,31 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
- const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const { token, role } = loginWithDummyToken(email, password);
-      document.cookie = `auth-token=${token}; path=/;`;
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError('');
+  const encryptedPassword = encryptPassword(password);
 
-      const redirectPath = PUBLIC_ROUTES.HOME[role];
-      router.push(redirectPath);
-    } catch (err) {
-      setError('Invalid credentials');
+  try {
+    const res = await signIn('credentials', {
+      redirect: false,
+      email,
+      password:encryptedPassword,
+      callbackUrl: '/',
+    });
+
+    if (!res) {
+      setError('Unexpected error. Please try again.');
+    } else if (res.ok && res.url) {
+      router.push(res.url);
+    } else {
+      setError('Invalid credentials. Please try again.');
     }
-  };
+  } catch (err) {
+    console.error('Login error:', err);
+    setError('Something went wrong. Please try again later.');
+  }
+};
 
   return (
     <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">

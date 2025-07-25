@@ -1,7 +1,10 @@
 export interface ServiceCardProps {
-  title: string;
+  key: string;
+  serviceId: string;
   image: string;
-  href : string;
+  title: string;
+  href: string;
+
 }
 
 export interface ServiceCardData {

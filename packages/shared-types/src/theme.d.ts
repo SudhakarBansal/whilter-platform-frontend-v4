@@ -9,6 +9,7 @@ declare module '@mui/material/Button' {
     flatSecondary: true;
     outlinePrimary: true;
     glassmorphism: true;
+    generateButton:true
     outlineSecondary: true;
     contained: false;
     outlined: false;

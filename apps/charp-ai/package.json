@@ -9,12 +9,14 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
+    "@whilter/auth": "workspace:*",
     "@whilter/config": "workspace:*",
     "@whilter/forms": "workspace:*",
     "@whilter/shared-hooks": "workspace:*",
     "@whilter/shared-layouts": "workspace:*",
     "@whilter/ui-kit": "workspace:*",
     "next": "14.2.8",
+    "next-auth": "^4.24.11",
     "react": "catalog:react18",
     "react-dom": "catalog:react18"
   },
