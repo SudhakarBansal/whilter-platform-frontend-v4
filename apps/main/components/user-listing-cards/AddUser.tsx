@@ -45,7 +45,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
             onClose={onClose}
             maxWidth="sm"
             fullWidth
-            classes={{ paper: "bg-gradient-to-br from-blue-400 to-blue-600 text-white max-w-[550px] w-full" }}
+            classes={{ paper: "bg-gradient-to-br from-blue-600 to-blue-400 text-white max-w-[550px] w-full" }}
         >
             <FormContainer<UserFormValues>
                 defaultValues={userFormInitialValues}
