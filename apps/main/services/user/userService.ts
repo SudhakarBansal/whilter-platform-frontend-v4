@@ -1,6 +1,6 @@
 import {axiosInstance} from "@whilter/api"
 import { ServiceEndpoints } from "./serviceEndpoints";
-import type { RegisterCredentials,User } from "./userService.types";
+import type { RegisterCredentials,User } from "./user.types";
 
 export async function allUsers(): Promise<User[]> {
   try {
@@ -26,7 +26,6 @@ export async function registerUser(data: RegisterCredentials): Promise<string> {
     throw new Error(errorResponse);
   }
 }
-
 
 export async function deleteUser(baseUrl: string, userEmail: string) {
   try {

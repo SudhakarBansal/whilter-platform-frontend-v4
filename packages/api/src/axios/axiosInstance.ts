@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { getSession, signOut } from 'next-auth/react';
-import Router from 'next/router';
-import { authService } from '@whilter/api'; 
+import { refreshToken } from '@whilter/api'; 
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -55,7 +54,7 @@ instance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const response = await authService.refreshToken();
+        const response = await refreshToken();
         processQueue(null, response.token);
         isRefreshing = false;
 

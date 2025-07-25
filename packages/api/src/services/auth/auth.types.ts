@@ -18,28 +18,11 @@ export interface ResetPasswordPayload {
   newPassword: string;
 }
 
-export interface CreateUserPayload {
-  name: string;
-  email: string;
-  password: string;
-  role?: string;
-}
-
-export interface GetUserPermissionsPayload {
-  userId: string;
-}
-
-// Used as response type after login
 export interface LoginResponse {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  phoneNumber?: string;
-  token?: string;
-  username?: string;
-  role?: string;
-  isAuthenticated: boolean;
-  [key: string]: any; // fallback for any extra props backend sends
+  accessToken?: string;
+  refreshToken?: string;
+  tokenType:string;
+  deviceId:string
 }
 
 // Generic API Response Types
