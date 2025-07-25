@@ -4,8 +4,6 @@ export interface JwtPayload {
   exp: number;     
   jti: string;      
   sub: string;      
-
-
   role: string; 
   organization: string;
   name: string;

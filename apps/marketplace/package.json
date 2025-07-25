@@ -12,6 +12,7 @@
     "@whilter/config": "workspace:*",
     "@whilter/shared-layouts": "workspace:*",
     "@whilter/ui-kit": "workspace:*",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.8",
     "next-auth": "^4.24.11",
     "react": "catalog:react18",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "14.2.8",
     "@types/eslint": "catalog:",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "catalog:",
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",

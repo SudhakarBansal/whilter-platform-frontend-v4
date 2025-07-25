@@ -1,33 +1,33 @@
+// middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
-
-const PUBLIC_ROUTES = ['/login', '/unauthorized'];
+import jwt from 'jsonwebtoken'
+import { checkServiceAccess } from './utils/checkAccess';
+import { Role } from './contants/role';
 
 export async function middleware(request: NextRequest) {
-  const { pathname, origin, searchParams } = request.nextUrl;
+  const cookie = request.headers.get('cookie');
 
-  // Allow static files & public routes
-  if (
-    pathname.startsWith('/_next/') ||
-    pathname.startsWith('/api/') ||
-    pathname === '/favicon.ico' ||
-    PUBLIC_ROUTES.includes(pathname)
-  ) {
-    return NextResponse.next();
-  }
+  const token = cookie?.match(/next-auth\.session-token=([^;]+)/)?.[1] ||
+    cookie?.match(/__Secure-next-auth\.session-token=([^;]+)/)?.[1];
 
-  const token =
-    request.cookies.get('__Secure-next-auth.session-token')?.value || 
-    request.cookies.get('next-auth.session-token')?.value || 
-    searchParams.get('token'); 
 
   if (!token) {
     return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
   }
-
   try {
+    const decoded: any = jwt.decode(token);
+    const role: Role = decoded?.role;
+    const sections: string[] = decoded?.section || [];
+    const currentSection = process.env.NEXT_PUBLIC_SECTION_KEY!;
+    const hasAccess = checkServiceAccess(role, sections, currentSection);
+
+    if (!hasAccess) {
+      return NextResponse.redirect(new URL('/unauthorized', process.env.NEXT_PUBLIC_MAIN_URL!));
+    }
+
     return NextResponse.next();
   } catch (err) {
-    console.error('Invalid token:', err);
+    console.error('JWT decode error:', err);
     return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
   }
 }
