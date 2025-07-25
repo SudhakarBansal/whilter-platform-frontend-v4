@@ -54,7 +54,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, the
       }}
     >
       <SettingsIcon fontSize="small" />
-     Manage Users
+      Manage Users
     </MenuItem>
     <MenuItem onClick={onClose}>
       <AccountCircle fontSize="small" />

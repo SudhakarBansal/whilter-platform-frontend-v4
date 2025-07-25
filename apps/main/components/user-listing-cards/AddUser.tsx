@@ -16,25 +16,15 @@ import {
     Stack
 } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
-import Visibility from "@mui/icons-material/Visibility"
-import VisibilityOff from "@mui/icons-material/VisibilityOff"
+import { Controller } from "react-hook-form"
 import { TextFieldElement, FormContainer, SelectElement, PasswordElement } from '@whilter/forms';
+import { userFormInitialValues, type UserFormValues } from "@/utils/data/userFormInitialValues"
 import type { AddUserProps } from "@/types/addUser.types"
 
 
 export const AddUser = ({ open, onClose }: AddUserProps) => {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
-    const [formData, setFormData] = useState({
-        fullName: "",
-        email: "",
-        organization: "",
-        role: "",
-        password: "",
-        confirmPassword: "",
-        mobileNumber: "",
-        status: true,
-    })
 
     const organizationOptions = [
         { id: 'default', label: 'Default' },
@@ -42,18 +32,9 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
         { id: 'test2', label: 'Test 2' }
     ];
 
-    const handleChange = (field: string) => (event: any) => {
-        setFormData({
-            ...formData,
-            [field]: event.target.value,
-        })
-    }
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        console.log("Form submitted:", formData)
-        onClose()
-    }
+    const handleSubmit = (data: UserFormValues) => {
+        console.log(data);
+    };
 
     return (
         <Dialog
@@ -61,9 +42,12 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
             onClose={onClose}
             maxWidth="sm"
             fullWidth
-            classes={{ paper: "bg-gradient-to-br from-blue-900 to-blue-800 text-white max-w-[550px] w-full" }}
+            classes={{ paper: "bg-gradient-to-br from-blue-400 to-blue-600 text-white max-w-[550px] w-full" }}
         >
-            <FormContainer>
+            <FormContainer<UserFormValues>
+                defaultValues={userFormInitialValues}
+                onSuccess={handleSubmit}
+            >
                 <div className="relative p-6">
                     {/* Close Button */}
                     <IconButton onClick={onClose} className="absolute top-4 right-4 z-10" sx={{ color: "white" }}>
@@ -82,13 +66,12 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
 
                     {/* Form Content */}
                     <DialogContent className="px-0">
-                        <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* Full Name and Email */}
+                        <div className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                 <Box>
                                     <Typography>Full Name</Typography>
                                     <TextFieldElement
-                                        name="fullName"
+                                        name="name"
                                         fullWidth
                                         variant="outlined"
                                         placeholder="John Smith"
@@ -101,7 +84,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                 <Box>
                                     <Typography>Email Address</Typography>
                                     <TextFieldElement
-                                        name="emailAddress"
+                                        name="email"
                                         fullWidth
                                         variant="outlined"
                                         placeholder="john.smith@gmail.com"
@@ -118,7 +101,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                 <Box>
                                     <Typography>Organization</Typography>
                                     <SelectElement
-                                        name="organization"
+                                        name="organizationName"
                                         options={organizationOptions}
                                         fullWidth
                                         size="small"
@@ -182,23 +165,29 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
 
                             <div className="space-y-1">
                                 <Typography>Account Status</Typography>
-                                <div className="flex items-center justify-between rounded border border-white/30 px-3 py-1 bg-white/5">
-                                    <span className="text-white text-sm">
-                                        {formData.status ? "Active" : "Inactive"}
-                                    </span>
-                                    <Switch
-                                        checked={formData.status}
-                                        onChange={(e) => setFormData({ ...formData, status: e.target.checked })}
-                                        sx={{
-                                            "& .MuiSwitch-switchBase.Mui-checked": {
-                                                color: "#ffffff",
-                                            },
-                                            "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-                                                backgroundColor: "#3b82f6",
-                                            },
-                                        }}
-                                    />
-                                </div>
+                                <Controller
+                                    name="status"
+                                    render={({ field }) => (
+                                        <div className="flex items-center justify-between rounded border border-white/30 px-3 py-1 bg-white/5">
+                                            <span className="text-white text-sm">
+                                                {field.value ? "Active" : "Inactive"}
+                                            </span>
+                                            <Switch
+                                                {...field}
+                                                checked={field.value}
+                                                onChange={(e) => field.onChange(e.target.checked)}
+                                                sx={{
+                                                    "& .MuiSwitch-switchBase.Mui-checked": {
+                                                        color: "#ffffff",
+                                                    },
+                                                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                                                        backgroundColor: "#3b82f6",
+                                                    },
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                />
                             </div>
 
 
@@ -216,7 +205,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                     Register
                                 </Button>
                             </div>
-                        </form>
+                        </div>
                     </DialogContent>
                 </div>
             </FormContainer>
