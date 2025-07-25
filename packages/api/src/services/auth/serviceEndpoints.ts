@@ -9,6 +9,4 @@ export const ServiceEndpoints = {
   refreshToken: `${AUTH_BASE}/auth/refresh-token`,
   forgotPassword: `${AUTH_BASE}/auth/forgot-password`,
   resetPassword: `${AUTH_BASE}/auth/reset-password`,
-  createUser: `${AUTH_BASE}/admin/create-user`,
-  assignRole: `${AUTH_BASE}/admin/assign-role`,
 };

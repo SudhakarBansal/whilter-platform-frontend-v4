@@ -1,7 +1,7 @@
 
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { authService } from '@whilter/api';
+import { login } from '@whilter/api';
 import { decodeJwt } from '../utils/jwt';
 
 export const authOptions: NextAuthOptions = {
@@ -16,11 +16,11 @@ export const authOptions: NextAuthOptions = {
         try {
           if (!credentials?.email || !credentials?.password) return null;
 
-          const response = await authService.login({
+          const response = await login({
             email: credentials.email,
             password: credentials.password,
           });
-
+    
           const { accessToken } = response?.data || {};
           if (!accessToken) return null;
           const decoded = decodeJwt(accessToken);
