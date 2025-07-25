@@ -1,5 +1,4 @@
 "use client"
-
 import React, { useState } from "react"
 import {
     Dialog,
@@ -93,9 +92,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                         required
                                     />
                                 </Box>
-
                             </div>
-
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Box>
@@ -121,7 +118,6 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                                 <Box>
                                     <Typography>Password</Typography>
                                     <PasswordElement

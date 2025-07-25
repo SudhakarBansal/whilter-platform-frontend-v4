@@ -1,2 +1,2 @@
-export * from './axios/axiosInstance';
-export * from './services/authService';
+export {axiosInstance} from './axios/axiosInstance';
+export * from './services/auth/service';

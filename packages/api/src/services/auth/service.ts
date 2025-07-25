@@ -1,4 +1,4 @@
-import axiosInstance from '../axios/axiosInstance';
+import { axiosInstance } from '../../axios/axiosInstance';
 import {
   LoginPayload,
   SignupPayload,
@@ -6,8 +6,8 @@ import {
   ResetPasswordPayload,
   CreateUserPayload,
   LoginResponse,
-} from '../types/auth.types';
-import { ServiceEndpoints } from './authServiceType';
+} from '../../types/auth.types';
+import { ServiceEndpoints } from './serviceType';
 
 export const authService = {
   
@@ -31,8 +31,6 @@ export const authService = {
     finally{
     }
   },
-
-  
 
   async signup(data: SignupPayload): Promise<{ status: number; message: string }> {
     try {
@@ -85,33 +83,5 @@ export const authService = {
         status: error?.response?.status || 500,
       };
     }
-  },
-
-  async createUser(user: CreateUserPayload): Promise<{ status: number; message: string }> {
-    try {
-      await axiosInstance.post(ServiceEndpoints.createUser, user);
-      return {
-        status: 200,
-        message: 'User created successfully.',
-      };
-    } catch (error: any) {
-      const errorMsg = error?.response?.data || 'Create user failed.';
-      throw new Error(errorMsg);
-    }
-  },
-
-  async assignRole(userId: string, role: string): Promise<{ status: number; message: string }> {
-    try {
-      await axiosInstance.post(ServiceEndpoints.assignRole, { userId, role });
-      return {
-        status: 200,
-        message: 'Role assigned successfully.',
-      };
-    } catch (error: any) {
-      const errorMsg = error?.response?.data || 'Failed to assign role.';
-      throw new Error(errorMsg);
-    }
-  },
-
-  
+  }, 
 };

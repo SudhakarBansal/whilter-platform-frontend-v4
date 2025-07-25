@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 import Router from 'next/router';
-import { authService } from '@whilter/api'; // your API service layer
+import { authService } from '@whilter/api'; 
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -72,4 +72,4 @@ instance.interceptors.response.use(
   }
 );
 
-export default instance;
+export const axiosInstance = instance;
