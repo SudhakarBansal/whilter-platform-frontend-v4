@@ -4,7 +4,7 @@ import { getToolBySlug } from '@/lib/getToolBySlug';
 import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { recentProjects } from '@/data/recentProjects.data';
 import { FolderCardSection, RecentProjects } from '@whilter/ui-kit/components'
-import { Plus } from 'lucide-react';
+import { Plus, SlidersHorizontal } from 'lucide-react';
 import { projectsData } from "@/data/projects.data";
 import NotFound from "@/app/not-found";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
@@ -34,13 +34,20 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
       description={tool.description}
       config={pageLayoutPresets.dashboard}
     >
-      <Box sx={{ mb: 2 }}>
+      <Box display={"flex"} sx={{gap:2}}>
         <ActionButton
           variant="outlineSecondary"
           startIcon={<Plus />}
           href={`/${params.tool}/new`}
         >
           New Project
+        </ActionButton>
+         <ActionButton
+          variant="outlineSecondary"
+          startIcon={<SlidersHorizontal />}
+          href={`/${params.tool}/admin/models`}
+        >
+          Manage Models
         </ActionButton>
       </Box>
       <RecentProjects data={recentProjects} />
