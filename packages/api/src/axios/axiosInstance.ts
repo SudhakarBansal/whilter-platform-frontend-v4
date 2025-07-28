@@ -18,17 +18,22 @@ const processQueue = (error: any, token: string | null = null) => {
 };
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  withCredentials: true,
+  baseURL: process.env.NEXT_PUBLIC_API_URL
 });
 
+
 instance.interceptors.request.use(async config => {
-  const session = await getSession()
-  // if (session?.accessToken) {
-  //   config.headers.Authorization = `Bearer ${session.accessToken}`
-  // }
-  return config
-})
+  const session = await getSession();
+  console.log("sesion", session)
+  if (session?.accessToken) {
+    config.headers = {
+      ...config.headers,
+      Authorization: `Bearer ${session.accessToken}`,
+    };
+  }
+ 
+  return config;
+});
 
 instance.interceptors.response.use(
   response => response,

@@ -21,15 +21,15 @@ export async function registerUser(data: RegisterCredentials): Promise<string> {
     }
     throw new Error("Registration failed.");
   } catch (error: any) {
-    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    const errorResponse = error?.response?.data?.message || "An unexpected error occurred";
     console.error("Error registering user:", errorResponse);
     throw new Error(errorResponse);
   }
 }
 
-export async function deleteUser(baseUrl: string, userEmail: string) {
+export async function deleteUser(id: string) {
   try {
-    const response = await axiosInstance.delete(`${baseUrl}/user?email=${userEmail}`);
+    const response = await axiosInstance.delete(`${ServiceEndpoints.deleteUser}?id=${id}`);
     if (response.status == 200) {
       return "User deleted successfully";
     };

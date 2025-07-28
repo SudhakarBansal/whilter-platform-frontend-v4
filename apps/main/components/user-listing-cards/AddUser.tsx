@@ -16,14 +16,16 @@ import {
 } from "@mui/material"
 import CloseIcon from "@mui/icons-material/Close"
 import { Controller } from "react-hook-form"
-import { TextFieldElement, FormContainer, SelectElement, PasswordElement } from '@whilter/forms';
+import { TextFieldElement, FormContainer, SelectElement, PasswordElement, MultiSelectElement } from '@whilter/forms';
 import { userFormInitialValues, type UserFormValues } from "@/utils/data/userFormInitialValues"
 import type { AddUserProps } from "@/types/addUser.types"
+import type { RegisterCredentials } from "@/services/user/user.types"
+import { registerUser } from "@/services/user/userService"
+import encryptPassword from "@/utils/password-encryption"
+import { toast } from "sonner"
 
 
 export const AddUser = ({ open, onClose }: AddUserProps) => {
-    const [showPassword, setShowPassword] = useState(false)
-    const [showConfirm, setShowConfirm] = useState(false)
 
     const organizationOptions = [
         { id: 'default', label: 'Default' },
@@ -31,9 +33,38 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
         { id: 'test2', label: 'Test 2' }
     ];
 
-    const handleSubmit = (data: UserFormValues) => {
-        console.log(data);
+    const preferredSectionOptions = [
+        { id: 'MEDIA_TOOLS', label: 'Media Tools' },
+        { id: 'CHARP_AI', label: 'Charp AI' },
+        { id: 'MARKETPLACE', label: 'Marketplace' },
+        { id: 'DASHBOARD', label: 'Dashboard' }
+    ];
+
+
+    const handleSubmit = async (data: UserFormValues) => {
+
+        const encryptedPassword = encryptPassword(data.password);
+        try {
+            const payload: RegisterCredentials = {
+                name: data.name,
+                email: data.email,
+                password: encryptedPassword,
+                role: data.role,
+                organizationName: data.organizationName,
+                preferredSections: data.preferredSections,
+                status: data.status,
+                orgLevelAccess: false
+            };
+
+            const message = await registerUser(payload);
+            toast.success(message || "User registered successfully");
+            onClose();
+        } catch (error: any) {
+            const errorMessage = error?.message || "Registration failed. Please try again.";
+            toast.error(errorMessage);
+        }
     };
+
 
     return (
         <Dialog
@@ -68,7 +99,6 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                         <div className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                                 <Box>
-                                    <Typography>Full Name</Typography>
                                     <TextFieldElement
                                         name="name"
                                         fullWidth
@@ -77,13 +107,14 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                         size="small"
                                         autoComplete='off'
                                         required
+                                        label="Full Name"
                                     />
                                 </Box>
 
                                 <Box>
-                                    <Typography>Email Address</Typography>
                                     <TextFieldElement
                                         name="email"
+                                        label="Email Address"
                                         fullWidth
                                         variant="outlined"
                                         placeholder="john.smith@gmail.com"
@@ -96,17 +127,16 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Box>
-                                    <Typography>Organization</Typography>
                                     <SelectElement
                                         name="organizationName"
                                         options={organizationOptions}
                                         fullWidth
                                         size="small"
                                         label="Select Organization"
+                                        defaultValue={"Default"}
                                     />
                                 </Box>
                                 <Box>
-                                    <Typography>Role</Typography>
                                     <SelectElement
                                         name="role"
                                         options={organizationOptions}
@@ -119,10 +149,9 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Box>
-                                    <Typography>Password</Typography>
                                     <PasswordElement
                                         name="password"
-                                        label=""
+                                        label="Password"
                                         required
                                         fullWidth
                                         placeholder="••••••••••••••••••"
@@ -132,34 +161,21 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
 
 
                                 <Box>
-                                    <Typography>Confirm Password</Typography>
-                                    <PasswordElement
-                                        name="confirmPassword"
-                                        label=""
-                                        required
+                                    <MultiSelectElement
+                                        name="preferredSections"
+                                        options={preferredSectionOptions}
                                         fullWidth
-                                        placeholder="••••••••••••••••••"
+                                        size="small"
+                                        label="Select Section"
+                                        showChips= {true}
                                     />
 
                                 </Box>
 
                             </div>
 
-                            <Box>
-                                <Typography>Mobile Number</Typography>
-                                <TextFieldElement
-                                    name="mobileNumber"
-                                    fullWidth
-                                    variant="outlined"
-                                    placeholder="+91 9996979999"
-                                    size="small"
-                                    autoComplete='off'
-                                    required
-                                />
-                            </Box>
-
-
-                            <div className="space-y-1">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <Box>
                                 <Typography>Account Status</Typography>
                                 <Controller
                                     name="status"
@@ -184,6 +200,33 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
                                         </div>
                                     )}
                                 />
+                                </Box>
+                                <Box>
+                                <Typography>Organization Access</Typography>
+                                <Controller
+                                    name="orgLevelAccess"
+                                    render={({ field }) => (
+                                        <div className="flex items-center justify-between rounded border border-white/30 px-3 py-1 bg-white/5">
+                                            <span className="text-white text-sm">
+                                                {field.value ? "Active" : "Inactive"}
+                                            </span>
+                                            <Switch
+                                                {...field}
+                                                checked={field.value}
+                                                onChange={(e) => field.onChange(e.target.checked)}
+                                                sx={{
+                                                    "& .MuiSwitch-switchBase.Mui-checked": {
+                                                        color: "#ffffff",
+                                                    },
+                                                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                                                        backgroundColor: "#3b82f6",
+                                                    },
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                />
+                                </Box>
                             </div>
 
 

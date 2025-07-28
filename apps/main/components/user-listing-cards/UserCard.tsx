@@ -1,18 +1,11 @@
 import { type User } from "@whilter/ui-kit/types"
 import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react"
 import clsx from "clsx"
+import { deleteUser } from "@/services/user/userService"
 
 interface Props {
   user: User
 }
-
-// const statusStyles: Record<User["status"], string> = {
-//   Active: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-//   Inactive: "bg-gray-500/20 text-gray-400 border-gray-500/30",
-//   Banned: "bg-red-500/20 text-red-400 border-red-500/30",
-//   Pending: "bg-amber-500/20 text-amber-400 border-amber-500/30",
-//   Suspended: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-// }
 
 const getInitials = (name: string) => {
   return name
@@ -110,9 +103,9 @@ export const UserCard = ({ user }: Props) => {
             <Users size={12} className="text-gray-400" />
             <span className="truncate">{user.role}</span>
           </div>
-          <span className="text-blue-600 font-medium text-xs bg-blue-50 px-2 py-1 rounded">
-            {user.preferredSection}
-          </span>
+          {/* <span className="text-blue-600 font-medium text-xs bg-blue-50 px-2 py-1 rounded">
+            {user.preferredSections}
+          </span> */}
         </div>
       </div>
     </div>

@@ -1,10 +1,32 @@
 "use client";
 
-import { users } from "@/utils/data/users.data";
+
+import { useEffect, useState } from "react";
+import { allUsers } from "@/services/user/userService";
 import { UserCard } from "./UserCard";
+import type { User } from "@/services/user/user.types"
 
 
 export const UserCardSection = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const fetchedUsers = await allUsers();
+        setUsers(fetchedUsers);
+      } catch (err: any) {
+        setError(err.message || "Failed to load users");
+      } finally { 
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+  
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
       {users.map((user) => (
