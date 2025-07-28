@@ -1,5 +1,4 @@
-
-import { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { login } from '@whilter/api';
 import { decodeJwt } from '../utils/jwt';
@@ -9,7 +8,7 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: 'email', type: 'text' },
+        email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
@@ -20,11 +19,13 @@ export const authOptions: NextAuthOptions = {
             email: credentials.email,
             password: credentials.password,
           });
-    
+
           const { accessToken } = response?.data || {};
           if (!accessToken) return null;
+
           const decoded = decodeJwt(accessToken);
           if (!decoded) return null;
+
           return {
             id: decoded.userId,
             email: decoded.email,
@@ -38,17 +39,17 @@ export const authOptions: NextAuthOptions = {
           console.error('Login error:', error);
           return null;
         }
-      }
-
+      },
     }),
   ],
 
-   session: { strategy: 'jwt' },
+  session: { strategy: 'jwt' },
 
   callbacks: {
     async jwt({ token, user }) {
       if (user?.accessToken) {
         token.accessToken = user.accessToken;
+
         const decoded = decodeJwt(user.accessToken);
         if (decoded) {
           token.role = decoded.role;
@@ -60,6 +61,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
+
     async session({ session, token }) {
       if (token.accessToken) {
         session.accessToken = token.accessToken;
@@ -75,5 +77,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+
   secret: process.env.NEXTAUTH_SECRET,
 };

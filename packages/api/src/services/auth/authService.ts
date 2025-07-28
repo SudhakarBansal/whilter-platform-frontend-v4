@@ -1,5 +1,5 @@
 import { axiosInstance } from '../../axios/axiosInstance';
-import {
+import  type {
   SignupPayload,
   ForgotPasswordPayload,
   ResetPasswordPayload,
