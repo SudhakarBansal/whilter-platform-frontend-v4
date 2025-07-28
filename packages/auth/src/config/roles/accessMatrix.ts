@@ -1,6 +1,7 @@
 
 import { Role } from './role';
-import { SECTIONS, Section } from './role';
+import { SECTIONS} from './role';
+import type { Section } from './role';
 
 export type RoleAccessMatrix = Record<Role, Section[]>;
 
