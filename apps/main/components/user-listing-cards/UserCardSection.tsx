@@ -30,7 +30,13 @@ export const UserCardSection = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
       {users.map((user) => (
-        <UserCard key={user.id} user={user} />
+        <UserCard 
+        key={user.id} 
+        user={user}
+        onDelete={(id) => {
+          setUsers((prev) => prev.filter((u) => u.id !== id));
+        }}
+         />
       ))}
     </div>
   )

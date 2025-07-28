@@ -4,7 +4,7 @@ import type { RegisterCredentials,User } from "./user.types";
 
 export async function allUsers(): Promise<User[]> {
   try {
-    const response = await axiosInstance.get(ServiceEndpoints.allUsers);
+    const response = await axiosInstance.get(ServiceEndpoints.user);
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
@@ -12,6 +12,18 @@ export async function allUsers(): Promise<User[]> {
     throw new Error(errorResponse);
   }
 }
+
+export async function getUserById(id: string): Promise<User> {
+  try {
+    const response = await axiosInstance.get(`${ServiceEndpoints.user}/${id}`);
+    return response.data;
+  } catch (error: any) {
+    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    console.error("Error fetching user by ID:", errorResponse);
+    throw new Error(errorResponse);
+  }
+}
+
 
 export async function registerUser(data: RegisterCredentials): Promise<string> {
   try {
@@ -27,9 +39,24 @@ export async function registerUser(data: RegisterCredentials): Promise<string> {
   }
 }
 
+export async function updateUser(id: string, data: Partial<RegisterCredentials>): Promise<string> {
+  try {
+    const response = await axiosInstance.put(`${ServiceEndpoints.user}/${id}`, data);
+    if (response.status === 200) {
+      return "User updated successfully!";
+    }
+    throw new Error("Update failed.");
+  } catch (error: any) {
+    const errorResponse = error?.response?.data?.message || "An unexpected error occurred";
+    console.error("Error updating user:", errorResponse);
+    throw new Error(errorResponse);
+  }
+}
+
+
 export async function deleteUser(id: string) {
   try {
-    const response = await axiosInstance.delete(`${ServiceEndpoints.deleteUser}?id=${id}`);
+    const response = await axiosInstance.delete(`${ServiceEndpoints.user}/${id}`);
     if (response.status == 200) {
       return "User deleted successfully";
     };

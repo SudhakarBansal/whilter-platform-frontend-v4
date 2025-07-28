@@ -174,6 +174,7 @@ export const AddUser = ({ open, onClose }: AddUserProps) => {
 
                             </div>
 
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Box>
                                 <Typography>Account Status</Typography>
