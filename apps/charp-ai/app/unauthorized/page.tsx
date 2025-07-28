@@ -5,20 +5,21 @@ import Link from 'next/link';
 import { ShieldAlert } from 'lucide-react';
 
 export default function UnAuthorized() {
-  const homeUrl = process.env.NEXT_PUBLIC_MAIN_URL || '/';
-
+  const homeUrl = process.env.NEXT_PUBLIC_MAIN_URL || '/'
   return (
     <Box
-   sx={{
-    minHeight: '100vh',
-    overflow: 'hidden',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    textAlign: 'center',
-   }}
->
+      sx={{
+        minHeight: '100vh',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        textAlign: 'center',
+        p: 4,
+      }}
+    >
+
       <Typography variant="h1" sx={{ fontSize: '4rem', fontWeight: 'bold', mb: 2 }}>
         401
       </Typography>

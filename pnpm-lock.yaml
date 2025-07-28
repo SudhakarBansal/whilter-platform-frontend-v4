@@ -166,6 +166,9 @@ importers:
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -245,6 +248,9 @@ importers:
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -603,6 +609,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../config
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../shared-types
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../ui-kit

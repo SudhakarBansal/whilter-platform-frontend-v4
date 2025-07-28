@@ -14,6 +14,7 @@
     "@whilter/forms": "workspace:*",
     "@whilter/shared-hooks": "workspace:*",
     "@whilter/shared-layouts": "workspace:*",
+    "@whilter/shared-types": "workspace:*",
     "@whilter/ui-kit": "workspace:*",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",

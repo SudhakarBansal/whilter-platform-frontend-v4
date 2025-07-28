@@ -42,6 +42,7 @@
     },
     "dependencies": {
         "@whilter/ui-kit": "workspace:*",
+         "@whilter/shared-types": "workspace:*",
         "@whilter/config": "workspace:*",
         "@whilter/assets": "workspace:*"
     },

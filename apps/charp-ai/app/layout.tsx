@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
 import { MainLayout } from "@whilter/shared-layouts/main";
-import { NavbarLayout } from "@whilter/shared-layouts/navbar";
+import { NavbarClientWrapper } from "@/components/navbar/NavbarClientWrapper";
 import { Sidebar } from "@whilter/shared-layouts/sidebar";
 import NextLink from "next/link";
 import NextImage from "next/image";
 import { menuItems } from "../data/menuItems.data";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@whilter/auth";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,16 +18,17 @@ export const metadata: Metadata = {
   description: "Whilter Charp ai - Explore and Discover",
 };
 
-export default function RootLayout({
+export default  async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element {
+}){
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={inter.className}>
         <ThemeConfig>
-          <NavbarLayout>
+         <NavbarClientWrapper  user={session?.user}>
             <MainLayout
               showSidebar={true}
               sidebarComponent={
@@ -38,7 +41,7 @@ export default function RootLayout({
             >
               {children}
             </MainLayout>
-          </NavbarLayout>
+          </NavbarClientWrapper>
         </ThemeConfig>
       </body>
     </html>

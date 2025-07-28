@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@mui/material';
 import { PageLayout } from '@whilter/shared-layouts/styled';
 import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
@@ -9,8 +9,6 @@ import { ServiceCardSection } from '@/components/service-cards/ServiceCardSectio
 import { projectsData } from '@/utils/data/projects.data';
 import { FolderCardSection } from '@whilter/ui-kit/components';
 import { recentProjects } from '@/utils/data/recentProjects.data';
-import { useSession } from 'next-auth/react';
-
 
 function Page() {
   const actionButtons = [

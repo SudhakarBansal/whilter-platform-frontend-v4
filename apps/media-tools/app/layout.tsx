@@ -4,7 +4,9 @@ import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
 import { Toaster } from 'sonner';
 import { MainLayout } from "@whilter/shared-layouts/main"
-import { NavbarLayout } from "@whilter/shared-layouts/navbar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@whilter/auth";
+import { NavbarClientWrapper } from "../components/navbar/NavbarClientWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,11 +15,12 @@ export const metadata: Metadata = {
   description: "Whilter Media Tools - Explore and Discover",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}): JSX.Element {
+}) {
+  const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -30,11 +33,11 @@ export default function RootLayout({
             duration: 4000,
           }} />
         <ThemeConfig>
-          <NavbarLayout>
+          <NavbarClientWrapper  user={session?.user}>
             <MainLayout showSidebar={false}>
               {children}
             </MainLayout>
-          </NavbarLayout>
+          </NavbarClientWrapper>
         </ThemeConfig>
       </body>
     </html>
