@@ -10,7 +10,7 @@ import { ServiceEndpoints } from './serviceEndpoints';
 import type { AxiosResponse } from 'axios';
 import type {CharpErrorCode} from '@whilter/shared-types'
 import {CHARP_ERROR_CODES} from '@whilter/shared-types'
-import {CharpErrorDetail} from '@whilter/shared-types'
+import  type {CharpErrorDetail} from '@whilter/shared-types'
 
 
 export async function login(data: LoginPayload): Promise<AxiosResponse<any>> {
