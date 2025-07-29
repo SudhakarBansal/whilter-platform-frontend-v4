@@ -11,7 +11,6 @@ export default async function PlatformLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  console.log("client side")
 
   return (
     <ThemeConfig>

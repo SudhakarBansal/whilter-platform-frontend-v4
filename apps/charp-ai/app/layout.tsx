@@ -10,6 +10,7 @@ import NextImage from "next/image";
 import { menuItems } from "../data/menuItems.data";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@whilter/auth";
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,14 @@ export default  async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+         <Toaster
+          position="top-right"
+          expand={true}
+          richColors={true}
+          closeButton={true}
+          toastOptions={{
+            duration: 4000,
+          }} />
         <ThemeConfig>
          <NavbarClientWrapper  user={session?.user}>
             <MainLayout

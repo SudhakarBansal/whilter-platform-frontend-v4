@@ -7,141 +7,124 @@ import {
   Divider,
 } from '@mui/material';
 import {
-  Settings as SettingsIcon,
   AccountCircle,
   NotificationsOutlined,
-  Logout,
+  Group,
 } from '@mui/icons-material';
-import type { User } from "@whilter/shared-types";
-import type { Theme } from '@mui/material/styles';
-import {logout} from '@whilter/api'
-import {CharpErrorDetail} from '@whilter/shared-types'
-// import toast from ''
-
-interface ProfileMenuProps {
-  anchorEl: HTMLElement | null;
-  onClose: () => void;
-  theme: Theme;
-  onSettings?: (path: string) => void;
-  user?: User;
-}
-
+import { LogoutButton } from './LogoutButton';
+import type {ProfileMenuProps} from '@whilter/shared-types'
 
 export const ProfileMenu: React.FC<ProfileMenuProps> = ({
   anchorEl,
   onClose,
   theme,
-  onSettings,
+  onMangeUsers,
   user,
+  onNavigate
 }) => {
 
-  console.log("profile--menu -- client side");
-const handleLogout = async () => {
-  onClose();
-  if (!user?.refreshToken || !user?.deviceId) {
-    console.error("Missing refreshToken or deviceId");
-    return;
-  }
+  const handleMenuClick = (action: string) => {
+    onClose();
 
-  const data = {
-    refreshToken: user.refreshToken,
-    deviceId: user.deviceId,
+    switch (action) {
+      case "MANAGE_USERS":
+        onMangeUsers?.("/users");
+        break;
+
+      case "ACCOUNT":
+        onNavigate?.("/account");
+        break;
+
+      case "NOTIFICATIONS":
+        onNavigate?.("/notifications");
+        break;
+
+      default:
+        console.warn(`Unhandled action: ${action}`);
+    }
   };
 
-  try {
-    const response = await logout(data);
-    if (response.status === 200 || response.status === 201) {
-      // router.push('/login');
-    } else {
-      console.error('Logout failed with status:', response.status);
-    }
-  } catch (error: any) {
-    const err = error as CharpErrorDetail;
-    // toast.error(err.message || "Logout failed. Please try again.");
-  }
-};
-return (
-  <Menu
-    anchorEl={anchorEl}
-    open={Boolean(anchorEl)}
-    onClose={onClose}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
-    slotProps={{
-      paper: {
-        sx: {
-          mt: -1,
-          minWidth: 240,
-          px: 1,
-          py: 0.5,
-          borderRadius: 2,
-          backgroundColor: theme.palette.background.default,
-          boxShadow: theme.shadows[4],
-          '& .MuiMenuItem-root': {
-            px: 2,
-            py: 1.2,
-            fontSize: '0.875rem',
-            borderRadius: 1.5,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 1.2,
-            transition: 'all 0.2s ease',
-            '& .MuiSvgIcon-root': {
-              fontSize: '1.2rem',
-              color: theme.palette.text.secondary,
-              transition: 'color 0.2s ease',
-            },
-            '&:hover': {
-              backgroundColor: theme.palette.action.hover,
-              transform: 'scale(1.02)',
-            
+  return (
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={onClose}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      slotProps={{
+        paper: {
+          sx: {
+            mt: -1,
+            minWidth: 240,
+            px: 1,
+            py: 0.5,
+            borderRadius: 2,
+            backgroundColor: theme.palette.background.default,
+            boxShadow: theme.shadows[4],
+            '& .MuiMenuItem-root': {
+              px: 2,
+              py: 1.2,
+              fontSize: '0.875rem',
+              borderRadius: 1.5,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.2,
+              transition: 'all 0.2s ease',
+              '& .MuiSvgIcon-root': {
+                fontSize: '1.2rem',
+                color: theme.palette.text.secondary,
+                transition: 'color 0.2s ease',
+              },
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover,
+                transform: 'scale(1.02)',
+
+              },
             },
           },
         },
-      },
-    }}
-  >
-    {/* Profile Info */}
-    <Box className="px-4 py-2">
-      <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
-        {user?.user?.email?.split('@')[0] || 'User'}
-      </Typography>
-      <Typography variant="caption" color="text.secondary">
-        {user?.user?.email}
-      </Typography>
-    </Box>
+      }}
+    >
+      {/* Profile Info */}
+      <Box className="px-4 py-2">
+        <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
+          {user?.user?.email?.split('@')[0] || 'User'}
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          {user?.user?.email}
+        </Typography>
+      </Box>
 
-    <Divider sx={{ my: 0.5 }} />
+      <Divider sx={{ my: 0.5 }} />
 
-    {/* Menu Items */}
-    <MenuItem onClick={() => onSettings?.('/users')}>
-      <SettingsIcon />
-      Manage Users
-    </MenuItem>
+      {/* Menu Items */}
+      <MenuItem onClick={() => handleMenuClick("MANAGE_USERS")}>
+        <Group fontSize="small" />
+        <Typography variant="body2">Manage Users</Typography>
+      </MenuItem>
 
-    <MenuItem onClick={onClose}>
-      <AccountCircle />
-      Account
-    </MenuItem>
+      <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
+        <AccountCircle fontSize="small" />
+        <Typography variant="body2">Account</Typography>
+      </MenuItem>
 
-    <MenuItem onClick={onClose}>
-      <NotificationsOutlined />
-      Notifications
-    </MenuItem>
+      <MenuItem onClick={() => handleMenuClick("NOTIFICATIONS")}>
+        <NotificationsOutlined fontSize="small" />
+        <Typography variant="body2">Notifications</Typography>
+      </MenuItem>
 
-    <Divider sx={{ my: 0.5 }} />
+      <Divider sx={{ my: 0.5 }} />
 
-    <MenuItem onClick={handleLogout}>
-      <Logout sx={{ color: theme.palette.error.main }} />
-      <Typography variant="body2" color="error.main">
-        Log out
-      </Typography>
-    </MenuItem>
-  </Menu>
-)}
+      {/* Logout Button */}
+      <Box px={2} py={1}>
+        <LogoutButton user={user} onClose={onClose} />
+      </Box>
+    </Menu>
+  )
+}

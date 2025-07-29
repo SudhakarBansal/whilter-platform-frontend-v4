@@ -12,12 +12,11 @@ export function NavbarClientWrapper({
     children: React.ReactNode;
 }) {
     const router = useRouter();
-
     return (
         <NavbarLayout
-            onSettings={(path) => router.push(path)}
+            onMangeUsers={(path) => router.push(path)}
             user={user}
-        >
+            onNavigate={(path) => router.push(path)}>
             {children}
         </NavbarLayout>
     );

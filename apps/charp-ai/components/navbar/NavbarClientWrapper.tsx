@@ -15,9 +15,9 @@ export function NavbarClientWrapper({
 
     return (
         <NavbarLayout
-            onSettings={(path) => router.push(path)}
-            user={user}
-        >
+            onMangeUsers={(path) => router.push(path)}
+            onNavigate={(path) => router.push(path)}
+            user={user}>
             {children}
         </NavbarLayout>
     );

@@ -83,7 +83,7 @@ export async function refreshToken(): Promise<{ status: number; token?: string }
     }
   }
 
-export async function logout(data: LogoutPayload): Promise<AxiosResponse<any>> {
+export async function logout(data: FormData): Promise<AxiosResponse<any>> {
   try {
     const response = await axiosInstance.post(ServiceEndpoints.logout, data);
     if (response.status === 200 || response.status === 201) {

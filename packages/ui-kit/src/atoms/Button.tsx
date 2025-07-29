@@ -74,6 +74,16 @@ export default function Button(theme: Theme) {
             },
           },
         },
+
+        {
+          props: { variant: "text", color: "error" },
+          style: () => ({
+            color: theme.palette.error.main,
+            "&:hover": {
+              backgroundColor: `${theme.palette.error.main}10`,
+            },
+          }),
+        },
         {
           props: { variant: "disabled" },
           style: {
