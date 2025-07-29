@@ -14,6 +14,9 @@ import {
 } from '@mui/icons-material';
 import type { User } from "@whilter/shared-types";
 import type { Theme } from '@mui/material/styles';
+import {logout} from '@whilter/api'
+import {CharpErrorDetail} from '@whilter/shared-types'
+// import toast from ''
 
 interface ProfileMenuProps {
   anchorEl: HTMLElement | null;
@@ -23,13 +26,41 @@ interface ProfileMenuProps {
   user?: User;
 }
 
+
 export const ProfileMenu: React.FC<ProfileMenuProps> = ({
   anchorEl,
   onClose,
   theme,
   onSettings,
   user,
-}) => (
+}) => {
+
+  console.log("profile--menu -- client side");
+const handleLogout = async () => {
+  onClose();
+  if (!user?.refreshToken || !user?.deviceId) {
+    console.error("Missing refreshToken or deviceId");
+    return;
+  }
+
+  const data = {
+    refreshToken: user.refreshToken,
+    deviceId: user.deviceId,
+  };
+
+  try {
+    const response = await logout(data);
+    if (response.status === 200 || response.status === 201) {
+      // router.push('/login');
+    } else {
+      console.error('Logout failed with status:', response.status);
+    }
+  } catch (error: any) {
+    const err = error as CharpErrorDetail;
+    // toast.error(err.message || "Logout failed. Please try again.");
+  }
+};
+return (
   <Menu
     anchorEl={anchorEl}
     open={Boolean(anchorEl)}
@@ -79,10 +110,10 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
     {/* Profile Info */}
     <Box className="px-4 py-2">
       <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
-        {user?.email?.split('@')[0] || 'User'}
+        {user?.user?.email?.split('@')[0] || 'User'}
       </Typography>
       <Typography variant="caption" color="text.secondary">
-        {user?.email}
+        {user?.user?.email}
       </Typography>
     </Box>
 
@@ -106,11 +137,11 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
 
     <Divider sx={{ my: 0.5 }} />
 
-    <MenuItem onClick={onClose}>
+    <MenuItem onClick={handleLogout}>
       <Logout sx={{ color: theme.palette.error.main }} />
       <Typography variant="body2" color="error.main">
         Log out
       </Typography>
     </MenuItem>
   </Menu>
-);
+)}

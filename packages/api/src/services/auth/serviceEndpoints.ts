@@ -7,6 +7,7 @@ export const ServiceEndpoints = {
   getUserPermissions: `${AUTH_BASE}/auth/permissions`,
   signup: `${AUTH_BASE}/auth/signup`,
   refreshToken: `${AUTH_BASE}/auth/refresh-token`,
+  logout:`${AUTH_BASE}/auth/logout`,
   forgotPassword: `${AUTH_BASE}/auth/forgot-password`,
   resetPassword: `${AUTH_BASE}/auth/reset-password`,
 };

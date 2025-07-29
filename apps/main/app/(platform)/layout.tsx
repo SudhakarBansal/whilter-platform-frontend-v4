@@ -1,4 +1,3 @@
-// app/(platform)/layout.tsx
 import { MainLayout } from '@whilter/shared-layouts/main';
 import { ThemeConfig } from "@whilter/config";
 import { NavbarClientWrapper } from '../../components/navbar/NavbarClientWrapper';
@@ -12,10 +11,11 @@ export default async function PlatformLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+  console.log("client side")
 
   return (
     <ThemeConfig>
-      <NavbarClientWrapper user={session?.user}>
+      <NavbarClientWrapper user={session}>
         <MainLayout>
           {children}
         </MainLayout>

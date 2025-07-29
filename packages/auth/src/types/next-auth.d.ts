@@ -5,6 +5,8 @@ import 'next-auth/jwt';
 declare module 'next-auth' {
   interface Session {
     accessToken: string;
+    refreshToken:string;
+    deviceId:string;
     user: {
       name?: string | null;
       email?: string | null;
@@ -18,6 +20,8 @@ declare module 'next-auth' {
 
   interface User {
     accessToken: string;
+    refreshToken:string;
+    deviceId:string;
     role: string;
     organization: string;
     section: string;

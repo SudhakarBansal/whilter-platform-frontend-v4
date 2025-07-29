@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
             password: credentials.password,
           });
 
-          const { accessToken } = response?.data || {};
+          const { accessToken, refreshToken, deviceId } = response?.data || {};
           if (!accessToken) return null;
 
           const decoded = decodeJwt(accessToken);
@@ -34,6 +34,8 @@ export const authOptions: NextAuthOptions = {
             organization: decoded.organization,
             section: decoded.section,
             accessToken,
+            refreshToken,
+            deviceId
           };
         } catch (error) {
           console.error('Login error:', error);
@@ -44,13 +46,13 @@ export const authOptions: NextAuthOptions = {
   ],
 
   session: { strategy: 'jwt' },
- 
 
   callbacks: {
     async jwt({ token, user }) {
       if (user?.accessToken) {
         token.accessToken = user.accessToken;
-
+        token.refreshToken = user.refreshToken;
+        token.deviceId = user.deviceId;
         const decoded = decodeJwt(user.accessToken);
         if (decoded) {
           token.role = decoded.role;
@@ -65,7 +67,9 @@ export const authOptions: NextAuthOptions = {
 
     async session({ session, token }) {
       if (token.accessToken) {
-        session.accessToken = token.accessToken;
+        session.accessToken = token.accessToken as string;
+        session.refreshToken = token.refreshToken as string;
+        session.deviceId = token.deviceId as string;
         session.user = {
           ...session.user,
           role: token.role,

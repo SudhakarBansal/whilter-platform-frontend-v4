@@ -21,7 +21,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({ isOpen, onClick,
     }}
   >
     <Avatar sx={{ width: 35, height: 35 }}>
-      {user?.email?.charAt(0)?.toUpperCase()}
+      {user?.user?.email?.charAt(0)?.toUpperCase()}
     </Avatar>
   </Box>
 );

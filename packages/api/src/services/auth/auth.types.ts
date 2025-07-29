@@ -9,6 +9,11 @@ export interface SignupPayload {
   password: string;
 }
 
+export interface LogoutPayload {
+  refreshToken: string;
+  deviceId: string;
+}
+
 export interface ForgotPasswordPayload {
   email: string;
 }

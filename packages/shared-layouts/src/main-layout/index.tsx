@@ -27,6 +27,7 @@ export function MainLayout({
   };
 
   return (
+    
     <Box
       className="flex min-h-screen"
       sx={{

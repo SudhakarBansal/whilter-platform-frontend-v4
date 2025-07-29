@@ -461,6 +461,9 @@ importers:
 
   packages/api:
     dependencies:
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../shared-types
       axios:
         specifier: ^1.6.0
         version: 1.9.0

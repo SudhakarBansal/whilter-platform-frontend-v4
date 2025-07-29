@@ -13,8 +13,10 @@ interface Props {
 }
 
 export function NavbarLayout({ children, onSettings, user }: Props) {
+
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+
   const handleProfileClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
