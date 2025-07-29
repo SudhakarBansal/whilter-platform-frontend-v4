@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-         <Toaster
+        <Toaster
           position="top-right"
           expand={true}
           richColors={true}
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           toastOptions={{
             duration: 4000,
           }} />
-      <SessionWrapper>{children}</SessionWrapper>
+        <SessionWrapper>{children}</SessionWrapper>
       </body>
     </html>
   );

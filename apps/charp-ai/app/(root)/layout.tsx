@@ -7,7 +7,7 @@ import { NavbarClientWrapper } from "@/components/navbar/NavbarClientWrapper";
 import { Sidebar } from "@whilter/shared-layouts/sidebar";
 import NextLink from "next/link";
 import NextImage from "next/image";
-import { menuItems } from "../data/menuItems.data";
+import { menuItems } from "../../data/menuItems.data";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@whilter/auth";
 import { Toaster } from 'sonner';

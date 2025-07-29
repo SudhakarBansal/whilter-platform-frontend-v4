@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ShieldAlert } from 'lucide-react';
 
 export default function UnAuthorized() {
+  
   const homeUrl = process.env.NEXT_PUBLIC_MAIN_URL || '/'
   return (
     <Box
