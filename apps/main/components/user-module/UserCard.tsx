@@ -8,6 +8,7 @@ import { DialogSection } from "@whilter/ui-kit/components"
 interface Props {
   user: User
   onDelete?: (id: string) => void;
+  onEdit?: (userId: string) => void;
 }
 
 const getInitials = (name: string) => {
@@ -20,14 +21,7 @@ const getInitials = (name: string) => {
 }
 
 const avatarColors = [
-  // "bg-red-500",
-  // "bg-green-500",
-  "bg-blue-500",
-  // "bg-purple-500",
-  // "bg-orange-500",
-  // "bg-teal-500",
-  // "bg-pink-500",
-  // "bg-indigo-500",
+  "bg-blue-500"
 ]
 
 const getAvatarColor = (name: string) => {
@@ -38,7 +32,7 @@ const getAvatarColor = (name: string) => {
   return avatarColors[Math.abs(hash) % avatarColors.length]
 }
 
-export const UserCard = ({ user, onDelete }: Props) => {
+export const UserCard = ({ user, onDelete, onEdit }: Props) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -56,15 +50,14 @@ export const UserCard = ({ user, onDelete }: Props) => {
     }
   };
 
-  const handleEdit = async () => {
-
-  }
+  const handleEdit = () => {
+    onEdit?.(user.id); 
+  };
 
   return (
     <>
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-200 ease-in-out transform hover:scale-[1.06] min-w-[300px]">
         <div className="p-4 h-full flex flex-col">
-          {/* Header with avatar, name and actions */}
           <div className="flex items-center justify-between mb-4 border-b border-gray-100 pb-3">
             <div className="flex items-center gap-3">
               <div
@@ -97,7 +90,6 @@ export const UserCard = ({ user, onDelete }: Props) => {
               </div>
             </div>
 
-            {/* Action buttons */}
             <div className="flex items-center gap-1">
               <button
                 className="p-2 text-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition"
@@ -126,7 +118,6 @@ export const UserCard = ({ user, onDelete }: Props) => {
             </div>
           </div>
 
-          {/* User details */}
           <div className="space-y-3 flex-1">
             <div className="text-sm text-gray-600 truncate">{user.email}</div>
 
@@ -140,9 +131,6 @@ export const UserCard = ({ user, onDelete }: Props) => {
                 <Users size={12} className="text-gray-400" />
                 <span className="truncate">{user.role}</span>
               </div>
-              {/* <span className="text-blue-600 font-medium text-xs bg-blue-50 px-2 py-1 rounded">
-            {user.preferredSections}
-          </span> */}
             </div>
           </div>
         </div>

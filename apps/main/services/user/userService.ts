@@ -68,19 +68,33 @@ export async function deleteUser(id: string) {
   }
 }
 
-export async function getOrganizationList(baseUrl: string) {
+export async function getOrganizationList() {
   try {
-    const response = await axiosInstance.get(`${baseUrl}/auth/user/org`);
-    if (response.status == 200) {
-      return response.data;
+    const response = await axiosInstance.get(ServiceEndpoints.getOrganization);
+    if (response.status === 200) {
+      return response.data; 
+    } else {
+      throw new Error("Unexpected response status");
     }
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
     throw new Error(errorResponse);
   }
-  finally{
-    return "response"
+}
+
+export async function getRoleList() {
+  try {
+    const response = await axiosInstance.get(ServiceEndpoints.getRole);
+    if (response.status === 200) {
+      return response.data; 
+    } else {
+      throw new Error("Unexpected response status");
+    }
+  } catch (error: any) {
+    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    throw new Error(errorResponse);
   }
-};
+}
+
 
  
