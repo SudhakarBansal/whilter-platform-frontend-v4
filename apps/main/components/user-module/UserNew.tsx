@@ -3,14 +3,14 @@
 
 import { useEffect, useState } from "react";
 import { allUsers } from "@/services/user/userService";
-import { UserCard } from "./UserCard";
+import { UserListing } from "./UserListing";
 import type { User } from "@/services/user/user.types"
 
 interface UserCardSectionProps {
   onEditUser: (userId: string) => void;
 }
 
-export const UserCardSection = ({ onEditUser }: UserCardSectionProps) => {
+export const UserNew = ({ onEditUser }: UserCardSectionProps) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +33,7 @@ export const UserCardSection = ({ onEditUser }: UserCardSectionProps) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
       {users.map((user) => (
-        <UserCard
+        <UserListing
           key={user.id}
           user={user}
           onDelete={(id) => {

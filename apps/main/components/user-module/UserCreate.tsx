@@ -21,7 +21,7 @@ import encryptPassword from "@/utils/password-encryption"
 import { toast } from "sonner"
 
 
-export const AddUser = ({ open, onClose, userId }: AddUserProps) => {
+export const UserCreate = ({ open, onClose, userId }: AddUserProps) => {
 
     const [loading, setLoading] = useState(false);
     const [organizationOptions, setOrganizationOptions] = useState<{ label: string; value: string }[]>([]);

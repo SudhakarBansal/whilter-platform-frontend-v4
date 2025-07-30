@@ -5,8 +5,8 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { Plus } from 'lucide-react';
-import { UserCardSection } from "@/components/user-module/UserCardSection";
-import { AddUser } from '@/components/user-module/AddUser'
+import { UserNew } from "@/components/user-module/UserNew";
+import { UserCreate } from '@/components/user-module/UserCreate'
 
 export default function ViewAdminPage() {
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
@@ -49,8 +49,8 @@ export default function ViewAdminPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <UserCardSection onEditUser={handleEditUser}/>
-      <AddUser open={isAddUserOpen} onClose={handleCloseAddUser} userId={editingUserId} />
+      <UserNew onEditUser={handleEditUser}/>
+      <UserCreate open={isAddUserOpen} onClose={handleCloseAddUser} userId={editingUserId} />
     </AdminLayout>
   );
 }
