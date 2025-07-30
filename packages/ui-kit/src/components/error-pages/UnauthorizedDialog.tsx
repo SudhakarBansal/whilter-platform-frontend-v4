@@ -1,9 +1,15 @@
 
 'use client';
 import { Button } from "@mui/material";
-import type { UnauthorizedDialogProps } from "@/types/unauthorized.types";
 
-export const UnauthorizedDialog: React.FC<UnauthorizedDialogProps> = ({
+export interface UnAuthorizedDialogProps {
+  open: boolean;
+  title: string;
+  onClose: () => void;
+}
+
+
+export const UnAuthorizedDialog: React.FC<UnAuthorizedDialogProps> = ({
     open,
     title,
     onClose,

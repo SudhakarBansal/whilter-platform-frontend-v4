@@ -13,10 +13,11 @@ import {
 import CloseIcon from "@mui/icons-material/Close"
 import { Controller, useForm } from "react-hook-form"
 import { TextFieldElement, FormContainer, SelectElement, PasswordElement, MultiSelectElement } from '@whilter/forms';
-import { userFormInitialValues, type UserFormValues } from "@/utils/data/userFormInitialValues"
+import { userFormInitialValues, type UserFormValues } from "@/model/userFormInitialValues"
 import type { AddUserProps } from "@/types/addUser.types"
-import type { RegisterCredentials } from "@/services/user/user.types"
-import { registerUser, getUserById, getOrganizationList, updateUser, getRoleList } from "@/services/user/userService"
+import type { RegisterCredentials } from "../../services/service-types"
+import { registerUser, getUserById, updateUser, getRoleList } from "../../services/actions/userService"
+import { getOrganizationList } from "@/services/actions/organization"
 import encryptPassword from "@/utils/password-encryption"
 import { toast } from "sonner"
 
@@ -27,8 +28,6 @@ export const AddUser = ({ open, onClose, userId }: AddUserProps) => {
     const [organizationOptions, setOrganizationOptions] = useState<{ label: string; value: string }[]>([]);
     const [roleOptions, setRoleOptions] = useState<{ label: string; value: string }[]>([]);
     const methods = useForm<UserFormValues>({ defaultValues: userFormInitialValues });
-
-
 
     const preferredSectionOptions = [
         { id: 'MEDIA_TOOLS', label: 'Media Tools' },
@@ -263,8 +262,6 @@ export const AddUser = ({ open, onClose, userId }: AddUserProps) => {
                                         />
                                     </Box>
                                 )}
-
-
 
                                 <Box>
                                     <MultiSelectElement

@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { TextFieldElement, FormContainer } from '@whilter/forms';
-import { brandFormInitialValues,  type BrandFormValues } from "../../../data/formInitialValues";
+import { brandFormInitialValues,  type BrandFormValues } from "../../../../model/formInitialValues";
 
 export default function AddNewBrand(): JSX.Element {
   const handleSubmit = (data: BrandFormValues) => {

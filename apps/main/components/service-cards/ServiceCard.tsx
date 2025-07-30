@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { type ServiceCardProps } from '@whilter/ui-kit/types';
 import { checkServiceAccess } from '@whilter/auth';
 import React, { useState } from 'react';
-import { UnauthorizedDialog } from '../UnAuthorizedDialog';
+import { UnAuthorizedDialog } from '@whilter/ui-kit/components';
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({
   serviceId,
@@ -46,7 +46,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
         </div>
       </div>
       {showDialog && (
-        <UnauthorizedDialog open={showDialog}
+        <UnAuthorizedDialog open={showDialog}
           onClose={() => setShowDialog(false)}
           title={title} />
       )}

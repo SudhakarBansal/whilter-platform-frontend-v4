@@ -1,5 +1,180 @@
-import { TextField, useForkRef } from '@mui/material'
-import type { TextFieldProps } from '@mui/material'
+// import { TextField, useForkRef } from '@mui/material'
+// import type { TextFieldProps } from '@mui/material'
+// import type {
+//   Control,
+//   FieldError,
+//   FieldPath,
+//   FieldValues,
+//   PathValue,
+//   UseControllerProps,
+// } from 'react-hook-form'
+// import { useController } from 'react-hook-form'
+// import { useFormError } from './FormErrorProvider'
+// import type { ChangeEvent, ReactNode, Ref, RefAttributes } from 'react'
+// import { forwardRef } from 'react'
+// import { useTransform } from './useTransform'
+
+// export type TextFieldElementProps<
+//   TFieldValues extends FieldValues = FieldValues,
+//   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+//   TValue = unknown,
+// > = Omit<TextFieldProps, 'name'> & {
+//   rules?: UseControllerProps<TFieldValues, TName>['rules']
+//   name: TName
+//   parseError?: (error: FieldError) => ReactNode
+//   control?: Control<TFieldValues>
+//   /**
+//    * You override the MUI's TextField component by passing a reference of the component you want to use.
+//    *
+//    * This is especially useful when you want to use a customized version of TextField.
+//    */
+//   component?: typeof TextField
+//   transform?: {
+//     input?: (value: PathValue<TFieldValues, TName>) => TValue
+//     output?: (
+//       event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+//     ) => PathValue<TFieldValues, TName>
+//   }
+// }
+
+// type TextFieldElementComponent = <
+//   TFieldValues extends FieldValues = FieldValues,
+//   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+//   TValue = unknown,
+// >(
+//   props: TextFieldElementProps<TFieldValues, TName, TValue> &
+//     RefAttributes<HTMLDivElement>
+// ) => JSX.Element
+
+// const TextFieldElement = forwardRef(function TextFieldElement<
+//   TFieldValues extends FieldValues = FieldValues,
+//   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+//   TValue = unknown,
+// >(
+//   props: TextFieldElementProps<TFieldValues, TName, TValue>,
+//   ref: Ref<HTMLDivElement>
+// ) {
+//   const {
+//     rules = {},
+//     parseError,
+//     type,
+//     required,
+//     name,
+//     control,
+//     component: TextFieldComponent = TextField,
+//     inputRef,
+//     transform,
+//     onBlur,
+//     onKeyDown,
+//     ...rest
+//   } = props
+
+//   const errorMsgFn = useFormError()
+//   const customErrorFn = parseError || errorMsgFn
+
+//   const rulesTmp = {
+//     ...rules,
+//     ...(required && !rules.required && { required: 'This field is required' }),
+//     ...(type === 'email' &&
+//       !rules.pattern && {
+//       pattern: {
+//         value:
+//           // eslint-disable-next-line no-useless-escape
+//           /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+//         message: 'Please enter a valid email address',
+//       },
+//     }),
+//   }
+
+//   const {
+//     field,
+//     fieldState: { error },
+//   } = useController({
+//     name,
+//     control,
+//     disabled: rest.disabled,
+//     rules: rulesTmp,
+//   })
+
+//   const { value, onChange } = useTransform<TFieldValues, TName, TValue>({
+//     value: field.value,
+//     onChange: field.onChange,
+//     transform: {
+//       input:
+//         typeof transform?.input === 'function'
+//           ? transform.input
+//           : (value) => {
+//             return value ?? ('' as TValue)
+//           },
+//       output:
+//         typeof transform?.output === 'function'
+//           ? transform.output
+//           : (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//             const value = event.target.value
+//             if (type !== 'number') {
+//               return value as PathValue<TFieldValues, TName>
+//             }
+
+//             if (value === '') {
+//               return null as PathValue<TFieldValues, TName>
+//             }
+
+//             if (value == null) {
+//               return value
+//             }
+
+//             return Number(value) as PathValue<TFieldValues, TName>
+//           },
+//     },
+//   })
+
+//   const handleInputRef = useForkRef(field.ref, inputRef)
+
+//   return (
+//     <TextFieldComponent
+//       {...rest}
+//       name={field.name}
+//       value={value}
+//       onChange={(event) => {
+//         // this will be a breaking change for anyone using transform.output
+//         // because now we are passing event instead of event.target.value or +event.target.value
+//         onChange(event)
+//         if (typeof rest.onChange === 'function') {
+//           rest.onChange(event)
+//         }
+//       }}
+//       onBlur={(event) => {
+//         field.onBlur()
+//         if (typeof onBlur === 'function') {
+//           onBlur(event)
+//         }
+//       }}
+//       onKeyDown={(e) => {
+//         if (e.key === 'Enter' || e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-') {
+//           e.preventDefault();
+//         }
+//       }}
+//       required={required}
+//       type={type}
+//       error={!!error}
+//       helperText={
+//         error
+//           ? typeof customErrorFn === 'function'
+//             ? customErrorFn(error)
+//             : error.message
+//           : rest.helperText
+//       }
+//       ref={ref}
+//       inputRef={handleInputRef}
+//     />
+//   )
+// })
+// TextFieldElement.displayName = 'TextFieldElement'
+// export default TextFieldElement as TextFieldElementComponent
+
+// packages/ui/src/components/form/TextFieldElement.tsx
+import { TextField, useForkRef } from '@mui/material';
+import type { TextFieldProps } from '@mui/material';
 import type {
   Control,
   FieldError,
@@ -7,35 +182,30 @@ import type {
   FieldValues,
   PathValue,
   UseControllerProps,
-} from 'react-hook-form'
-import { useController } from 'react-hook-form'
-import { useFormError } from './FormErrorProvider'
-import type { ChangeEvent, ReactNode, Ref, RefAttributes } from 'react'
-import { forwardRef } from 'react'
-import { useTransform } from './useTransform'
+} from 'react-hook-form';
+import { useController } from 'react-hook-form';
+import { useFormError } from './FormErrorProvider';
+import type { ChangeEvent, ReactNode, Ref, RefAttributes } from 'react';
+import { forwardRef } from 'react';
+import { useTransform } from './useTransform';
 
 export type TextFieldElementProps<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TValue = unknown,
 > = Omit<TextFieldProps, 'name'> & {
-  rules?: UseControllerProps<TFieldValues, TName>['rules']
-  name: TName
-  parseError?: (error: FieldError) => ReactNode
-  control?: Control<TFieldValues>
-  /**
-   * You override the MUI's TextField component by passing a reference of the component you want to use.
-   *
-   * This is especially useful when you want to use a customized version of TextField.
-   */
-  component?: typeof TextField
+  rules?: UseControllerProps<TFieldValues, TName>['rules'];
+  name: TName;
+  parseError?: (error: FieldError) => ReactNode;
+  control?: Control<TFieldValues>;
+  component?: typeof TextField;
   transform?: {
-    input?: (value: PathValue<TFieldValues, TName>) => TValue
+    input?: (value: PathValue<TFieldValues, TName>) => TValue;
     output?: (
       event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => PathValue<TFieldValues, TName>
-  }
-}
+    ) => PathValue<TFieldValues, TName>;
+  };
+};
 
 type TextFieldElementComponent = <
   TFieldValues extends FieldValues = FieldValues,
@@ -44,7 +214,7 @@ type TextFieldElementComponent = <
 >(
   props: TextFieldElementProps<TFieldValues, TName, TValue> &
     RefAttributes<HTMLDivElement>
-) => JSX.Element
+) => JSX.Element;
 
 const TextFieldElement = forwardRef(function TextFieldElement<
   TFieldValues extends FieldValues = FieldValues,
@@ -67,24 +237,23 @@ const TextFieldElement = forwardRef(function TextFieldElement<
     onBlur,
     onKeyDown,
     ...rest
-  } = props
+  } = props;
 
-  const errorMsgFn = useFormError()
-  const customErrorFn = parseError || errorMsgFn
+  const errorMsgFn = useFormError();
+  const customErrorFn = parseError || errorMsgFn;
 
   const rulesTmp = {
     ...rules,
     ...(required && !rules.required && { required: 'This field is required' }),
     ...(type === 'email' &&
       !rules.pattern && {
-      pattern: {
-        value:
-          // eslint-disable-next-line no-useless-escape
-          /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        message: 'Please enter a valid email address',
-      },
-    }),
-  }
+        pattern: {
+          value:
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+          message: 'Please enter a valid email address',
+        },
+      }),
+  };
 
   const {
     field,
@@ -94,41 +263,27 @@ const TextFieldElement = forwardRef(function TextFieldElement<
     control,
     disabled: rest.disabled,
     rules: rulesTmp,
-  })
+  });
 
   const { value, onChange } = useTransform<TFieldValues, TName, TValue>({
     value: field.value,
     onChange: field.onChange,
     transform: {
-      input:
-        typeof transform?.input === 'function'
-          ? transform.input
-          : (value) => {
-            return value ?? ('' as TValue)
-          },
-      output:
-        typeof transform?.output === 'function'
-          ? transform.output
-          : (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const value = event.target.value
-            if (type !== 'number') {
-              return value as PathValue<TFieldValues, TName>
-            }
-
-            if (value === '') {
-              return null as PathValue<TFieldValues, TName>
-            }
-
-            if (value == null) {
-              return value
-            }
-
-            return Number(value) as PathValue<TFieldValues, TName>
+      input: typeof transform?.input === 'function'
+        ? transform.input
+        : (value) => value ?? ('' as TValue),
+      output: typeof transform?.output === 'function'
+        ? transform.output
+        : (event) => {
+            const value = event.target.value;
+            if (type !== 'number') return value as PathValue<TFieldValues, TName>;
+            if (value === '') return null as PathValue<TFieldValues, TName>;
+            return Number(value) as PathValue<TFieldValues, TName>;
           },
     },
-  })
+  });
 
-  const handleInputRef = useForkRef(field.ref, inputRef)
+  const handleInputRef = useForkRef(field.ref, inputRef);
 
   return (
     <TextFieldComponent
@@ -136,21 +291,15 @@ const TextFieldElement = forwardRef(function TextFieldElement<
       name={field.name}
       value={value}
       onChange={(event) => {
-        // this will be a breaking change for anyone using transform.output
-        // because now we are passing event instead of event.target.value or +event.target.value
-        onChange(event)
-        if (typeof rest.onChange === 'function') {
-          rest.onChange(event)
-        }
+        onChange(event);
+        rest.onChange?.(event);
       }}
       onBlur={(event) => {
-        field.onBlur()
-        if (typeof onBlur === 'function') {
-          onBlur(event)
-        }
+        field.onBlur();
+        onBlur?.(event);
       }}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-') {
+        if (['Enter', 'e', 'E', '+', '-'].includes(e.key)) {
           e.preventDefault();
         }
       }}
@@ -167,7 +316,9 @@ const TextFieldElement = forwardRef(function TextFieldElement<
       ref={ref}
       inputRef={handleInputRef}
     />
-  )
-})
-TextFieldElement.displayName = 'TextFieldElement'
-export default TextFieldElement as TextFieldElementComponent
+  );
+});
+
+TextFieldElement.displayName = 'TextFieldElement';
+export default TextFieldElement as TextFieldElementComponent;
+

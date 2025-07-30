@@ -1,6 +1,6 @@
 'use client';
 
-import { Typography, Button } from '@mui/material';
+import { Typography, Button ,Box} from '@mui/material';
 import { ShieldAlert } from 'lucide-react';
 import { ReactNode } from 'react';
 
@@ -26,21 +26,37 @@ export function UnAuthorized({
 }: UnAuthorizedProps) {
     
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 bg-background">
-      <h1 className="text-6xl font-bold mb-4 text-primary">401</h1>
-      <h2 className="text-2xl font-semibold mb-2">Unauthorized Access</h2>
-      <p className="text-base text-gray-600 max-w-md mb-6">{message}</p>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        overflow: 'hidden',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        textAlign: 'center',
+        p: 4,
+      }}
+    >
 
-      <LinkComponent href={homeUrl}>
+      <Typography variant="h1" sx={{ fontSize: '4rem', fontWeight: 'bold', mb: 2 }}>
+        401
+      </Typography>
+      <Typography variant="h4" sx={{ mb: 2 }}>
+        Unauthorized Access
+      </Typography>
+      <Typography variant="body1" sx={{ mb: 4, maxWidth: '500px' }}>
+        You don't have permission to view this page. Please contact your administrator or try a different section.
+      </Typography>
+      <LinkComponent href={homeUrl} passHref>
         <Button
           variant="flatPrimary"
-          startIcon={<ShieldAlert size={20} />}
+          startIcon={<ShieldAlert />}
           size="large"
-          className="!bg-primary !text-white hover:!bg-primary/90 normal-case"
         >
           Back to Home
         </Button>
       </LinkComponent>
-    </div>
+    </Box>
   );
 }

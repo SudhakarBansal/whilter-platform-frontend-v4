@@ -1,10 +1,10 @@
 import {axiosInstance} from "@whilter/api"
-import { ServiceEndpoints } from "./serviceEndpoints";
-import type { RegisterCredentials,User } from "./user.types";
+import ServiceEndpoints from "../service-endpoints"
+import type { RegisterCredentials,User } from "../service-types"
 
 export async function allUsers(): Promise<User[]> {
   try {
-    const response = await axiosInstance.get(ServiceEndpoints.user);
+    const response = await axiosInstance.get(ServiceEndpoints.user.getUsers);
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
@@ -27,7 +27,7 @@ export async function getUserById(id: string): Promise<User> {
 
 export async function registerUser(data: RegisterCredentials): Promise<string> {
   try {
-    const response = await axiosInstance.post(ServiceEndpoints.createUser, data);
+    const response = await axiosInstance.post(ServiceEndpoints.user.createUser, data);
     if (response.status === 200) {
       return "User registered successfully!";
     }
@@ -68,23 +68,10 @@ export async function deleteUser(id: string) {
   }
 }
 
-export async function getOrganizationList() {
-  try {
-    const response = await axiosInstance.get(ServiceEndpoints.getOrganization);
-    if (response.status === 200) {
-      return response.data; 
-    } else {
-      throw new Error("Unexpected response status");
-    }
-  } catch (error: any) {
-    const errorResponse = error?.response?.data || "An unexpected error occurred";
-    throw new Error(errorResponse);
-  }
-}
 
 export async function getRoleList() {
   try {
-    const response = await axiosInstance.get(ServiceEndpoints.getRole);
+    const response = await axiosInstance.get(ServiceEndpoints.user.getRole);
     if (response.status === 200) {
       return response.data; 
     } else {

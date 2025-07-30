@@ -1,8 +1,8 @@
-import { type User } from "@/services/user/user.types"
+import { type User } from "@/services/service-types"
 import { useState } from "react"
 import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react"
 import clsx from "clsx"
-import { deleteUser } from "@/services/user/userService"
+import { deleteUser } from "@/services/actions/userService"
 import { DialogSection } from "@whilter/ui-kit/components"
 
 interface Props {

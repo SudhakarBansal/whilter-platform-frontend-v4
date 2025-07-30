@@ -2,9 +2,9 @@
 
 
 import { useEffect, useState } from "react";
-import { allUsers } from "@/services/user/userService";
+import { allUsers } from "@/services/actions/userService";
 import { UserCard } from "./UserCard";
-import type { User } from "@/services/user/user.types"
+import type { User } from "@/services/service-types";
 
 interface UserCardSectionProps {
   onEditUser: (userId: string) => void;
