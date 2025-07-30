@@ -1,3 +1,4 @@
+
 "use client";
 import { useState } from "react";
 import AdminLayout from "@/layouts/admin-layout";
@@ -6,32 +7,27 @@ import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { Plus } from 'lucide-react';
 import { UserNew } from "@/components/user-module/UserNew";
-import { UserCreate } from '@/components/user-module/UserCreate'
 
 export default function ViewAdminPage() {
-  const [isAddUserOpen, setIsAddUserOpen] = useState(false);
-  const [editingUserId, setEditingUserId] = useState<string | undefined>();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingUserId, setEditingUserId] = useState<string>();
 
   const handleEditUser = (userId: string) => {
     setEditingUserId(userId);
-    setIsAddUserOpen(true);
+    setIsDialogOpen(true);
   };
 
-  const handleCloseAddUser = () => {
+  const handleCloseDialog = () => {
     setEditingUserId(undefined);
-    setIsAddUserOpen(false);
+    setIsDialogOpen(false);
   };
-
-  const handleAddNewUser = () => {
-    setIsAddUserOpen(true)
-  }
 
   const actionButtons = [
     <Button
       key="add-user"
       startIcon={<Plus />}
       variant="glassmorphism"
-      onClick={handleAddNewUser}
+      onClick={() => setIsDialogOpen(true)}
     >
       New User
     </Button>
@@ -50,12 +46,12 @@ export default function ViewAdminPage() {
       buttons={actionButtons}
     >
       <UserNew 
-      onEditUser={handleEditUser} 
-      open={isAddUserOpen}
-      onClose={handleCloseAddUser}
-      userId={editingUserId}
+        onEditUser={handleEditUser}
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+        userId={editingUserId}
+        onSuccess={() => setIsDialogOpen(false)}
       />
-      
     </AdminLayout>
   );
 }
