@@ -150,7 +150,7 @@ const TextFieldElement = forwardRef(function TextFieldElement<
         }
       }}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === 'e' || e.key === 'E' || e.key === '+' || e.key === '-') {
+        if (e.key === 'Enter' || e.key === '+' || e.key === '-') {
           e.preventDefault();
         }
       }}
