@@ -204,9 +204,8 @@ const MultiSelectElement = forwardRef(function MultiSelectElement<
             paper: {
               ...((rest.MenuProps?.slotProps?.paper as any) ?? {}),
               sx: {
-                // Access darkPaper from theme.palette.background.default (see your palette setup)
-                backgroundColor: (theme) => theme.palette.background.default,
-                // You can add other styles here
+                backgroundColor: (theme) =>
+                  theme.palette.background.paper,
                 ...(rest.MenuProps?.slotProps?.paper as any)?.sx,
               },
             },
@@ -217,34 +216,44 @@ const MultiSelectElement = forwardRef(function MultiSelectElement<
             ? rest.renderValue
             : showChips
               ? (selected) => (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    gap: 4,
+                  }}
+                >
                   {(preserveOrder
                     ? options.filter((option) =>
-                      (selected as any[]).includes(option)
+                      (selected as any[]).includes(
+                        (option as any)[itemValue || itemKey]
+                      )
                     )
                     : (selected as any[]) || []
-                  ).map((selectedValue) => (
-                    <Chip
-                      key={selectedValue}
-                      label={renderLabel(selectedValue)}
-                      style={{ display: 'flex', flexWrap: 'wrap' }}
-                      onDelete={() => {
-                        onChange(
-                          (Array.isArray(value) ? value : []).filter(
-                            (i: any) => i !== selectedValue
-                          )
-                        )
-                      }}
-                      deleteIcon={
-                        <CloseIcon
-                          onMouseDown={(ev) => {
-                            ev.stopPropagation()
-                          }}
-                        />
-                      }
-                    />
-                  ))}
+                  )
+                    .slice(0, 2) // show only first 2 chips
+                    .map((selectedValue) => (
+                      <Chip
+                        key={selectedValue}
+                        label={renderLabel(selectedValue)}
+                        size="small"
+                        style={{
+                          maxWidth: 100,
+                          fontSize: '0.75rem',
+                        }}
+                      />
+                    ))}
+                  {(selected as any[]).length > 2 && (
+                    <span style={{ fontSize: '0.75rem', color: '#888' }}>
+                      +{(selected as any[]).length - 2} more
+                    </span>
+                  )}
                 </div>
+
+
               )
               : (selected) =>
                 Array.isArray(selected)
@@ -268,7 +277,7 @@ const MultiSelectElement = forwardRef(function MultiSelectElement<
                 fontWeight: (theme) =>
                   isChecked
                     ? theme.typography.fontWeightBold
-                    : theme.typography.fontWeightRegular,
+                    : theme.typography.fontWeightMedium,
               }}
             >
               {showCheckbox && <Checkbox checked={isChecked} />}

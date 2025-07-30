@@ -2,8 +2,9 @@ export interface UserFormValues {
     name: string;
     email: string;
     role: string;
+    password: string;
     organizationName: string;
-    preferredSection: string;
+    preferredSections: string[];
     status: boolean;
     orgLevelAccess: boolean;
   }
@@ -12,8 +13,9 @@ export interface UserFormValues {
     name: "",
     email: "",
     role: "",
+    password: "",
     organizationName: "",
-    preferredSection: "",
+    preferredSections: [],
     status: false,
     orgLevelAccess: false,
   };

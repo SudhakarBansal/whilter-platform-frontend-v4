@@ -5,18 +5,25 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { Plus } from 'lucide-react';
-import { UserCardSection } from "@/components/user-listing-cards/UserCardSection";
-import { AddUser } from '@/components/user-listing-cards/AddUser'
+import { UserCardSection } from "@/components/user-module/UserCardSection";
+import { AddUser } from '@/components/user-module/AddUser'
 
 export default function ViewAdminPage() {
-  const [isAddUserOpen, setIsAddUserOpen] = useState(false)
+  const [isAddUserOpen, setIsAddUserOpen] = useState(false);
+  const [editingUserId, setEditingUserId] = useState<string | undefined>();
+
+  const handleEditUser = (userId: string) => {
+    setEditingUserId(userId);
+    setIsAddUserOpen(true);
+  };
+
+  const handleCloseAddUser = () => {
+    setEditingUserId(undefined);
+    setIsAddUserOpen(false);
+  };
 
   const handleAddNewUser = () => {
     setIsAddUserOpen(true)
-  }
-
-  const handleCloseAddUser = () => {
-    setIsAddUserOpen(false)
   }
 
   const actionButtons = [
@@ -42,8 +49,8 @@ export default function ViewAdminPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <UserCardSection />
-      <AddUser open={isAddUserOpen} onClose={handleCloseAddUser} />
+      <UserCardSection onEditUser={handleEditUser}/>
+      <AddUser open={isAddUserOpen} onClose={handleCloseAddUser} userId={editingUserId} />
     </AdminLayout>
   );
 }

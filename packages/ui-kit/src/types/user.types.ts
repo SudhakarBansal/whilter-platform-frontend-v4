@@ -4,8 +4,10 @@ export interface User {
   email: string
   role: string
   organizationName: string
-  preferredSection: string
+  preferredSections: string[]
   status: boolean
   orgLevelAccess: boolean
+  createdAt: string
+  updatedAt: string
 }
   

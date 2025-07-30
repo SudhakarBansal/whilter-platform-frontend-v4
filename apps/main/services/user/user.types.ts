@@ -4,15 +4,21 @@ export interface RegisterCredentials {
   email?: string;
   password?: string;
   role?: string;
-  organization?: string;
-  phoneNumber?: string;
-  status?: string;
+  organizationName?: string;
+  preferredSections?: string[];
+  status?: boolean;
+  orgLevelAccess?: boolean;
 }
 
 export interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
- 
+  id: string
+  name: string
+  email: string
+  role: string
+  organizationName: string
+  preferredSections: string[]
+  status: boolean
+  orgLevelAccess: boolean
+  createdAt: string
+  updatedAt: string
 }

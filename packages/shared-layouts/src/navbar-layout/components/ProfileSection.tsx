@@ -13,6 +13,7 @@ export const ProfileSection: React.FC<ProfileSectionProps> = ({onClick, theme, u
       }
     }}
   >
+
     <Avatar sx={{ width: 35, height: 35 }}>
       {user?.user?.email?.charAt(0)?.toUpperCase()}
     </Avatar>

@@ -37,7 +37,7 @@ export default  async function RootLayout({
             duration: 4000,
           }} />
         <ThemeConfig>
-         <NavbarClientWrapper  user={session?.user}>
+         <NavbarClientWrapper  user={session}>
             <MainLayout
               showSidebar={true}
               sidebarComponent={

@@ -23,7 +23,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     const targetSection = serviceId;
 
     const hasAccess = checkServiceAccess(role, userSections, targetSection);
-
     if (hasAccess) {
       router.push(href);
     } else {
