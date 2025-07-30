@@ -1,3 +1,4 @@
+
 "use client";
 import { useState } from "react";
 import AdminLayout from "@/layouts/admin-layout";
@@ -5,33 +6,28 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { Plus } from 'lucide-react';
-import { UserCardSection } from "@/components/user-module/UserCardSection";
-import { AddUser } from '@/components/user-module/AddUser'
+import { UserNew } from "@/components/user-module/UserNew";
 
 export default function ViewAdminPage() {
-  const [isAddUserOpen, setIsAddUserOpen] = useState(false);
-  const [editingUserId, setEditingUserId] = useState<string | undefined>();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingUserId, setEditingUserId] = useState<string>();
 
   const handleEditUser = (userId: string) => {
     setEditingUserId(userId);
-    setIsAddUserOpen(true);
+    setIsDialogOpen(true);
   };
 
-  const handleCloseAddUser = () => {
+  const handleCloseDialog = () => {
     setEditingUserId(undefined);
-    setIsAddUserOpen(false);
+    setIsDialogOpen(false);
   };
-
-  const handleAddNewUser = () => {
-    setIsAddUserOpen(true)
-  }
 
   const actionButtons = [
     <Button
       key="add-user"
       startIcon={<Plus />}
       variant="glassmorphism"
-      onClick={handleAddNewUser}
+      onClick={() => setIsDialogOpen(true)}
     >
       New User
     </Button>
@@ -49,8 +45,13 @@ export default function ViewAdminPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <UserCardSection onEditUser={handleEditUser}/>
-      <AddUser open={isAddUserOpen} onClose={handleCloseAddUser} userId={editingUserId} />
+      <UserNew 
+        onEditUser={handleEditUser}
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
+        userId={editingUserId}
+        onSuccess={() => setIsDialogOpen(false)}
+      />
     </AdminLayout>
   );
 }

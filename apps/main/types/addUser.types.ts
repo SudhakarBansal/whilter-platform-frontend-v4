@@ -1,6 +1,12 @@
- export interface AddUserProps {
+import { type UserFormValues } from "@/utils/data/userFormInitialValues"; 
+
+export interface AddUserProps {
     open: boolean
     onClose: () => void
-    userId?: string
-    
+    userId?: string  
+    handleSubmit?: (data: UserFormValues) => Promise<void>;
+    defaultValues?: UserFormValues;
+    isEditMode?: boolean;
 }
+
+  
