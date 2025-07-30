@@ -2,8 +2,7 @@ import { type User } from "@/services/user/user.types"
 import { useState } from "react"
 import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react"
 import clsx from "clsx"
-import { deleteUser } from "@/services/user/userService"
-import { DialogSection } from "@whilter/ui-kit/components"
+import { UserDelete } from "./UserDelete"
 
 interface Props {
   user: User
@@ -34,24 +33,9 @@ const getAvatarColor = (name: string) => {
 
 export const UserListing = ({ user, onDelete, onEdit }: Props) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-
-  const handleDelete = async () => {
-
-    try {
-      setDeleting(true);
-      await deleteUser(user.id);
-      onDelete?.(user.id);
-    } catch (error: any) {
-      alert(error.message);
-    } finally {
-      setDeleting(false);
-      setConfirmOpen(false);
-    }
-  };
 
   const handleEdit = () => {
-    onEdit?.(user.id); 
+    onEdit?.(user.id);
   };
 
   return (
@@ -102,18 +86,15 @@ export const UserListing = ({ user, onDelete, onEdit }: Props) => {
                 className="p-2 text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition"
                 title="Delete user"
                 onClick={() => setConfirmOpen(true)}
-                disabled={deleting}
               >
                 <Trash2 size={14} />
               </button>
-              <DialogSection
+              <UserDelete
                 open={confirmOpen}
-                message={<>
-                  Are you sure you want to delete{" "}
-                  <span style={{ color: "#ef4444", fontWeight: 500 }}>{user.name}</span>?
-                </>}
-                onConfirm={handleDelete}
-                onCancel={() => setConfirmOpen(false)}
+                userId={user.id}
+                userName={user.name}
+                onDelete={onDelete}
+                onClose={() => setConfirmOpen(false)}
               />
             </div>
           </div>

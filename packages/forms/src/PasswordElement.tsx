@@ -159,27 +159,7 @@ const PasswordElement = forwardRef(function PasswordEl<
       ref={ref}
       type={password ? 'password' : 'text'}
       autoComplete={autoComplete}
-      variant={variant}
-      sx={{
-        '& .MuiOutlinedInput-root': {
-          borderRadius: '8px',
-          height: '40px', // Match your SelectElement height
-          paddingRight: 1,
-          '& fieldset': {
-            borderColor: '#ccc',
-            borderWidth: 1,
-          },
-          '&:hover fieldset': {
-            borderColor: '#aaa',
-          },
-          '&.Mui-focused fieldset': {
-            borderColor: '#888',
-          },
-          '& input': {
-            padding: '10.5px 14px',
-          },
-        },
-      }}
+      variant={variant}  
       {...(typeof slotProps === 'undefined'
         ? {
             InputProps: mergedInputProps,

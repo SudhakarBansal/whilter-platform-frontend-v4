@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getSession, signOut } from 'next-auth/react';
-import { refreshToken } from '@whilter/api'; 
+import { refreshToken } from '@whilter/api';
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -24,16 +24,15 @@ const instance = axios.create({
 
 instance.interceptors.request.use(async config => {
   const session = await getSession();
-  console.log("sesion", session)
-  if (session?.accessToken) {
-    config.headers = {
+  if ((session as any)?.accessToken) {
+    (config as any).headers = {
       ...config.headers,
-      Authorization: `Bearer ${session.accessToken}`,
+      Authorization: `Bearer ${(session as any).accessToken}`,
     };
   }
- 
   return config;
 });
+
 
 instance.interceptors.response.use(
   response => response,

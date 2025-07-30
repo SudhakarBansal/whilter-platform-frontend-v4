@@ -117,6 +117,9 @@ importers:
       sass:
         specifier: ^1.86.0
         version: 1.89.1
+      sonner:
+        specifier: ^2.0.6
+        version: 2.0.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       styled-components:
         specifier: ^6.1.15
         version: 6.1.18(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -163,9 +166,18 @@ importers:
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
+      jwt-decode:
+        specifier: ^4.0.0
+        version: 4.0.0
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
@@ -178,6 +190,9 @@ importers:
       react-dom:
         specifier: catalog:react18
         version: 18.3.1(react@18.3.1)
+      sonner:
+        specifier: ^2.0.6
+        version: 2.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: 14.2.8
@@ -185,6 +200,9 @@ importers:
       '@types/eslint':
         specifier: 'catalog:'
         version: 8.56.2
+      '@types/jsonwebtoken':
+        specifier: ^9.0.10
+        version: 9.0.10
       '@types/node':
         specifier: 'catalog:'
         version: 20.11.6
@@ -233,6 +251,9 @@ importers:
       '@whilter/shared-layouts':
         specifier: workspace:*
         version: link:../../packages/shared-layouts
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../../packages/shared-types
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
@@ -321,6 +342,9 @@ importers:
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
@@ -340,6 +364,9 @@ importers:
       '@types/eslint':
         specifier: 'catalog:'
         version: 8.56.2
+      '@types/jsonwebtoken':
+        specifier: ^9.0.10
+        version: 9.0.10
       '@types/node':
         specifier: 'catalog:'
         version: 20.11.6
@@ -404,6 +431,9 @@ importers:
       '@types/eslint':
         specifier: 'catalog:'
         version: 8.56.2
+      '@types/jsonwebtoken':
+        specifier: ^9.0.10
+        version: 9.0.10
       '@types/node':
         specifier: 'catalog:'
         version: 20.11.6
@@ -437,6 +467,9 @@ importers:
 
   packages/api:
     dependencies:
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../shared-types
       axios:
         specifier: ^1.6.0
         version: 1.9.0
@@ -471,6 +504,9 @@ importers:
         specifier: ^4.24.11
         version: 4.24.11(next@14.2.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
+      '@types/jsonwebtoken':
+        specifier: ^9.0.10
+        version: 9.0.10
       '@types/node':
         specifier: ^24.0.3
         version: 24.0.3
@@ -582,6 +618,9 @@ importers:
       '@whilter/config':
         specifier: workspace:*
         version: link:../config
+      '@whilter/shared-types':
+        specifier: workspace:*
+        version: link:../shared-types
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../ui-kit
@@ -591,6 +630,9 @@ importers:
       react-dom:
         specifier: ^18.0.0
         version: 18.3.1(react@18.3.1)
+      sonner:
+        specifier: ^2.0.6
+        version: 2.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@types/react':
         specifier: catalog:react18
@@ -6779,6 +6821,11 @@ snapshots:
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  sonner@2.0.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
 
   sort-object-keys@1.1.3: {}
 

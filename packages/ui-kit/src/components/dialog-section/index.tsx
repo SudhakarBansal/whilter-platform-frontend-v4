@@ -10,7 +10,7 @@ import {
   } from "@mui/material";
   import { type ConfirmDialogProps } from "@whilter/ui-kit/types";
   
-  export const DialogSection: React.FC<ConfirmDialogProps> = ({
+  export const  DialogSection: React.FC<ConfirmDialogProps> = ({
     open,
     title = "Confirm",
     message,

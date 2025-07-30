@@ -1,12 +1,16 @@
 import { axiosInstance } from '../../axios/axiosInstance';
-import {
+import  type {
   SignupPayload,
   ForgotPasswordPayload,
   ResetPasswordPayload,
-  LoginPayload
+  LoginPayload,
+  LogoutPayload
 } from './auth.types';
 import { ServiceEndpoints } from './serviceEndpoints';
 import type { AxiosResponse } from 'axios';
+import type {CharpErrorCode} from '@whilter/shared-types'
+import {CHARP_ERROR_CODES} from '@whilter/shared-types'
+import  type {CharpErrorDetail} from '@whilter/shared-types'
 
 
 export async function login(data: LoginPayload): Promise<AxiosResponse<any>> {
@@ -78,4 +82,24 @@ export async function refreshToken(): Promise<{ status: number; token?: string }
       };
     }
   }
+
+export async function logout(data: FormData): Promise<AxiosResponse<any>> {
+  try {
+    const response = await axiosInstance.post(ServiceEndpoints.logout, data);
+    if (response.status === 200 || response.status === 201) {
+      return response;
+    }
+    throw new Error("Logout failed.");
+  } catch (error: any) {
+    const errorData = error?.response?.data;
+
+    const code: CharpErrorCode = errorData?.code;
+    const mappedError: CharpErrorDetail = CHARP_ERROR_CODES[code] ?? {
+      code: "CHARP-1502",
+      status: 500,
+      message: "An unexpected error occurred during logout",
+    };
+    throw mappedError;
+  }
+}
 

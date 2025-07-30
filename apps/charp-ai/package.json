@@ -14,15 +14,20 @@
     "@whilter/forms": "workspace:*",
     "@whilter/shared-hooks": "workspace:*",
     "@whilter/shared-layouts": "workspace:*",
+    "@whilter/shared-types": "workspace:*",
     "@whilter/ui-kit": "workspace:*",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "next": "14.2.8",
     "next-auth": "^4.24.11",
     "react": "catalog:react18",
-    "react-dom": "catalog:react18"
+    "react-dom": "catalog:react18",
+    "sonner": "^2.0.6"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.2.8",
     "@types/eslint": "catalog:",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "catalog:",
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",

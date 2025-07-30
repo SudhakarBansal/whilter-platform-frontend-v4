@@ -1,73 +1,130 @@
 import React from 'react';
-import { Menu, MenuItem, Box, Typography, Divider } from '@mui/material';
-import { Settings as SettingsIcon,AccountCircle, NotificationsOutlined, Logout } from '@mui/icons-material';
+import {
+  Menu,
+  MenuItem,
+  Box,
+  Typography,
+  Divider,
+} from '@mui/material';
+import {
+  AccountCircle,
+  NotificationsOutlined,
+  Group,
+} from '@mui/icons-material';
+import { LogoutButton } from './LogoutButton';
+import type {ProfileMenuProps} from '@whilter/shared-types'
 
-import type { Theme } from '@mui/material/styles';
+export const ProfileMenu: React.FC<ProfileMenuProps> = ({
+  anchorEl,
+  onClose,
+  theme,
+  onMangeUsers,
+  user,
+  onNavigate
+}) => {
 
-interface ProfileMenuProps {
-  anchorEl: HTMLElement | null;
-  onClose: () => void;
-  theme: Theme;
-  onSettings?: (path: string) => void;
-}
+  const handleMenuClick = (action: string) => {
+    onClose();
 
-export const ProfileMenu: React.FC<ProfileMenuProps> = ({ anchorEl, onClose, theme, onSettings }) => (
-  <Menu
-    anchorEl={anchorEl}
-    open={Boolean(anchorEl)}
-    onClose={onClose}
-    anchorOrigin={{
-      vertical: 'top',
-      horizontal: 'right',
-    }}
-    transformOrigin={{
-      vertical: 'bottom',
-      horizontal: 'right',
-    }}
-    slotProps={{
-      paper: {
-        sx: {
-          mt: -1,
-          minWidth: 220,
-          backgroundColor: theme.palette.background.default,
-          '& .MuiMenuItem-root': {
-            minHeight: '40px',
-            fontSize: '0.875rem',
-            '& .MuiSvgIcon-root': {
-              fontSize: '1.25rem',
-              marginRight: '0.5rem'
-            }
-          }
-        }
-      }
-    }}
-  >
-    <Box className="px-4 py-1.5">
-      <Typography variant="subtitle2" sx={{ fontSize: '0.875rem' }}>Guest</Typography>
-      <Typography variant="caption" color="text.secondary">m@example.com</Typography>
-    </Box>
-    <Divider />
-    <MenuItem
-      onClick={() => {
-        onSettings?.("/users"); 
-        // onClose();
+    switch (action) {
+      case "MANAGE_USERS":
+        onMangeUsers?.("/users");
+        break;
+
+      case "ACCOUNT":
+        onNavigate?.("/account");
+        break;
+
+      case "NOTIFICATIONS":
+        onNavigate?.("/notifications");
+        break;
+
+      default:
+        console.warn(`Unhandled action: ${action}`);
+    }
+  };
+
+  return (
+    <Menu
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      onClose={onClose}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right',
+      }}
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      slotProps={{
+        paper: {
+          sx: {
+            mt: -1,
+            minWidth: 240,
+            px: 1,
+            py: 0.5,
+            borderRadius: 2,
+            backgroundColor: theme.palette.background.default,
+            boxShadow: theme.shadows[4],
+            '& .MuiMenuItem-root': {
+              px: 2,
+              py: 1.2,
+              fontSize: '0.875rem',
+              borderRadius: 1.5,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.2,
+              transition: 'all 0.2s ease',
+              '& .MuiSvgIcon-root': {
+                fontSize: '1.2rem',
+                color: theme.palette.text.secondary,
+                transition: 'color 0.2s ease',
+              },
+              '&:hover': {
+                backgroundColor: theme.palette.action.hover,
+                transform: 'scale(1.02)',
+
+              },
+            },
+          },
+        },
       }}
     >
-      <SettingsIcon fontSize="small" />
-      Manage Users
-    </MenuItem>
-    <MenuItem onClick={onClose}>
-      <AccountCircle fontSize="small" />
-      Account
-    </MenuItem>
-    <MenuItem onClick={onClose}>
-      <NotificationsOutlined fontSize="small" />
-      Notifications
-    </MenuItem>
-    <Divider />
-    <MenuItem onClick={onClose}>
-      <Logout fontSize="small" />
-      Log out
-    </MenuItem>
-  </Menu>
-);
+      {/* Profile Info */}
+      <Box className="px-4 py-2">
+        <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
+          {user?.user?.email?.split('@')[0] || 'User'}
+        </Typography>
+        <Typography variant="caption" color="text.secondary">
+          {user?.user?.email}
+        </Typography>
+      </Box>
+
+      <Divider sx={{ my: 0.5 }} />
+
+      {/* Menu Items */}
+      <MenuItem onClick={() => handleMenuClick("MANAGE_USERS")}>
+        <Group fontSize="small" />
+        <Typography variant="body2">Manage Users</Typography>
+      </MenuItem>
+
+      <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
+        <AccountCircle fontSize="small" />
+        <Typography variant="body2">Account</Typography>
+      </MenuItem>
+
+      <MenuItem onClick={() => handleMenuClick("NOTIFICATIONS")}>
+        <NotificationsOutlined fontSize="small" />
+        <Typography variant="body2">Notifications</Typography>
+      </MenuItem>
+
+      <Divider sx={{ my: 0.5 }} />
+
+      {/* Logout Button */}
+      <Box px={2} py={1}>
+        <LogoutButton user={user} onClose={onClose} />
+      </Box>
+    </Menu>
+  )
+}

@@ -1,0 +1,29 @@
+
+import { roleAccessMatrix } from '../constants/accessMatrix';
+import { Role } from '../constants/role';
+import type { Section } from '../constants/role';
+
+
+export const checkServiceAccess = (
+  role: string,
+  userSections: string[], 
+  targetSection: string
+): boolean => {
+  debugger;
+  if (!role || !Array.isArray(userSections) || !targetSection) return false;
+
+  const roleTyped = role as Role;
+  const sectionTyped = targetSection as Section;
+
+  const allowedSections = roleAccessMatrix[roleTyped];
+  if (!allowedSections) return false;
+
+  return (
+    allowedSections.includes(sectionTyped) &&
+    userSections.includes(sectionTyped)
+  );
+};
+
+
+
+

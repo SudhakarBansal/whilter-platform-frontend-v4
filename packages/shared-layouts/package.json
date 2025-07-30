@@ -41,9 +41,11 @@
         "react-dom": "^18.0.0"
     },
     "dependencies": {
-        "@whilter/ui-kit": "workspace:*",
+        "@whilter/assets": "workspace:*",
         "@whilter/config": "workspace:*",
-        "@whilter/assets": "workspace:*"
+        "@whilter/shared-types": "workspace:*",
+        "@whilter/ui-kit": "workspace:*",
+        "sonner": "^2.0.6"
     },
     "devDependencies": {
         "@types/react": "catalog:react18",

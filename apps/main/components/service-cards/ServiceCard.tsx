@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { type ServiceCardProps } from '@whilter/ui-kit/types';
-import { checkServiceAccess } from '../../utils/auth';
+import { checkServiceAccess } from '@whilter/auth';
 import React, { useState } from 'react';
 import { UnauthorizedDialog } from '../UnAuthorizedDialog';
 
@@ -23,7 +23,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
     const targetSection = serviceId;
 
     const hasAccess = checkServiceAccess(role, userSections, targetSection);
-
     if (hasAccess) {
       router.push(href);
     } else {
