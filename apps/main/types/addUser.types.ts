@@ -1,4 +1,4 @@
-import { type UserFormValues } from "@/utils/data/userFormInitialValues"; 
+import  type { UserFormValues } from "@/model/userFormInitialValues";
 
 export interface AddUserProps {
     open: boolean
