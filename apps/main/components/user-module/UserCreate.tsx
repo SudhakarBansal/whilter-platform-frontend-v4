@@ -1,4 +1,3 @@
-// components/user-module/UserCreate.tsx
 "use client";
 import React, { useEffect, useState } from "react";
 import {
@@ -47,40 +46,47 @@ export const UserCreate = ({
     { id: "Dashboard", label: "Dashboard" },
   ];
 
-  const fetchOrganizations = async () => {
-    try {
-      const data = await getOrganizationList();
-      const formatted = data.map((org: any) => ({
-        id: org.name,
-        label: org.name,
-      }));
-      setOrganizationOptions(formatted);
-    } catch (err) {
-      console.error("Failed to fetch organizations", err);
-    }
-  };
 
-  const fetchRoles = async () => {
+  const fetchOptions = async () => {
     try {
-      const data = await getRoleList();
-      const formatted = data.map((role: any) => ({
+      setLoading(true);
+      
+      const [orgs, roles] = await Promise.all([
+        getOrganizationList(),
+        getRoleList()
+      ]);
+
+      setOrganizationOptions(orgs.map((org:any) => ({
+        id: org.name,
+        label: org.name
+      })));
+
+      setRoleOptions(roles.map((role:any)  => ({
         id: role.name,
-        label: role.name,
-      }));
-      setRoleOptions(formatted);
+        label: role.name
+      })));
+
+      if (defaultValues) {
+        methods.reset(defaultValues);
+      }
     } catch (err) {
-      console.error("Failed to fetch roles", err);
+      toast.error("Failed to load options");
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchOrganizations();
-    fetchRoles();
+    if (open) {
+      fetchOptions();
+    }
 
     if (defaultValues) {
-      methods.reset(defaultValues);
-    }
-  }, [defaultValues]);
+        methods.reset(defaultValues);
+      }
+
+  }, [open]);
 
   return (
     <Dialog
