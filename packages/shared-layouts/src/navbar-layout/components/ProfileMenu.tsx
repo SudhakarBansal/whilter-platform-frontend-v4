@@ -12,7 +12,8 @@ import {
   Group,
 } from '@mui/icons-material';
 import { LogoutButton } from './LogoutButton';
-import type {ProfileMenuProps} from '@whilter/shared-types'
+import type { ProfileMenuProps } from '@whilter/shared-types'
+import { Role } from '@whilter/auth'
 
 export const ProfileMenu: React.FC<ProfileMenuProps> = ({
   anchorEl,
@@ -103,11 +104,12 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
 
       <Divider sx={{ my: 0.5 }} />
 
-      {/* Menu Items */}
-      <MenuItem onClick={() => handleMenuClick("MANAGE_USERS")}>
-        <Group fontSize="small" />
-        <Typography variant="body2">Manage Users</Typography>
-      </MenuItem>
+      {user?.user?.role === Role.SUPER_ADMIN && (
+        <MenuItem onClick={() => handleMenuClick("MANAGE_USERS")}>
+          <Group fontSize="small" />
+          <Typography variant="body2">Manage Users</Typography>
+        </MenuItem>
+      )}
 
       <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
         <AccountCircle fontSize="small" />

@@ -1,7 +1,47 @@
-import type { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions, User,Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { login } from '@whilter/api';
 import { decodeJwt } from '../utils/jwt';
+
+
+// declare module 'next-auth' {
+//  export interface Session {
+//     accessToken: string;
+//     refreshToken:string;
+//     deviceId:string;
+//     user: {
+//       name?: string | null;
+//       email?: string | null;
+//       image?: string | null;
+//       role: string;
+//       organization: string;
+//       section: string;
+//       userId: string;
+//     };
+//   }
+
+//  export interface User {
+//     accessToken: string;
+//     refreshToken:string;
+//     deviceId:string;
+//     role: string;
+//     organization: string;
+//     section: string;
+//     userId: string;
+//     email: string;
+//   }
+// }
+
+// declare module 'next-auth/jwt' {
+//  export interface JWT {
+//     accessToken: string;
+//     role: string;
+//     organization: string;
+//     section: string;
+//     userId: string;
+//     email: string;
+//   }
+// }
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -35,7 +75,7 @@ export const authOptions: NextAuthOptions = {
             section: decoded.section,
             accessToken,
             refreshToken,
-            deviceId
+            deviceId,
           };
         } catch (error) {
           console.error('Login error:', error);

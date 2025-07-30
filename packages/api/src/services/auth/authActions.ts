@@ -6,7 +6,7 @@ import  type {
   LoginPayload,
   LogoutPayload
 } from './auth.types';
-import { ServiceEndpoints } from './serviceEndpoints';
+import { ServiceEndpoints } from './service-endpoints';
 import type { AxiosResponse } from 'axios';
 import type {CharpErrorCode} from '@whilter/shared-types'
 import {CHARP_ERROR_CODES} from '@whilter/shared-types'
@@ -29,7 +29,7 @@ export async function login(data: LoginPayload): Promise<AxiosResponse<any>> {
 }
 
 
-export async function signup(data: SignupPayload): Promise<AxiosResponse<any>>{
+export async function googleSignup(data: SignupPayload): Promise<AxiosResponse<any>>{
   try {
     const response = await axiosInstance.post(ServiceEndpoints.signup, data);
     if (response.status === 200) {

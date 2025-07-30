@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           richColors={true}
           closeButton={true}
           toastOptions={{
-            duration: 4000,
+            duration: 3000,
           }} />
         <SessionWrapper>{children}</SessionWrapper>
       </body>

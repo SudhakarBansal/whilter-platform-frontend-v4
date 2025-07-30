@@ -1,2 +1,2 @@
-export * from '../error-pages/UnAuthorizedDialog'
-export * from '../error-pages/Unauthorized'
+export * from './UnauthorizedDialog'
+export * from './Unauthorized'

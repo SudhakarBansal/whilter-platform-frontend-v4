@@ -35,7 +35,7 @@ export default  async function RootLayout({
           richColors={true}
           closeButton={true}
           toastOptions={{
-            duration: 4000,
+            duration: 3000,
           }} />
         <ThemeConfig>
          <NavbarClientWrapper user={session}>
