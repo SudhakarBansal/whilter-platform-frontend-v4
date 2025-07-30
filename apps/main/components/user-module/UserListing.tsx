@@ -31,6 +31,7 @@ const getAvatarColor = (name: string) => {
   return avatarColors[Math.abs(hash) % avatarColors.length]
 }
 
+
 export const UserListing = ({ user, onDelete, onEdit }: Props) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
 

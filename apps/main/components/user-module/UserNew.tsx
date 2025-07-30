@@ -1,10 +1,10 @@
-// components/user-module/UserNew.tsx
 "use client";
 import { useEffect, useState } from "react";
 import { allUsers } from "@/services/actions/userService";
 import { UserListing } from "./UserListing";
-import type { User } from "@/services/service-types";
 import { UserFormDialog } from "./components/UserFormDialog";
+import { CircularProgress } from "@mui/material";
+import type { User } from "@/services/service-types";
 
 interface UserNewProps {
   onEditUser: (userId: string) => void;
@@ -12,25 +12,50 @@ interface UserNewProps {
   onClose: () => void;
   userId?: string;
   onSuccess?: () => void;
+  initialUsers: User[]; 
+  onUsersUpdated: (users: User[]) => void;
+  loading?: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
-export const UserNew = ({ onEditUser, open, onClose, userId, onSuccess }: UserNewProps) => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
+export const UserNew = ({ 
+  onEditUser, 
+  open, 
+  onClose, 
+  userId, 
+  onSuccess, 
+  initialUsers, 
+  onUsersUpdated ,
+  loading,
+  setLoading
+}: UserNewProps) => {
+  const [users, setUsers] = useState<User[]>(initialUsers);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const fetchedUsers = await allUsers();
-        setUsers(fetchedUsers);
-      } catch (err: any) {
-        console.error("Failed to load users", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);
+    setUsers(initialUsers);
+  }, [initialUsers]);
+
+  const handleSuccess = async () => {
+    try {
+      setLoading(true);
+      const updatedUsers = await allUsers();
+      setUsers(updatedUsers);
+      onUsersUpdated(updatedUsers);
+      onSuccess?.();
+    } catch (err) {
+      console.error("Failed to refresh users", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="w-full flex justify-center items-center h-64">
+        <CircularProgress />
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
@@ -38,7 +63,11 @@ export const UserNew = ({ onEditUser, open, onClose, userId, onSuccess }: UserNe
         <UserListing
           key={user.id}
           user={user}
-          onDelete={(id) => setUsers(prev => prev.filter(u => u.id !== id))}
+          onDelete={(id) => {
+            const newUsers = users.filter(u => u.id !== id);
+            setUsers(newUsers);
+            onUsersUpdated(newUsers);
+          }}
           onEdit={onEditUser}
         />
       ))}
@@ -47,10 +76,7 @@ export const UserNew = ({ onEditUser, open, onClose, userId, onSuccess }: UserNe
         open={open}
         onClose={onClose}
         userId={userId}
-        onSuccess={() => {
-          onSuccess?.();
-          allUsers().then(setUsers);
-        }}
+        onSuccess={handleSuccess}
       />
     </div>
   );
