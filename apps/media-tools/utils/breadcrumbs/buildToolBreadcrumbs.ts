@@ -15,5 +15,13 @@ export function buildToolBreadcrumbs(toolSlug: string, subPage?: string) {
     breadcrumbs.push({ label: 'New Project', href: `/${toolSlug}/new` });
   }
 
+   if (subPage === 'models') {
+    breadcrumbs.push({ label: 'Models', href: `/${toolSlug}/admin/models` });
+  }
+  if (subPage === 'modelsNew') {
+    breadcrumbs.push({ label: 'Models', href: `/${toolSlug}/admin/models` });
+    breadcrumbs.push({ label: 'Add New Model', href: `/${toolSlug}/admin/models/new` });
+  }
+
   return breadcrumbs;
 }
