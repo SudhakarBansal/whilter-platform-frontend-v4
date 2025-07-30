@@ -25,6 +25,7 @@ export default  async function RootLayout({
   children: React.ReactNode;
 }){
   const session = await getServerSession(authOptions);
+  console.log("sesion",session)
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -37,7 +38,7 @@ export default  async function RootLayout({
             duration: 4000,
           }} />
         <ThemeConfig>
-         <NavbarClientWrapper  user={session}>
+         <NavbarClientWrapper user={session}>
             <MainLayout
               showSidebar={true}
               sidebarComponent={
