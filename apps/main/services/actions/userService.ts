@@ -15,7 +15,7 @@ export async function allUsers(): Promise<User[]> {
 
 export async function getUserById(id: string): Promise<User> {
   try {
-    const response = await axiosInstance.get(`${ServiceEndpoints.user}/${id}`);
+    const response = await axiosInstance.get(`${ServiceEndpoints.user.getUsers}/${id}`);
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
@@ -41,7 +41,7 @@ export async function registerUser(data: RegisterCredentials): Promise<string> {
 
 export async function updateUser(id: string, data: Partial<RegisterCredentials>): Promise<string> {
   try {
-    const response = await axiosInstance.put(`${ServiceEndpoints.user}/${id}`, data);
+    const response = await axiosInstance.put(`${ServiceEndpoints.user.updateUser}/${id}`, data);
     if (response.status === 200) {
       return "User updated successfully!";
     }
@@ -56,7 +56,7 @@ export async function updateUser(id: string, data: Partial<RegisterCredentials>)
 
 export async function deleteUser(id: string) {
   try {
-    const response = await axiosInstance.delete(`${ServiceEndpoints.user}/${id}`);
+    const response = await axiosInstance.delete(`${ServiceEndpoints.user.deleteUser}/${id}`);
     if (response.status == 200) {
       return "User deleted successfully";
     };

@@ -17,35 +17,53 @@ export const UserFormDialog = ({ open, onClose, userId, onSuccess }: UserDialogP
   const [userData, setUserData] = useState<UserFormValues | null>(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (!userId) {
-        setUserData(null);
-        return;
-      }
-      
-      setLoading(true);
-      try {
-        const fetched = await getUserById(userId);
-        setUserData({
-          name: fetched.name,
-          email: fetched.email,
-          role: fetched.role,
-          organizationName: fetched.organizationName,
-          preferredSections: fetched.preferredSections,
-          status: fetched.status,
-          orgLevelAccess: fetched.orgLevelAccess ?? false,
-          password: "",
-        });
-      } catch (err) {
-        toast.error("Failed to fetch user data");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchUser = async () => {
+    if (!userId) {
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      const fetched = await getUserById(userId);
+      setUserData({
+        name: fetched.name,
+        email: fetched.email,
+        role: fetched.role,
+        organizationName: fetched.organizationName,
+        preferredSections: fetched.preferredSections,
+        status: fetched.status,
+        orgLevelAccess: fetched.orgLevelAccess ?? false,
+        password: "",
+      });
+    } catch (err) {
+      toast.error("Failed to fetch user data");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    if (open) fetchUser();
+  useEffect(() => {
+    if (!userId) {
+      setUserData({
+        name: "",
+        email: "",
+        role: "",
+        organizationName: "",
+        preferredSections: [],
+        status: false,
+        orgLevelAccess: false,
+        password: "",
+      });
+    }
+
+    if (open) {
+      fetchUser();
+    } else {
+      setUserData(null); 
+    }
   }, [open, userId]);
+
+
 
   const handleSubmit = async (data: UserFormValues) => {
     try {
@@ -80,7 +98,7 @@ export const UserFormDialog = ({ open, onClose, userId, onSuccess }: UserDialogP
       onClose={onClose}
       handleSubmit={handleSubmit}
       isEditMode={!!userId}
-      defaultValues={userData || undefined}
+      defaultValues={userData }
     />
   );
 };
