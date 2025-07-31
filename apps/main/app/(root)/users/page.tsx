@@ -43,12 +43,17 @@ export default function ViewAdminPage() {
     setIsDialogOpen(false);
   };
 
+  const handleAddUser = () => {
+    setEditingUserId(undefined); 
+    setIsDialogOpen(true);
+  };
+
   const actionButtons = [
     <Button
       key="add-user"
       startIcon={<Plus />}
       variant="glassmorphism"
-      onClick={() => setIsDialogOpen(true)}
+      onClick={handleAddUser}
     >
       New User
     </Button>

@@ -41,7 +41,7 @@ export const UserListing = ({ user, onDelete, onEdit }: Props) => {
 
   return (
     <>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-200 ease-in-out transform hover:scale-[1.06] min-w-[300px]">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-200 ease-in-out transform hover:scale-[1.06] min-w-[320px]">
         <div className="p-4 h-full flex flex-col">
           <div className="flex items-center justify-between mb-4 border-b border-gray-100 pb-3">
             <div className="flex items-center gap-3">
