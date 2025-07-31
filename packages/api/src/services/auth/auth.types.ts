@@ -1,3 +1,4 @@
+
 export interface LoginPayload {
   email: string;
   password: string;
@@ -46,3 +47,5 @@ export interface ApiErrorResponse {
   status: number;
   error: string;
 }
+
+

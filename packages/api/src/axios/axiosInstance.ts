@@ -1,56 +1,68 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 import { refreshToken } from '@whilter/api';
+import type { Session } from 'next-auth';
+import type { LoginResponse } from '../services/auth/auth.types';
+
+interface CustomSession extends Session {
+  accessToken?: string;
+  refreshToken?: string;
+}
+
+interface FailedRequest {
+  resolve: (token: string) => void;
+  reject: (error: unknown) => void;
+}
 
 let isRefreshing = false;
-let failedQueue: any[] = [];
+let failedQueue: FailedRequest[] = [];
 
-const processQueue = (error: any, token: string | null = null) => {
-  failedQueue.forEach(prom => {
+const processQueue = (error: unknown, token: string | null = null) => {
+  failedQueue.forEach(({ resolve, reject }) => {
     if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
+      reject(error);
+    } else if (token) {
+      resolve(token);
     }
   });
-
   failedQueue = [];
 };
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
+instance.interceptors.request.use(
+  async (config: any) => {
+    const session = (await getSession()) as CustomSession;
 
-instance.interceptors.request.use(async config => {
-  const session = await getSession();
-  if ((session as any)?.accessToken) {
-    (config as any).headers = {
-      ...config.headers,
-      Authorization: `Bearer ${(session as any).accessToken}`,
-    };
-  }
-  return config;
-});
+    if (session?.accessToken && config?.headers) {
+      config.headers.Authorization = `Bearer ${session.accessToken}`;
+    }
 
+    return config;
+  },
+  (error: AxiosError) => Promise.reject(error)
+);
 
 instance.interceptors.response.use(
-  response => response,
-  async error => {
-    const originalRequest = error.config;
-    const status = error.response?.status;
+  (response: AxiosResponse) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
 
-    if (status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({
             resolve: (token: string) => {
-              originalRequest.headers['Authorization'] = 'Bearer ' + token;
+              if (originalRequest.headers) {
+                originalRequest.headers['Authorization'] = `Bearer ${token}`;
+              }
               resolve(instance(originalRequest));
             },
-            reject: (err: any) => reject(err),
+            reject,
           });
         });
       }
@@ -58,11 +70,22 @@ instance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const response = await refreshToken(session?.refreshToken);
-        processQueue(null, response.accessToken);
+        const session = (await getSession()) as CustomSession;
+        const refreshTokenValue = session?.refreshToken;
+
+        if (!refreshTokenValue) {
+          throw new Error('Missing refresh token');
+        }
+
+        const { data }: { data: LoginResponse } = await refreshToken(refreshTokenValue);
+
+        processQueue(null, data.accessToken);
         isRefreshing = false;
 
-        originalRequest.headers['Authorization'] = 'Bearer ' + response.accessToken;
+        if (originalRequest.headers) {
+          originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`;
+        }
+
         return instance(originalRequest);
       } catch (err) {
         processQueue(err, null);
@@ -71,6 +94,7 @@ instance.interceptors.response.use(
         return Promise.reject(err);
       }
     }
+
     return Promise.reject(error);
   }
 );

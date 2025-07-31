@@ -17,6 +17,7 @@ export default function GoogleCallbackPage() {
   useEffect(() => {
     const performLogin = async () => {
       setSubmitting(true);
+       if (!code) return; 
       try {
         const response = await googleLogin({
           googleIdToken: code,
