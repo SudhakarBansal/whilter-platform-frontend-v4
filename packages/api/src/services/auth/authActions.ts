@@ -4,6 +4,7 @@ import  type {
   ForgotPasswordPayload,
   ResetPasswordPayload,
   LoginPayload,
+  GoogleLoginPayload,
   LogoutPayload
 } from './auth.types';
 import { ServiceEndpoints } from './service-endpoints';
@@ -29,9 +30,9 @@ export async function login(data: LoginPayload): Promise<AxiosResponse<any>> {
 }
 
 
-export async function googleSignup(data: SignupPayload): Promise<AxiosResponse<any>>{
+export async function googleLogin(data: GoogleLoginPayload): Promise<AxiosResponse<any>>{
   try {
-    const response = await axiosInstance.post(ServiceEndpoints.signup, data);
+    const response = await axiosInstance.post(ServiceEndpoints.googleLogin, data);
     if (response.status === 200) {
       return response;
     }
@@ -45,10 +46,10 @@ export async function googleSignup(data: SignupPayload): Promise<AxiosResponse<a
 
 export async function forgotPassword(data: ForgotPasswordPayload): Promise<{ status: number; message: string }> {
     try {
-      await axiosInstance.post(ServiceEndpoints.forgotPassword, data);
+      await axiosInstance.post(ServiceEndpoints.googleLogin, data);
       return {
         status: 200,
-        message: 'Password reset link sent successfully.',
+        message: 'Google LoggedIn successfully.',
       };
     } catch (error: any) {
       const errorMsg = error?.response?.data || 'An error occurred during password reset.';
@@ -69,19 +70,21 @@ export async function resetPassword(data: ResetPasswordPayload): Promise<{ statu
     }
   }
 
-export async function refreshToken(): Promise<{ status: number; token?: string }> {
-    try {
-      const response = await axiosInstance.post(ServiceEndpoints.refreshToken);
-      return {
-        status: 200,
-        token: response.data?.token,
-      };
-    } catch (error: any) {
-      return {
-        status: error?.response?.status || 500,
-      };
+export async function refreshToken(data:any): Promise<AxiosResponse<any>> {
+  try {
+    const response = await axiosInstance.post(ServiceEndpoints.refreshToken, data);
+
+    if (response.status === 200 || response.status === 201) {
+      return response;
     }
+    throw new Error("Login failed.");
+  } catch (error: any) {
+    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    console.error("Error logging in user:", errorResponse);
+    throw new Error(errorResponse);
   }
+}
+
 
 export async function logout(data: FormData): Promise<AxiosResponse<any>> {
   try {

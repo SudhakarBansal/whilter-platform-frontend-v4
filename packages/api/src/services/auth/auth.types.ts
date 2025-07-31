@@ -9,6 +9,12 @@ export interface SignupPayload {
   password: string;
 }
 
+export interface GoogleLoginPayload {
+  googleIdToken: string;
+
+}
+
+
 export interface LogoutPayload {
   refreshToken: string;
   deviceId: string;

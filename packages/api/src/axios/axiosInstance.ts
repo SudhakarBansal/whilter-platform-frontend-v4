@@ -58,11 +58,11 @@ instance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const response = await refreshToken();
-        processQueue(null, response.token);
+        const response = await refreshToken(session?.refreshToken);
+        processQueue(null, response.accessToken);
         isRefreshing = false;
 
-        originalRequest.headers['Authorization'] = 'Bearer ' + response.token;
+        originalRequest.headers['Authorization'] = 'Bearer ' + response.accessToken;
         return instance(originalRequest);
       } catch (err) {
         processQueue(err, null);

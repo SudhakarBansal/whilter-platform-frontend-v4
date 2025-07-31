@@ -1,47 +1,8 @@
-import type { NextAuthOptions, User,Session } from 'next-auth';
+// authOptions.ts
+import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { login } from '@whilter/api';
 import { decodeJwt } from '../utils/jwt';
-
-
-// declare module 'next-auth' {
-//  export interface Session {
-//     accessToken: string;
-//     refreshToken:string;
-//     deviceId:string;
-//     user: {
-//       name?: string | null;
-//       email?: string | null;
-//       image?: string | null;
-//       role: string;
-//       organization: string;
-//       section: string;
-//       userId: string;
-//     };
-//   }
-
-//  export interface User {
-//     accessToken: string;
-//     refreshToken:string;
-//     deviceId:string;
-//     role: string;
-//     organization: string;
-//     section: string;
-//     userId: string;
-//     email: string;
-//   }
-// }
-
-// declare module 'next-auth/jwt' {
-//  export interface JWT {
-//     accessToken: string;
-//     role: string;
-//     organization: string;
-//     section: string;
-//     userId: string;
-//     email: string;
-//   }
-// }
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -50,35 +11,57 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: 'Email', type: 'text' },
         password: { label: 'Password', type: 'password' },
+        accessToken: { label: 'AccessToken', type: 'text' },
+        refreshToken: { label: 'RefreshToken', type: 'text' },
+        deviceId:{ label: 'DeviceId', type: 'text' },
       },
       async authorize(credentials) {
         try {
-          if (!credentials?.email || !credentials?.password) return null;
+          if (credentials?.accessToken && credentials?.refreshToken) {
+            const decoded = decodeJwt(credentials.accessToken);
+            if (!decoded) return null;
 
-          const response = await login({
-            email: credentials.email,
-            password: credentials.password,
-          });
+            return {
+              id: decoded.userId,
+              email: decoded.email,
+              role: decoded.role,
+              userId: decoded.userId,
+              organization: decoded.organization,
+              section: decoded.section,
+              accessToken: credentials.accessToken,
+              refreshToken: credentials.refreshToken,
+              deviceId: credentials.deviceId ?? '',
+            };
+          }
 
-          const { accessToken, refreshToken, deviceId } = response?.data || {};
-          if (!accessToken) return null;
+          if (credentials?.email && credentials?.password) {
+            const response = await login({
+              email: credentials.email,
+              password: credentials.password,
+            });
 
-          const decoded = decodeJwt(accessToken);
-          if (!decoded) return null;
+            const { accessToken, refreshToken, deviceId } = response?.data || {};
+            if (!accessToken) return null;
 
-          return {
-            id: decoded.userId,
-            email: decoded.email,
-            role: decoded.role,
-            userId: decoded.userId,
-            organization: decoded.organization,
-            section: decoded.section,
-            accessToken,
-            refreshToken,
-            deviceId,
-          };
+            const decoded = decodeJwt(accessToken);
+            if (!decoded) return null;
+
+            return {
+              id: decoded.userId,
+              email: decoded.email,
+              role: decoded.role,
+              userId: decoded.userId,
+              organization: decoded.organization,
+              section: decoded.section,
+              accessToken,
+              refreshToken,
+              deviceId,
+            };
+          }
+
+          return null;
         } catch (error) {
-          console.error('Login error:', error);
+          console.error('Authorize error:', error);
           return null;
         }
       },
@@ -106,19 +89,17 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-      if (token.accessToken) {
-        session.accessToken = token.accessToken as string;
-        session.refreshToken = token.refreshToken as string;
-        session.deviceId = token.deviceId as string;
-        session.user = {
-          ...session.user,
-          role: token.role,
-          organization: token.organization,
-          section: token.section,
-          userId: token.userId,
-          email: token.email,
-        };
-      }
+      session.accessToken = token.accessToken as string;
+      session.refreshToken = token.refreshToken as string;
+      session.deviceId = token.deviceId as string;
+      session.user = {
+        ...session.user,
+        role: token.role,
+        organization: token.organization,
+        section: token.section,
+        userId: token.userId,
+        email: token.email,
+      };
       return session;
     },
   },

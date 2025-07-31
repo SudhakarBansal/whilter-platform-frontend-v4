@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     });
 
-    const publicRoutes = ['/login', '/register', '/forgot-password'];
+    const publicRoutes = ['/login', '/register', '/auth/callback' , '/forgot-password'];
 
     // Skip static and API routes
     if (

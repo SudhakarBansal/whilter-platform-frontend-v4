@@ -47,7 +47,7 @@ export default function LoginPage() {
       if (!res) {
         toast.error('Unexpected error. Please try again.');
       } else if (res.ok && res.url) {
-         toast.success('LoggedIn successfully');
+        toast.success('LoggedIn successfully');
         router.push(res.url);
       } else {
         toast.error('Invalid credentials. Please try again.');
@@ -57,6 +57,20 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+
+  const handleGoogleLogin = () => {
+    const params = new URLSearchParams({
+      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      redirect_uri: 'http://localhost:3000/auth/callback',
+      response_type: 'code',
+      scope: 'openid email profile',
+      access_type: 'offline',
+      prompt: 'consent',
+    });
+
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
   };
 
   return (
@@ -132,8 +146,8 @@ export default function LoginPage() {
           type="submit"
           disabled={loading}
           className={`w-full text-white font-medium py-2 rounded-full ${loading
-              ? 'bg-[#324e9f] cursor-not-allowed'
-              : 'bg-[#1E3A8A] hover:bg-[#1C3074]'
+            ? 'bg-[#324e9f] cursor-not-allowed'
+            : 'bg-[#1E3A8A] hover:bg-[#1C3074]'
 
             }`}
         >
@@ -153,7 +167,10 @@ export default function LoginPage() {
       </div>
 
       {/* Google Login */}
-      <button className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition">
+      <button className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition"
+      // onClick={() => signIn('google')}
+      onClick={handleGoogleLogin}
+       >
         <FcGoogle className="text-xl" />
         <span className="text-sm font-medium text-gray-500">
           Login with Google
