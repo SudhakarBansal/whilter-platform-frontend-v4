@@ -1,6 +1,6 @@
 import {axiosInstance} from "@whilter/api"
 import ServiceEndpoints from "../service-endpoints"
-import type { RegisterCredentials,User } from "../service-types"
+import type { RegisterCredentials,User,PaginatedUsersResponse } from "../service-types"
 
 export async function allUsers(): Promise<User[]> {
   try {
@@ -13,9 +13,22 @@ export async function allUsers(): Promise<User[]> {
   }
 }
 
+export async function getPaginatedUsers(page = 0, size = 10): Promise<PaginatedUsersResponse> {
+  try {
+    const response = await axiosInstance.get(ServiceEndpoints.user.getPaginatedUsers, {
+      params: { page, size },
+    });
+    return response.data;
+  } catch (error: any) {
+    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    console.error("Error fetching paginated users:", errorResponse);
+    throw new Error(errorResponse);
+  }
+}
+
 export async function getUserById(id: string): Promise<User> {
   try {
-    const response = await axiosInstance.get(`${ServiceEndpoints.user.getUsers}/${id}`);
+    const response = await axiosInstance.get(`${ServiceEndpoints.user.getUserById}?id=${id}`);
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
@@ -39,9 +52,9 @@ export async function registerUser(data: RegisterCredentials): Promise<string> {
   }
 }
 
-export async function updateUser(id: string, data: Partial<RegisterCredentials>): Promise<string> {
+export async function updateUser(email: string, data: Partial<RegisterCredentials>): Promise<string> {
   try {
-    const response = await axiosInstance.put(`${ServiceEndpoints.user.updateUser}/${id}`, data);
+    const response = await axiosInstance.put(`${ServiceEndpoints.user.updateUser}/${email}`, data);
     if (response.status === 200) {
       return "User updated successfully!";
     }

@@ -1,4 +1,4 @@
-import  type { User } from "@/services/service-types"
+import type { User } from "@/services/service-types"
 import { useState } from "react"
 import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react"
 import clsx from "clsx"
@@ -24,6 +24,7 @@ const avatarColors = [
 ]
 
 const getAvatarColor = (name: string) => {
+  name = name.toUpperCase();
   let hash = 0
   for (let i = 0; i < name.length; i++) {
     hash = name.charCodeAt(i) + ((hash << 5) - hash)
@@ -105,7 +106,11 @@ export const UserListing = ({ user, onDelete, onEdit }: Props) => {
 
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Building2 size={12} className="text-gray-400 flex-shrink-0" />
-              <span className="truncate max-w-[140px]">{user.organizationName}</span>
+              <span className={`truncate max-w-[140px] ${!user.organizationName ? "text-gray-400 italic" : ""
+                }`}
+              >
+                {user.organizationName || "No Organization"}
+              </span>
             </div>
 
             <div className="flex items-center justify-between text-sm">
@@ -123,4 +128,3 @@ export const UserListing = ({ user, onDelete, onEdit }: Props) => {
 
   )
 }
- 
