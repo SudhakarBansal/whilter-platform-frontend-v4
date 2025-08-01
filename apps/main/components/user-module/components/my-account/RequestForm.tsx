@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import { SelectElement, FormContainer } from '@whilter/forms';
 import { SECTIONS } from '@whilter/auth';
 import { Box } from '@mui/material';
+import { Button } from '@mui/material'
 
 import {
     requestOrgAccessValues,
@@ -101,20 +102,21 @@ export default function RequestForm() {
                 </label>
 
                 <div className="flex gap-4 pt-2">
-                    <button
-                        type="submit"
-                        disabled={optionsLoading}
-                        className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
-                    >
-                        Submit Request
-                    </button>
-                    <button
+                    <Button
                         type="button"
                         onClick={() => reset()}
-                        className="border border-gray-300 px-5 py-2 rounded-lg hover:bg-gray-100"
+                        variant="outlinePrimary"
                     >
                         Cancel
-                    </button>
+                    </Button>
+                    <Button
+                        type="submit"
+                        disabled={optionsLoading}
+                        variant="flatPrimary"
+                    >
+                        Submit Request
+                    </Button>
+
                 </div>
             </Box>
         </FormContainer>

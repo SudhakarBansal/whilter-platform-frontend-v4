@@ -72,7 +72,7 @@ export const UserFormDialog = ({ open, onClose, userId, onSuccess }: UserDialogP
       
       if (userId) {
         const { password, ...updateData } = data;
-        const message = await updateUser(userId, updateData);
+        const message = await updateUser(data.email, updateData);
         toast.success(message || "User updated successfully");
       } else {
         const encryptedPassword = encryptPassword(data.password);

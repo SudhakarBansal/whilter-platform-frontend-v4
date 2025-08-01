@@ -6,7 +6,7 @@ import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { Plus } from 'lucide-react';
 import { UserNew } from "@/components/user-module/UserNew";
-import { allUsers } from "@/services/actions/userService";
+import { allUsers, getPaginatedUsers } from "@/services/actions/userService";
 import type { User } from "@/services/service-types";
 
 export default function ViewAdminPage() {
@@ -21,8 +21,8 @@ export default function ViewAdminPage() {
       const fetchUsers = async () => {
         try {
           setLoading(true);
-          const fetchedUsers = await allUsers();
-          setUsers(fetchedUsers);
+          const fetchedUsers = await getPaginatedUsers();
+          setUsers(fetchedUsers.content);
         } catch (err) {
           console.error("Failed to load users", err);
         } finally {

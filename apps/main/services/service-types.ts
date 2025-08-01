@@ -28,3 +28,11 @@ export interface Organization {
   name: string;
   description: string;
 }
+
+export interface PaginatedUsersResponse {
+  content: User[];
+  totalPages: number;
+  totalElements: number;
+  number: number;
+  size: number;
+}

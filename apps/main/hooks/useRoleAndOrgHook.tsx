@@ -1,4 +1,4 @@
-// useOrgAndRoleOptions.ts
+
 import { useState, useEffect } from 'react';
 import { getRoleList } from '@/services/actions/rolesServices';
 import { getOrganizationList } from '@/services/actions/organizationService';
@@ -10,8 +10,6 @@ export function useOrgAndRoleOptions(shouldFetch = true) {
   const [organizationOptions, setOrganizationOptions] = useState([]);
 
   useEffect(() => {
-    if (!shouldFetch) return;
-
     const fetchOptions = async () => {
       try {
         setLoading(true);

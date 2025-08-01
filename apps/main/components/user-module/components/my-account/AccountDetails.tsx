@@ -67,7 +67,6 @@ export default function AccountDetails() {
           </p>
         </div>
       </div>
-
       <RequestForm />
     </div>
   );
