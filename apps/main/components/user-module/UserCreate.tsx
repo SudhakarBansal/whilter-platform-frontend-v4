@@ -12,8 +12,8 @@
   import { UserForm } from "./components/UserForm";
   import {  type UserFormValues ,userFormInitialValues } from "@/model/userFormInitialValues";
   import type { AddUserProps } from "@/types/addUser.types";
-  import { getOrganizationList} from "@/services/actions/organization";
-  import { getRoleList } from "@/services/actions/userService";
+  import { getOrganizationList} from "@/services/actions/organizationService";
+  import { getRoleList } from "@/services/actions/rolesServices";
   import { toast } from "sonner";
   import { Typography } from "@mui/material";
 

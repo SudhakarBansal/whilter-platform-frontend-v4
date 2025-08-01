@@ -4,6 +4,7 @@ import { Role } from './constants/role';
 import { getToken } from 'next-auth/jwt';
 
 interface DecodedToken {
+  name:string;
   role: Role;
   section: string[];
   email: string;

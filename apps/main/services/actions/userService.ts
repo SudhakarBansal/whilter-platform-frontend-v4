@@ -15,7 +15,7 @@ export async function allUsers(): Promise<User[]> {
 
 export async function getUserById(id: string): Promise<User> {
   try {
-    const response = await axiosInstance.get(`${ServiceEndpoints.user.getUserById}/${id}`);
+    const response = await axiosInstance.get(`${ServiceEndpoints.user.getUserById}?id=${id}`);
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
@@ -69,19 +69,21 @@ export async function deleteUser(id: string) {
 }
 
 
-export async function getRoleList() {
+export async function joinOrganizationRequest(data: any,email:any): Promise<string> {
   try {
-    const response = await axiosInstance.get(ServiceEndpoints.user.getRole);
+    const response = await axiosInstance.put(`${ServiceEndpoints.user.joinOrgRequest}/${email}`, data);
     if (response.status === 200) {
-      return response.data; 
-    } else {
-      throw new Error("Unexpected response status");
+      return "Request submitted successfully!";
     }
+    throw new Error("Registration failed.");
   } catch (error: any) {
-    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    const errorResponse = error?.response?.data?.message || "An unexpected error occurred";
+    console.error("Error submitting request:", errorResponse);
     throw new Error(errorResponse);
   }
 }
+
+
 
 
  

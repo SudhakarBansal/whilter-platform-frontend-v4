@@ -1,4 +1,3 @@
-// authOptions.ts
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { login } from '@whilter/api';
@@ -13,7 +12,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
         accessToken: { label: 'AccessToken', type: 'text' },
         refreshToken: { label: 'RefreshToken', type: 'text' },
-        deviceId:{ label: 'DeviceId', type: 'text' },
+        deviceId: { label: 'DeviceId', type: 'text' },
       },
       async authorize(credentials) {
         try {
@@ -23,6 +22,7 @@ export const authOptions: NextAuthOptions = {
 
             return {
               id: decoded.userId,
+              name: decoded.name,
               email: decoded.email,
               role: decoded.role,
               userId: decoded.userId,
@@ -48,6 +48,7 @@ export const authOptions: NextAuthOptions = {
 
             return {
               id: decoded.userId,
+              name: decoded.name,
               email: decoded.email,
               role: decoded.role,
               userId: decoded.userId,
@@ -83,6 +84,7 @@ export const authOptions: NextAuthOptions = {
           token.section = decoded.section;
           token.userId = decoded.userId;
           token.email = decoded.email;
+          token.name = decoded.name
         }
       }
       return token;
@@ -99,6 +101,7 @@ export const authOptions: NextAuthOptions = {
         section: token.section,
         userId: token.userId,
         email: token.email,
+        name: token.name
       };
       return session;
     },

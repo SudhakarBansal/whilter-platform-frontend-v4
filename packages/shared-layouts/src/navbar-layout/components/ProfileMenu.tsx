@@ -33,7 +33,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
         break;
 
       case "ACCOUNT":
-        onNavigate?.("/account");
+        onNavigate?.("/my-account");
         break;
 
       case "NOTIFICATIONS":
@@ -97,7 +97,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
         <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
           {user?.user?.email?.split('@')[0] || 'User'}
         </Typography>
-        <Typography variant="caption" color="text.secondary">
+        <Typography variant="h5" color="text.secondary">
           {user?.user?.email}
         </Typography>
       </Box>
