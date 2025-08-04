@@ -6,7 +6,8 @@ import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { Button } from "@mui/material";
 import { Plus } from 'lucide-react';
 import { UserNew } from "@/components/user-module/UserNew";
-
+import { UserFormDialog } from "@/components/user-module/components/UserFormDialog";
+import { UserActionButton } from "./action-button";
 
 export default function ViewAdminPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -23,20 +24,40 @@ export default function ViewAdminPage() {
   };
 
   const actionButtons = [
-    <Button
-      key="add-user"
-      startIcon={<Plus />}
-      variant="glassmorphism"
-      onClick={handleAddUser}
-    >
-      New User
-    </Button>
+    <UserActionButton
+      userId={editingUserId}
+    />
   ];
 
   const breadcrumbs = buildBreadcrumbs([
     { label: "User", href: "/users" },
   ]);
 
+  const handleSuccess = () => {
+    setIsDialogOpen(false)
+  }
+
+    const fetchUsers = async () => {
+      try {
+        // setLoading(true);
+        const response = await getPaginatedUsersWithFilters({
+          page: pagination.page,
+          size: pagination.size,
+          ...filters,
+        });
+        setUsers(response.content);
+        setPagination(prev => ({
+          ...prev,
+          totalPages: response.totalPages,
+          totalElements: response.totalElements
+        }));
+      } catch (err) {
+        console.error("Failed to load users", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
   return (
     <AdminLayout
       breadcrumbs={breadcrumbs}
@@ -50,6 +71,12 @@ export default function ViewAdminPage() {
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         userId={editingUserId}
+      />
+      <UserFormDialog
+        open={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+        userId={editingUserId}
+        onSuccess={handleSuccess}
       />
     </AdminLayout>
   );

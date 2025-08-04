@@ -37,26 +37,7 @@ export const UserNew = ({
   });
   const [loading, setLoading] = useState(false);
 
-  const fetchUsers = async () => {
-    try {
-      // setLoading(true);
-      const response = await getPaginatedUsersWithFilters({
-        page: pagination.page,
-        size: pagination.size,
-        ...filters,
-      });
-      setUsers(response.content);
-      setPagination(prev => ({
-        ...prev,
-        totalPages: response.totalPages,
-        totalElements: response.totalElements
-      }));
-    } catch (err) {
-      console.error("Failed to load users", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+
 
   useEffect(() => {
       fetchUsers();
@@ -85,7 +66,6 @@ export const UserNew = ({
     );
   }
 
-
   return (
     <div className="flex flex-col gap-4">
       <UserListing
@@ -97,6 +77,7 @@ export const UserNew = ({
         onEdit={onEditUser}
         filters={filters}
         onFilterChange={handleFilterChange}
+        userId={userId}
       />
       
       {pagination.totalPages > 1 && (
@@ -110,12 +91,7 @@ export const UserNew = ({
         </div>
       )}
       
-      <UserFormDialog
-        open={open}
-        onClose={onClose}
-        userId={userId}
-        onSuccess={handleSuccess}
-      />
+     
     </div>
   );
 };

@@ -1,10 +1,12 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { User } from "@/services/service-types";
 import { UserFilters, type UserFiltersState } from "./components/UserFilters";
 import { UserCard } from "./components/UserCard";
+import { UserFormDialog } from "./components/UserFormDialog";
 
 interface Props {
+  userId:any;
   users: User[];
   onDelete?: (id: string) => void;
   onEdit?: (userId: string) => void;
@@ -24,7 +26,17 @@ export const UserListing = ({
   onEdit,
   filters,
   onFilterChange,
+  userId,
 }: Props) => {
+  const [isDialogOpen,setIsDialogOpen] = useState(false);
+  const [editingUserId, setEditingUserId] = useState<string>();
+
+  const handleEditUser = (userId: string) => {
+    setEditingUserId(userId);
+    setIsDialogOpen(true);
+  };
+
+
 
 
   return (
@@ -37,9 +49,16 @@ export const UserListing = ({
             key={user.id}
             user={user}
             onDelete={onDelete}
-            onEdit={onEdit}
+            onEdit={handleEditUser}
+
           />
         ))}
+         <UserFormDialog
+                open={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                userId={editingUserId}
+                onSuccess={() => setIsDialogOpen(false)}
+              />
       </div>
       
     </>

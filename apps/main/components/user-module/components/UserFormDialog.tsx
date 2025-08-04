@@ -100,6 +100,7 @@ export const UserFormDialog = ({ open, onClose, userId, onSuccess }: UserDialogP
       handleSubmit={handleSubmit}
       isEditMode={!!userId}
       defaultValues={userData }
+      userId={userId}
     />
   );
 };
