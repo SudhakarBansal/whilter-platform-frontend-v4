@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { getSession, signOut } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { refreshToken } from '@whilter/api';
 import type { Session } from 'next-auth';
 import type { LoginResponse } from '../services/auth/auth.types';
@@ -19,11 +19,7 @@ let failedQueue: FailedRequest[] = [];
 
 const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue.forEach(({ resolve, reject }) => {
-    if (error) {
-      reject(error);
-    } else if (token) {
-      resolve(token);
-    }
+    error ? reject(error) : resolve(token!);
   });
   failedQueue = [];
 };
@@ -32,14 +28,13 @@ const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
+
 instance.interceptors.request.use(
   async (config: any) => {
     const session = (await getSession()) as CustomSession;
-
-    if (session?.accessToken && config?.headers) {
+    if (session?.accessToken && config.headers) {
       config.headers.Authorization = `Bearer ${session.accessToken}`;
     }
-
     return config;
   },
   (error: AxiosError) => Promise.reject(error)
@@ -49,8 +44,18 @@ instance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
+    const status = error.response?.status;
+    const data = error.response?.data as {
+      code?: string;
+      errorCode?: string;
+      message?: string;
+    };
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    const code = data?.code || data?.errorCode;
+    const isTokenExpired = code === 'CHARP-1102';
+    const isUnauthorized = status === 401;
+
+    if (isUnauthorized && isTokenExpired && !originalRequest._retry) {
       originalRequest._retry = true;
 
       if (isRefreshing) {
@@ -72,10 +77,7 @@ instance.interceptors.response.use(
       try {
         const session = (await getSession()) as CustomSession;
         const refreshTokenValue = session?.refreshToken;
-
-        if (!refreshTokenValue) {
-          throw new Error('Missing refresh token');
-        }
+        if (!refreshTokenValue) throw new Error('No refresh token available');
 
         const { data }: { data: LoginResponse } = await refreshToken(refreshTokenValue);
 
@@ -90,7 +92,6 @@ instance.interceptors.response.use(
       } catch (err) {
         processQueue(err, null);
         isRefreshing = false;
-        signOut({ callbackUrl: '/' });
         return Promise.reject(err);
       }
     }

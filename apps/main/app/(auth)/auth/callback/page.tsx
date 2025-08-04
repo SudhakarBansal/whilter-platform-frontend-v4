@@ -11,8 +11,6 @@ export default function GoogleCallbackPage() {
   const code = searchParams.get("code");
 
   const [submitting, setSubmitting] = useState(false);
-  // const [role, setRole] = useState("GUEST");
-  // const [section, setSection] = useState("Marketing");
 
   useEffect(() => {
     const performLogin = async () => {

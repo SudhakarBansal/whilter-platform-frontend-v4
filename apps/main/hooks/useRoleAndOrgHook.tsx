@@ -1,36 +1,42 @@
+'use client';
 
-import { useState, useEffect } from 'react';
-import { getRoleList } from '@/services/actions/rolesServices';
-import { getOrganizationList } from '@/services/actions/organizationService';
+import { useSession } from 'next-auth/react';
+import { useState, useEffect, useMemo } from 'react';
 import { toast } from 'sonner';
 
+import { getOrganizationList } from '@/services/actions/organizationService';
+import { getRoleList } from '@/services/actions/rolesServices';
+import  type { Option ,Role,Organization} from '@/types/roles.types';
+
 export function useOrgAndRoleOptions(shouldFetch = true) {
+  const { status } = useSession();
   const [loading, setLoading] = useState(false);
-  const [roleOptions, setRoleOptions] = useState([]);
-  const [organizationOptions, setOrganizationOptions] = useState([]);
+  const [organizationOptions, setOrganizationOptions] = useState<Option[]>([]);
+  const [roleOptions, setRoleOptions] = useState<Option[]>([]);
 
   useEffect(() => {
+    if (!shouldFetch || status !== 'authenticated') return;
+
     const fetchOptions = async () => {
       try {
         setLoading(true);
-        const [orgs, roles] = await Promise.all([
+
+        const [orgs, roles]: [Organization[], Role[]] = await Promise.all([
           getOrganizationList(),
           getRoleList(),
         ]);
 
-    
-         setOrganizationOptions(orgs.map((org:any) => ({
-          id: org.name,
-          label: org.name
+        setOrganizationOptions(orgs.map((org) => ({
+          label: org.name,
+          value: org.name, 
         })));
-        setRoleOptions(
-          roles.map((role: any) => ({
-            id: role.name,
-            label: role.name,
-          }))
-        );
+
+        setRoleOptions(roles.map((role) => ({
+          label: role.name,
+          value: role.name, 
+        })));
       } catch (err) {
-        toast.error('Failed to load options');
+        toast.error('Failed to load organization/role options');
         console.error(err);
       } finally {
         setLoading(false);
@@ -38,11 +44,10 @@ export function useOrgAndRoleOptions(shouldFetch = true) {
     };
 
     fetchOptions();
-  }, [shouldFetch]);
+  }, [shouldFetch, status]);
 
-  return {
-    roleOptions,
-    organizationOptions,
-    loading,
-  };
+  return useMemo(
+    () => ({ organizationOptions, roleOptions, loading }),
+    [organizationOptions, roleOptions, loading]
+  );
 }

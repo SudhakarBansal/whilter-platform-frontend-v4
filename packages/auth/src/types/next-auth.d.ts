@@ -15,6 +15,7 @@ declare module 'next-auth' {
       organization: string;
       section: string;
       userId: string;
+      active:boolean,
     };
   }
 
@@ -27,6 +28,7 @@ declare module 'next-auth' {
     section: string;
     userId: string;
     email: string;
+    active:boolean,
   }
 }
 
@@ -38,5 +40,6 @@ declare module 'next-auth/jwt' {
     section: string;
     userId: string;
     email: string;
+    active:boolean,
   }
 }

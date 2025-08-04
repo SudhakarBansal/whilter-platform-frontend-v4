@@ -28,6 +28,7 @@ export const authOptions: NextAuthOptions = {
               userId: decoded.userId,
               organization: decoded.organization,
               section: decoded.section,
+              active: decoded.active,
               accessToken: credentials.accessToken,
               refreshToken: credentials.refreshToken,
               deviceId: credentials.deviceId ?? '',
@@ -52,6 +53,7 @@ export const authOptions: NextAuthOptions = {
               email: decoded.email,
               role: decoded.role,
               userId: decoded.userId,
+              active: decoded.active,
               organization: decoded.organization,
               section: decoded.section,
               accessToken,
@@ -85,6 +87,7 @@ export const authOptions: NextAuthOptions = {
           token.userId = decoded.userId;
           token.email = decoded.email;
           token.name = decoded.name
+          token.active = decoded.active
         }
       }
       return token;
@@ -101,7 +104,8 @@ export const authOptions: NextAuthOptions = {
         section: token.section,
         userId: token.userId,
         email: token.email,
-        name: token.name
+        name: token.name,
+        active: token.active
       };
       return session;
     },
