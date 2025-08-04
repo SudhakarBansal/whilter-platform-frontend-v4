@@ -1,52 +1,80 @@
 "use client";
 import { useEffect, useState } from "react";
-import { allUsers } from "@/services/actions/userService";
 import { UserListing } from "./UserListing";
 import { UserFormDialog } from "./components/UserFormDialog";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Pagination } from "@mui/material";
 import type { User } from "@/services/service-types";
+import { getPaginatedUsersWithFilters } from "@/services/actions/userService";
+import {  type UserFiltersState } from "./components/UserFilters";
 
 interface UserNewProps {
   onEditUser: (userId: string) => void;
   open: boolean;
   onClose: () => void;
   userId?: string;
-  onSuccess?: () => void;
-  initialUsers: User[]; 
-  onUsersUpdated: (users: User[]) => void;
-  loading?: boolean;
-  setLoading: (loading: boolean) => void;
 }
 
-export const UserNew = ({ 
-  onEditUser, 
-  open, 
-  onClose, 
-  userId, 
-  onSuccess, 
-  initialUsers, 
-  onUsersUpdated ,
-  loading,
-  setLoading
+export const UserNew = ({
+  onEditUser,
+  open,
+  onClose,
+  userId
 }: UserNewProps) => {
-  const [users, setUsers] = useState<User[]>(initialUsers);
+  const [users, setUsers] = useState<User[]>([]);
+  
+  const [pagination, setPagination] = useState({
+    page: 0,
+    size: 10,
+    totalPages: 0,
+    totalElements: 0
+  });
+  const [filters, setFilters] = useState<UserFiltersState>({
+    role: '',
+    status: true,
+    organizationName: '',
+    email: '',
+    preferredSection: ''
+  });
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setUsers(initialUsers);
-  }, [initialUsers]);
-
-  const handleSuccess = async () => {
+  const fetchUsers = async () => {
     try {
-      setLoading(true);
-      const updatedUsers = await allUsers();
-      setUsers(updatedUsers);
-      onUsersUpdated(updatedUsers);
-      onSuccess?.();
+      // setLoading(true);
+      const response = await getPaginatedUsersWithFilters({
+        page: pagination.page,
+        size: pagination.size,
+        ...filters,
+      });
+      setUsers(response.content);
+      setPagination(prev => ({
+        ...prev,
+        totalPages: response.totalPages,
+        totalElements: response.totalElements
+      }));
     } catch (err) {
-      console.error("Failed to refresh users", err);
+      console.error("Failed to load users", err);
     } finally {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+      fetchUsers();
+    
+  }, [pagination.page, filters]);
+
+  const handlePageChange = (newPage: number) => {
+    setPagination(prev => ({ ...prev, page: newPage }));
+  };
+
+  const handleFilterChange = (newFilters: Partial<UserFiltersState>) => {
+    setFilters(prev => ({ ...prev, ...newFilters }));
+    setPagination(prev => ({ ...prev, page: 0 }));
+  };
+
+  const handleSuccess = () => {
+    onClose();
+    fetchUsers();
   };
 
   if (loading) {
@@ -57,20 +85,30 @@ export const UserNew = ({
     );
   }
 
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
-      {users.map((user) => (
-        <UserListing
-          key={user.id}
-          user={user}
-          onDelete={(id) => {
-            const newUsers = users.filter(u => u.id !== id);
-            setUsers(newUsers);
-            onUsersUpdated(newUsers);
-          }}
-          onEdit={onEditUser}
-        />
-      ))}
+    <div className="flex flex-col gap-4">
+      <UserListing
+        users={users}
+        onDelete={(id) => {
+          const newUsers = users.filter(u => u.id !== id);
+          setUsers(newUsers);
+        }}
+        onEdit={onEditUser}
+        filters={filters}
+        onFilterChange={handleFilterChange}
+      />
+      
+      {pagination.totalPages > 1 && (
+        <div className="flex justify-center mt-4">
+          <Pagination
+            count={pagination.totalPages}
+            page={pagination.page + 1}
+            onChange={(_, page) => handlePageChange(page - 1)}
+            color="primary"
+          />
+        </div>
+      )}
       
       <UserFormDialog
         open={open}

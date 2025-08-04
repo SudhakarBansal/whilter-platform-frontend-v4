@@ -109,7 +109,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
           <Group fontSize="small" />
           <Typography variant="body2">Manage Users</Typography>
         </MenuItem>
-      )}
+       )} 
 
       <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
         <AccountCircle fontSize="small" />

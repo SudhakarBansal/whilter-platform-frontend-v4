@@ -25,7 +25,8 @@
     "next-auth": "^4.24.11",
     "react": "catalog:react18",
     "react-dom": "catalog:react18",
-    "sonner": "^2.0.6"
+    "sonner": "^2.0.6",
+    "use-debounce": "^10.0.5"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.2.8",

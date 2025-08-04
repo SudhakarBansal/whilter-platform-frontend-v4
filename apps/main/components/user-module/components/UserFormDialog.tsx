@@ -16,6 +16,7 @@ interface UserDialogProps {
 export const UserFormDialog = ({ open, onClose, userId, onSuccess }: UserDialogProps) => {
   const [userData, setUserData] = useState<UserFormValues | null>(null);
   const [loading, setLoading] = useState(false);
+  
 
   const fetchUser = async () => {
     if (!userId) {
