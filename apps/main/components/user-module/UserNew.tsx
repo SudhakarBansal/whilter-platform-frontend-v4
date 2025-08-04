@@ -6,19 +6,23 @@ import { CircularProgress, Pagination } from "@mui/material";
 import type { User } from "@/services/service-types";
 import { getPaginatedUsersWithFilters } from "@/services/actions/userService";
 import {  type UserFiltersState } from "./components/UserFilters";
+import { useRouter } from "next/navigation";
 
 interface UserNewProps {
   onEditUser: (userId: string) => void;
   open: boolean;
   onClose: () => void;
   userId?: string;
+  fetchUsers:any;
 }
 
 export const UserNew = ({
   onEditUser,
   open,
   onClose,
-  userId
+  userId,
+  fetchUsers,
+
 }: UserNewProps) => {
   const [users, setUsers] = useState<User[]>([]);
   
@@ -37,10 +41,21 @@ export const UserNew = ({
   });
   const [loading, setLoading] = useState(false);
 
-
+  const fetchUserSuccessHandler=async (pagination:any,filter:any)=>{
+    const response  = await fetchUsers(pagination,filter);
+    console.log("response",response);
+   
+    setUsers(response.content);
+    setPagination(prev => ({
+      ...prev,
+      totalPages: response.totalPages,
+      totalElements: response.totalElements
+    }));
+  }
 
   useEffect(() => {
-      fetchUsers();
+    fetchUserSuccessHandler(pagination,filters);
+
     
   }, [pagination.page, filters]);
 
@@ -69,7 +84,7 @@ export const UserNew = ({
   return (
     <div className="flex flex-col gap-4">
       <UserListing
-        users={users}
+        users={users || []}
         onDelete={(id) => {
           const newUsers = users.filter(u => u.id !== id);
           setUsers(newUsers);

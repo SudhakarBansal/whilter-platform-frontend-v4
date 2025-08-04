@@ -8,10 +8,13 @@ import { Plus } from 'lucide-react';
 import { UserNew } from "@/components/user-module/UserNew";
 import { UserFormDialog } from "@/components/user-module/components/UserFormDialog";
 import { UserActionButton } from "./action-button";
+import { getPaginatedUsersWithFilters } from "@/services/actions/userService";
 
 export default function ViewAdminPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingUserId, setEditingUserId] = useState<string>();
+  const [users,setUsers] = useState([]);
+
 
   const handleEditUser = (userId: string) => {
     setEditingUserId(userId);
@@ -23,11 +26,7 @@ export default function ViewAdminPage() {
     setIsDialogOpen(true);
   };
 
-  const actionButtons = [
-    <UserActionButton
-      userId={editingUserId}
-    />
-  ];
+
 
   const breadcrumbs = buildBreadcrumbs([
     { label: "User", href: "/users" },
@@ -37,7 +36,7 @@ export default function ViewAdminPage() {
     setIsDialogOpen(false)
   }
 
-    const fetchUsers = async () => {
+    const fetchUsers = async (pagination:any,filters:any) => {
       try {
         // setLoading(true);
         const response = await getPaginatedUsersWithFilters({
@@ -45,18 +44,23 @@ export default function ViewAdminPage() {
           size: pagination.size,
           ...filters,
         });
-        setUsers(response.content);
-        setPagination(prev => ({
-          ...prev,
-          totalPages: response.totalPages,
-          totalElements: response.totalElements
-        }));
+        if(response){
+        
+          return response;
+        }
       } catch (err) {
         console.error("Failed to load users", err);
       } finally {
-        setLoading(false);
+        
       }
     };
+
+    const actionButtons = [
+      <UserActionButton
+        userId={editingUserId}
+        fetchUsers={fetchUsers}
+      />
+    ];
     
   return (
     <AdminLayout
@@ -71,7 +75,11 @@ export default function ViewAdminPage() {
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         userId={editingUserId}
+        fetchUsers={fetchUsers}
+        users={users}
+        setUsers={setUsers}
       />
+
       <UserFormDialog
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
