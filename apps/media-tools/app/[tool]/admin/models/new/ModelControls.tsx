@@ -1,221 +1,133 @@
-import React from 'react';
-import {
-    Box,
-    Typography,
-    Stack,
-    Divider,
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
-    Button,
-    Slider,
-    FormControlLabel,
-    Switch,
-} from '@mui/material';
-import {
-    ExpandMore,
-    Save,
-    Preview,
-} from '@mui/icons-material';
-import {
-    TextFieldElement,
-    SwitchElement
-} from '@whilter/forms';
-import { useFormContext, useWatch } from 'react-hook-form';
+import React from "react";
+import { Box, Typography, Stack, Divider, Button } from "@mui/material";
+import { Save } from "@mui/icons-material";
+import { SliderElement, SwitchElement } from "@whilter/forms";
 
 export const ModelControls = () => {
-    const { setValue, getValues } = useFormContext();
-    const watchedValues = useWatch();
+  return (
+    <Stack spacing={4} px={1}>
+      {/* Header */}
+      <Box>
+        <Typography
+          variant="h5"
+          component="h2"
+          gutterBottom
+          sx={{ fontWeight: 600 }}
+        >
+          Model Configuration
+        </Typography>
+        <Typography variant="body2" >
+          Set parameters and switches for this voice model
+        </Typography>
+      </Box>
 
-    // Determine which fields to show based on language or model type
-    const showSpeedControl = true; // Show for most models
-    const showSpeechRateControl = true; // Show for TTS models
-    const showPitchControl = true; // Show for voice models
+      {/* Configuration Switches */}
+      <Box>
+        <Typography variant="subtitle2" marginBottom={2}>
+          Processing Options
+        </Typography>
+        <Stack spacing={1}>
+          <SwitchElement label="Update speed" name="is_update_speed" />
 
-    const handleSliderChange = (field: string, value: number) => {
-        setValue(`defaultConfigurations.${field}`, value);
-    };
-
-    return (
-        <Stack spacing={3}>
-            {/* Header */}
-            <Box>
-                <Typography variant="h6" sx={{ color: 'white', mb: 1 }}>
-                    Default Configurations
-                </Typography>
-                <Typography variant="caption">
-                    Set default parameters for this voice model
-                </Typography>
-            </Box>
-
-            {/* Audio Length */}
-            <Box>
-                <Typography variant="subtitle2" sx={{ color: 'white', mb: 1 }}>
-                    Audio Length (ms)
-                </Typography>
-                <TextFieldElement
-                    name="defaultConfigurations.audioLengthMs"
-                    type="number"
-                    fullWidth
-                    size="small"
-                />
-            </Box>
-
-            {/* Silence Controls */}
-            <Box>
-                <Typography variant="subtitle2" sx={{ color: 'white', mb: 2 }}>
-                    Silence Configuration
-                </Typography>
-                <Stack spacing={2}>
-                    <TextFieldElement
-                        name="defaultConfigurations.keepSilenceDurationMs"
-                        label="Keep Silence Duration (ms)"
-                        type="number"
-                        fullWidth
-                        size="small"
-                    />
-                    <TextFieldElement
-                        name="defaultConfigurations.silenceLengthMs"
-                        label="Silence Length (ms)"
-                        type="number"
-                        fullWidth
-                        size="small"
-                    />
-                </Stack>
-            </Box>
-
-            <Divider sx={{ borderColor: 'rgba(255,255,255,0.2)' }} />
-
-            {/* Voice Parameters */}
-            <Accordion
-                defaultExpanded
-                sx={{
-                    backgroundColor: 'rgba(255,255,255,0.1)',
-                    color: 'white',
-                    '&:before': { display: 'none' }
-                }}
-            >
-                <AccordionSummary
-                    expandIcon={<ExpandMore sx={{ color: 'white' }} />}
-                    sx={{ color: 'white' }}
-                >
-                    <Typography variant="subtitle2">Voice Parameters</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Stack spacing={3}>
-                        {/* Speed Control */}
-                        {showSpeedControl && (
-                            <Box>
-                                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-                                    Speed: {watchedValues?.defaultConfigurations?.speed || 1.0}x
-                                </Typography>
-                                <Slider
-                                    value={watchedValues?.defaultConfigurations?.speed || 1.0}
-                                    onChange={(_, value) => handleSliderChange('speed', value as number)}
-                                    min={0.5}
-                                    max={2.0}
-                                    step={0.1}
-                                    sx={{
-                                        color: 'white',
-                                        '& .MuiSlider-thumb': {
-                                            backgroundColor: 'white',
-                                        },
-                                        '& .MuiSlider-track': {
-                                            backgroundColor: 'white',
-                                        },
-                                        '& .MuiSlider-rail': {
-                                            backgroundColor: 'rgba(255,255,255,0.3)',
-                                        },
-                                    }}
-                                />
-                            </Box>
-                        )}
-
-                        {/* Speech Rate Control */}
-                        {showSpeechRateControl && (
-                            <Box>
-                                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-                                    Speech Rate: {watchedValues?.defaultConfigurations?.speechRate || 1.0}x
-                                </Typography>
-                                <Slider
-                                    value={watchedValues?.defaultConfigurations?.speechRate || 1.0}
-                                    onChange={(_, value) => handleSliderChange('speechRate', value as number)}
-                                    min={0.5}
-                                    max={2.0}
-                                    step={0.1}
-                                    sx={{
-                                        color: 'white',
-                                        '& .MuiSlider-thumb': { backgroundColor: 'white' },
-                                        '& .MuiSlider-track': { backgroundColor: 'white' },
-                                        '& .MuiSlider-rail': { backgroundColor: 'rgba(255,255,255,0.3)' },
-                                    }}
-                                />
-                            </Box>
-                        )}
-
-                        {/* Pitch Control */}
-                        {showPitchControl && (
-                            <Box>
-                                <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>
-                                    Pitch: {watchedValues?.defaultConfigurations?.pitch || 1.0}x
-                                </Typography>
-                                <Slider
-                                    value={watchedValues?.defaultConfigurations?.pitch || 1.0}
-                                    onChange={(_, value) => handleSliderChange('pitch', value as number)}
-                                    min={0.5}
-                                    max={2.0}
-                                    step={0.1}
-                                    sx={{
-                                        color: 'white',
-                                        '& .MuiSlider-thumb': { backgroundColor: 'white' },
-                                        '& .MuiSlider-track': { backgroundColor: 'white' },
-                                        '& .MuiSlider-rail': { backgroundColor: 'rgba(255,255,255,0.3)' },
-                                    }}
-                                />
-                            </Box>
-                        )}
-                    </Stack>
-                </AccordionDetails>
-            </Accordion>
-
-            {/* Action Buttons */}
-            <Box sx={{ mt: 'auto', pt: 2 }}>
-                <Button
-                    fullWidth
-                    variant="flatSecondary"
-                    type="submit"
-                    size="large"
-                    startIcon={<Save />}
-                    sx={{
-                        mb: 1,
-                        borderRadius: 2,
-                        backgroundColor: 'white',
-                        color: 'primary.main',
-                        '&:hover': {
-                            backgroundColor: 'rgba(255,255,255,0.9)',
-                        }
-                    }}
-                >
-                    Create Model
-                </Button>
-
-                <Button
-                    fullWidth
-                    variant="outlinePrimary"
-                    size="small"
-                    startIcon={<Preview />}
-                    sx={{
-                        borderColor: 'rgba(255,255,255,0.5)',
-                        color: 'white',
-                        '&:hover': {
-                            borderColor: 'white',
-                            backgroundColor: 'rgba(255,255,255,0.1)',
-                        }
-                    }}
-                >
-                    Test Configuration
-                </Button>
-            </Box>
+          <SwitchElement name="is_update_loudness" label="Update Loudness" />
+          <SwitchElement
+            name="is_update_transition"
+            label="Update Transition"
+          />
+          <SwitchElement name="is_transcribe" label="Enable Transcription" />
+          <SwitchElement
+            name="is_update_audio_length"
+            label="Update Audio Length"
+          />
+          <SwitchElement name="is_trim_silence" label="Trim Silence" />
+          <SwitchElement name="is_use_index_file" label="Use Index File" />
+          <SwitchElement
+            name="is_add_constant_silence"
+            label="Add Constant Silence"
+          />
         </Stack>
-    );
+      </Box>
+
+      <Divider />
+
+      <Typography variant="subtitle2">Voice Parameters</Typography>
+      <Box>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+          <Typography variant="subtitle2" color="text.primary">
+            Speed
+          </Typography>
+        </Box>
+        <SliderElement
+          name="speed"
+          size="small"
+          min={0.1}
+          max={3.0}
+          step={0.1}
+          marks={[
+            { value: 0.1, label: "0.1x" },
+            { value: 3.0, label: "3x" },
+          ]}
+          valueLabelDisplay="auto"
+          valueLabelFormat={(value) => `${value}x`}
+        />
+      </Box>
+
+      {/* Speech Rate Control */}
+      <Box>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+          <Typography variant="subtitle2" color="text.primary">
+            Speech Rate
+          </Typography>
+        </Box>
+        <SliderElement
+          name="speech_rate"
+          size="small"
+          min={0.1}
+          max={3.0}
+          step={0.1}
+          marks={[
+            { value: 0.1, label: "Slow" },
+            { value: 3.0, label: "Max" },
+          ]}
+          valueLabelDisplay="auto"
+          valueLabelFormat={(value) => `${value}x`}
+        />
+      </Box>
+
+      {/* Pitch Control */}
+      <Box>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+          <Typography variant="subtitle2" color="text.primary">
+            Pitch
+          </Typography>
+        </Box>
+        <SliderElement
+          name="pitch"
+          size="small"
+          min={0.1}
+          max={5.0}
+          step={0.1}
+          marks={[
+            { value: 0.1, label: "Low" },
+            { value: 5.0, label: "Max" },
+          ]}
+          valueLabelDisplay="auto"
+          valueLabelFormat={(value) => `${value}x`}
+        />
+      </Box>
+
+      {/* Action Buttons */}
+      <Box sx={{ mt: "auto", pt: 2 }}>
+        <Button
+          fullWidth
+          variant="primary"
+          type="submit"
+          size="large"
+          startIcon={<Save />}
+        >
+          Create Model
+        </Button>
+      </Box>
+    </Stack>
+  );
 };
