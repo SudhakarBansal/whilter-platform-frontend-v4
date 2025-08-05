@@ -15,7 +15,6 @@ export default function ViewAdminPage() {
   const [editingUserId, setEditingUserId] = useState<string>();
   const [users,setUsers] = useState([]);
 
-
   const handleEditUser = (userId: string) => {
     setEditingUserId(userId);
     setIsDialogOpen(true);

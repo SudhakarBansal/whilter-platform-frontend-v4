@@ -7,7 +7,7 @@ import { UserCreate } from "@/components/user-module/UserCreate";
 import { useRouter } from "next/navigation";
 
 interface UserActionButtonProps {
-  userId?: string | any;
+  userId: string | any;
   fetchUsers:any;
 }
 
@@ -46,7 +46,7 @@ export function UserActionButton({ userId,fetchUsers }: UserActionButtonProps) {
       <UserFormDialog
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        
+        userId={userId}
         onSuccess={handleSuccess}
       />
 

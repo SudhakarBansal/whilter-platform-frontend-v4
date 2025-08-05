@@ -26,15 +26,8 @@ export async function getPaginatedUsers(page = 0, size = 10): Promise<PaginatedU
   }
 }
 
-export async function getPaginatedUsersWithFilters({
-  page = 0,
-  size = 10,
-  role,
-  status,
-  organizationName,
-  email,
-  preferredSection,
-}: {
+export async function getPaginatedUsersWithFilters(
+ params: {
   page?: number;
   size?: number;
   role?: string;
@@ -43,21 +36,12 @@ export async function getPaginatedUsersWithFilters({
   email?: string;
   preferredSection?: string;
 }): Promise<PaginatedFilterUsersResponse> {
+  console.log("params -- urdu",params);
   try {
-    const response = await axiosInstance.get(ServiceEndpoints.user.paginatedUserWithFilter, {
-      params: {
-        page,
-        size,
-        role,
-        status,
-        organizationName,
-        email,
-        preferredSection,
-      },
-    });
+    const response = await axiosInstance.get(ServiceEndpoints.user.paginatedUserWithFilter, {params:params});
     return response.data;
   } catch (error: any) {
-    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    const errorResponse = error?.response || "An unexpected error occurred";
     console.error("Error fetching paginated users:", errorResponse);
     throw new Error(errorResponse);
   }
