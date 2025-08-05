@@ -33,7 +33,6 @@ export async function middleware(request: NextRequest) {
 
   try {
     const typedToken = token as unknown as DecodedToken;
-
     const role: Role = typedToken.role;
     const sections: string[] = typedToken.section || [];
     const currentSection = process.env.NEXT_PUBLIC_SECTION_KEY!;
@@ -44,7 +43,6 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/unauthorized', process.env.NEXT_PUBLIC_CHARP_AI_URL!));
     }
 
-  
     return NextResponse.next();
   } catch (err) {
     console.error('Token decode or access check error:', err);

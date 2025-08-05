@@ -7,6 +7,7 @@ import { useMemo, useState } from 'react';
 import RequestForm from './RequestForm';
 import { Role } from '@whilter/auth';
 
+
 export default function AccountDetails() {
   const { data: session } = useSession();
   const [isEditing, setIsEditing] = useState(false);
@@ -59,7 +60,6 @@ export default function AccountDetails() {
       </p>
     </div>
   </div>
-
 
   {isSuperAdmin && (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">

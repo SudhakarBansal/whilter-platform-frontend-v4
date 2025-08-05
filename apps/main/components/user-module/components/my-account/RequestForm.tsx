@@ -18,7 +18,6 @@ export default function RequestForm() {
     const { data: session } = useSession();
     const { roleOptions, organizationOptions, loading: optionsLoading } = useOrgAndRoleOptions();
 
-
     const defaultName = useMemo(() => session?.user?.name || '', [session]);
     const isSuperAdmin = session?.user?.role === Role.SUPER_ADMIN;
 
@@ -49,13 +48,13 @@ export default function RequestForm() {
 
 
     const onSubmit = async (data: RequestOrgAccess) => {
-
+debugger;
         try {
             const payload = {
                 ...data,
                 name: data.name?.trim() || defaultName,
-                organizationName: data.organizationName?.value || data.organization,
-                role: data.role?.value || data.role,
+                organizationName:  data.organizationName,
+                role:  data.role,
             };
 
             const message = await joinOrganizationRequest(payload, session?.user?.email);

@@ -33,11 +33,9 @@ export const UserCreate = ({
   const [roleOptions, setRoleOptions] = useState<
     { label: string; value: string }[]
   >([]);
-
-  const methods = useForm<UserFormValues>({
-    defaultValues: defaultValues || userFormInitialValues,
-  });
-
+const methods = useForm<UserFormValues>({
+  defaultValues: defaultValues ?? userFormInitialValues,
+});
   const preferredSectionOptions = [
     { id: "MEDIA_TOOLS", label: "Media Tools" },
     { id: "CHARP_AI", label: "Charp AI" },

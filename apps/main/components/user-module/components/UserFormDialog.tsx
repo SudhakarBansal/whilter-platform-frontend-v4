@@ -84,7 +84,6 @@ export const UserFormDialog = ({ open, onClose, userId, onSuccess }: UserDialogP
         const message = await registerUser(payload);
         toast.success(message || "User registered successfully");
       }
-      
       onSuccess();
       onClose();
     } catch (error: any) {
