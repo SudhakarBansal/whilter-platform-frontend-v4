@@ -46,24 +46,24 @@ export function ModelMediaPanel() {
   ];
 
   // Handle file upload - this is called after successful S3 upload
-  function handleUpload(uploadedFile: UploadedFile) {
+  function handleUpload(uploadedFile: UploadedFile, index: Number) {
     console.log("File uploaded successfully:", uploadedFile);
-    // Set the S3 file path/URL as reference_voice
-    setValue("reference_voice", uploadedFile.url);
+    // Set the S3 file path/URL as reference_audio
+    setValue(`language_checkpoints.${index}.reference_audio`, uploadedFile.url);
   }
 
   // Handle file selection - this is called when file is selected but not yet uploaded
-  function handleFileSelected(file: File) {
+  function handleFileSelected(file: UploadedFile, index: Number) {
     console.log("File selected:", file);
-    // Clear the reference_voice field when a new file is selected but not uploaded yet
-    setValue("reference_voice", "");
+    // Clear the reference_audio field when a new file is selected but not uploaded yet
+    setValue(`language_checkpoints.${index}.reference_audio`, "");
   }
 
   // Handle file removal
-  function handleFileRemoved(removedFile: UploadedFile) {
+  function handleFileRemoved(removedFile: UploadedFile, index: Number) {
     console.log("File removed:", removedFile);
-    // Clear the reference_voice field when file is removed
-    setValue("reference_voice", "");
+    // Clear the reference_audio field when file is removed
+    setValue(`language_checkpoints.${index}.reference_audio`, "");
   }
 
   // Add new checkpoint
@@ -106,21 +106,6 @@ export function ModelMediaPanel() {
           size="small"
         />
       </Box>
-
-      {/* Reference Voice Upload */}
-      <FileUploadWrapper
-        type="audio"
-        label="Reference Voice"
-        heading="Upload Reference Audio"
-        subheading="Upload a clear audio sample of the voice"
-        footer="Supports .wav, .mp3, .flac formats. Max size: 50MB"
-        acceptedFormats={[".wav", ".mp3", ".flac"]}
-        maxFileSize={50}
-        name="reference_voice"
-        onUpload={handleUpload}
-        onFileSelected={handleFileSelected}
-        onFileRemoved={handleFileRemoved}
-      />
 
       {/* Language Checkpoints */}
       <Card className="bg-transparent">
@@ -213,6 +198,21 @@ export function ModelMediaPanel() {
                     />
                   </Stack>
 
+                  {/* Reference Audio Upload for each checkpoint */}
+                  <FileUploadWrapper
+                    type="audio"
+                    label="Reference Audio"
+                    heading="Upload Reference Audio for this Language"
+                    subheading="Upload audio sample for this language checkpoint"
+                    footer="Supports .wav, .mp3, .flac formats. Max size: 50MB"
+                    acceptedFormats={[".wav", ".mp3", ".flac"]}
+                    maxFileSize={50}
+                    name={`language_checkpoints.${index}.reference_audio`}
+                    onUpload={(file) => handleUpload(file, index)}
+                    onFileSelected={(file) => handleFileSelected(file, index)}
+                    onFileRemoved={(file) => handleFileRemoved(file, index)}
+                  />
+
                   <TextFieldElement
                     name={`language_checkpoints.${index}.reference_audio_text`}
                     label="Reference Audio Text"
@@ -223,25 +223,14 @@ export function ModelMediaPanel() {
                     placeholder="Enter reference text in the selected language"
                   />
 
-                  <Stack direction="row" spacing={2}>
-                    <TextFieldElement
-                      name={`language_checkpoints.${index}.reference_audio`}
-                      label="Reference Audio Path"
-                      fullWidth
-                      required
-                      autoComplete="off"
-                      placeholder="Path to reference audio file"
-                      size="small"
-                    />
-                    <TextFieldElement
-                      name={`language_checkpoints.${index}.adjacent_audio`}
-                      label="Adjacent Audio"
-                      fullWidth
-                      autoComplete="off"
-                      placeholder="Adjacent audio reference"
-                      size="small"
-                    />
-                  </Stack>
+                  <TextFieldElement
+                    name={`language_checkpoints.${index}.adjacent_audio`}
+                    label="Adjacent Audio"
+                    fullWidth
+                    autoComplete="off"
+                    placeholder="Adjacent audio reference"
+                    size="small"
+                  />
 
                   <Stack direction="row" spacing={2}>
                     <TextFieldElement
