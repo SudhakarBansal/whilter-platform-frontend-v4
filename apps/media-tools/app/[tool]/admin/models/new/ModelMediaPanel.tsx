@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 import {
   Box,
@@ -8,8 +8,12 @@ import {
   CardContent,
   Button,
   IconButton,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Chip,
 } from "@mui/material";
-import { Add, Delete } from "@mui/icons-material";
+import { Add, Delete, ExpandMore } from "@mui/icons-material";
 import {
   TextFieldElement,
   SelectElement,
@@ -19,11 +23,17 @@ import {
 import type { UploadedFile } from "@/types";
 
 export function ModelMediaPanel() {
-  const { setValue, control } = useFormContext();
+  const { setValue, control, watch } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "language_checkpoints",
   });
+
+  // Track which accordion panels are expanded
+  const [expandedPanels, setExpandedPanels] = useState<string[]>(["panel-0"]);
+
+  // Watch all checkpoints to get current values for accordion headers
+  const watchedCheckpoints = watch("language_checkpoints");
 
   const languageOptions = [
     { id: "Hindi", label: "Hindi" },
@@ -45,29 +55,37 @@ export function ModelMediaPanel() {
     { id: "48000", label: "48kHz" },
   ];
 
+  // Handle accordion panel changes
+  const handleAccordionChange =
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      if (isExpanded) {
+        setExpandedPanels((prev) => [...prev, panel]);
+      } else {
+        setExpandedPanels((prev) => prev.filter((p) => p !== panel));
+      }
+    };
+
   // Handle file upload - this is called after successful S3 upload
-  function handleUpload(uploadedFile: UploadedFile, index: Number) {
+  function handleUpload(uploadedFile: UploadedFile, index: number) {
     console.log("File uploaded successfully:", uploadedFile);
-    // Set the S3 file path/URL as reference_audio
     setValue(`language_checkpoints.${index}.reference_audio`, uploadedFile.url);
   }
 
   // Handle file selection - this is called when file is selected but not yet uploaded
-  function handleFileSelected(file: UploadedFile, index: Number) {
+  function handleFileSelected(file: UploadedFile, index: number) {
     console.log("File selected:", file);
-    // Clear the reference_audio field when a new file is selected but not uploaded yet
     setValue(`language_checkpoints.${index}.reference_audio`, "");
   }
 
   // Handle file removal
-  function handleFileRemoved(removedFile: UploadedFile, index: Number) {
+  function handleFileRemoved(removedFile: UploadedFile, index: number) {
     console.log("File removed:", removedFile);
-    // Clear the reference_audio field when file is removed
     setValue(`language_checkpoints.${index}.reference_audio`, "");
   }
 
   // Add new checkpoint
   function addCheckpoint() {
+    const newIndex = fields.length;
     append({
       language: "English",
       reference_audio: "",
@@ -81,14 +99,33 @@ export function ModelMediaPanel() {
       silence_length: 500,
       transcribe_language: "English",
     });
+
+    // Expand the newly added panel
+    setExpandedPanels((prev) => [...prev, `panel-${newIndex}`]);
   }
 
   // Remove checkpoint
   function removeCheckpoint(index: number) {
     if (fields.length > 1) {
       remove(index);
+      // Remove the panel from expanded panels and adjust indices
+      setExpandedPanels((prev) =>
+        prev
+          .filter((panel) => panel !== `panel-${index}`)
+          .map((panel) => {
+            const panelIndex = parseInt(panel.split("-")[1] ?? "0");
+            return panelIndex > index ? `panel-${panelIndex - 1}` : panel;
+          }),
+      );
     }
   }
+
+  // Get status indicators for accordion header
+  const getCheckpointStatus = (checkpoint: any) => {
+    return {
+      language: checkpoint?.language || "English",
+    };
+  };
 
   return (
     <Stack spacing={4}>
@@ -109,18 +146,18 @@ export function ModelMediaPanel() {
 
       {/* Language Checkpoints */}
       <Card className="bg-transparent">
-        <CardContent>
+        <CardContent className="text-start">
           <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
             mb={2}
           >
-            <Typography variant="h6">
+            <Typography variant="h4">
               Language Checkpoints ({fields.length})
             </Typography>
             <Button
-              variant="outlinePrimary"
+              variant="outlineSecondary"
               startIcon={<Add />}
               onClick={addCheckpoint}
               size="small"
@@ -132,162 +169,174 @@ export function ModelMediaPanel() {
             Configure model checkpoints for different languages
           </Typography>
 
-          {/* Checkpoints List */}
-          <Stack spacing={3}>
-            {fields.map((checkpoint, index) => (
-              <Box
-                key={checkpoint.id}
-                sx={{
-                  border: 1,
-                  borderColor: "divider",
-                  borderRadius: 2,
-                  p: 3,
-                  position: "relative",
-                }}
-              >
-                <Stack spacing={3}>
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="space-between"
+          {/* Checkpoints Accordion */}
+          <Stack spacing={2}>
+            {fields.map((checkpoint, index) => {
+              const panelId = `panel-${index}`;
+              const isExpanded = expandedPanels.includes(panelId);
+              const status = getCheckpointStatus(watchedCheckpoints?.[index]);
+
+              return (
+                <Accordion
+                  key={checkpoint.id}
+                  expanded={isExpanded}
+                  onChange={handleAccordionChange(panelId)}
+                  className="bg-transparent border border-gray-300 px-2"
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMore color="secondary" />}
                   >
-                    <Box display="flex" alignItems="center" gap={2}>
-                      <Typography variant="subtitle1" fontWeight="bold">
-                        Checkpoint {index + 1}
-                      </Typography>
-                      {index === 0 && (
-                        <Typography
-                          variant="caption"
-                          sx={{
-                            backgroundColor: "primary.main",
-                            color: "primary.contrastText",
-                            px: 1,
-                            py: 0.5,
-                            borderRadius: 1,
-                          }}
-                        >
-                          PRIMARY
+                    <Box
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                      width="100%"
+                      mr={1}
+                    >
+                      <Box display="flex" alignItems="center" gap={2}>
+                        <Typography variant="subtitle1" fontWeight="bold">
+                          Checkpoint {index + 1}
                         </Typography>
+
+                        <Chip
+                          label={status.language}
+                          size="small"
+                          variant="outlined"
+                        />
+
+                        {index === 0 && (
+                          <Chip label="PRIMARY" size="small" color="primary" />
+                        )}
+                      </Box>
+
+                      {fields.length > 1 && (
+                        <IconButton
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            removeCheckpoint(index);
+                          }}
+                          color="error"
+                          size="small"
+                        >
+                          <Delete />
+                        </IconButton>
                       )}
                     </Box>
-                    {fields.length > 1 && (
-                      <IconButton
-                        onClick={() => removeCheckpoint(index)}
-                        color="error"
+                  </AccordionSummary>
+
+                  <AccordionDetails>
+                    <Stack spacing={3} textAlign={"start"}>
+                      <Stack direction="row" spacing={2}>
+                        <SelectElement
+                          name={`language_checkpoints.${index}.language`}
+                          label="Language"
+                          options={languageOptions}
+                          fullWidth
+                          required
+                        />
+                        <SelectElement
+                          name={`language_checkpoints.${index}.transcribe_language`}
+                          label="Transcribe Language"
+                          options={languageOptions}
+                          fullWidth
+                          required
+                        />
+                      </Stack>
+
+                      {/* Reference Audio Upload for each checkpoint */}
+                      <FileUploadWrapper
+                        type="audio"
+                        label="Reference Audio"
+                        heading="Upload Reference Audio for this Language"
+                        subheading="Upload audio sample for this language checkpoint"
+                        footer="Supports .wav, .mp3, .flac formats. Max size: 50MB"
+                        acceptedFormats={[".wav", ".mp3", ".flac"]}
+                        maxFileSize={50}
+                        name={`language_checkpoints.${index}.reference_audio`}
+                        onUpload={(file) => handleUpload(file, index)}
+                        onFileSelected={(file) =>
+                          handleFileSelected(file, index)
+                        }
+                        onFileRemoved={(file) => handleFileRemoved(file, index)}
+                      />
+
+                      <TextFieldElement
+                        name={`language_checkpoints.${index}.reference_audio_text`}
+                        label="Reference Audio Text"
+                        fullWidth
+                        multiline
+                        rows={3}
+                        required
+                        placeholder="Enter reference text in the selected language"
+                      />
+
+                      <TextFieldElement
+                        name={`language_checkpoints.${index}.adjacent_audio`}
+                        label="Adjacent Audio"
+                        fullWidth
+                        autoComplete="off"
+                        placeholder="Adjacent audio reference"
                         size="small"
-                      >
-                        <Delete />
-                      </IconButton>
-                    )}
-                  </Box>
+                      />
 
-                  <Stack direction="row" spacing={2}>
-                    <SelectElement
-                      name={`language_checkpoints.${index}.language`}
-                      label="Language"
-                      options={languageOptions}
-                      fullWidth
-                      required
-                    />
-                    <SelectElement
-                      name={`language_checkpoints.${index}.transcribe_language`}
-                      label="Transcribe Language"
-                      options={languageOptions}
-                      fullWidth
-                      required
-                    />
-                  </Stack>
+                      <Stack direction="row" spacing={2}>
+                        <TextFieldElement
+                          name={`language_checkpoints.${index}.index_path`}
+                          label="Index Path"
+                          fullWidth
+                          required
+                          autoComplete="off"
+                          placeholder="Path to index file"
+                          size="small"
+                        />
+                        <TextFieldElement
+                          name={`language_checkpoints.${index}.model_path`}
+                          label="Model Path"
+                          autoComplete="off"
+                          fullWidth
+                          required
+                          placeholder="Path to model file"
+                          size="small"
+                        />
+                      </Stack>
 
-                  {/* Reference Audio Upload for each checkpoint */}
-                  <FileUploadWrapper
-                    type="audio"
-                    label="Reference Audio"
-                    heading="Upload Reference Audio for this Language"
-                    subheading="Upload audio sample for this language checkpoint"
-                    footer="Supports .wav, .mp3, .flac formats. Max size: 50MB"
-                    acceptedFormats={[".wav", ".mp3", ".flac"]}
-                    maxFileSize={50}
-                    name={`language_checkpoints.${index}.reference_audio`}
-                    onUpload={(file) => handleUpload(file, index)}
-                    onFileSelected={(file) => handleFileSelected(file, index)}
-                    onFileRemoved={(file) => handleFileRemoved(file, index)}
-                  />
+                      <Stack direction="row" spacing={2}>
+                        <SelectElement
+                          name={`language_checkpoints.${index}.sample_rate`}
+                          label="Sample Rate"
+                          options={sampleRateOptions}
+                          fullWidth
+                        />
+                        <TextFieldElement
+                          name={`language_checkpoints.${index}.required_audio_length`}
+                          label="Required Audio Length (ms)"
+                          type="number"
+                          fullWidth
+                          size="small"
+                        />
+                      </Stack>
 
-                  <TextFieldElement
-                    name={`language_checkpoints.${index}.reference_audio_text`}
-                    label="Reference Audio Text"
-                    fullWidth
-                    multiline
-                    rows={3}
-                    required
-                    placeholder="Enter reference text in the selected language"
-                  />
-
-                  <TextFieldElement
-                    name={`language_checkpoints.${index}.adjacent_audio`}
-                    label="Adjacent Audio"
-                    fullWidth
-                    autoComplete="off"
-                    placeholder="Adjacent audio reference"
-                    size="small"
-                  />
-
-                  <Stack direction="row" spacing={2}>
-                    <TextFieldElement
-                      name={`language_checkpoints.${index}.index_path`}
-                      label="Index Path"
-                      fullWidth
-                      required
-                      autoComplete="off"
-                      placeholder="Path to index file"
-                      size="small"
-                    />
-                    <TextFieldElement
-                      name={`language_checkpoints.${index}.model_path`}
-                      label="Model Path"
-                      autoComplete="off"
-                      fullWidth
-                      required
-                      placeholder="Path to model file"
-                      size="small"
-                    />
-                  </Stack>
-
-                  <Stack direction="row" spacing={2}>
-                    <SelectElement
-                      name={`language_checkpoints.${index}.sample_rate`}
-                      label="Sample Rate"
-                      options={sampleRateOptions}
-                      fullWidth
-                    />
-                    <TextFieldElement
-                      name={`language_checkpoints.${index}.required_audio_length`}
-                      label="Required Audio Length (ms)"
-                      type="number"
-                      fullWidth
-                      size="small"
-                    />
-                  </Stack>
-
-                  <Stack direction="row" spacing={2}>
-                    <TextFieldElement
-                      name={`language_checkpoints.${index}.keep_silence`}
-                      label="Keep Silence (ms)"
-                      type="number"
-                      fullWidth
-                      size="small"
-                    />
-                    <TextFieldElement
-                      name={`language_checkpoints.${index}.silence_length`}
-                      label="Silence Length (ms)"
-                      type="number"
-                      fullWidth
-                      size="small"
-                    />
-                  </Stack>
-                </Stack>
-              </Box>
-            ))}
+                      <Stack direction="row" spacing={2}>
+                        <TextFieldElement
+                          name={`language_checkpoints.${index}.keep_silence`}
+                          label="Keep Silence (ms)"
+                          type="number"
+                          fullWidth
+                          size="small"
+                        />
+                        <TextFieldElement
+                          name={`language_checkpoints.${index}.silence_length`}
+                          label="Silence Length (ms)"
+                          type="number"
+                          fullWidth
+                          size="small"
+                        />
+                      </Stack>
+                    </Stack>
+                  </AccordionDetails>
+                </Accordion>
+              );
+            })}
           </Stack>
         </CardContent>
       </Card>
