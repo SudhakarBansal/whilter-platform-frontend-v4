@@ -27,13 +27,13 @@ export function useOrgAndRoleOptions(shouldFetch = true) {
         ]);
 
         setOrganizationOptions(orgs.map((org) => ({
-          label: org.name,
-          value: org.name, 
+          id: org.name,
+          label: org.name, 
         })));
 
         setRoleOptions(roles.map((role) => ({
-          label: role.name,
-          value: role.name, 
+          id: role.name,
+          label: role.name, 
         })));
       } catch (err) {
         toast.error('Failed to load organization/role options');

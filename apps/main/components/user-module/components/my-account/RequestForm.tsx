@@ -7,7 +7,6 @@ import { useSession } from 'next-auth/react';
 import { SelectElement, FormContainer } from '@whilter/forms';
 import { SECTIONS } from '@whilter/auth';
 import { Box, Button, Typography } from '@mui/material';
-
 import { requestOrgAccessValues, type RequestOrgAccess } from '@/model/userFormInitialValues';
 import { joinOrganizationRequest } from '@/services/actions/userService';
 import { useOrgAndRoleOptions } from '@/hooks/useRoleAndOrgHook';
@@ -19,6 +18,7 @@ export default function RequestForm() {
     const { data: session } = useSession();
     const { roleOptions, organizationOptions, loading: optionsLoading } = useOrgAndRoleOptions();
 
+
     const defaultName = useMemo(() => session?.user?.name || '', [session]);
     const isSuperAdmin = session?.user?.role === Role.SUPER_ADMIN;
 
@@ -29,8 +29,7 @@ export default function RequestForm() {
         },
     });
 
-    const { register, reset,getValues } = methods;
-
+    const { register, reset, getValues } = methods;
 
     useEffect(() => {
         if (!session?.user || !organizationOptions.length || !roleOptions.length) return;
@@ -50,7 +49,7 @@ export default function RequestForm() {
 
 
     const onSubmit = async (data: RequestOrgAccess) => {
-        
+
         try {
             const payload = {
                 ...data,
@@ -68,7 +67,7 @@ export default function RequestForm() {
 
     return (
         <FormContainer formContext={methods} onSuccess={onSubmit}>
-            <Box className="space-y-6">
+            <Box className="space-y-10 mt-12">
                 {!isSuperAdmin ? (
                     <>
                         <SelectElement
@@ -77,6 +76,11 @@ export default function RequestForm() {
                             fullWidth
                             size="small"
                             label="Select Organization"
+                            sx={{
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'red',
+                                },
+                            }}
                         />
 
                         <SelectElement
@@ -136,7 +140,7 @@ export default function RequestForm() {
                         Submit Request
                     </Button>
                 </div>
-                
+
             </Box>
         </FormContainer>
     );
