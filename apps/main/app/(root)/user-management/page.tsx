@@ -6,6 +6,7 @@ import { UserActionButton } from "./components/action-buttons";
 import UsersList from "./components/users-list";
 import Pagination from "./components/pagination";
 import { getOrganizationList } from "@/services/actions/organization";
+import { type User } from "@/services/service-types";
 
 const defaultSearchParams = {
   page: "0",
@@ -16,15 +17,7 @@ const defaultSearchParams = {
   status: "",
 };
 
-export interface User {
-  id?: string;
-  name: string;
-  email: string;
-  role: string;
-  mobileNumber: string;
-  organizationName: string;
-  status: boolean;
-}
+
 
 const ITEMS_PER_PAGE = 10;
 
@@ -68,9 +61,8 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   const totalPages = paginatedData?.totalPages || 0;
   const totalItems = paginatedData?.totalItems || 0;
 
-  const breadcrumbs = buildBreadcrumbs([{ label: "User", href: "/users" }]);
+  const breadcrumbs = buildBreadcrumbs([{ label: "User", href: "/user-managment" }]);
 
-  // ⬇️ Pass organizationList and rolesList to UserActionButton
   const actions = [
     <UserActionButton
       key="user-action-btn"
@@ -85,7 +77,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       heading="Users List"
       description="Choose User to manage"
       config={pageLayoutPresets.dashboard}
-      buttons={actions} // ⬅️ Pass actions directly here
+      buttons={actions} 
     >
       <UsersList users={users} defaultValue={email} />
       <Pagination

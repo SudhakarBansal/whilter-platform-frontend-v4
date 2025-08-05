@@ -29,7 +29,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
 
     switch (action) {
       case "MANAGE_USERS":
-        onMangeUsers?.("/users");
+        onMangeUsers?.("/user-management");
         break;
 
       case "ACCOUNT":

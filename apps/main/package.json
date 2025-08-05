@@ -33,6 +33,7 @@
     "@types/eslint": "catalog:",
     "@types/js-cookie": "^3.0.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/lodash.debounce": "^4.0.9",
     "@types/node": "catalog:",
     "@types/react": "catalog:react18",
     "@types/react-dom": "catalog:react18",

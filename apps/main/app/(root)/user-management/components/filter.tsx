@@ -39,7 +39,6 @@ export const UserFilters: React.FC<Props> = () => {
     status: false,
   });
 
-  // Initialize state from URL on mount
   useEffect(() => {
     setLocalFilters((prev) => ({
       ...prev,
