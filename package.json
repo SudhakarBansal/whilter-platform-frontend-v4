@@ -11,10 +11,10 @@
     "ui-kit": "pnpm --filter @whilter/ui-kit"
   },
   "devDependencies": {
+    "@whilter/api": "workspace:*",
+    "@whilter/auth": "workspace:*",
     "@whilter/eslint-config": "workspace:*",
     "@whilter/typescript-config": "workspace:*",
-    "@whilter/api": "workspace:*",
-     "@whilter/auth": "workspace:*",
     "prettier": "catalog:",
     "turbo": "2.1.1"
   },
@@ -44,6 +44,7 @@
     "formik": "^2.4.6",
     "framer-motion": "^12.4.11",
     "lodash": "^4.17.21",
+    "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.479.0",
     "next-auth": "^4.24.11",
     "react-dropzone": "^14.3.8",

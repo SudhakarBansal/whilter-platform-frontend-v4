@@ -1,55 +1,42 @@
-"use client";
-import { Button } from "@mui/material";
+"use client";;
+import { Button, Dialog } from "@mui/material";
 import { Plus } from 'lucide-react';
 import { useState } from "react";
-import { UserFormDialog } from "@/components/user-module/components/UserFormDialog";
-import { UserCreate } from "@/components/user-module/UserCreate";
-import { useRouter } from "next/navigation";
+import UserNew from "./user-new";
 
 interface UserActionButtonProps {
-  userId: string | any;
-  fetchUsers:any;
+  organizationList: string | any;
+  rolesList: any;
 }
 
-export function UserActionButton({ userId,fetchUsers }: UserActionButtonProps) {
+export function UserActionButton({ organizationList, rolesList }: UserActionButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const handleClick = () => {
-    setIsDialogOpen(true);
+  const onClose = () => {
+    setIsDialogOpen(false);
   };
-
-  const handleSuccess = () => {
-    setIsDialogOpen(false)
-    fetchUsers({
-      page: 0,
-      size: 10,
-      totalPages: 0,
-      totalElements: 0
-    },{
-      role: '',
-      status: true,
-      organizationName: '',
-      email: '',
-      preferredSection: ''
-    })
-  }
 
   return (
     <div>
       <Button
         startIcon={<Plus />}
         variant="glassmorphism"
-        onClick={handleClick}
+        onClick={()=>setIsDialogOpen(true)}
       >
         New User
       </Button>
-      <UserFormDialog
+      <Dialog
         open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        userId={userId}
-        onSuccess={handleSuccess}
-      />
-
+        onClose={onClose}
+        maxWidth="sm"
+        fullWidth
+        classes={{ paper: "bg-gradient-to-br from-blue-600 to-blue-400 text-white max-w-[550px] w-full" }}
+      >
+        <UserNew
+          organizationList={organizationList}
+          rolesList={rolesList}
+          onClose={onClose}
+        />
+      </Dialog>
     </div>
   );
 }

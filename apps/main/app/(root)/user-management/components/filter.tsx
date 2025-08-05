@@ -1,8 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { TextField, MenuItem, FormControlLabel, Switch, Grid } from "@mui/material";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import {
+  TextField,
+  MenuItem,
+  FormControlLabel,
+  Switch,
+  Grid,
+} from "@mui/material";
+
+import debounce from "lodash.debounce";
 
 export type UserFiltersState = {
   status: boolean;
@@ -17,45 +24,63 @@ interface Props {
   onFilterChange: (filters: Partial<UserFiltersState>) => void;
 }
 
-const roles = ["Admin", "Manager", "User"]; 
-const sections = ["Finance", "HR", "IT"];   
+const roles = ["Admin", "Manager", "User"];
+const sections = ["Finance", "HR", "IT"];
 
 export const UserFilters: React.FC<Props> = () => {
-    const searchParams = useSearchParams();
-    const [selectedRole,setSelectedRole] = useState<string | null>(null);
-    const [selectedOrganization,setSelectedOrganization] = useState<string | null>(null);
-    const router = useRouter();
-    
-  const handleChange = (
-    field: keyof UserFiltersState,
-    value: string | boolean
-  ) => {
-    // onFilterChange({ [field]: value });
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const [localFilters, setLocalFilters] = useState<UserFiltersState>({
+    email: "",
+    organizationName: "",
+    role: "",
+    preferredSection: "",
+    status: false,
+  });
+
+  // Initialize state from URL on mount
+  useEffect(() => {
+    setLocalFilters((prev) => ({
+      ...prev,
+      email: searchParams.get("email") || "",
+      organizationName: searchParams.get("organizationName") || "",
+      role: searchParams.get("role") || "",
+      preferredSection: searchParams.get("preferredSection") || "",
+      status: searchParams.get("status") === "true",
+    }));
+  }, []);
+
+  const updateURL = useCallback(
+    debounce((updatedFilters: Partial<UserFiltersState>) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      Object.entries(updatedFilters).forEach(([key, value]) => {
+        if (value === "" || value === null || value === undefined || value === false) {
+          params.delete(key);
+        } else {
+          params.set(key, String(value));
+        }
+      });
+
+      router.replace(`/user-management?${params.toString()}`);
+    }, 500),
+    [searchParams, router]
+  );
+
+  const handleChange = (field: keyof UserFiltersState, value: string | boolean) => {
+    const updated = { ...localFilters, [field]: value };
+    setLocalFilters(updated);
+   
+    updateURL({ [field]: value });
   };
-
-  useEffect(()=>{
-    const role = searchParams.get("role");
-    const organizationName = searchParams.get("organizationName");
-    setSelectedRole(role);
-    setSelectedOrganization(organizationName);
-  },[searchParams]);
-
-  useEffect(()=>{
-    const params = new URLSearchParams(searchParams);
-    if(selectedRole) params.set("role",selectedRole);
-    else params.delete("role");
-    if(selectedOrganization) params.set("organizationName",selectedOrganization);
-    else params.delete("organizationName");
-    router.replace(`/user-management?${params.toString()}`);
-    
-  },[selectedRole,selectedOrganization]);
 
   return (
     <Grid container spacing={2} className="mb-6">
       <Grid item xs={12} sm={6} md={3}>
         <TextField
           label="Email"
-          // value={filters.email}
+          value={localFilters.email}
           onChange={(e) => handleChange("email", e.target.value)}
           fullWidth
         />
@@ -64,17 +89,17 @@ export const UserFilters: React.FC<Props> = () => {
       <Grid item xs={12} sm={6} md={3}>
         <TextField
           label="Organization"
-          // value={filters.organizationName}
+          value={localFilters.organizationName}
           onChange={(e) => handleChange("organizationName", e.target.value)}
           fullWidth
         />
       </Grid>
- 
+
       <Grid item xs={12} sm={6} md={3}>
         <TextField
           select
           label="Role"
-          // value={filters.role}
+          value={localFilters.role}
           onChange={(e) => handleChange("role", e.target.value)}
           fullWidth
         >
@@ -91,7 +116,7 @@ export const UserFilters: React.FC<Props> = () => {
         <TextField
           select
           label="Preferred Section"
-          // value={filters.preferredSection}
+          value={localFilters.preferredSection}
           onChange={(e) => handleChange("preferredSection", e.target.value)}
           fullWidth
         >
@@ -108,7 +133,7 @@ export const UserFilters: React.FC<Props> = () => {
         <FormControlLabel
           control={
             <Switch
-              // checked={filters.status}
+              checked={localFilters.status}
               onChange={(e) => handleChange("status", e.target.checked)}
               color="primary"
             />

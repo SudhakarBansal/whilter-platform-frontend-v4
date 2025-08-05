@@ -1,18 +1,19 @@
-import { Suspense } from "react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@whilter/auth";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
-import { UserNew } from "@/components/user-module/UserNew";
-import { getPaginatedUsersWithFilters } from "@/services/actions/userService";
+import { getPaginatedUsersWithFilters, getRoleList } from "@/services/actions/userService";
 import AdminLayout from "@/layouts/admin-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
-import { UserActionButton } from "../users/action-button";
+import { UserActionButton } from "./components/action-buttons";
 import UsersList from "./components/users-list";
+import Pagination from "./components/pagination";
+import { getOrganizationList } from "@/services/actions/organization";
 
 const defaultSearchParams = {
-  page: "1",
- 
+  page: "0",
   size: "8",
+  email: "",
+  organization: "",
+  role: "",
+  status: "",
 };
 
 export interface User {
@@ -27,64 +28,71 @@ export interface User {
 
 const ITEMS_PER_PAGE = 10;
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: any;
-}) {
-  console.log("searchParams",searchParams);
+export default async function Page({ searchParams }: { searchParams: any }) {
   const params = { ...defaultSearchParams, ...(await searchParams) };
+  
   let users: User[] = [];
   let paginatedData: {
     totalItems: number;
     totalPages: number;
     [key: string]: any;
   } = { totalItems: 0, totalPages: 0 };
+
+  let organizationList = [];
+  let rolesList = [];
+
   try {
-    console.log("params",params);
-    let response = await getPaginatedUsersWithFilters(params);
+    const response = await getPaginatedUsersWithFilters(params);
     users = response?.content || [];
-    let totalPages = response?.totalPages || 0;
-    let totalItems = response?.totalElements || 0;
-    let pageable = response?.pageable || {};
-    paginatedData = { ...pageable, totalItems, totalPages };
+    paginatedData = {
+      ...response?.pageable,
+      totalItems: response?.totalElements || 0,
+      totalPages: response?.totalPages || 0,
+    };
+
+    [organizationList, rolesList] = await Promise.all([
+      getOrganizationList(),
+      getRoleList()
+    ]);
   } catch (error) {
     console.error("Error fetching users:", error);
   }
 
-  // Safely get search params with fallbacks
+  console.log("organizationList",organizationList,rolesList)
+
   const page = Array.isArray(params.page) ? params.page[0] : params.page;
-  const role = Array.isArray(params.role) ? params.role[0] : params.role;
-  const status = Array.isArray(params.status) ? params.status[0] : params.status;
-  const size = Array.isArray(params.size) ? params.size[0] : params.size;
   const email = Array.isArray(params.email) ? params.email[0] : params.email;
-  const organizationName = Array.isArray(params.organizationName)
-    ? params.organizationName[0]
-    : params.organizationName;
 
-  const searchTerm = email;
-
-  // Pagination calculations
-  const currentPage = parseInt(page || 1);
-  const totalPages = paginatedData?.totalPages || 0;
+  const currentPage = parseInt(page || "1");
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const totalPages = paginatedData?.totalPages || 0;
   const totalItems = paginatedData?.totalItems || 0;
 
-  const breadcrumbs = buildBreadcrumbs([
-    { label: "User", href: "/users" },
-  ]);
+  const breadcrumbs = buildBreadcrumbs([{ label: "User", href: "/users" }]);
 
-  console.log("params",params);
+  // ⬇️ Pass organizationList and rolesList to UserActionButton
+  const actions = [
+    <UserActionButton
+      key="user-action-btn"
+      organizationList={organizationList}
+      rolesList={rolesList}
+    />
+  ];
 
   return (
-    <AdminLayout  
-    breadcrumbs={breadcrumbs}
-    heading="User Listi"
-    description="Choose User to manage"
-    config={pageLayoutPresets.dashboard}
-    buttons={<UserActionButton />}
+    <AdminLayout
+      breadcrumbs={breadcrumbs}
+      heading="Users List"
+      description="Choose User to manage"
+      config={pageLayoutPresets.dashboard}
+      buttons={actions} // ⬅️ Pass actions directly here
     >
-      <UsersList users={users} />
-      </AdminLayout>
+      <UsersList users={users} defaultValue={email} />
+      <Pagination
+        totalPages={totalPages}
+        totalItems={totalItems}
+        itemsPerPage={ITEMS_PER_PAGE}
+      />
+    </AdminLayout>
   );
 }
