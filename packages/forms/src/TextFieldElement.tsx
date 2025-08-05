@@ -299,7 +299,7 @@ const TextFieldElement = forwardRef(function TextFieldElement<
         onBlur?.(event);
       }}
       onKeyDown={(e) => {
-        if (['Enter', 'e', 'E', '+', '-'].includes(e.key)) {
+        if (e.key === 'Enter' || e.key === '+' || e.key === '-') {
           e.preventDefault();
         }
       }}

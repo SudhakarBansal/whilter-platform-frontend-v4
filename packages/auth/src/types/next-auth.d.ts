@@ -43,3 +43,5 @@ declare module 'next-auth/jwt' {
     active:boolean,
   }
 }
+
+export {};

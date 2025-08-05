@@ -6,7 +6,7 @@ import { PencilIcon } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import RequestForm from './RequestForm';
 import { Role } from '@whilter/auth';
-
+import type { Session } from 'next-auth';
 
 export default function AccountDetails() {
   const { data: session } = useSession();

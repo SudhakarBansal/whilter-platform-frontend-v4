@@ -6,7 +6,7 @@ import { Button ,Stack} from "@mui/material";
 import { useRouter } from "next/navigation";
 import { Plus } from 'lucide-react';
 import { RecentProjects } from '@whilter/ui-kit/components'
-import {recentCampaigns} from "../../data/recentCampaigns.data";
+import {recentCampaigns} from "../../../data/recentCampaigns.data";
 import BrandsCardSection from "@/components/brand-section/BrandCardSection";
 
 
