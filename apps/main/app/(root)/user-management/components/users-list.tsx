@@ -1,8 +1,13 @@
 import React from 'react'
 import { UserFilters } from './filter';
 import { UserCard } from './user-card';
+import { type User } from '@/services/service-types';
 
-const UsersList = ({ users }: any) => {
+type UsersListProps = {
+    users: User[];
+  };
+
+const UsersList = ({ users }: UsersListProps) => {
     return (
         <div>
             <UserFilters />
