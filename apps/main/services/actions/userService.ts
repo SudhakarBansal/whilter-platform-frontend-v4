@@ -1,6 +1,6 @@
 import {axiosInstance} from "@whilter/api"
 import ServiceEndpoints from "../service-endpoints"
-import type { RegisterCredentials,User,PaginatedUsersResponse } from "../service-types"
+import type { RegisterCredentials,User,PaginatedUsersResponse, PaginatedFilterUsersResponse } from "../service-types"
 
 export async function allUsers(): Promise<User[]> {
   try {
@@ -25,6 +25,28 @@ export async function getPaginatedUsers(page = 0, size = 10): Promise<PaginatedU
     throw new Error(errorResponse);
   }
 }
+
+export async function getPaginatedUsersWithFilters(
+ params: {
+  page?: number;
+  size?: number;
+  role?: string;
+  status?: boolean;
+  organizationName?: string;
+  email?: string;
+  preferredSection?: string;
+}): Promise<PaginatedFilterUsersResponse> {
+  console.log("params -- urdu",params);
+  try {
+    const response = await axiosInstance.get(ServiceEndpoints.user.paginatedUserWithFilter, {params:params});
+    return response.data;
+  } catch (error: any) {
+    const errorResponse = error?.response || "An unexpected error occurred";
+    console.error("Error fetching paginated users:", errorResponse);
+    throw new Error(errorResponse);
+  }
+}
+
 
 export async function getUserById(id: string): Promise<User> {
   try {

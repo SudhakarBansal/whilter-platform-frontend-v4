@@ -63,21 +63,21 @@ const methods = useForm<UserFormValues>({
         label: role.name
       })));
 
-      if (defaultValues) {
-        methods.reset(defaultValues);
+        if (defaultValues) {
+          methods.reset(defaultValues);
+        }
+      } catch (err) {
+        toast.error("Failed to load options");
+        console.error(err);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      toast.error("Failed to load options");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (open) {
-      fetchOptions();
-    }
+    };
+ 
+    useEffect(() => {
+      if (open) {
+        fetchOptions();
+      }
 
     if (defaultValues) {
       methods.reset(defaultValues);

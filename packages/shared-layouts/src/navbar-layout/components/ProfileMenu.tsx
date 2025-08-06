@@ -29,7 +29,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
 
     switch (action) {
       case "MANAGE_USERS":
-        onMangeUsers?.("/users");
+        onMangeUsers?.("/user-management");
         break;
 
       case "ACCOUNT":
@@ -109,7 +109,7 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
           <Group fontSize="small" />
           <Typography variant="body2">Manage Users</Typography>
         </MenuItem>
-      )}
+       )} 
 
       <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
         <AccountCircle fontSize="small" />

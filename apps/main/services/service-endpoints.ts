@@ -13,7 +13,7 @@ const AUTH_BASE = process.env.NEXT_PUBLIC_APP_AUTH_URL || '';
         createUser: `${AUTH_BASE}/user`,
         getUsers: `${AUTH_BASE}/user/get-all`,
         getPaginatedUsers: `${AUTH_BASE}/user/page`,
-        // paginatedUserWithFilter:`${AUTH_BASE}/user/filter`,
+        paginatedUserWithFilter:`${AUTH_BASE}/user/filter`,
         getUserById: `${AUTH_BASE}/user/get`,
         assignRole: `${AUTH_BASE}/assign-role`,
         getRole: `${AUTH_BASE}/roles`,

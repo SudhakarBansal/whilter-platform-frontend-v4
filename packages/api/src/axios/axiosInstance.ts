@@ -1,18 +1,9 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { getSession } from 'next-auth/react';
-import { refreshToken } from '@whilter/api';
+import axios, { AxiosInstance } from 'axios';
+import { getSession, signOut } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from "@whilter/auth";
+import { refreshToken } from '@whilter/api'; // Assumes this works on client
 import type { Session } from 'next-auth';
-import type { LoginResponse } from '../services/auth/auth.types';
-
-interface CustomSession extends Session {
-  accessToken?: string;
-  refreshToken?: string;
-}
-
-interface FailedRequest {
-  resolve: (token: string) => void;
-  reject: (error: unknown) => void;
-}
 
 let isRefreshing = false;
 let failedQueue: FailedRequest[] = [];
@@ -24,80 +15,86 @@ const processQueue = (error: unknown, token: string | null = null) => {
   failedQueue = [];
 };
 
-const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+const createAxiosInstance = (): AxiosInstance => {
+  return axios.create({
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
+
+const instance = createAxiosInstance();
+
+// Attach request interceptor
+instance.interceptors.request.use(async config => {
+  let session: Session | null = null;
+
+  // ✅ Detect client or server
+  if (typeof window === 'undefined') {
+    // Server-side
+    session = await getServerSession(authOptions);
+  } else {
+    // Client-side
+    session = await getSession();
+  }
+
+  const token = (session as any)?.accessToken;
+
+  if (token) {
+    config.headers = {
+      ...config.headers,
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  return config;
 });
 
+// Attach response interceptor (only runs on client side)
+if (typeof window !== 'undefined') {
+  instance.interceptors.response.use(
+    response => response,
+    async error => {
+      const originalRequest = error.config;
+      const status = error.response?.status;
 
-instance.interceptors.request.use(
-  async (config: any) => {
-    const session = (await getSession()) as CustomSession;
-    if (session?.accessToken && config.headers) {
-      config.headers.Authorization = `Bearer ${session.accessToken}`;
-    }
-    return config;
-  },
-  (error: AxiosError) => Promise.reject(error)
-);
+      if (status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true;
 
-instance.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  async (error: AxiosError) => {
-    const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean };
-    const status = error.response?.status;
-    const data = error.response?.data as {
-      code?: string;
-      errorCode?: string;
-      message?: string;
-    };
-
-    const code = data?.code || data?.errorCode;
-    const isTokenExpired = code === 'CHARP-1102';
-    const isUnauthorized = status === 401;
-
-    if (isUnauthorized && isTokenExpired && !originalRequest._retry) {
-      originalRequest._retry = true;
-
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({
-            resolve: (token: string) => {
-              if (originalRequest.headers) {
-                originalRequest.headers['Authorization'] = `Bearer ${token}`;
-              }
-              resolve(instance(originalRequest));
-            },
-            reject,
+        if (isRefreshing) {
+          return new Promise((resolve, reject) => {
+            failedQueue.push({
+              resolve: (token: string) => {
+                originalRequest.headers['Authorization'] = 'Bearer ' + token;
+                resolve(instance(originalRequest));
+              },
+              reject: (err: any) => reject(err),
+            });
           });
-        });
-      }
-
-      isRefreshing = true;
-
-      try {
-        const session = (await getSession()) as CustomSession;
-        const refreshTokenValue = session?.refreshToken;
-        if (!refreshTokenValue) throw new Error('No refresh token available');
-
-        const { data }: { data: LoginResponse } = await refreshToken(refreshTokenValue);
-
-        processQueue(null, data.accessToken);
-        isRefreshing = false;
-
-        if (originalRequest.headers) {
-          originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`;
         }
 
-        return instance(originalRequest);
-      } catch (err) {
-        processQueue(err, null);
-        isRefreshing = false;
-        return Promise.reject(err);
-      }
-    }
+        isRefreshing = true;
 
-    return Promise.reject(error);
-  }
-);
+        try {
+          const response = await refreshToken(); // Make sure this API is only called client-side
+          const newToken = response.token;
+          processQueue(null, newToken);
+          isRefreshing = false;
+
+          originalRequest.headers['Authorization'] = 'Bearer ' + newToken;
+          return instance(originalRequest);
+        } catch (err) {
+          processQueue(err, null);
+          isRefreshing = false;
+          signOut({ callbackUrl: '/' });
+          return Promise.reject(err);
+        }
+      }
+
+      return Promise.reject(error);
+    }
+  );
+}
 
 export const axiosInstance = instance;
