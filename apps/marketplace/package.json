@@ -13,9 +13,7 @@
     "@whilter/shared-layouts": "workspace:*",
     "@whilter/ui-kit": "workspace:*",
      "@whilter/auth": "workspace:*",
-    "jsonwebtoken": "^9.0.2",
     "next": "14.2.8",
-    "next-auth": "^4.24.11",
     "react": "catalog:react18",
     "react-dom": "catalog:react18"
   },

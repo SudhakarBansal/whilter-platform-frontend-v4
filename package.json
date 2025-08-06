@@ -11,10 +11,10 @@
     "ui-kit": "pnpm --filter @whilter/ui-kit"
   },
   "devDependencies": {
+    "@whilter/api": "workspace:*",
+    "@whilter/auth": "workspace:*",
     "@whilter/eslint-config": "workspace:*",
     "@whilter/typescript-config": "workspace:*",
-    "@whilter/api": "workspace:*",
-     "@whilter/auth": "workspace:*",
     "prettier": "catalog:",
     "turbo": "2.1.1"
   },
@@ -37,12 +37,14 @@
     "@mui/x-date-pickers": "^7.28.0",
     "@reduxjs/toolkit": "^2.6.1",
     "@wavesurfer/react": "^1.0.11",
-    "axios": "^1.8.2",
+    "axios": "^1.9.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
     "formik": "^2.4.6",
     "framer-motion": "^12.4.11",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "lucide-react": "^0.479.0",
     "next-auth": "^4.24.11",

@@ -73,7 +73,7 @@ importers:
         specifier: ^1.0.11
         version: 1.0.11(react@19.0.0)(wavesurfer.js@7.9.9)
       axios:
-        specifier: ^1.8.2
+        specifier: ^1.9.0
         version: 1.9.0
       date-fns:
         specifier: ^4.1.0
@@ -90,6 +90,12 @@ importers:
       framer-motion:
         specifier: ^12.4.11
         version: 12.16.0(@emotion/is-prop-valid@1.3.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
+      jwt-decode:
+        specifier: ^4.0.0
+        version: 4.0.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -172,27 +178,15 @@ importers:
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
-      jsonwebtoken:
-        specifier: ^9.0.2
-        version: 9.0.2
-      jwt-decode:
-        specifier: ^4.0.0
-        version: 4.0.0
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
-      next-auth:
-        specifier: ^4.24.11
-        version: 4.24.11(next@14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: catalog:react18
         version: 18.3.1
       react-dom:
         specifier: catalog:react18
         version: 18.3.1(react@18.3.1)
-      sonner:
-        specifier: ^2.0.6
-        version: 2.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: 14.2.8
@@ -266,27 +260,15 @@ importers:
       jsencrypt:
         specifier: ^3.3.2
         version: 3.3.2
-      jsonwebtoken:
-        specifier: ^9.0.2
-        version: 9.0.2
-      jwt-decode:
-        specifier: ^4.0.0
-        version: 4.0.0
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
-      next-auth:
-        specifier: ^4.24.11
-        version: 4.24.11(next@14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: catalog:react18
         version: 18.3.1
       react-dom:
         specifier: catalog:react18
         version: 18.3.1(react@18.3.1)
-      sonner:
-        specifier: ^2.0.6
-        version: 2.0.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@next/eslint-plugin-next':
         specifier: 14.2.8
@@ -345,15 +327,9 @@ importers:
       '@whilter/ui-kit':
         specifier: workspace:*
         version: link:../../packages/ui-kit
-      jsonwebtoken:
-        specifier: ^9.0.2
-        version: 9.0.2
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
-      next-auth:
-        specifier: ^4.24.11
-        version: 4.24.11(next@14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: catalog:react18
         version: 18.3.1
@@ -473,15 +449,9 @@ importers:
       '@whilter/shared-types':
         specifier: workspace:*
         version: link:../shared-types
-      axios:
-        specifier: ^1.6.0
-        version: 1.9.0
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.1)
-      next-auth:
-        specifier: ^4.24.11
-        version: 4.24.11(next@14.2.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@types/node':
         specifier: ^24.0.3
@@ -494,18 +464,9 @@ importers:
 
   packages/auth:
     dependencies:
-      axios:
-        specifier: ^1.6.0
-        version: 1.9.0
-      jwt-decode:
-        specifier: ^4.0.0
-        version: 4.0.0
       next:
         specifier: 14.2.8
         version: 14.2.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.1)
-      next-auth:
-        specifier: ^4.24.11
-        version: 4.24.11(next@14.2.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@types/jsonwebtoken':
         specifier: ^9.0.10
@@ -6226,21 +6187,6 @@ snapshots:
   nanoid@3.3.7: {}
 
   natural-compare@1.4.0: {}
-
-  next-auth@4.24.11(next@14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@babel/runtime': 7.27.6
-      '@panva/hkdf': 1.2.1
-      cookie: 0.7.2
-      jose: 4.15.9
-      next: 14.2.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.89.1)
-      oauth: 0.9.15
-      openid-client: 5.7.1
-      preact: 10.26.9
-      preact-render-to-string: 5.2.6(preact@10.26.9)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      uuid: 8.3.2
 
   next-auth@4.24.11(next@14.2.8(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.89.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
