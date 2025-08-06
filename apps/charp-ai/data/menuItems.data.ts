@@ -1,4 +1,3 @@
-import { Assignment as TasksIcon } from '@mui/icons-material';
 export const menuItems = [
    
     {

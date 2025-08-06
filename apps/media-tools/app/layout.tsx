@@ -2,8 +2,8 @@ import "@whilter/ui-kit/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
-import { Toaster } from 'sonner';
-import { MainLayout } from "@whilter/shared-layouts/main"
+import { Toaster } from "sonner";
+import { MainLayout } from "@whilter/shared-layouts/main";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@whilter/auth";
 import { NavbarClientWrapper } from "../components/navbar/NavbarClientWrapper";
@@ -31,12 +31,11 @@ export default async function RootLayout({
           closeButton={true}
           toastOptions={{
             duration: 4000,
-          }} />
+          }}
+        />
         <ThemeConfig>
-          <NavbarClientWrapper  user={session}>
-            <MainLayout showSidebar={false}>
-              {children}
-            </MainLayout>
+          <NavbarClientWrapper user={session}>
+            <MainLayout>{children}</MainLayout>
           </NavbarClientWrapper>
         </ThemeConfig>
       </body>

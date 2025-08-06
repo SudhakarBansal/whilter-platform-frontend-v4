@@ -4,13 +4,11 @@ import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
 import { MainLayout } from "@whilter/shared-layouts/main";
 import { NavbarClientWrapper } from "@/components/navbar/NavbarClientWrapper";
-import { Sidebar } from "@whilter/shared-layouts/sidebar";
-import NextLink from "next/link";
-import NextImage from "next/image";
 import { menuItems } from "../../data/menuItems.data";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@whilter/auth";
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
+import Sidebar from "@/components/sidebar/Sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,36 +17,29 @@ export const metadata: Metadata = {
   description: "Whilter Charp ai - Explore and Discover",
 };
 
-export default  async function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}){
+}) {
   const session = await getServerSession(authOptions);
-  console.log("sesion",session)
+  console.log("sesion", session);
   return (
     <html lang="en">
       <body className={inter.className}>
-         <Toaster
+        <Toaster
           position="top-right"
           expand={true}
           richColors={true}
           closeButton={true}
           toastOptions={{
             duration: 3000,
-          }} />
+          }}
+        />
         <ThemeConfig>
-         <NavbarClientWrapper user={session}>
-            <MainLayout
-              showSidebar={true}
-              sidebarComponent={
-                <Sidebar
-                  menuItems={menuItems}
-                  LinkComponent={NextLink}
-                  ImageComponent={NextImage}
-                />
-              }
-            >
+          <NavbarClientWrapper user={session}>
+            <MainLayout>
+              <Sidebar menuItems={menuItems} />
               {children}
             </MainLayout>
           </NavbarClientWrapper>

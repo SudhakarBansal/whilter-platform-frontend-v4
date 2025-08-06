@@ -1,67 +1,11 @@
-"use client";
-import React, { useState } from "react";
-import { Box, useTheme } from "@mui/material";
 import type { ReactNode } from "react";
 import "@whilter/ui-kit/globals.css";
-// import { Sidebar } from "../sidebar";
+import ThemedLayout from "../ThemedLayout/ThemedLayout";
 
-export function MainLayout({
-  children,
-  showSidebar = false,
-  sidebarComponent,
-}: {
-  children: ReactNode;
-  showSidebar?: boolean;
-  sidebarComponent?: React.ReactNode;
-}) {
-  const theme = useTheme();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("dashboard");
-
-  const handleSidebarToggle = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const handleItemSelect = (item: string) => {
-    setSelectedItem(item);
-  };
-
+export function MainLayout({ children }: { children: ReactNode }) {
   return (
-    
-    <Box
-      className="flex min-h-screen"
-      sx={{
-        transition: theme.transitions.create(["margin", "width"], {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.shortest,
-        }),
-      }}
-    >
-      {showSidebar && sidebarComponent}
-      <Box
-        className="flex-1 flex flex-col m-0"
-        sx={{
-          transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.shortest,
-          }),
-        }}
-      >
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            pt: "3rem",
-            background: `linear-gradient(to bottom, ${theme.palette.blue[700]}, ${theme.palette.blue[900]})`,
-            transition: theme.transitions.create("margin", {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.shortest,
-            }),
-          }}
-        >
-          {children}
-        </Box>
-      </Box>
-    </Box>
+    <div className="flex min-h-screen">
+      <ThemedLayout>{children}</ThemedLayout>
+    </div>
   );
 }
