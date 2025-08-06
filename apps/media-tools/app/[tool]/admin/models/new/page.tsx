@@ -12,27 +12,34 @@ import { useState } from "react";
 import { ModelMediaPanel } from "./ModelMediaPanel";
 import { ModelControls } from "./ModelControls";
 
-// Default values for the form
+// Default values for the form matching the JSON structure
 const defaultValues = {
-  modelName: "",
-  refernceVoice: "",
-  defaultConfigurations: {
-    audioLengthMs: 10000,
-    keepSilenceDurationMs: 300,
-    silenceLengthMs: 200,
-    speed: 1.0,
-    pitch: 1.0,
-    speechRate: 1.0,
-  },
-  checkpoints: [
+  speaker_name: "",
+  reference_voice: "",
+  is_update_speed: false,
+  is_update_loudness: false,
+  is_update_transition: false,
+  is_transcribe: false,
+  is_update_audio_length: true,
+  is_trim_silence: true,
+  is_use_index_file: true,
+  is_add_constant_silence: false,
+  speed: "1.0",
+  speech_rate: "1.0",
+  pitch: "1.0",
+  language_checkpoints: [
     {
-      language: "Hindi",
-      indexPath: "",
-      modelPath: "",
-      referenceText: "",
-      adjacentAudio: "",
-      sampleRate: 44100,
-      isDefault: true,
+      language: "English",
+      reference_audio: "",
+      reference_audio_text: "",
+      adjacent_audio: "",
+      index_path: "",
+      sample_rate: "44100",
+      model_path: "",
+      required_audio_length: 4000,
+      keep_silence: 300,
+      silence_length: 500,
+      transcribe_language: "English",
     },
   ],
 };
@@ -60,15 +67,25 @@ export default function ModelPage({ params }: ToolPageProps) {
       const formData = new FormData();
 
       // Add the reference voice file
-      if (data.referenceVoice) {
-        formData.append("referenceVoice", data.referenceVoice);
+      if (data.reference_voice) {
+        formData.append("reference_voice", data.reference_voice);
       }
 
-      // Add other data as JSON string
+      // Transform data to match the expected JSON structure
       const modelData = {
-        modelName: data.modelName,
-        defaultConfigurations: data.defaultConfigurations,
-        checkpoints: data.checkpoints,
+        speaker_name: data.speaker_name,
+        is_update_speed: data.is_update_speed,
+        is_update_loudness: data.is_update_loudness,
+        is_update_transition: data.is_update_transition,
+        is_transcribe: data.is_transcribe,
+        is_update_audio_length: data.is_update_audio_length,
+        is_trim_silence: data.is_trim_silence,
+        is_use_index_file: data.is_use_index_file,
+        is_add_constant_silence: data.is_add_constant_silence,
+        speed: data.speed,
+        speech_rate: data.speech_rate,
+        pitch: data.pitch,
+        language_checkpoints: data.language_checkpoints,
       };
 
       formData.append("data", JSON.stringify(modelData));
