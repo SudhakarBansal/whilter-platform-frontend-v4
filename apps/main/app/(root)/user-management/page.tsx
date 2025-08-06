@@ -17,6 +17,16 @@ const defaultSearchParams = {
   status: "",
 };
 
+export interface OptionType {
+  id: string;
+  name: string;
+}
+
+export interface UserActionButtonProps {
+  organizationList: OptionType[];
+  rolesList: OptionType[];
+}
+
 
 
 const ITEMS_PER_PAGE = 10;
@@ -51,7 +61,15 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     console.error("Error fetching users:", error);
   }
 
-  console.log("organizationList",organizationList,rolesList)
+  const organizationOptions = organizationList.map((org: OptionType) => ({
+    id: org.name,
+    label: org.name,
+  }));
+  
+  const roleOptions = rolesList.map((role: OptionType) => ({
+    id: role.name,
+    label: role.name,
+  }));
 
   const page = Array.isArray(params.page) ? params.page[0] : params.page;
   const email = Array.isArray(params.email) ? params.email[0] : params.email;
@@ -66,8 +84,8 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   const actions = [
     <UserActionButton
       key="user-action-btn"
-      organizationList={organizationList}
-      rolesList={rolesList}
+      organizationList={organizationOptions}
+      rolesList={roleOptions}
     />
   ];
 

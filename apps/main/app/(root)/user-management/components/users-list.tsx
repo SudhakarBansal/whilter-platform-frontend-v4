@@ -5,6 +5,7 @@ import { type User } from '@/services/service-types';
 
 type UsersListProps = {
     users: User[];
+    defaultValue?: string;
   };
 
 const UsersList = ({ users }: UsersListProps) => {

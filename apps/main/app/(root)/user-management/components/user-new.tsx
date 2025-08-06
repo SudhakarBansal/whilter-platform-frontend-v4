@@ -6,10 +6,11 @@ import { Dialog } from '@mui/material';
 import encryptPassword from '@/utils/password-encryption';
 import { registerUser } from '@/services/actions/userService';
 import { toast } from 'sonner';
+import { type OptionType } from '../page';
 
 interface UserNewProps {
-  organizationList: any;
-  rolesList: any;
+  organizationList: OptionType[];
+  rolesList: OptionType[];
   onClose: any;
 }
 
@@ -65,7 +66,7 @@ const UserNew = ({ organizationList, rolesList, onClose }: UserNewProps) => {
       organizationOptions={organizationList}
       roleOptions={rolesList}
       preferredSectionOptions={preferredSectionOptions}
-      isEdit={true}
+      isEdit={false}
     />
   )
 }

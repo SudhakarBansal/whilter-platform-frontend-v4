@@ -3,11 +3,9 @@ import { Button, Dialog } from "@mui/material";
 import { Plus } from 'lucide-react';
 import { useState } from "react";
 import UserNew from "./user-new";
+import { type UserActionButtonProps } from "../page";
 
-interface UserActionButtonProps {
-  organizationList: string | any;
-  rolesList: any;
-}
+
 
 export function UserActionButton({ organizationList, rolesList }: UserActionButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

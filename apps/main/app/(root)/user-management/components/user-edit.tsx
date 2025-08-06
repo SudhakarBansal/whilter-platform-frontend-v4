@@ -80,7 +80,7 @@ const UserEdit = ({
           email: response.email,
           role: response.role,
           organizationName: response.organizationName,
-          preferredSections: response.preferredSections,
+          preferredSections: response.preferredSections ?? [],
           status: response.status,
           orgLevelAccess: response.orgLevelAccess ?? false,
           password: "",
@@ -97,15 +97,18 @@ const UserEdit = ({
 
   return (
     <div>
-        <UserForm
-          defaultValues={initialValues}
-          onSubmit={handleSubmit}
-          onClose={onClose}
-          isEdit={true}
-          organizationOptions={organizationList}
-          roleOptions={rolesList}
-          preferredSectionOptions={preferredSectionOptions}
-        />
+      {initialValues &&
+      <UserForm
+      defaultValues={initialValues}
+      onSubmit={handleSubmit}
+      onClose={onClose}
+      isEdit={true}
+      organizationOptions={organizationList}
+      roleOptions={rolesList}
+      preferredSectionOptions={preferredSectionOptions}
+    />
+    }
+        
     </div>
   )
 }

@@ -27,7 +27,7 @@ interface Props {
 const roles = ["Admin", "Manager", "User"];
 const sections = ["Finance", "HR", "IT"];
 
-export const UserFilters: React.FC<Props> = () => {
+export const UserFilters = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 

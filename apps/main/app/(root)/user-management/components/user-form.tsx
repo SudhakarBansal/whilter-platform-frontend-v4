@@ -18,13 +18,14 @@ import {
   MultiSelectElement,
   FormContainer,
 } from "@whilter/forms";
+import {type OptionType} from "../page";
 
 interface UserFormProps {
   defaultValues: any;
   onSubmit: (data: any) => void;
   onClose: () => void;
-  organizationOptions: { label: string; value: string }[];
-  roleOptions: { label: string; value: string }[];
+  organizationOptions: OptionType[];
+  roleOptions: OptionType[];
   preferredSectionOptions: { id: string; label: string }[];
   isEdit:boolean;
 }
