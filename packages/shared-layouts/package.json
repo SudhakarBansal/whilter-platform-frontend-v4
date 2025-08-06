@@ -24,8 +24,8 @@
             "import": "./src/main-layout/index.tsx"
         },
         "./navbar": {
-            "types": "./src/navbar-layout/index.tsx",
-            "import": "./src/navbar-layout/index.tsx"
+            "types": "./src/navbar/index.tsx",
+            "import": "./src/navbar/index.tsx"
         },
         "./sidebar": {
             "types": "./src/sidebar/index.ts",

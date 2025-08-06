@@ -37,12 +37,11 @@ export default async function RootLayout({
           }}
         />
         <ThemeConfig>
-          <NavbarClientWrapper user={session}>
-            <MainLayout>
-              <Sidebar menuItems={menuItems} />
-              {children}
-            </MainLayout>
-          </NavbarClientWrapper>
+          <NavbarClientWrapper user={session} />
+          <MainLayout>
+            <Sidebar menuItems={menuItems} />
+            {children}
+          </MainLayout>
         </ThemeConfig>
       </body>
     </html>

@@ -13,9 +13,8 @@ export default async function RootLayout({
 
   return (
     <ThemeConfig>
-      <NavbarClientWrapper user={session}>
+      <NavbarClientWrapper user={session}/>
         <MainLayout>{children}</MainLayout>
-      </NavbarClientWrapper>
     </ThemeConfig>
   );
 }

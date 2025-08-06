@@ -1,5 +1,6 @@
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
-import { getPaginatedUsersWithFilters, getRoleList } from "@/services/actions/userService";
+import { getPaginatedUsersWithFilters } from "@/services/actions/userService";
+import { getRoleList } from "@/services/actions/rolesServices";
 import AdminLayout from "@/layouts/admin-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { UserActionButton } from "./components/action-buttons";

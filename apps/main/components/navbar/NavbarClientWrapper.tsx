@@ -1,23 +1,15 @@
+"use client";
 
-'use client';
+import { Navbar } from "@whilter/shared-layouts/navbar";
+import { useRouter } from "next/navigation";
 
-import { NavbarLayout } from "@whilter/shared-layouts/navbar";
-import { useRouter } from 'next/navigation';
-
-export function NavbarClientWrapper({
-    user,
-    children
-}: {
-    user: any;
-    children: React.ReactNode;
-}) {
-    const router = useRouter();
-    return (
-        <NavbarLayout
-            onMangeUsers={(path) => router.push(path)}
-            user={user}
-            onNavigate={(path) => router.push(path)}>
-            {children}
-        </NavbarLayout>
-    );
+export function NavbarClientWrapper({ user }: any) {
+  const router = useRouter();
+  return (
+    <Navbar
+      onMangeUsers={(path) => router.push(path)}
+      user={user}
+      onNavigate={(path) => router.push(path)}
+    />
+  );
 }

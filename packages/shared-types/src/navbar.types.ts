@@ -3,7 +3,6 @@ import type { User } from './user';
 
 
  export interface NavbarProps {
-  children: React.ReactNode;
   onMangeUsers?: (path: string) => void;
   user?: User;
   onNavigate?: (path: string) => void ;
