@@ -85,11 +85,10 @@ export default function Pagination({
 
       <div className="flex items-center gap-2">
         <Button
-          variant="flatSecondary"
-          size="sm"
+          variant="text"
+          size="small"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="bg-white/80 dark:bg-slate-800/80"
         >
           <ChevronLeft className="h-4 w-4" />
           Previous
@@ -99,13 +98,10 @@ export default function Pagination({
           {getVisiblePages().map((page, index) => (
             <Button
               key={index}
-              variant={page === currentPage ? "default" : "outline"}
-              size="sm"
+              variant={page === currentPage ? "flatSecondary" : "outlinePrimary"}
+              size="small"
               onClick={() => typeof page === "number" && onPageChange(page)}
               disabled={page === "..."}
-              className={`min-w-[40px] ${
-                page === currentPage ? "bg-blue-600 hover:bg-blue-700 text-white" : "bg-white/80 dark:bg-slate-800/80"
-              }`}
             >
               {page}
             </Button>
@@ -113,11 +109,10 @@ export default function Pagination({
         </div>
 
         <Button
-          variant="outline"
-          size="sm"
+          variant="text"
+          size="small"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="bg-white/80 dark:bg-slate-800/80"
         >
           Next
           <ChevronRight className="h-4 w-4" />
