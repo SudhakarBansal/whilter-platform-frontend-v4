@@ -40,7 +40,7 @@ export default function Pagination({
     }
   }, [searchParams, router, itemsPerPage])
 
-  const startItem = apiPage * size + 1 // Use apiPage for calculations
+  const startItem = apiPage * size + 1 
   const endItem = Math.min(currentPage * size, totalItems)
 
   const getVisiblePages = () => {
@@ -85,7 +85,7 @@ export default function Pagination({
 
       <div className="flex items-center gap-2">
         <Button
-          variant="outline"
+          variant="flatSecondary"
           size="sm"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
