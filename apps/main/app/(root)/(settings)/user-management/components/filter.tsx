@@ -27,7 +27,7 @@ interface Props {
 const roles = ["Admin", "Manager", "User"];
 const sections = ["Finance", "HR", "IT"];
 
-export const UserFilters: React.FC<Props> = () => {
+export const UserFilters = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -55,7 +55,12 @@ export const UserFilters: React.FC<Props> = () => {
       const params = new URLSearchParams(searchParams.toString());
 
       Object.entries(updatedFilters).forEach(([key, value]) => {
-        if (value === "" || value === null || value === undefined || value === false) {
+        if (
+          value === "" ||
+          value === null ||
+          value === undefined ||
+          value === false
+        ) {
           params.delete(key);
         } else {
           params.set(key, String(value));
@@ -64,13 +69,16 @@ export const UserFilters: React.FC<Props> = () => {
 
       router.replace(`/user-management?${params.toString()}`);
     }, 500),
-    [searchParams, router]
+    [searchParams, router],
   );
 
-  const handleChange = (field: keyof UserFiltersState, value: string | boolean) => {
+  const handleChange = (
+    field: keyof UserFiltersState,
+    value: string | boolean,
+  ) => {
     const updated = { ...localFilters, [field]: value };
     setLocalFilters(updated);
-   
+
     updateURL({ [field]: value });
   };
 
