@@ -5,8 +5,6 @@ import { useState } from "react";
 import UserNew from "./user-new";
 import { type UserActionButtonProps } from "../page";
 
-
-
 export function UserActionButton({ organizationList, rolesList }: UserActionButtonProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const onClose = () => {
@@ -27,7 +25,7 @@ export function UserActionButton({ organizationList, rolesList }: UserActionButt
         onClose={onClose}
         maxWidth="sm"
         fullWidth
-        classes={{ paper: "bg-gradient-to-br from-blue-600 to-blue-400 text-white max-w-[550px] w-full" }}
+        classes={{ paper: "bg-gradient-to-br from-blue-600 to-blue-400" }}
       >
         <UserNew
           organizationList={organizationList}

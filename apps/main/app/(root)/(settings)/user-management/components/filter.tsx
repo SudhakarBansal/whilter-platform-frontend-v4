@@ -19,11 +19,6 @@ export type UserFiltersState = {
   preferredSection: string;
 };
 
-interface Props {
-  filters: UserFiltersState;
-  onFilterChange: (filters: Partial<UserFiltersState>) => void;
-}
-
 const roles = ["Admin", "Manager", "User"];
 const sections = ["Finance", "HR", "IT"];
 
