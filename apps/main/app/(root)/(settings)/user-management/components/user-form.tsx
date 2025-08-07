@@ -164,14 +164,6 @@ const UserForm = ({
                         {...field}
                         checked={field.value}
                         onChange={(e) => field.onChange(e.target.checked)}
-                        sx={{
-                          "& .MuiSwitch-switchBase.Mui-checked": {
-                            color: "#ffffff",
-                          },
-                          "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-                            backgroundColor: "#3b82f6",
-                          },
-                        }}
                       />
                     </div>
                   )}
