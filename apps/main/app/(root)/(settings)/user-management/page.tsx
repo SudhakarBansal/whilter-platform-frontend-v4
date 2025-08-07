@@ -80,7 +80,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       config={pageLayoutPresets.dashboard}
       buttons={actions} 
     >
-      <UsersList users={users} defaultValue={email} />
+      <UsersList users={users}/>
       <Pagination
         totalPages={totalPages}
         totalItems={totalItems}
