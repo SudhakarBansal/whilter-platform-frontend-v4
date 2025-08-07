@@ -12,9 +12,9 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions);
 
   return (
-    <ThemeConfig>
-      <NavbarClientWrapper user={session}/>
-        <MainLayout>{children}</MainLayout>
-    </ThemeConfig>
+    <>
+      <NavbarClientWrapper user={session} />
+      <MainLayout>{children}</MainLayout>
+    </>
   );
 }
