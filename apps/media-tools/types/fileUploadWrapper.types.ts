@@ -13,7 +13,7 @@ export interface FileUploadWrapperProps {
     acceptedFormats: string[];
     maxFileSize?: number; // in MB
     onUpload?: (file: UploadedFile) => void;
-    onFileSelected?: (file: UploadedFile) => void;
+    onFileSelected?: (file: File) => void;
     onFileRemoved?: (file: UploadedFile) => void;
     [key: string]: any; // for additional props
 }
