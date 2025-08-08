@@ -1,6 +1,9 @@
-import { Assignment as TasksIcon } from '@mui/icons-material';
 export const menuItems = [
-   
+    {
+        icon: '/icons/home.svg',
+        label: 'Organization',
+        href: '/organization'
+    },
     {
         icon: '/icons/home.svg',
         label: 'Brand',
