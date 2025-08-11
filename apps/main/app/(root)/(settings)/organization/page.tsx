@@ -6,7 +6,7 @@ import Pagination from "../user-management/components/pagination";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import OrganizationCard from "./components/OrganizationCard";
 import type { Organization } from "@/services/service-types";
-import { getPaginatedOrganizatoinWithFilters } from "@/services/actions/organizationService";
+import { getPaginatedOrganizationWithFilters } from "@/services/actions/organizationService";
 
 const ITEMS_PER_PAGE = 10;
 const defaultSearchParams = {
@@ -26,7 +26,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   } = { totalItems: 0, totalPages: 0 };
 
   try {
-    const response = await getPaginatedOrganizatoinWithFilters(params);
+    const response = await getPaginatedOrganizationWithFilters(params);
     organizations = response?.content || [];
     paginatedData = {
       ...response?.pageable,

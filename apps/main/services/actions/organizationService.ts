@@ -27,7 +27,7 @@ export async function getOrganizationList() {
   }
 }
 
-export async function getPaginatedOrganizatoinWithFilters(
+export async function getPaginatedOrganizationWithFilters(
   params: {
     page?: number;
     size?: number;
