@@ -13,15 +13,10 @@ const defaultSearchParams = {
   page: 0,
   size: ITEMS_PER_PAGE,
   name: "",
-  logoUrl: "",
-  description: "",
 };
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   const params = { ...defaultSearchParams, ...(await searchParams) };
-
-  console.log("Search Params:", params);
-  
 
   let organizations: Organization[] = [];
   let paginatedData: {
@@ -66,7 +61,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       config={pageLayoutPresets.dashboard}
       buttons={actions}
     >
-      <OrganizationCard organizations={organizations}/>
+      <OrganizationCard organizations={organizations} />
       <Pagination
         totalPages={totalPages}
         totalItems={totalItems}

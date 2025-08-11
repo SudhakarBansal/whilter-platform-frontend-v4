@@ -9,6 +9,7 @@ import { toast } from "sonner";
 export interface OrganizationFormData {
   name: string;
   description: string;
+  logo: string;
 }
 
 interface OrganizationFormProps {
@@ -21,6 +22,7 @@ interface OrganizationFormProps {
 const organizationDefaultValues: OrganizationFormData = {
   name: "",
   description: "",
+  logo: "",
 };
 
 export function OrganizationForm({
@@ -63,7 +65,7 @@ export function OrganizationForm({
 
   return (
     <Box className="flex flex-col md:flex-row items-center" sx={{ gap: 4 }}>
-      <ImageUploader onImageSelect={handleImageSelect} />
+      <ImageUploader onImageSelect={handleImageSelect} initialImage={initialValues.logo} />
 
       <Box sx={{ flex: 1 }}>
         <FormContainer onSuccess={handleSubmit} defaultValues={initialValues}>
