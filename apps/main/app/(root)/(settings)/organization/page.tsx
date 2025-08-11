@@ -1,44 +1,14 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
-import Pagination from "../user-management/components/pagination";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
-import OrganizationCard from "./components/OrganizationCard";
-import type { Organization } from "@/services/service-types";
-import { getPaginatedOrganizationWithFilters } from "@/services/actions/organizationService";
-
-const ITEMS_PER_PAGE = 10;
-const defaultSearchParams = {
-  page: 0,
-  size: ITEMS_PER_PAGE,
-  name: "",
-};
+import { OrganizationPageSkeleton } from "./components/skeltons/OrganizationPageSkeleton";
+import { OrganizationData } from "./components/Organization";
 
 export default async function Page({ searchParams }: { searchParams: any }) {
-  const params = { ...defaultSearchParams, ...(await searchParams) };
+  const resolvedSearchParams = await searchParams;
 
-  let organizations: Organization[] = [];
-  let paginatedData: {
-    totalItems: number;
-    totalPages: number;
-    [key: string]: any;
-  } = { totalItems: 0, totalPages: 0 };
-
-  try {
-    const response = await getPaginatedOrganizationWithFilters(params);
-    organizations = response?.content || [];
-    paginatedData = {
-      ...response?.pageable,
-      totalItems: response?.totalElements || 0,
-      totalPages: response?.totalPages || 0,
-    };
-  } catch (error) {
-    console.error("Error fetching organisation:", error);
-  }
-
-  const totalPages = paginatedData?.totalPages || 0;
-  const totalItems = paginatedData?.totalItems || 0;
   const breadcrumbs = buildBreadcrumbs([
     { label: "Organization", href: "/organization" },
   ]);
@@ -61,12 +31,9 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       config={pageLayoutPresets.dashboard}
       buttons={actions}
     >
-      <OrganizationCard organizations={organizations} />
-      <Pagination
-        totalPages={totalPages}
-        totalItems={totalItems}
-        itemsPerPage={ITEMS_PER_PAGE}
-      />
+      <Suspense fallback={<OrganizationPageSkeleton />}>
+        <OrganizationData searchParams={resolvedSearchParams} />
+      </Suspense>
     </AdminLayout>
   );
 }
