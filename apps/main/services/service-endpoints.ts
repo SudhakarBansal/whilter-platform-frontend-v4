@@ -8,6 +8,7 @@ const AUTH_BASE = process.env.NEXT_PUBLIC_APP_AUTH_URL || '';
     },
     organization: {
     getOrganization: `${AUTH_BASE}/org`,
+    paginatedOrganizatoinWithFilter: `${AUTH_BASE}/user/filter`
     },
     user: {
         createUser: `${AUTH_BASE}/user`,

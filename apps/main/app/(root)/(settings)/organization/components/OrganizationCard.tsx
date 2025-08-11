@@ -1,33 +1,20 @@
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 
-// Mock organization data for testing
-const mockOrganizations = [
-  {
-    id: 1,
-    name: "Acme Corp",
-    description:
-      "Acme Corp specializes in innovative technologrvices worldwide.",
-    logo: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=80&h=80&fit=crop&crop=center",
-  },
-  {
-    id: 2,
-    name: "Tech Solutions",
-    description: "Tech Solutions helps businigration, and automation services.",
-    logo: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=80&h=80&fit=crop&crop=center",
-  },
-  {
-    id: 3,
-    name: "Innovation Labs",
-    description:
-      "Innovd emerging technologies to drive the future of business.",
-    logo: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=80&h=80&fit=crop&crop=center",
-  },
-];
+interface Organization {
+  id: string;
+  name: string;
+  description: string;
+  logo: string;
+}
 
-const OrganizationCard = () => {
+interface OrganizationProps {
+  organizations: Organization[];
+}
+
+const OrganizationCard = ({ organizations }: OrganizationProps) => {
   return (
     <div className="mb-5 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {mockOrganizations.map((org) => (
+      {organizations.map((org: Organization) => (
         <div
           key={org.id}
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center p-6 sm:p-5 border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow"

@@ -27,6 +27,7 @@ export interface Organization {
   id: string;
   name: string;
   description: string;
+  logo: string;
 }
 
 export interface PaginatedUsersResponse {
@@ -66,3 +67,31 @@ export interface PaginatedFilterUsersResponse {
   empty: boolean;
 }
 
+export interface PaginatedFilterOrganizationResponse {
+  content: Organization[];
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+    sort: {
+      sorted: boolean;
+      empty: boolean;
+      unsorted: boolean;
+    };
+    offset: number;
+    paged: boolean;
+    unpaged: boolean;
+  };
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+  sort: {
+    sorted: boolean;
+    empty: boolean;
+    unsorted: boolean;
+  };
+  first: boolean;
+  last: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
