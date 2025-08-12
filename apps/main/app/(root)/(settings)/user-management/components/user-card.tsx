@@ -5,9 +5,12 @@ import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react";
 import clsx from "clsx";
 import UserEdit from "./user-edit"; // ensure this is a client component
 import { Dialog } from "@mui/material";
+import { type OptionType } from "../page";
 
 interface UserCardProps {
   user: User;
+  organizationList: OptionType[];
+  rolesList: OptionType[];
   onDelete?: (id: string) => void;
   onEdit?: (userId: string) => void;
   key: any;
@@ -32,7 +35,7 @@ const getAvatarColor = (name: string) => {
   return avatarColors[Math.abs(hash) % avatarColors.length];
 };
 
-export const UserCard = ({ user, key }: UserCardProps) => {
+export const UserCard = ({ user, key, organizationList, rolesList }: UserCardProps) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -127,7 +130,7 @@ export const UserCard = ({ user, key }: UserCardProps) => {
               "bg-gradient-to-br from-blue-600 to-blue-400 text-white max-w-[550px] w-full",
           }}
         >
-          <UserEdit userId={user.id} onClose={onClose} />
+          <UserEdit userId={user.id} onClose={onClose} organizationList={organizationList} rolesList={rolesList}/>
         </Dialog>
       </div>
     </div>

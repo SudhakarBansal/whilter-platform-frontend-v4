@@ -2,13 +2,16 @@ import React from 'react'
 import { UserFilters } from './filter';
 import { UserCard } from './user-card';
 import { type User } from '@/services/service-types';
+import { type OptionType } from '../page';
 
 type UsersListProps = {
     users: User[];
+    organizationList: OptionType[];
+    rolesList: OptionType[];
     defaultValue?: string;
   };
 
-const UsersList = ({ users }: UsersListProps) => {
+const UsersList = ({ users, organizationList, rolesList }: UsersListProps) => {
     return (
         <div>
             <UserFilters />
@@ -17,6 +20,8 @@ const UsersList = ({ users }: UsersListProps) => {
                     <UserCard
                         key={index}
                         user={user}
+                        organizationList={organizationList}
+                        rolesList={rolesList}
                     />
                 ))}
             </div>

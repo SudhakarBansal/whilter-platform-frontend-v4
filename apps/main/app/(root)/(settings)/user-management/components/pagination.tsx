@@ -23,21 +23,21 @@ export default function Pagination({
   const currentPage = apiPage + 1
   const size = Number(searchParams.get("size")) || itemsPerPage
 
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams)
-    let changed = false
-    if (!params.get("page")) {
-      params.set("page", "0") // API uses 0-based
-      changed = true
-    }
-    if (!params.get("size")) {
-      params.set("size", itemsPerPage.toString())
-      changed = true
-    }
-    if (changed) {
-      router.replace(`?${params.toString()}`)
-    }
-  }, [searchParams, router, itemsPerPage])
+  // useEffect(() => {
+  //   const params = new URLSearchParams(searchParams)
+  //   let changed = false
+  //   if (!params.get("page")) {
+  //     params.set("page", "0") // API uses 0-based
+  //     changed = true
+  //   }
+  //   if (!params.get("size")) {
+  //     params.set("size", itemsPerPage.toString())
+  //     changed = true
+  //   }
+  //   if (changed) {
+  //     router.replace(`?${params.toString()}`)
+  //   }
+  // }, [searchParams, router, itemsPerPage])
 
   const startItem = apiPage * size + 1 
   const endItem = Math.min(currentPage * size, totalItems)
