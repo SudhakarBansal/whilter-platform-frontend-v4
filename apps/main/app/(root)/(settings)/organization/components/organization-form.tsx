@@ -16,7 +16,7 @@ interface OrganizationFormDefaultValues {
   id?: string;
   name?: string;
   description?: string | null;
-  logo?: string | null; // Only string or null for form defaults
+  logoUrl?: string | null; // Only string or null for form defaults
 }
 
 interface OrganizationFormProps {
@@ -29,7 +29,7 @@ interface OrganizationFormProps {
 const organizationDefaultValues: OrganizationFormDefaultValues = {
   name: "",
   description: "",
-  logo: null,
+  logoUrl: null,
 };
 
 export function OrganizationForm({
@@ -50,10 +50,10 @@ export function OrganizationForm({
     try {
       // Create the payload with the selected file
       const formData: CreateOrganizationRequest & {
-        logo: string | File | null;
+        logoUrl: string | File | null;
       } = {
         ...data,
-        logo: selectedFile || data.logo, // Use selected file if available, otherwise use form data
+        logoUrl: selectedFile || data.logoUrl,
       };
 
       console.log("Form data:", formData);
@@ -80,7 +80,10 @@ export function OrganizationForm({
 
   return (
     <Box className="flex flex-col md:flex-row items-center" sx={{ gap: 4 }}>
-      <ImageUploader onImageSelect={handleImageSelect} initialImage={initialValues.logo} />
+      <ImageUploader
+        onImageSelect={handleImageSelect}
+        initialImage={initialValues.logoUrl}
+      />
 
       <Box sx={{ flex: 1 }}>
         <FormContainer onSuccess={handleSubmit} defaultValues={initialValues}>
