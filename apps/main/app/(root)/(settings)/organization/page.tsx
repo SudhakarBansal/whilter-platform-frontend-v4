@@ -23,6 +23,9 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     </ActionButton>,
   ];
 
+  console.log("Component rendered with searchParams:");
+  
+
   return (
     <AdminLayout
       breadcrumbs={breadcrumbs}
