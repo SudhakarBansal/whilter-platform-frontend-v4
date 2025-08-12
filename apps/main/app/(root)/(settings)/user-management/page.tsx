@@ -10,8 +10,8 @@ import { getOrganizationList } from "@/services/actions/organizationService";
 import { type User } from "@/services/service-types";
 
 const defaultSearchParams = {
-  page: "0",
-  size: "8",
+  page: 0,
+  size: 8,
   email: "",
   organization: "",
   role: "",
