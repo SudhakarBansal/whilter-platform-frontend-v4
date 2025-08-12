@@ -15,7 +15,7 @@ export default function NewOrganizationPage() {
   ]);
 
   const handleCancel = () => {
-    router.push("/organization");
+    router.back();
   };
 
   const handleSuccess = () => {
