@@ -1,6 +1,7 @@
 import { axiosInstance } from "@whilter/api";
 import ServiceEndpoints from "../service-endpoints";
-import type { Organization, PaginatedFilterOrganizationResponse } from "../service-types";
+import type { PaginatedFilterOrganizationResponse } from "../service-types";
+import type { CreateOrganizationRequest, Organization } from "@/types/organization.types";
 
 export async function allOrganization(): Promise<Organization[]> {
   try {
@@ -8,7 +9,7 @@ export async function allOrganization(): Promise<Organization[]> {
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
-    console.error("Error fetching users:", errorResponse);
+    console.error("Error fetching organizations:", errorResponse);
     throw new Error(errorResponse);
   }
 }
@@ -17,7 +18,7 @@ export async function getOrganizationList() {
   try {
     const response = await axiosInstance.get(ServiceEndpoints.organization.getOrganization);
     if (response.status === 200) {
-      return response.data; 
+      return response.data;
     } else {
       throw new Error("Unexpected response status");
     }
@@ -26,6 +27,21 @@ export async function getOrganizationList() {
     throw new Error(errorResponse);
   }
 }
+
+export async function createOrganization(data: CreateOrganizationRequest): Promise<string> {
+  try {
+    const response = await axiosInstance.post(ServiceEndpoints.organization.createOrganization, data);
+    if (response.status === 200) {
+      return "Organization created successfully!";
+    }
+    throw new Error("Registration failed.");
+  } catch (error: any) {
+    const errorResponse = error?.response?.data?.message || "An unexpected error occurred";
+    console.error("Error creating organization:", errorResponse);
+    throw new Error(errorResponse);
+  }
+}
+
 
 export async function getPaginatedOrganizationWithFilters(
   params: {
@@ -91,7 +107,7 @@ export async function getPaginatedOrganizationWithFilters(
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response || "An unexpected error occurred";
-    console.error("Error fetching paginated users:", errorResponse);
+    console.error("Error fetching paginated organizations:", errorResponse);
     throw new Error(errorResponse);
   }
 }
