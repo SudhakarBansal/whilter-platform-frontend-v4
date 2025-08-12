@@ -1,5 +1,5 @@
 "use client"
-
+import { useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@mui/material"
 import { ChevronLeft, ChevronRight } from "lucide-react"

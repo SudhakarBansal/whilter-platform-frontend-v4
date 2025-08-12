@@ -70,9 +70,9 @@ export async function resetPassword(data: ResetPasswordPayload): Promise<{ statu
     }
   }
 
-export async function refreshToken(data:any): Promise<AxiosResponse<any>> {
+export async function refreshToken(refreshToken:any): Promise<AxiosResponse<any>> {
   try {
-    const response = await axiosInstance.post(ServiceEndpoints.refreshToken, data);
+    const response = await axiosInstance.post(ServiceEndpoints.refreshToken, refreshToken);
 
     if (response.status === 200 || response.status === 201) {
       return response;
