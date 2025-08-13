@@ -55,6 +55,11 @@ export async function createOrganization(data: CreateOrganizationRequest & { log
     throw new Error("Organization creation failed.");
   } catch (error: any) {
     console.error("Full error object:", error);
+    const errorResponse = error?.response?.data?.message ||
+      error?.message ||
+      "An unexpected error occurred";
+    console.error("Error creating organization:", errorResponse);
+    throw new Error(errorResponse);
   }
 }
 
