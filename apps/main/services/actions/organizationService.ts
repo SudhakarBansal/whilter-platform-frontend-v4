@@ -28,17 +28,33 @@ export async function getOrganizationList() {
   }
 }
 
-export async function createOrganization(data: CreateOrganizationRequest): Promise<string> {
+// organizationService.ts
+export async function createOrganization(data: CreateOrganizationRequest & { logoUrl: string | File | null }) {
   try {
-    const response = await axiosInstance.post(ServiceEndpoints.organization.createOrganization, data);
-    if (response.status === 200) {
+    const headers: Record<string, string> = {};
+    console.log("requestData", data);
+
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('description', data.description || '');
+
+    if (data.logoUrl instanceof File) {
+      formData.append('logo', data.logoUrl);
+    } else {
+      formData.append('logo', "");
+    }
+    const response = await axiosInstance.post(
+      ServiceEndpoints.organization.createOrganization,
+      formData,
+      { headers }
+    );
+
+    if (response.status === 200 || response.status === 201) {
       return "Organization created successfully!";
     }
-    throw new Error("Registration failed.");
+    throw new Error("Organization creation failed.");
   } catch (error: any) {
-    const errorResponse = error?.response?.data?.message || "An unexpected error occurred";
-    console.error("Error creating organization:", errorResponse);
-    throw new Error(errorResponse);
+    console.error("Full error object:", error);
   }
 }
 
