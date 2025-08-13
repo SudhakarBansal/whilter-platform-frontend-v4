@@ -58,18 +58,22 @@ export function OrganizationForm({
 
       console.log("Form data:", formData);
       const response = await createOrganization(formData);
-      toast.dismiss(loadingToastId);
-      toast.success(
-        isEditing
-          ? "Organization updated successfully!"
-          : "Organization created successfully!",
-      );
+
+      // Assuming response.status is the HTTP status code
+      if (response) {
+        toast.success(
+          isEditing
+            ? "Organization updated successfully!"
+            : "Organization created successfully!",
+        );
+      }
 
       onSuccess();
     } catch (error) {
       console.error("Error processing organization:", error);
       toast.error("Error processing organization: " + error);
     } finally {
+      toast.dismiss(loadingToastId);
       setLoading(false);
     }
   };
