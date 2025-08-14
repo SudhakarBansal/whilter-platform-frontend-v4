@@ -9,7 +9,8 @@ const ServiceEndpoints = {
     organization: {
         createOrganization: `${AUTH_BASE}/org`,
         getOrganization: `${AUTH_BASE}/org`,
-        paginatedOrganizatoinWithFilter: `${AUTH_BASE}/org/filter`
+        getOrganizationById: `${AUTH_BASE}/org`,
+        paginatedOrganizationWithFilter: `${AUTH_BASE}/org/filter`
     },
     user: {
         createUser: `${AUTH_BASE}/user`,
