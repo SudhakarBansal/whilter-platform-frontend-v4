@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { ImageUploader } from "./image-uploader";
@@ -6,6 +7,7 @@ import { OrganizationFormActions } from "./organization-form-actions";
 import { FormContainer } from "@whilter/forms";
 import { toast } from "sonner";
 import { createOrganization } from "@/services/actions/organizationService";
+import { useRouter } from "next/navigation";
 import type {
   CreateOrganizationRequest,
   Organization,
@@ -20,8 +22,6 @@ interface OrganizationFormDefaultValues {
 }
 
 interface OrganizationFormProps {
-  onCancel: () => void;
-  onSuccess: () => void;
   initialValues?: OrganizationFormDefaultValues;
   isEditing?: boolean;
 }
@@ -33,14 +33,12 @@ const organizationDefaultValues: OrganizationFormDefaultValues = {
 };
 
 export function OrganizationForm({
-  onCancel,
-  onSuccess,
-  initialValues = organizationDefaultValues,
+ initialValues = organizationDefaultValues,
   isEditing = false,
 }: OrganizationFormProps) {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
+  const router = useRouter();
   const handleSubmit = async (data: Organization) => {
     setLoading(true);
     const loadingToastId = toast.loading(
@@ -68,7 +66,9 @@ export function OrganizationForm({
         );
       }
 
-      onSuccess();
+      // onSuccess();
+      router.push("/organization");
+
     } catch (error) {
       console.error("Error processing organization:", error);
       toast.error("Error processing organization: " + error);
@@ -94,7 +94,6 @@ export function OrganizationForm({
           <OrganizationFormFields />
           <OrganizationFormActions
             loading={loading}
-            onCancel={onCancel}
             isEditing={isEditing}
           />
         </FormContainer>
