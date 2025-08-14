@@ -21,10 +21,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     >
       New Organization
     </ActionButton>,
-  ];
-
-  console.log("Component rendered with searchParams:");
-  
+  ];  
 
   return (
     <AdminLayout
