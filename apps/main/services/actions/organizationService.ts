@@ -113,6 +113,28 @@ export async function editOrganization(id: string, data: CreateOrganizationReque
   }
 }
 
+// Add this function to your organizationService.ts file
+
+export async function deleteOrganization(id: string): Promise<string> {
+  try {
+    const response = await axiosInstance.delete(
+      `${ServiceEndpoints.organization.deleteOrganization}/${id}`
+    );
+
+    if (response.status === 200 || response.status === 204) {
+      return "Organization deleted successfully!";
+    }
+    throw new Error("Organization deletion failed.");
+  } catch (error: any) {
+    console.error("Full error object:", error);
+    const errorResponse = error?.response?.data?.message ||
+      error?.message ||
+      "An unexpected error occurred";
+    console.error("Error deleting organization:", errorResponse);
+    throw new Error(errorResponse);
+  }
+}
+
 export async function getPaginatedOrganizationWithFilters(
   params: {
     page?: number;
