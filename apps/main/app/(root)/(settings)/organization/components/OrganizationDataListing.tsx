@@ -11,7 +11,7 @@ const defaultSearchParams = {
   name: "",
 };
 
-export async function OrganizationData({ searchParams }: { searchParams: any }) {
+export async function OrganizationDataListing({ searchParams }: { searchParams: any }) {
   const params = { ...defaultSearchParams, ...searchParams };
 
   let organizations: Organization[] = [];
