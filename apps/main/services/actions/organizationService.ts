@@ -28,6 +28,20 @@ export async function getOrganizationList() {
   }
 }
 
+export async function getOrganizationById(id: string): Promise<Organization> {
+  try {
+    const response = await axiosInstance.get(`${ServiceEndpoints.organization.getOrganizationById}/${id}`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      throw new Error("Unexpected response status");
+    }
+  } catch (error: any) {
+    const errorResponse = error?.response?.data || "Error fetching organization";
+    throw new Error(errorResponse);
+  }
+}
+
 // organizationService.ts
 export async function createOrganization(data: CreateOrganizationRequest & { logoUrl: string | File | null }) {
   try {
@@ -63,6 +77,41 @@ export async function createOrganization(data: CreateOrganizationRequest & { log
   }
 }
 
+export async function editOrganization(id: string, data: CreateOrganizationRequest & { logoUrl: string | File | null }) {
+  try {
+    const headers: Record<string, string> = {};
+    console.log("editRequestData", data);
+
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('description', data.description || '');
+
+    if (data.logoUrl instanceof File) {
+      formData.append('logo', data.logoUrl);
+    } else {
+      // If logoUrl is null or a string, append an empty string to indicate removal or no change
+      formData.append('logo', "");
+    }
+
+    const response = await axiosInstance.put(
+      `${ServiceEndpoints.organization.updateOrganizationById}/${id}`,
+      formData,
+      { headers }
+    );
+
+    if (response.status === 200 || response.status === 201) {
+      return "Organization updated successfully!";
+    }
+    throw new Error("Organization update failed.");
+  } catch (error: any) {
+    console.error("Full error object:", error);
+    const errorResponse = error?.response?.data?.message ||
+      error?.message ||
+      "An unexpected error occurred";
+    console.error("Error updating organization:", errorResponse);
+    throw new Error(errorResponse);
+  }
+}
 
 export async function getPaginatedOrganizationWithFilters(
   params: {
@@ -73,7 +122,7 @@ export async function getPaginatedOrganizationWithFilters(
   console.log("params --organization", params);
   try {
     await new Promise(resolve => setTimeout(resolve, 2000));
-    const response = await axiosInstance.get(ServiceEndpoints.organization.paginatedOrganizatoinWithFilter, { params: params });
+    const response = await axiosInstance.get(ServiceEndpoints.organization.paginatedOrganizationWithFilter, { params: params });
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response || "An unexpected error occurred";

@@ -6,7 +6,10 @@ import { OrganizationFormFields } from "./organization-form-fields";
 import { OrganizationFormActions } from "./organization-form-actions";
 import { FormContainer } from "@whilter/forms";
 import { toast } from "sonner";
-import { createOrganization } from "@/services/actions/organizationService";
+import {
+  createOrganization,
+  editOrganization,
+} from "@/services/actions/organizationService";
 import { useRouter } from "next/navigation";
 import type {
   CreateOrganizationRequest,
@@ -33,12 +36,13 @@ const organizationDefaultValues: OrganizationFormDefaultValues = {
 };
 
 export function OrganizationForm({
- initialValues = organizationDefaultValues,
+  initialValues = organizationDefaultValues,
   isEditing = false,
 }: OrganizationFormProps) {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const router = useRouter();
+  const organizationId = initialValues.id;
   const handleSubmit = async (data: Organization) => {
     setLoading(true);
     const loadingToastId = toast.loading(
@@ -55,9 +59,18 @@ export function OrganizationForm({
       };
 
       console.log("Form data:", formData);
-      const response = await createOrganization(formData);
 
-      // Assuming response.status is the HTTP status code
+      let response: string;
+
+      if (isEditing && organizationId) {
+        // Edit existing organization
+        response = await editOrganization(organizationId, formData);
+      } else {
+        // Create new organization
+        response = await createOrganization(formData);
+      }
+
+      // Show success message
       if (response) {
         toast.success(
           isEditing
@@ -66,12 +79,13 @@ export function OrganizationForm({
         );
       }
 
-      // onSuccess();
+      // Navigate back to organization list
       router.push("/organization");
-
     } catch (error) {
       console.error("Error processing organization:", error);
-      toast.error("Error processing organization: " + error);
+      toast.error(
+        `Error ${isEditing ? "updating" : "creating"} organization: ${error}`,
+      );
     } finally {
       toast.dismiss(loadingToastId);
       setLoading(false);
@@ -81,6 +95,20 @@ export function OrganizationForm({
   const handleImageSelect = (file: File | null) => {
     setSelectedFile(file);
   };
+
+  // Validation for editing mode
+  if (isEditing && !organizationId) {
+    console.error(
+      "OrganizationForm: organizationId is required when isEditing is true",
+    );
+    return (
+      <Box className="p-4">
+        <div className="text-red-500">
+          Error: Organization ID is required for editing mode.
+        </div>
+      </Box>
+    );
+  }
 
   return (
     <Box className="flex flex-col md:flex-row items-center" sx={{ gap: 4 }}>
@@ -92,10 +120,7 @@ export function OrganizationForm({
       <Box sx={{ flex: 1 }}>
         <FormContainer onSuccess={handleSubmit} defaultValues={initialValues}>
           <OrganizationFormFields />
-          <OrganizationFormActions
-            loading={loading}
-            isEditing={isEditing}
-          />
+          <OrganizationFormActions loading={loading} isEditing={isEditing} />
         </FormContainer>
       </Box>
     </Box>
