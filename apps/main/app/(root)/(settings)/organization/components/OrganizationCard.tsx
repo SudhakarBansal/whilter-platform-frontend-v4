@@ -81,7 +81,7 @@ const OrganizationCard = ({
               <img
                 src={org.logoUrl || "https://placehold.co/400"}
                 alt={`${org.name} logo`}
-                className="w-52 h-52 sm:w-28 sm:h-28 md:w-32 md:h-32 object-cover rounded mx-auto sm:mx-0"
+                className="w-52 h-52 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain rounded mx-auto sm:mx-0"
               />
             </div>
 
