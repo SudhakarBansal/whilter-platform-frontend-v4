@@ -4,7 +4,7 @@ import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import { OrganizationPageSkeleton } from "./components/skeltons/OrganizationPageSkeleton";
-import { OrganizationData } from "./components/Organization";
+import { OrganizationDataListing } from "./components/OrganizationDataListing";
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   const resolvedSearchParams = await searchParams;
@@ -21,7 +21,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     >
       New Organization
     </ActionButton>,
-  ];
+  ];  
 
   return (
     <AdminLayout
@@ -32,7 +32,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       buttons={actions}
     >
       <Suspense fallback={<OrganizationPageSkeleton />}>
-        <OrganizationData searchParams={resolvedSearchParams} />
+        <OrganizationDataListing searchParams={resolvedSearchParams} />
       </Suspense>
     </AdminLayout>
   );

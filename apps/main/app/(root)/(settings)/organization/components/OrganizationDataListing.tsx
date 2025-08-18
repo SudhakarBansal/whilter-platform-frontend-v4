@@ -1,5 +1,5 @@
 import { getPaginatedOrganizationWithFilters } from "@/services/actions/organizationService";
-import type { Organization } from "@/services/service-types";
+import type { Organization } from "@/types/organization.types";
 import OrganizationCard from "./OrganizationCard";
 import Pagination from "../../user-management/components/pagination";
 
@@ -11,7 +11,7 @@ const defaultSearchParams = {
   name: "",
 };
 
-export async function OrganizationData({ searchParams }: { searchParams: any }) {
+export async function OrganizationDataListing({ searchParams }: { searchParams: any }) {
   const params = { ...defaultSearchParams, ...searchParams };
 
   let organizations: Organization[] = [];

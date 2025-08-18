@@ -3,5 +3,6 @@ import type { ReactNode } from "react";
 
 export interface ActionButtonProps extends Omit<ButtonProps, 'onClick'> {
   href?: string;
+  onClick?: () => void;
   children: ReactNode;
 }
