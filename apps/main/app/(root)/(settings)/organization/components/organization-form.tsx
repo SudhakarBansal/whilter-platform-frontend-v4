@@ -79,8 +79,12 @@ export function OrganizationForm({
         );
       }
 
-      // Navigate back to organization list
-      router.push("/organization");
+      if (isEditing) {
+        router.back();
+      } else {
+        router.push("/organization");
+      }
+
     } catch (error) {
       console.error("Error processing organization:", error);
       toast.error(
