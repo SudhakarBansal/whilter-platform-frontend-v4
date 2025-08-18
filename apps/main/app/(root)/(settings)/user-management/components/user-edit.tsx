@@ -50,7 +50,9 @@ const UserEdit = ({
     debugger;
     try {
       setLoading(true);
-      const response = await updateUser(data.email, data);
+      const { password, ...updateData } = data;
+      const response = await updateUser(data.email, updateData);
+
       if (response) {
         toast.success("User updated successfully");
         onClose();
@@ -86,7 +88,7 @@ const UserEdit = ({
 
   useEffect(() => { fetchUser() }, [userId]);
 
-  console.log("initialValues",initialValues);
+  // console.log("initialValues",initialValues);
 
   return (
     <div>

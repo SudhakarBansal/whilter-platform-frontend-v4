@@ -3,8 +3,9 @@ import type { User } from "@/services/service-types";
 import { useState } from "react";
 import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react";
 import clsx from "clsx";
-import UserEdit from "./user-edit"; // ensure this is a client component
+import UserEdit from "./user-edit";
 import { Dialog } from "@mui/material";
+import { DeleteUser } from "./user-delete";
 import { type OptionType } from "../page";
 
 interface UserCardProps {
@@ -35,7 +36,7 @@ const getAvatarColor = (name: string) => {
   return avatarColors[Math.abs(hash) % avatarColors.length];
 };
 
-export const UserCard = ({ user, key, organizationList, rolesList }: UserCardProps) => {
+export const UserCard = ({ user, key, onDelete, organizationList, rolesList}: UserCardProps) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -99,6 +100,13 @@ export const UserCard = ({ user, key, organizationList, rolesList }: UserCardPro
             >
               <Trash2 size={14} />
             </button>
+            <DeleteUser
+              open={confirmOpen}
+              userId={user.id}
+              userName={user.name}
+              onDelete={() => onDelete?.(user.id)}
+              onClose={() => setConfirmOpen(false)}
+            />
           </div>
         </div>
 
@@ -130,7 +138,7 @@ export const UserCard = ({ user, key, organizationList, rolesList }: UserCardPro
               "bg-gradient-to-br from-blue-600 to-blue-400 text-white max-w-[550px] w-full",
           }}
         >
-          <UserEdit userId={user.id} onClose={onClose} organizationList={organizationList} rolesList={rolesList}/>
+          <UserEdit userId={user.id} onClose={onClose} organizationList={organizationList} rolesList={rolesList} />
         </Dialog>
       </div>
     </div>
