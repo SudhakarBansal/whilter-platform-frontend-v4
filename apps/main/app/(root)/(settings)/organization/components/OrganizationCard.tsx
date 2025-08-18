@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import { toast } from "sonner";
 import { deleteOrganization } from "@/services/actions/organizationService";
@@ -8,14 +9,10 @@ import { DialogSection } from "@whilter/ui-kit/components";
 
 interface OrganizationProps {
   organizations: Organization[];
-  onOrganizationDeleted?: () => void; // Callback to refresh the list after deletion
 }
 
-const OrganizationCard = ({
-  organizations,
-  onOrganizationDeleted,
-}: OrganizationProps) => {
-  const [deletingIds, setDeletingIds] = useState<Set<string>>(new Set());
+const OrganizationCard = ({ organizations }: OrganizationProps) => {
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [deleteDialog, setDeleteDialog] = useState<{
     open: boolean;
     organization: Organization | null;
@@ -23,6 +20,8 @@ const OrganizationCard = ({
     open: false,
     organization: null,
   });
+
+  const router = useRouter();
 
   const handleDeleteClick = (org: Organization) => {
     setDeleteDialog({
@@ -36,31 +35,22 @@ const OrganizationCard = ({
     if (!org) return;
 
     setDeleteDialog({ open: false, organization: null });
-    setDeletingIds((prev) => new Set(prev).add(org.id));
+    setDeletingId(org.id);
     const loadingToastId = toast.loading(`Deleting ${org.name}...`);
 
     try {
-      // Call the delete service
       const response = await deleteOrganization(org.id);
 
       if (response) {
         toast.success(`${org.name} deleted successfully!`);
-      }
-
-      // Call the callback to refresh the list
-      if (onOrganizationDeleted) {
-        onOrganizationDeleted();
+        router.refresh();
       }
     } catch (error: any) {
       console.error("Error deleting organization:", error);
       toast.error(`Error deleting ${org.name}: ${error.message}`);
     } finally {
       toast.dismiss(loadingToastId);
-      setDeletingIds((prev) => {
-        const newSet = new Set(prev);
-        newSet.delete(org.id);
-        return newSet;
-      });
+      setDeletingId(null);
     }
   };
 
@@ -76,7 +66,6 @@ const OrganizationCard = ({
             key={org.id}
             className="flex flex-col sm:flex-row border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden"
           >
-            {/* Logo - Top on mobile, Left on larger screens */}
             <div className="flex-shrink-0 self-center p-4 sm:p-4">
               <img
                 src={org.logoUrl || "https://placehold.co/400"}
@@ -85,9 +74,7 @@ const OrganizationCard = ({
               />
             </div>
 
-            {/* Content - Below logo on mobile, Right side on larger screens */}
             <div className="flex-1 flex flex-col p-4 pt-0 sm:pt-4 sm:pl-2 min-w-0">
-              {/* Organization Info */}
               <div className="flex-1 mb-4">
                 <h3 className="text-lg font-semibold text-gray-900 mb-2 break-words text-center sm:text-left">
                   {org.name}
@@ -110,10 +97,10 @@ const OrganizationCard = ({
                   variant="outlineSecondary"
                   size="small"
                   onClick={() => handleDeleteClick(org)}
-                  disabled={deletingIds.has(org.id)}
+                  disabled={deletingId === org.id}
                   className="flex-1 text-center justify-center text-red-600 border-red-300 hover:border-red-500 hover:text-red-700 disabled:opacity-50"
                 >
-                  {deletingIds.has(org.id) ? "Deleting..." : "Delete"}
+                  {deletingId === org.id ? "Deleting..." : "Delete"}
                 </ActionButton>
               </div>
             </div>
@@ -121,7 +108,6 @@ const OrganizationCard = ({
         ))}
       </div>
 
-      {/* Delete Confirmation Dialog using DialogSection */}
       <DialogSection
         open={deleteDialog.open}
         title="Confirm Deletion"
