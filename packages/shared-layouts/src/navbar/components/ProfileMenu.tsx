@@ -103,13 +103,13 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
       </Box>
 
       <Divider sx={{ my: 0.5 }} />
-
-      {user?.user?.role === Role.SUPER_ADMIN && (
+      {(user?.user?.role === Role.SUPER_ADMIN || user?.user?.role === Role.ADMIN) && (
         <MenuItem onClick={() => handleMenuClick("MANAGE_USERS")}>
           <Group fontSize="small" />
           <Typography variant="body2">Manage Users</Typography>
         </MenuItem>
-       )} 
+      )}
+
 
       <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
         <AccountCircle fontSize="small" />

@@ -17,7 +17,7 @@ interface LogoutButtonProps {
 export const LogoutButton: React.FC<LogoutButtonProps> = ({ user, onClose }) => {
 
   const handleLogout = async () => {
-    debugger;
+
     if (!user?.refreshToken || !user?.deviceId|| !user?.accessToken) {
       toast.error("Missing session details.");
       return;

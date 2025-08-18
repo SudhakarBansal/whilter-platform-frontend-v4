@@ -8,10 +8,11 @@ import UsersList from "./components/users-list";
 import Pagination from "./components/pagination";
 import { getOrganizationList } from "@/services/actions/organizationService";
 import { type User } from "@/services/service-types";
+import { ListingNotFound } from "@whilter/ui-kit/components";
 
 const defaultSearchParams = {
   page: 0,
-  size: 8,
+  size: 6,
   email: "",
   organization: "",
   role: "",
@@ -28,11 +29,15 @@ export interface UserActionButtonProps {
   rolesList: OptionType[];
 }
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 6;
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   const params = { ...defaultSearchParams, ...(await searchParams) };
-  
+
+
+  const values = params;
+  console.log("params -- ", values);
+
   let users: User[] = [];
   let paginatedData: {
     totalItems: number;
@@ -42,6 +47,9 @@ export default async function Page({ searchParams }: { searchParams: any }) {
 
   let organizationList = [];
   let rolesList = [];
+
+
+  const role = params?.role;
 
   try {
     const response = await getPaginatedUsersWithFilters(params);
@@ -64,14 +72,13 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     id: org.name,
     label: org.name,
   }));
-  
+
   const roleOptions = rolesList.map((role: OptionType) => ({
     id: role.name,
     label: role.name,
   }));
 
   const page = Array.isArray(params.page) ? params.page[0] : params.page;
-  const email = Array.isArray(params.email) ? params.email[0] : params.email;
 
   const currentPage = parseInt(page || "1");
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -88,20 +95,37 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     />
   ];
 
+
   return (
     <AdminLayout
       breadcrumbs={breadcrumbs}
       heading="Users List"
       description="Choose User to manage"
       config={pageLayoutPresets.dashboard}
-      buttons={actions} 
+      buttons={actions}
     >
-      <UsersList users={users}/>
-      <Pagination
-        totalPages={totalPages}
-        totalItems={totalItems}
-        itemsPerPage={ITEMS_PER_PAGE}
+      <UsersList
+        users={users}
+        organizationList={organizationOptions}
+        rolesList={roleOptions}
       />
+      {users.length > 0 ? (
+        <Pagination
+          totalPages={totalPages}
+          totalItems={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+        />
+      ) : (
+        <ListingNotFound
+          title="No Users Found"
+          description="You can create a new user to get started."
+          buttonLabel="Create User"
+        />
+      )
+      }
+
+
     </AdminLayout>
   );
 }
+

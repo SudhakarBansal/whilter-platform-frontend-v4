@@ -53,9 +53,9 @@ const UserNew = ({ organizationList, rolesList, onClose }: UserNewProps) => {
 
   const preferredSectionOptions = [
     { id: "MEDIA_TOOLS", label: "Media Tools" },
-    { id: "charp-ai", label: "Charp AI" },
+    { id: "CHARP_AI", label: "Charp AI" },
     { id: "MARKETPLACE", label: "Marketplace" },
-    { id: "Dashboard", label: "Dashboard" },
+    { id: "DASHBOARD", label: "Dashboard" },
   ];
 
   return (

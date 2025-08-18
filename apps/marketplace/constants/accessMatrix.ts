@@ -12,7 +12,7 @@ export const roleAccessMatrix: RoleAccessMatrix = {
     SECTIONS.MARKETPLACE,
     SECTIONS.CHARP_AI,
   ],
-  [Role.CLIENT_ADMIN]: [
+  [Role.ADMIN]: [
     SECTIONS.MEDIA_TOOLS,
     SECTIONS.CHARP_AI,
   ],

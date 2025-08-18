@@ -9,7 +9,7 @@ export const checkServiceAccess = (
   userSections: string[], 
   targetSection: string
 ): boolean => {
-  debugger;
+
   if (!role || !Array.isArray(userSections) || !targetSection) return false;
 
   const roleTyped = role as Role;
