@@ -1,36 +1,40 @@
-"use client";
+
 import DashboardLayout from "@/layouts/dashboard-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
-import { Button } from "@mui/material";
+import { getDashboardStats } from "@/services/actions/dashboardService";
+import { mapMediaStatsToCards } from "@/data/dashboard.data";
 import StatCardSection from "@/components/dashboard-section/StatCardSection";
-import { useRouter } from "next/navigation";
+import { ActionButton } from "@/components/atoms/ActionButton";
 
-export default function Page() {
-  const router = useRouter();
 
-  const actionButtons = [
-    <Button
+export default async function Page() {
+  const data = await getDashboardStats();
+  const finalStats = mapMediaStatsToCards(data);
+
+  const breadcrumbs = buildBreadcrumbs([
+    { label: "Dashboard", href: "/" },
+  ]);
+
+  const actions = [
+    <ActionButton
       key="view-campaign"
       variant="flatPrimary"
       className="text-lg p-4"
-      onClick={() => router.push("/campaigns")}
+      href="/campaigns"
     >
       View Campaigns
-    </Button>
+    </ActionButton>
   ];
-
-  const breadcrumbs = buildBreadcrumbs([
-    { label: "Dashboard", href: "/" },])
 
   return (
     <DashboardLayout
       breadcrumbs={breadcrumbs}
       heading="Dashboard"
       config={pageLayoutPresets.dashboard}
-      buttons={actionButtons}
+      buttons={actions}
     >
-      <StatCardSection />
+      <StatCardSection stats={finalStats} />
     </DashboardLayout>
   );
 }

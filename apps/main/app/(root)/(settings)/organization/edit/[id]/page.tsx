@@ -1,37 +1,35 @@
-"use client";
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { Suspense } from "react";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
-import { OrganizationForm } from "../../components/organization-form";
+import { OrganizationFormSkeleton } from "../../components/skeltons/OrganizationFormSkeleton";
+import { OrganizationEdit } from "../../components/OrganizationEdit";
 
-export default function NewOrganizationPage() {
-  const router = useRouter();
+interface PageProps {
+  params: Promise<{ id: string }> | { id: string };
+}
+
+export default async function EditOrganizationPage({
+  params,
+}: PageProps) {
+  const resolvedParams = await Promise.resolve(params);
+  const { id } = resolvedParams;
 
   const breadcrumbs = buildBreadcrumbs([
     { label: "Organization", href: "/organization" },
-    { label: "Edit Organization", href: "/organization/edit" },
+    { label: "Edit Organization", href: `/organization/edit/${id}` },
   ]);
-
-  const handleCancel = () => {
-    router.back();
-  };
-
-  const handleSuccess = () => {
-    // Handle successful organization creation
-    // Could redirect or show success message
-    router.push("/organization");
-  };
 
   return (
     <AdminLayout
       breadcrumbs={breadcrumbs}
       heading="Edit Organization"
-      description="Edit the new organization"
+      description="Edit the organization"
       config={pageLayoutPresets.dashboard}
     >
-      <OrganizationForm onCancel={handleCancel} onSuccess={handleSuccess} isEditing={true} />
+      <Suspense fallback={<OrganizationFormSkeleton />}>
+        <OrganizationEdit id={id} />
+      </Suspense>
     </AdminLayout>
   );
 }

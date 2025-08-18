@@ -28,8 +28,6 @@ export interface UserActionButtonProps {
   rolesList: OptionType[];
 }
 
-
-
 const ITEMS_PER_PAGE = 10;
 
 export default async function Page({ searchParams }: { searchParams: any }) {

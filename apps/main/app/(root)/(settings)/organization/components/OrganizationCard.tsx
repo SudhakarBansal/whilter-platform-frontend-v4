@@ -16,7 +16,7 @@ const OrganizationCard = ({ organizations }: OrganizationProps) => {
           {/* Logo */}
           <div className="flex-shrink-0 self-center sm:self-auto">
             <img
-              src={org.logo || "https://placehold.co/400"}
+              src={org.logoUrl || "https://placehold.co/400"}
               alt={`${org.name} logo`}
               className="w-20 h-20 sm:w-14 sm:h-14 md:w-20 md:h-20 object-cover rounded"
             />

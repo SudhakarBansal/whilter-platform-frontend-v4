@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import { ImageUploader } from "./image-uploader";
@@ -5,7 +6,11 @@ import { OrganizationFormFields } from "./organization-form-fields";
 import { OrganizationFormActions } from "./organization-form-actions";
 import { FormContainer } from "@whilter/forms";
 import { toast } from "sonner";
-import { createOrganization } from "@/services/actions/organizationService";
+import {
+  createOrganization,
+  editOrganization,
+} from "@/services/actions/organizationService";
+import { useRouter } from "next/navigation";
 import type {
   CreateOrganizationRequest,
   Organization,
@@ -16,12 +21,10 @@ interface OrganizationFormDefaultValues {
   id?: string;
   name?: string;
   description?: string | null;
-  logo?: string | null; // Only string or null for form defaults
+  logoUrl?: string | null; // Only string or null for form defaults
 }
 
 interface OrganizationFormProps {
-  onCancel: () => void;
-  onSuccess: () => void;
   initialValues?: OrganizationFormDefaultValues;
   isEditing?: boolean;
 }
@@ -29,18 +32,17 @@ interface OrganizationFormProps {
 const organizationDefaultValues: OrganizationFormDefaultValues = {
   name: "",
   description: "",
-  logo: null,
+  logoUrl: null,
 };
 
 export function OrganizationForm({
-  onCancel,
-  onSuccess,
   initialValues = organizationDefaultValues,
   isEditing = false,
 }: OrganizationFormProps) {
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
+  const router = useRouter();
+  const organizationId = initialValues.id;
   const handleSubmit = async (data: Organization) => {
     setLoading(true);
     const loadingToastId = toast.loading(
@@ -50,26 +52,42 @@ export function OrganizationForm({
     try {
       // Create the payload with the selected file
       const formData: CreateOrganizationRequest & {
-        logo: string | File | null;
+        logoUrl: string | File | null;
       } = {
         ...data,
-        logo: selectedFile || data.logo, // Use selected file if available, otherwise use form data
+        logoUrl: selectedFile || data.logoUrl,
       };
 
       console.log("Form data:", formData);
-      const response = await createOrganization(formData);
-      toast.dismiss(loadingToastId);
-      toast.success(
-        isEditing
-          ? "Organization updated successfully!"
-          : "Organization created successfully!",
-      );
 
-      onSuccess();
+      let response: string;
+
+      if (isEditing && organizationId) {
+        // Edit existing organization
+        response = await editOrganization(organizationId, formData);
+      } else {
+        // Create new organization
+        response = await createOrganization(formData);
+      }
+
+      // Show success message
+      if (response) {
+        toast.success(
+          isEditing
+            ? "Organization updated successfully!"
+            : "Organization created successfully!",
+        );
+      }
+
+      // Navigate back to organization list
+      router.push("/organization");
     } catch (error) {
       console.error("Error processing organization:", error);
-      toast.error("Error processing organization: " + error);
+      toast.error(
+        `Error ${isEditing ? "updating" : "creating"} organization: ${error}`,
+      );
     } finally {
+      toast.dismiss(loadingToastId);
       setLoading(false);
     }
   };
@@ -78,18 +96,31 @@ export function OrganizationForm({
     setSelectedFile(file);
   };
 
+  // Validation for editing mode
+  if (isEditing && !organizationId) {
+    console.error(
+      "OrganizationForm: organizationId is required when isEditing is true",
+    );
+    return (
+      <Box className="p-4">
+        <div className="text-red-500">
+          Error: Organization ID is required for editing mode.
+        </div>
+      </Box>
+    );
+  }
+
   return (
     <Box className="flex flex-col md:flex-row items-center" sx={{ gap: 4 }}>
-      <ImageUploader onImageSelect={handleImageSelect} initialImage={initialValues.logo} />
+      <ImageUploader
+        onImageSelect={handleImageSelect}
+        initialImage={initialValues.logoUrl}
+      />
 
       <Box sx={{ flex: 1 }}>
         <FormContainer onSuccess={handleSubmit} defaultValues={initialValues}>
           <OrganizationFormFields />
-          <OrganizationFormActions
-            loading={loading}
-            onCancel={onCancel}
-            isEditing={isEditing}
-          />
+          <OrganizationFormActions loading={loading} isEditing={isEditing} />
         </FormContainer>
       </Box>
     </Box>

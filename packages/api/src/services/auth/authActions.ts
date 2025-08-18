@@ -72,7 +72,7 @@ export async function resetPassword(data: ResetPasswordPayload): Promise<{ statu
 
 export async function refreshToken(refreshToken:any): Promise<AxiosResponse<any>> {
   try {
-    const response = await axiosInstance.post(ServiceEndpoints.refreshToken, refreshToken);
+    const response = await axiosInstance.get(ServiceEndpoints.refreshToken, refreshToken);
 
     if (response.status === 200 || response.status === 201) {
       return response;
@@ -80,29 +80,28 @@ export async function refreshToken(refreshToken:any): Promise<AxiosResponse<any>
     throw new Error("Login failed.");
   } catch (error: any) {
     const errorResponse = error?.response?.data || "An unexpected error occurred";
-    console.error("Error logging in user:", errorResponse);
+    console.error("Error getitng token:", errorResponse);
     throw new Error(errorResponse);
   }
 }
-
-
 export async function logout(data: FormData): Promise<AxiosResponse<any>> {
   try {
     const response = await axiosInstance.post(ServiceEndpoints.logout, data);
+
     if (response.status === 200 || response.status === 201) {
       return response;
     }
     throw new Error("Logout failed.");
   } catch (error: any) {
-    const errorData = error?.response?.data;
+    const errorResponse = error?.response?.data;
+    const message =
+      (typeof errorResponse === "object" && errorResponse?.message) ||
+      (typeof errorResponse === "string" && errorResponse) ||
+      "An unexpected error occurred";
 
-    const code: CharpErrorCode = errorData?.code;
-    const mappedError: CharpErrorDetail = CHARP_ERROR_CODES[code] ?? {
-      code: "CHARP-1502",
-      status: 500,
-      message: "An unexpected error occurred during logout",
-    };
-    throw mappedError;
+    console.error("Error logging out user:", errorResponse);
+    throw new Error(message);
   }
 }
+
 

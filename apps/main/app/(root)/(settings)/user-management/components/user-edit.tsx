@@ -93,7 +93,6 @@ const UserEdit = ({
 
   useEffect(() => { fetchUser() }, [userId]);
 
-  console.log("initialValues",initialValues);
 
   return (
     <div>
