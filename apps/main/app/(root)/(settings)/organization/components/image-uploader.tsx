@@ -6,7 +6,7 @@ import { validateImageFile } from "@/utils/image-validation";
 
 interface ImageUploaderProps {
   onImageSelect: (file: File | null) => void;
-  initialImage?: string;
+  initialImage?: string | null;
 }
 
 export function ImageUploader({ onImageSelect, initialImage }: ImageUploaderProps) {

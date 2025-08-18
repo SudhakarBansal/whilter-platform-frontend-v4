@@ -1,3 +1,4 @@
+import type { Organization } from "@/types/organization.types";
 
 export interface RegisterCredentials {
   name?: string;
@@ -21,13 +22,6 @@ export interface User {
   orgLevelAccess: boolean
   createdAt: string
   updatedAt: string
-}
-
-export interface Organization {
-  id: string;
-  name: string;
-  description: string;
-  logo: string;
 }
 
 export interface PaginatedUsersResponse {

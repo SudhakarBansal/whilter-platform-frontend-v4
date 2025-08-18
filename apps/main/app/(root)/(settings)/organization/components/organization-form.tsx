@@ -5,24 +5,31 @@ import { OrganizationFormFields } from "./organization-form-fields";
 import { OrganizationFormActions } from "./organization-form-actions";
 import { FormContainer } from "@whilter/forms";
 import { toast } from "sonner";
+import { createOrganization } from "@/services/actions/organizationService";
+import type {
+  CreateOrganizationRequest,
+  Organization,
+} from "@/types/organization.types";
 
-export interface OrganizationFormData {
-  name: string;
-  description: string;
-  logo: string;
+// Form-specific type that matches what FormContainer expects
+interface OrganizationFormDefaultValues {
+  id?: string;
+  name?: string;
+  description?: string | null;
+  logo?: string | null; // Only string or null for form defaults
 }
 
 interface OrganizationFormProps {
   onCancel: () => void;
   onSuccess: () => void;
-  initialValues?: OrganizationFormData;
+  initialValues?: OrganizationFormDefaultValues;
   isEditing?: boolean;
 }
 
-const organizationDefaultValues: OrganizationFormData = {
+const organizationDefaultValues: OrganizationFormDefaultValues = {
   name: "",
   description: "",
-  logo: "",
+  logo: null,
 };
 
 export function OrganizationForm({
@@ -34,26 +41,34 @@ export function OrganizationForm({
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
-  const handleSubmit = async (data: OrganizationFormData) => {
+  const handleSubmit = async (data: Organization) => {
     setLoading(true);
-    const loadingToastId = toast.loading("Creating organization...");
+    const loadingToastId = toast.loading(
+      isEditing ? "Updating organization..." : "Creating organization...",
+    );
 
     try {
-      const formData = {
+      // Create the payload with the selected file
+      const formData: CreateOrganizationRequest & {
+        logo: string | File | null;
+      } = {
         ...data,
-        logo: selectedFile,
+        logo: selectedFile || data.logo, // Use selected file if available, otherwise use form data
       };
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       console.log("Form data:", formData);
+      const response = await createOrganization(formData);
       toast.dismiss(loadingToastId);
-      toast.success("Organization created successfully!");
+      toast.success(
+        isEditing
+          ? "Organization updated successfully!"
+          : "Organization created successfully!",
+      );
 
       onSuccess();
     } catch (error) {
-      console.error("Error Adding Organization : ", error);
-      toast.error("Error Adding Organization : " + error);
+      console.error("Error processing organization:", error);
+      toast.error("Error processing organization: " + error);
     } finally {
       setLoading(false);
     }
