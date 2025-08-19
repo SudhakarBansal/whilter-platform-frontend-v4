@@ -73,10 +73,10 @@ export default function Pagination({
 
     return (
       <div className="flex flex-col sm:flex-row items-center justify-between gap-10">
-        {/* <div className="text-sm text-gray-400">
+        <div className="text-sm text-gray-400">
           Showing <span className="text-gray-200">{startItem}-{endItem}</span> of{" "}
           <span className="text-gray-200">{totalItems}</span>
-        </div> */}
+        </div>
   
         <div className="flex items-center gap-1">
           <button

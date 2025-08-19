@@ -52,13 +52,15 @@ export async function OrganizationDataListing({
   }
 
   return (
-    <>
+    <div className="!my-0">
+      <div className="my-7">
+        <Pagination
+          totalPages={totalPages}
+          totalItems={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+        />
+      </div>
       <OrganizationCard organizations={organizations} />
-      <Pagination
-        totalPages={totalPages}
-        totalItems={totalItems}
-        itemsPerPage={ITEMS_PER_PAGE}
-      />
-    </>
+    </div>
   );
 }
