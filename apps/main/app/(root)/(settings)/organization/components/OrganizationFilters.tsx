@@ -74,9 +74,7 @@ export const OrganizationFilters = () => {
         placeholder="Search by organization name..."
         value={searchValue}
         onChange={handleInputChange} // Use onChange instead of onChangeCapture
-        fullWidth
         variant="outlined"
-        size="medium"
         className="max-w-md"
         autoComplete="off"
         focused
