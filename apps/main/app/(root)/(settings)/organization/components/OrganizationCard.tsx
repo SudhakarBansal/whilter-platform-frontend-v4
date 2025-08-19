@@ -64,7 +64,7 @@ const OrganizationCard = ({ organizations }: OrganizationProps) => {
         {organizations.map((org: Organization) => (
           <div
             key={org.id}
-            className="flex flex-col sm:flex-row border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+            className="flex flex-col sm:flex-row border border-gray-300 rounded-xl bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden"
           >
             <div className="flex-shrink-0 self-center p-4 sm:p-4">
               <img
