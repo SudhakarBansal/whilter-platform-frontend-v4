@@ -48,6 +48,16 @@ const   UserForm = ({
     onSubmit(data);
   };
 
+   const organizationOptions1 = organizationOptions.map((org: OptionType) => ({
+    id: org.name,
+    label: org.name,
+  }));
+
+  const roleOptions1 = roleOptions.map((role: OptionType) => ({
+    id: role.name,
+    label: role.name,
+  }));
+
   useEffect(()=>{
     methods.reset(defaultValues);
   },[defaultValues]);
@@ -108,7 +118,7 @@ const   UserForm = ({
               <Box>
                 <SelectElement
                   name="organizationName"
-                  options={organizationOptions}
+                  options={organizationOptions1}
                   fullWidth
                   size="small"
                   label="Select Organization"
@@ -117,7 +127,7 @@ const   UserForm = ({
               <Box>
                 <SelectElement
                   name="role"
-                  options={roleOptions}
+                  options={roleOptions1}
                   fullWidth
                   size="small"
                   label="Select Role"

@@ -1,15 +1,9 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import {
-  TextField,
-  MenuItem,
-  FormControlLabel,
-  Switch,
-  Grid,
-} from "@mui/material";
+import { TextField, MenuItem, FormControlLabel, Switch } from "@mui/material";
 import debounce from "lodash.debounce";
-import { type UserActionButtonProps } from "../page";
+import Pagination from "./pagination";
 
 export type UserFiltersState = {
   status: boolean;
@@ -20,10 +14,12 @@ export type UserFiltersState = {
 };
 
 export type UserFiltersProps = {
-  organizationList: { id: string; label: string }[];
-  rolesList: { id: string; label: string }[];
+  organizationList: { id: string; name: string }[];
+  rolesList: { id: string; name: string }[];
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
 };
-
 
 const sections = [
   { id: "MEDIA_TOOLS", label: "Media Tools" },
@@ -32,10 +28,7 @@ const sections = [
   { id: "DASHBOARD", label: "Dashboard" },
 ];
 
-export const UserFilters = ({
-  organizationList,
-  rolesList,
-}: UserFiltersProps) => {
+export const UserFilters = ({ organizationList, rolesList, totalPages, totalItems, itemsPerPage }: UserFiltersProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -44,7 +37,7 @@ export const UserFilters = ({
     organizationName: "",
     role: "",
     preferredSection: "",
-    status: false,
+    status: true,
   });
 
   useEffect(() => {
@@ -86,84 +79,93 @@ export const UserFilters = ({
   };
 
   return (
-    <Grid container spacing={2} className="mb-6">
-      {/* Email */}
-      <Grid item xs={12} sm={6} md={3}>
+    <div className="flex items-center justify-between gap-4 mb-6">
+      
+      <div className="flex items-center gap-4 flex-wrap">
         <TextField
           label="Email"
           value={localFilters.email}
           onChange={(e) => handleChange("email", e.target.value)}
-          fullWidth
+          size="small"
+          style={{ width: 160 }}
         />
-      </Grid>
 
-      {/* Organization */}
-      <Grid item xs={12} sm={6} md={3}>
         <TextField
           select
           label="Organization"
           value={localFilters.organizationName}
           onChange={(e) => handleChange("organizationName", e.target.value)}
-          fullWidth
+          size="small"
+          style={{ width: 150 }}
         >
           <MenuItem value="">All</MenuItem>
           {organizationList.map((org) => (
-            <MenuItem key={org.id} value={org.label}>
-              {org.label}
+            <MenuItem key={org.id} value={org.name}>
+              {org.name}
             </MenuItem>
           ))}
         </TextField>
-      </Grid>
 
-      {/* Role */}
-      <Grid item xs={12} sm={6} md={3}>
         <TextField
           select
           label="Role"
           value={localFilters.role}
           onChange={(e) => handleChange("role", e.target.value)}
-          fullWidth
+          size="small"
+          style={{ width: 150 }}
         >
           <MenuItem value="">All</MenuItem>
           {rolesList.map((role) => (
-            <MenuItem key={role.id} value={role.label}>
-              {role.label}
+            <MenuItem key={role.id} value={role.name}>
+              {role.name}
             </MenuItem>
           ))}
         </TextField>
-      </Grid>
 
-      {/* Preferred Section */}
-      <Grid item xs={12} sm={6} md={3}>
         <TextField
           select
-          label="Preferred Section"
+          label="Section"
           value={localFilters.preferredSection}
           onChange={(e) => handleChange("preferredSection", e.target.value)}
-          fullWidth
+          size="small"
+          style={{ width: 160 }}
         >
           <MenuItem value="">All</MenuItem>
           {sections.map((section) => (
-            <MenuItem key={section.id} value={section.label}>
+            <MenuItem key={section.id} value={section.id}>
               {section.label}
             </MenuItem>
           ))}
         </TextField>
-      </Grid>
 
-      {/* Status */}
-      <Grid item xs={12} sm={6} md={3}>
         <FormControlLabel
           control={
             <Switch
               checked={localFilters.status}
               onChange={(e) => handleChange("status", e.target.checked)}
               color="primary"
+              size="small"
+              sx={{
+                '& .MuiSwitch-track': {
+                  border: '1px solid white',
+                  borderRadius: '20px',
+                }
+              }}
             />
           }
-          label="Status: Active"
+          label="Status"
+          labelPlacement="start"
         />
-      </Grid>
-    </Grid>
+      </div>
+
+
+      <div className="flex-shrink-0 w-[240px]">
+        <Pagination
+          totalPages={totalPages}
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+        />
+      </div>
+    </div>
   );
 };
