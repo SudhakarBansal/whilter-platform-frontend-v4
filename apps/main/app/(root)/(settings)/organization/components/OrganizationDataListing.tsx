@@ -4,7 +4,7 @@ import OrganizationCard from "./OrganizationCard";
 import Pagination from "../../user-management/components/pagination";
 import { ListingNotFound } from "@whilter/ui-kit/components";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 9;
 const defaultSearchParams = {
   page: 0,
   size: ITEMS_PER_PAGE,

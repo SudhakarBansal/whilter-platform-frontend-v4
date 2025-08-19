@@ -1,30 +1,33 @@
 // Skeleton Components
 const OrganizationCardSkeleton = () => (
-  <div className="mb-5 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
+  <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
     {Array.from({ length: 6 }).map((_, index) => (
       <div
         key={index}
-        className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start sm:items-center p-6 sm:p-5 border border-gray-700 rounded-lg bg-gray-600 shadow-sm animate-pulse"
+        className="flex flex-col sm:flex-row border border-gray-700 rounded-xl bg-gray-600 shadow-sm overflow-hidden animate-pulse"
       >
         {/* Logo Skeleton */}
-        <div className="flex-shrink-0 self-center sm:self-auto">
-          <div className="w-20 h-20 sm:w-14 sm:h-14 md:w-20 md:h-20 bg-gray-700 rounded"></div>
+        <div className="flex-shrink-0 self-center p-4 sm:p-4">
+          <div className="w-52 h-52 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-gray-700 rounded mx-auto sm:mx-0"></div>
         </div>
 
-        {/* Organization Info Skeleton */}
-        <div className="flex-1 text-center sm:text-left min-w-0 space-y-2">
-          {/* Title skeleton */}
-          <div className="h-4 sm:h-5 bg-gray-700 rounded w-3/4 mx-auto sm:mx-0"></div>
-          {/* Description skeleton */}
-          <div className="space-y-1">
-            <div className="h-3 sm:h-4 bg-gray-700 rounded w-full"></div>
-            <div className="h-3 sm:h-4 bg-gray-700 rounded w-5/6 mx-auto sm:mx-0"></div>
+        {/* Content Skeleton */}
+        <div className="flex-1 flex flex-col p-4 pt-0 sm:pt-4 sm:pl-2 min-w-0">
+          <div className="flex-1 mb-4">
+            {/* Title skeleton */}
+            <div className="h-6 bg-gray-700 rounded w-3/4 mb-2 mx-auto sm:mx-0"></div>
+            {/* Description skeleton */}
+            <div className="space-y-2">
+              <div className="h-4 bg-gray-700 rounded w-full"></div>
+              <div className="h-4 bg-gray-700 rounded w-5/6 mx-auto sm:mx-0"></div>
+            </div>
           </div>
-        </div>
 
-        {/* Action Button Skeleton */}
-        <div className="flex-shrink-0 self-center sm:self-auto w-full sm:w-auto">
-          <div className="h-8 bg-gray-700 rounded w-full sm:w-16"></div>
+          {/* Action Buttons Skeleton */}
+          <div className="flex flex-row justify-center sm:justify-start gap-2">
+            <div className="h-8 bg-gray-700 rounded w-16"></div>
+            <div className="h-8 bg-gray-700 rounded w-16"></div>
+          </div>
         </div>
       </div>
     ))}
@@ -47,9 +50,11 @@ const PaginationSkeleton = () => (
 // Loading fallback component
 export function OrganizationPageSkeleton() {
   return (
-    <>
+    <div className="!my-0">
+      <div className="my-7">
+        <PaginationSkeleton />
+      </div>
       <OrganizationCardSkeleton />
-      <PaginationSkeleton />
-    </>
+    </div>
   );
 }
