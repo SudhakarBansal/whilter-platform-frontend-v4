@@ -56,7 +56,11 @@ const OrganizationCard = ({ organizations }: OrganizationProps) => {
   };
 
   const handleDeleteCancel = () => {
-    setDeleteDialog({ open: false, organization: null });
+    setDeleteDialog({ open: false, organization: deleteDialog.organization });
+    // Clear organization data after dialog animation completes
+    setTimeout(() => {
+      setDeleteDialog({ open: false, organization: null });
+    }, 300); // Adjust timing based on your dialog's animation duration
   };
 
   return (
