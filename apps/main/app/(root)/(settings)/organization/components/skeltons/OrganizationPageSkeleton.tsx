@@ -4,8 +4,14 @@ const OrganizationCardSkeleton = () => (
     {Array.from({ length: 6 }).map((_, index) => (
       <div
         key={index}
-        className="flex flex-col sm:flex-row border border-gray-700 rounded-xl bg-gray-600 shadow-sm overflow-hidden animate-pulse"
+        className="relative group flex flex-col sm:flex-row border border-gray-700 rounded-xl bg-gray-600 shadow-sm overflow-hidden animate-pulse"
       >
+        {/* Action Icons Skeleton - positioned at top right */}
+        <div className="absolute top-3 right-3 flex gap-1 z-10">
+          <div className="w-8 h-8 bg-gray-700 rounded-lg"></div>
+          <div className="w-8 h-8 bg-gray-700 rounded-lg"></div>
+        </div>
+
         {/* Logo Skeleton */}
         <div className="flex-shrink-0 self-center p-4 sm:p-4">
           <div className="w-52 h-52 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-gray-700 rounded mx-auto sm:mx-0"></div>
@@ -13,20 +19,14 @@ const OrganizationCardSkeleton = () => (
 
         {/* Content Skeleton */}
         <div className="flex-1 flex flex-col p-4 pt-0 sm:pt-4 sm:pl-2 min-w-0">
-          <div className="flex-1 mb-4">
+          <div className="flex flex-1 flex-col justify-center">
             {/* Title skeleton */}
-            <div className="h-6 bg-gray-700 rounded w-3/4 mb-2 mx-auto sm:mx-0"></div>
+            <div className="h-6 bg-gray-700 rounded w-3/4 mb-2 mx-auto sm:mx-0 pr-16 sm:pr-0"></div>
             {/* Description skeleton */}
             <div className="space-y-2">
               <div className="h-4 bg-gray-700 rounded w-full"></div>
               <div className="h-4 bg-gray-700 rounded w-5/6 mx-auto sm:mx-0"></div>
             </div>
-          </div>
-
-          {/* Action Buttons Skeleton */}
-          <div className="flex flex-row justify-center sm:justify-start gap-2">
-            <div className="h-8 bg-gray-700 rounded w-16"></div>
-            <div className="h-8 bg-gray-700 rounded w-16"></div>
           </div>
         </div>
       </div>
