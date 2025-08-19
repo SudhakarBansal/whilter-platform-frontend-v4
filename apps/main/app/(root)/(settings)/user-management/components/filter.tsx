@@ -81,7 +81,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
   return (
    <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
   <div className="flex flex-1 flex-wrap items-center gap-3">
-    <div className="w-full min-w-[300px] sm:w-[300px]">
+    <div className="w-full min-w-[220px] sm:w-[220px]">
       <TextField
         label="Email"
         value={localFilters.email}
@@ -92,7 +92,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
       />
     </div>
 
-    <div className="w-full min-w-[160px] sm:w-[160px]">
+    <div className="w-full min-w-[180px] sm:w-[180px]">
       <TextField
         select
         label="Organization"
@@ -111,7 +111,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
     </div>
 
     {/* Role - Same sizing */}
-    <div className="w-full min-w-[160px] sm:w-[160px]">
+    <div className="w-full min-w-[180px] sm:w-[180px]">
       <TextField
         select
         label="Role"
@@ -130,7 +130,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
     </div>
 
     {/* Section - Same sizing */}
-    <div className="w-full min-w-[160px] sm:w-[16git0px]">
+    <div className="w-full min-w-[180px] sm:w-[180px]">
       <TextField
         select
         label="Section"

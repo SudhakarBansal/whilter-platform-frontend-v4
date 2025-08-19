@@ -14,8 +14,7 @@ export default function AccountPage() {
         <AdminLayout
             breadcrumbs={breadcrumbs}
             heading="My Account Details"
-            config={pageLayoutPresets.dashboard}
-        >
+            config={pageLayoutPresets.dashboard}>
             <AccountDetails
             />
         </AdminLayout>
