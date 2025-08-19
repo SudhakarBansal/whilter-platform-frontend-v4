@@ -84,7 +84,7 @@ instance.interceptors.response.use(
 
     const session: Session | null = (originalRequest as any)._session;
 
-    if (status === 401 && errorCode === CHARP_ERROR_CODES["CHARP-1102"].code) {
+    if (status === 401) {
       if (typeof window !== "undefined") {
         await signOut({ callbackUrl: "/login" });
       }
@@ -117,13 +117,13 @@ instance.interceptors.response.use(
           return Promise.reject(error);
         }
 
-        const response = await refreshToken(refreshTokenValue);
-        const newToken = response.accessToken;
+       const response = await refreshToken(refreshTokenValue);
+       const newToken = response.accessToken;
 
-        processQueue(null, newToken);
-        isRefreshing = false;
+       processQueue(null, newToken);
+       isRefreshing = false;
 
-        originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+       originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
         return instance(originalRequest);
       } catch (err) {
         processQueue(err, null);

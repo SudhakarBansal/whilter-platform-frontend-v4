@@ -2,7 +2,7 @@ import { getPaginatedOrganizationWithFilters } from "@/services/actions/organiza
 import type { Organization } from "@/types/organization.types";
 import OrganizationCard from "./OrganizationCard";
 import Pagination from "../../user-management/components/pagination";
-
+import { ListingNotFound } from "@whilter/ui-kit/components";
 
 const ITEMS_PER_PAGE = 10;
 const defaultSearchParams = {
@@ -11,7 +11,11 @@ const defaultSearchParams = {
   name: "",
 };
 
-export async function OrganizationDataListing({ searchParams }: { searchParams: any }) {
+export async function OrganizationDataListing({
+  searchParams,
+}: {
+  searchParams: any;
+}) {
   const params = { ...defaultSearchParams, ...searchParams };
 
   let organizations: Organization[] = [];
@@ -35,6 +39,17 @@ export async function OrganizationDataListing({ searchParams }: { searchParams: 
 
   const totalPages = paginatedData?.totalPages || 0;
   const totalItems = paginatedData?.totalItems || 0;
+
+  // Show ListingNotFound when no organizations exist
+  if (organizations.length === 0) {
+    return (
+      <ListingNotFound
+        title="No Organizations Found"
+        description="You can create a new organization to get started."
+        buttonLabel="Create Organization"
+      />
+    );
+  }
 
   return (
     <>

@@ -21,7 +21,7 @@ interface OrganizationFormDefaultValues {
   id?: string;
   name?: string;
   description?: string | null;
-  logoUrl?: string | null; // Only string or null for form defaults
+  logoUrl?: string | null;
 }
 
 interface OrganizationFormProps {
@@ -77,10 +77,14 @@ export function OrganizationForm({
             ? "Organization updated successfully!"
             : "Organization created successfully!",
         );
-      }
 
-      // Navigate back to organization list
-      router.push("/organization");
+        if (isEditing) {
+          router.push("/organization");
+        } else {
+          router.push("/organization");
+        }
+        router.refresh();
+      }
     } catch (error) {
       console.error("Error processing organization:", error);
       toast.error(
