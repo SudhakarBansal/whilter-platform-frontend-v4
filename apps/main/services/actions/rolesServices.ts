@@ -1,5 +1,6 @@
 import {axiosInstance} from "@whilter/api"
 import ServiceEndpoints from "../service-endpoints"
+
 export async function getRoleList() {
   try {
     const response = await axiosInstance.get(ServiceEndpoints.user.getRole);
@@ -9,7 +10,7 @@ export async function getRoleList() {
       throw new Error("Unexpected response status");
     }
   } catch (error: any) {
-    const errorResponse = error?.response?.data || "An unexpected error occurred";
+    const errorResponse = error?.response?.data?.message || "An unexpected error occurred";
     throw new Error(errorResponse);
   }
 }

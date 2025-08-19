@@ -36,16 +36,13 @@ const UserEdit = ({
     password: "",
   });
 
-  console.log("userId",userId);
-
-
   const preferredSectionOptions = [
     { id: "MEDIA_TOOLS", label: "Media Tools" },
     { id: "charp-ai", label: "Charp AI" },
     { id: "MARKETPLACE", label: "Marketplace" },
     { id: "Dashboard", label: "Dashboard" },
   ];
-
+  
   const handleSubmit = async (data: any) => {
 
     try {
@@ -102,8 +99,7 @@ const UserEdit = ({
       roleOptions={rolesList}
       preferredSectionOptions={preferredSectionOptions}
     />
-    }
-        
+    } 
     </div>
   )
 }

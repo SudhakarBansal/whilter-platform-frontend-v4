@@ -73,15 +73,12 @@ export default function Pagination({
 
     return (
       <div className="flex flex-col sm:flex-row items-center justify-between gap-10">
-        {/* Info - More subtle text */}
-        <div className="text-sm text-gray-400">
+        {/* <div className="text-sm text-gray-400">
           Showing <span className="text-gray-200">{startItem}-{endItem}</span> of{" "}
           <span className="text-gray-200">{totalItems}</span>
-        </div>
+        </div> */}
   
-        {/* Pagination - Tightened spacing */}
         <div className="flex items-center gap-1">
-          {/* First */}
           <button
             className={iconBtnClasses(currentPage === 1)}
             onClick={() => onPageChange(1)}

@@ -19,6 +19,7 @@ const defaultSearchParams = {
   status: "",
 };
 
+
 export interface OptionType {
   id: string;
   name: string;
@@ -31,10 +32,13 @@ export interface UserActionButtonProps {
 
 const ITEMS_PER_PAGE = 6;
 
+function isFilterApplied(params: Record<string, any>): boolean {
+  const { page, size, ...filters } = params;
+  return Object.values(filters).some((value) => value && value.toString().trim() !== "");
+}
+
 export default async function Page({ searchParams }: { searchParams: any }) {
   const params = { ...defaultSearchParams, ...(await searchParams) };
-
-
   const values = params;
   console.log("params -- ", values);
 
@@ -47,9 +51,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
 
   let organizationList = [];
   let rolesList = [];
-
-
-  const role = params?.role;
+  let error: unknown = null;
 
   try {
     const response = await getPaginatedUsersWithFilters(params);
@@ -64,19 +66,11 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       getOrganizationList(),
       getRoleList()
     ]);
-  } catch (error) {
-    console.error("Error fetching users:", error);
+  } catch (err) {
+    console.error("Error fetching users:", err);
+    error = err;
   }
 
-  const organizationOptions = organizationList.map((org: OptionType) => ({
-    id: org.name,
-    label: org.name,
-  }));
-
-  const roleOptions = rolesList.map((role: OptionType) => ({
-    id: role.name,
-    label: role.name,
-  }));
 
   const page = Array.isArray(params.page) ? params.page[0] : params.page;
 
@@ -90,12 +84,13 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   const actions = [
     <UserActionButton
       key="user-action-btn"
-      organizationList={organizationOptions}
-      rolesList={roleOptions}
+      organizationList={organizationList}
+      rolesList={rolesList}
     />
   ];
 
-
+  const filtersApplied = isFilterApplied(params);
+ 
   return (
     <AdminLayout
       breadcrumbs={breadcrumbs}
@@ -104,28 +99,61 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       config={pageLayoutPresets.dashboard}
       buttons={actions}
     >
-      <UsersList
-        users={users}
-        organizationList={organizationOptions}
-        rolesList={roleOptions}
-      />
-      {users.length > 0 ? (
-        <Pagination
+      {error ? (
+        filtersApplied ? (
+          <UsersList
+            users={[]}
+            organizationList={organizationList}
+            rolesList={rolesList}
+            totalPages={0}
+            totalItems={0}
+            itemsPerPage={ITEMS_PER_PAGE}
+          >
+            <ListingNotFound
+              title="Error loading filtered users"
+              description="Something went wrong while applying your filters. Try again."
+            />
+          </UsersList>
+        ) : (
+          <ListingNotFound
+            title="Error loading users"
+            description="Something went wrong while fetching users. Please try again."
+          />
+        )
+      ) : users.length === 0 ? (
+        filtersApplied ? (
+          <UsersList
+            users={[]}
+            organizationList={organizationList}
+            rolesList={rolesList}
+            totalPages={0}
+            totalItems={0}
+            itemsPerPage={ITEMS_PER_PAGE}
+          >
+            <ListingNotFound
+              title="No results match your filters"
+              description="Try adjusting filters or search again."
+            />
+          </UsersList>
+        ) : (
+          <ListingNotFound
+            title="No Users Found"
+            description="Your system does not have any users yet."
+            buttonLabel="Create User"
+          />
+        )
+      ) : (
+        <UsersList
+          users={users}
+          organizationList={organizationList}
+          rolesList={rolesList}
           totalPages={totalPages}
           totalItems={totalItems}
           itemsPerPage={ITEMS_PER_PAGE}
         />
-      ) : (
-        <ListingNotFound
-          title="No Users Found"
-          description="You can create a new user to get started."
-          buttonLabel="Create User"
-        />
-      )
-      }
-
-
+      )}
     </AdminLayout>
   );
+  
 }
 

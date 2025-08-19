@@ -43,6 +43,7 @@ export function OrganizationForm({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const router = useRouter();
   const organizationId = initialValues.id;
+  
   const handleSubmit = async (data: Organization) => {
     setLoading(true);
     const loadingToastId = toast.loading(
