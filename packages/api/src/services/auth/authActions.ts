@@ -84,7 +84,7 @@ export async function refreshToken(refreshToken:any): Promise<AxiosResponse<any>
     throw new Error(errorResponse);
   }
 }
-export async function logout(data: FormData): Promise<AxiosResponse<any>> {
+export async function logout(data: LogoutPayload): Promise<AxiosResponse<any>> {
   try {
     const response = await axiosInstance.post(ServiceEndpoints.logout, data);
 

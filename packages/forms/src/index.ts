@@ -12,6 +12,9 @@ export type {CheckboxElementProps} from './CheckboxElement'
 export {default as SelectElement} from './SelectElement'
 export type {SelectElementProps} from './SelectElement'
 
+export {default as SelectElementWithIcon} from './SelectElementWithIcon'
+export type {SelectElementWithIconProps} from './SelectElementWithIcon'
+
 export {default as CheckboxButtonGroup} from './CheckboxButtonGroup'
 export type {CheckboxButtonGroupProps} from './CheckboxButtonGroup'
 

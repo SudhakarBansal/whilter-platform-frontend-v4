@@ -1,5 +1,5 @@
 "use client";
-import React ,{useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -14,29 +14,30 @@ import { useForm, Controller } from "react-hook-form";
 import {
   TextFieldElement,
   SelectElement,
+  SelectElementWithIcon,
   PasswordElement,
   MultiSelectElement,
   FormContainer,
 } from "@whilter/forms";
-import {type OptionType} from "../page";
+import { type OptionType, type OrganizationType } from "../page";
 
 interface UserFormProps {
   defaultValues: any;
   onSubmit: (data: any) => void;
   onClose: () => void;
-  organizationOptions: OptionType[];
+  organizationOptions: OrganizationType[];
   roleOptions: OptionType[];
   preferredSectionOptions: { id: string; label: string }[];
-  isEdit:boolean;
+  isEdit: boolean;
 }
 
-const   UserForm = ({
+const UserForm = ({
   defaultValues,
   onSubmit,
   onClose,
   organizationOptions,
   roleOptions,
-  isEdit=false,
+  isEdit = false,
   preferredSectionOptions,
 }: UserFormProps) => {
   const methods = useForm({
@@ -48,9 +49,10 @@ const   UserForm = ({
     onSubmit(data);
   };
 
-   const organizationOptions1 = organizationOptions.map((org: OptionType) => ({
+  const organizationOptions1 = organizationOptions.map((org: OrganizationType) => ({
     id: org.name,
     label: org.name,
+    logoUrl: org.logoUrl,
   }));
 
   const roleOptions1 = roleOptions.map((role: OptionType) => ({
@@ -58,9 +60,9 @@ const   UserForm = ({
     label: role.name,
   }));
 
-  useEffect(()=>{
+  useEffect(() => {
     methods.reset(defaultValues);
-  },[defaultValues]);
+  }, [defaultValues]);
 
   return (
     <FormContainer formContext={methods} onSuccess={handleSubmit}>
@@ -116,14 +118,45 @@ const   UserForm = ({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Box>
-                <SelectElement
+                <SelectElementWithIcon
                   name="organizationName"
                   options={organizationOptions1}
-                  fullWidth
-                  size="small"
+                  valueKey="id"
                   label="Select Organization"
+                  renderOption={(item: { id: string; label: string; logoUrl?: string }, selected: boolean) => (
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                      {item.logoUrl ? (
+                        <img
+                          src={item.logoUrl}
+                          alt=""
+                          width={20}
+                          height={20}
+                          style={{ marginRight: 8, opacity: selected ? 1 : 0.6 }}
+                        />
+                      ) : (
+                        <span style={{ marginRight: 8 }}>🖼️</span>
+                      )}
+                      <span>{item.label}</span>
+                    </div>
+                  )}
+                  renderValue={(selected) => {
+                    if (!selected) return null
+
+                    if (typeof selected === "string" || typeof selected === "number") {
+                      return <span style={{ fontWeight: "bold" }}>{selected}</span>
+                    }
+
+                    if (typeof selected === "object" && "label" in selected) {
+                      return <span style={{ fontWeight: "bold" }}>{selected.label}</span>
+                    }
+
+                    return null
+                  }}
                 />
+
               </Box>
+
+
               <Box>
                 <SelectElement
                   name="role"

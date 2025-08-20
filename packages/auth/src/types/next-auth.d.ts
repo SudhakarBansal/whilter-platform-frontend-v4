@@ -14,7 +14,7 @@ declare module 'next-auth' {
       image?: string | null;
       role: string;
       organization: string;
-      section: string;
+      section: string[];
       userId: string;
       active:boolean;
       exp:number;
@@ -29,7 +29,7 @@ declare module 'next-auth' {
     exp: number;
     role: string;
     organization: string;
-    section: string;
+    section: string[];
     userId: string;
     email: string;
     name: string;
@@ -44,11 +44,11 @@ declare module 'next-auth/jwt' {
     deviceId?: string;
     role?: string;
     organization?: string;
-    section?: string;
+    section: string[];
     userId?: string;
     email?: string;
-    name?: string;
-    active?: boolean;
-    accessTokenExp?: number;
+    name: string;
+    active: boolean;
+    accessTokenExp: number;
   }
 }

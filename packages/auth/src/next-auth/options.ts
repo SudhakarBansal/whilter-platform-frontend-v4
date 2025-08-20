@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
               userId: decoded.userId,
               active: decoded.active,
               organization: decoded.organization,
-              section: decoded.section,
+              section: decoded.section || [],
               exp: decoded.exp || 0,
               accessToken,
               refreshToken,
@@ -111,11 +111,11 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         role: token.role as string,
         organization: token.organization as string,
-        section: token.section as string,
+        section:(token.section as string[] | undefined) ?? [],
         userId: token.userId as string,
         email: token.email as string,
         name: token.name as string,
-        exp: token.accessTokenExp as number, // Use accessTokenExp and ensure it's a number
+        exp: token.accessTokenExp as number, 
         active: Boolean(token.active),
       };
       return session;
