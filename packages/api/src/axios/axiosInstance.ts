@@ -1,14 +1,14 @@
-import axios, { AxiosInstance } from "axios";
-import { getSession, signOut } from "next-auth/react";
-import { getServerSession } from "next-auth/next";
+import axios, {type AxiosInstance } from 'axios';
+import { getSession, signOut } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@whilter/auth";
-import { refreshToken } from "@whilter/api";
-import type { Session } from "next-auth";
-import { CHARP_ERROR_CODES } from "@whilter/shared-types";
+import { refreshToken } from '@whilter/api'; // Assumes this works on client
+import type { Session } from 'next-auth';
 
+// Define the FailedRequest type
 interface FailedRequest {
   resolve: (token: string) => void;
-  reject: (err: unknown) => void;
+  reject: (error: any) => void;
 }
 
 let isRefreshing = false;
@@ -36,7 +36,8 @@ const instance = createAxiosInstance();
 instance.interceptors.request.use(async config => {
   let session: Session | null = null;
 
-  if (typeof window === "undefined") {
+  if (typeof window === 'undefined') {
+    // Server-side
     session = await getServerSession(authOptions);
   } else {
     session = await getSession();
@@ -44,10 +45,7 @@ instance.interceptors.request.use(async config => {
 
   const token = (session as any)?.accessToken;
   if (token) {
-    (config.headers as any) = {
-      ...config.headers,
-      Authorization: `Bearer ${token}`,
-    };
+    config.headers.Authorization = `Bearer ${token}`;
   }
   (config as any)._session = session;
   return config;
@@ -105,20 +103,11 @@ instance.interceptors.response.use(
 
       isRefreshing = true;
 
-      try {
-        const refreshTokenValue = (session as any)?.refreshToken;
-        if (!refreshTokenValue) {
-          if (typeof window !== "undefined") {
-            await signOut({ callbackUrl: "/login" });
-          }
-          return Promise.reject(error);
-        }
-
-       // const response = await refreshToken(refreshTokenValue);
-      //  const newToken = response.accessToken;
-
-      //  processQueue(null, newToken);
-      //  isRefreshing = false;
+        try {
+          const response = await refreshToken({}); // Pass empty object or required data
+          const newToken = response.data.token; // Access token from response.data
+          processQueue(null, newToken);
+          isRefreshing = false;
 
       //  originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
         return instance(originalRequest);

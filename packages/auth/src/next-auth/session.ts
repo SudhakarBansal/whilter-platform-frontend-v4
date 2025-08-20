@@ -1,6 +1,6 @@
 
 import { getServerSession } from 'next-auth';
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { authOptions } from './options';
 
 // For use in API routes

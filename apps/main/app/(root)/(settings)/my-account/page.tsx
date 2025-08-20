@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AccountDetails from "@/components/user-module/components/my-account/AccountDetails";
+// import AccountDetails from "@/components/user-module/components/my-account/AccountDetails";
 import AdminLayout from "@/layouts/admin-layout";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
@@ -14,9 +14,9 @@ export default function AccountPage() {
         <AdminLayout
             breadcrumbs={breadcrumbs}
             heading="My Account Details"
-            config={pageLayoutPresets.dashboard}>
-            <AccountDetails
-            />
+            config={pageLayoutPresets.dashboard}
+        >
+            {/* <AccountDetails/> */}
         </AdminLayout>
     );
 }

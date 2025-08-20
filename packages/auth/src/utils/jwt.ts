@@ -1,5 +1,5 @@
 
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { type JwtPayload } from 'jsonwebtoken';
 
 export interface DecodedToken extends JwtPayload {
   email: string;

@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface MenuItem {
-    icon: string,
-    label: string,
-    href: string
+  icon: React.ElementType;
+  label: string;
+  href: string;
 }
 
 interface SidebarProps {
-    menuItems: MenuItem[];
+  menuItems: MenuItem[];
 }
 
 export const Sidebar = ({ menuItems }: SidebarProps) => {
@@ -70,7 +70,7 @@ export const Sidebar = ({ menuItems }: SidebarProps) => {
                       <Link href={item.href} prefetch scroll>
                         <IconButton
                           component="span"
-                          className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto"
+                          className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto text-white"
                           aria-label={item.label}
                           sx={{
                             width: {
@@ -92,18 +92,7 @@ export const Sidebar = ({ menuItems }: SidebarProps) => {
                             },
                           }}
                         >
-                          <div className="relative w-full h-full">
-                            <Image
-                              src={item.icon}
-                              alt={item.label}
-                              fill
-                              className="object-contain transition-all duration-300"
-                              style={{
-                                filter: "brightness(0) invert(1)",
-                              }}
-                              sizes="(max-width: 640px) 18px, (max-width: 768px) 20px, 24px"
-                            />
-                          </div>
+                          <item.icon />
                         </IconButton>
                       </Link>
                     </Tooltip>

@@ -91,6 +91,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
 
   const filtersApplied = isFilterApplied(params);
  
+
   return (
     <AdminLayout
       breadcrumbs={breadcrumbs}

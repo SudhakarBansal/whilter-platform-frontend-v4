@@ -4,7 +4,7 @@ import OrganizationCard from "./OrganizationCard";
 import Pagination from "../../user-management/components/pagination";
 import { ListingNotFound } from "@whilter/ui-kit/components";
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 9;
 const defaultSearchParams = {
   page: 0,
   size: ITEMS_PER_PAGE,
@@ -52,13 +52,15 @@ export async function OrganizationDataListing({
   }
 
   return (
-    <>
+    <div className="!my-0">
+      <div className="my-7">
+        <Pagination
+          totalPages={totalPages}
+          totalItems={totalItems}
+          itemsPerPage={ITEMS_PER_PAGE}
+        />
+      </div>
       <OrganizationCard organizations={organizations} />
-      <Pagination
-        totalPages={totalPages}
-        totalItems={totalItems}
-        itemsPerPage={ITEMS_PER_PAGE}
-      />
-    </>
+    </div>
   );
 }
