@@ -5,7 +5,7 @@ import AdminLayout from "@/layouts/admin-layout";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import { OrganizationPageSkeleton } from "./components/skeltons/OrganizationPageSkeleton";
 import { OrganizationDataListing } from "./components/OrganizationDataListing";
-
+import { OrganizationFilters } from "./components/OrganizationFilters";
 export default async function Page({ searchParams }: { searchParams: any }) {
   const resolvedSearchParams = await searchParams;
 
@@ -33,6 +33,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       config={pageLayoutPresets.dashboard}
       buttons={actions}
     >
+      <OrganizationFilters />
       <Suspense fallback={<OrganizationPageSkeleton />}>
         <OrganizationDataListing searchParams={resolvedSearchParams} />
       </Suspense>

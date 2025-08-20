@@ -7,6 +7,7 @@ declare module 'next-auth' {
     accessToken: string;
     refreshToken:string;
     deviceId:string;
+
     user: {
       name?: string | null;
       email?: string | null;
@@ -16,6 +17,7 @@ declare module 'next-auth' {
       section: string;
       userId: string;
       active:boolean,
+      exp:string
     };
   }
 
@@ -23,6 +25,7 @@ declare module 'next-auth' {
     accessToken: string;
     refreshToken:string;
     deviceId:string;
+    exp:string;
     role: string;
     organization: string;
     section: string;
@@ -41,5 +44,6 @@ declare module 'next-auth/jwt' {
     userId: string;
     email: string;
     active:boolean,
+    exp:string
   }
 }
