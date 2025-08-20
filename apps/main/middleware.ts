@@ -29,6 +29,8 @@ export async function middleware(req: NextRequest) {
 
 
   if (authed && (PUBLIC.includes(pathname) || pathname === "/")) {
+    console.log(process.env.NEXT_PUBLIC_MAIN_URL, req.url," redirecting to platform");
+    
     return NextResponse.redirect(new URL("/platform", req.url));
   }
 
