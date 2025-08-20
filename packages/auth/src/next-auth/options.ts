@@ -22,6 +22,13 @@ export const authOptions: NextAuthOptions = {
      
             if (!decoded) return null;
 
+            // Ensure section is always an array
+            const section = Array.isArray(decoded.section)
+              ? decoded.section
+              : decoded.section
+                ? [decoded.section]
+                : [];
+
             return {
               id: decoded.userId,
               name: decoded.name,
@@ -29,7 +36,7 @@ export const authOptions: NextAuthOptions = {
               role: decoded.role,
               userId: decoded.userId,
               organization: decoded.organization,
-              section: decoded.section,
+              section,
               active: decoded.active,
               accessToken: credentials.accessToken,
               refreshToken: credentials.refreshToken,
@@ -48,8 +55,14 @@ export const authOptions: NextAuthOptions = {
             if (!accessToken) return null;
 
             const decoded = decodeJwt(accessToken);
-
             if (!decoded) return null;
+
+            // Ensure section is always an array
+            const section = Array.isArray(decoded.section)
+              ? decoded.section
+              : decoded.section
+                ? [decoded.section]
+                : [];
 
             return {
               id: decoded.userId,
@@ -59,7 +72,7 @@ export const authOptions: NextAuthOptions = {
               userId: decoded.userId,
               active: decoded.active,
               organization: decoded.organization,
-              section: decoded.section || [],
+              section,
               exp: decoded.exp || 0,
               accessToken,
               refreshToken,
@@ -90,7 +103,11 @@ export const authOptions: NextAuthOptions = {
         if (decoded) {
           token.role = decoded.role;
           token.organization = decoded.organization;
-          token.section = decoded.section;
+          token.section = Array.isArray(decoded.section)
+            ? decoded.section
+            : decoded.section
+              ? [decoded.section]
+              : [];
           token.userId = decoded.userId;
           token.email = decoded.email;
           token.name = decoded.name;
