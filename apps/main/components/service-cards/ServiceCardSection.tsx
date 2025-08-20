@@ -1,4 +1,4 @@
-import { services } from "@/utils/data/services";
+import { services } from "@/app/data/services";
 import { Box } from "@mui/material";
 import { ServiceCard } from "./ServiceCard";
 

@@ -2,7 +2,7 @@
 import React from "react";
 import { Box } from "@mui/material";
 import { Sidebar } from "@/components/sidebar/Sidebar";
-import { menuItems } from "@/utils/data/menuItems.data";
+import { menuItems } from "@/app/data/menuItems.data";
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@whilter/auth";
@@ -21,7 +21,7 @@ export default async function UserMangementLayout({
 
   return (
     <Box className="relative flex min-h-screen">
-      {isSuperAdmin && <Sidebar menuItems={menuItems} />}
+      <Sidebar menuItems={menuItems}/>
       <Box component="main" className="flex-1">
         {children}
       </Box>

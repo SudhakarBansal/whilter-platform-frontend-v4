@@ -76,7 +76,7 @@ export default function Pagination({
         <div className="text-sm text-gray-400">
           Showing <span className="text-gray-200">{startItem}-{endItem}</span> of{" "}
           <span className="text-gray-200">{totalItems}</span>
-        </div> */}
+        </div> 
   
         <div className="flex items-center gap-1">
           <button

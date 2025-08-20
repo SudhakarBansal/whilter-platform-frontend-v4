@@ -2,10 +2,11 @@ import axios, {type AxiosInstance } from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@whilter/auth";
-import { refreshToken } from '@whilter/api'; // Assumes this works on client
+import { refreshToken } from '@whilter/api'; 
 import type { Session } from 'next-auth';
+import { CHARP_ERROR_CODES } from '@whilter/shared-types';
 
-// Define the FailedRequest type
+
 interface FailedRequest {
   resolve: (token: string) => void;
   reject: (error: any) => void;
@@ -104,8 +105,8 @@ instance.interceptors.response.use(
       isRefreshing = true;
 
         try {
-          const response = await refreshToken({}); // Pass empty object or required data
-          const newToken = response.data.token; // Access token from response.data
+          const response = await refreshToken({}); 
+          const newToken = response.data.token; 
           processQueue(null, newToken);
           isRefreshing = false;
 
