@@ -1,7 +1,12 @@
+
+"use client"
 import React from "react";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import  type { Role } from "@/types/roles.types";
+import { filterMenuByRole } from "@/utils/menuUtils";
+import { useSession } from "next-auth/react";
 
 interface MenuItem {
   icon: React.ElementType;
@@ -13,7 +18,11 @@ interface SidebarProps {
   menuItems: MenuItem[];
 }
 
-export const Sidebar = ({ menuItems }: SidebarProps) => {
+export const Sidebar = ({ menuItems}: SidebarProps) => {
+   const { data } = useSession();
+  const role = (data?.user as any)?.role as Role | undefined;
+
+  const items = filterMenuByRole(menuItems, role);
   return (
     <>
       <Box
@@ -61,7 +70,7 @@ export const Sidebar = ({ menuItems }: SidebarProps) => {
                   },
                 }}
               >
-                {menuItems.map((item, index) => (
+                {items.map((item, index) => (
                   <Box
                     key={index}
                     className="relative group/item flex justify-center"

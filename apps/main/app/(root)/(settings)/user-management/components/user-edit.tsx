@@ -36,9 +36,6 @@ const UserEdit = ({
     password: "",
   });
 
-  console.log("userId",userId);
-
-
   const preferredSectionOptions = [
     { id: "MEDIA_TOOLS", label: "Media Tools" },
     { id: "charp-ai", label: "Charp AI" },
@@ -104,8 +101,7 @@ const UserEdit = ({
       roleOptions={rolesList}
       preferredSectionOptions={preferredSectionOptions}
     />
-    }
-        
+    } 
     </div>
   )
 }

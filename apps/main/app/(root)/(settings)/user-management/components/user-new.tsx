@@ -46,7 +46,7 @@ const UserNew = ({ organizationList, rolesList, onClose }: UserNewProps) => {
       }
     }
     catch (error: any) {
-      toast.error("Failed to register user");
+      toast.error(error?.message || "Failed to register user");
     } finally {
       toast.dismiss(loadingToastId);
       setLoading(false);

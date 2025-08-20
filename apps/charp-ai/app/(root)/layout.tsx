@@ -23,19 +23,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
-  console.log("sesion", session);
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster
-          position="top-right"
-          expand={true}
-          richColors={true}
-          closeButton={true}
-          toastOptions={{
-            duration: 3000,
-          }}
-        />
         <ThemeConfig>
           <NavbarClientWrapper user={session} />
           <MainLayout>

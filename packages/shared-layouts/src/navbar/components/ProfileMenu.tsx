@@ -29,11 +29,12 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
 
     switch (action) {
       case "MANAGE_USERS":
-        onMangeUsers?.("/user-management");
+        onMangeUsers?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/user-management`);
+
         break;
 
       case "ACCOUNT":
-        onNavigate?.("/my-account");
+        onNavigate?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/my-account`);
         break;
 
       case "NOTIFICATIONS":
@@ -103,13 +104,13 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
       </Box>
 
       <Divider sx={{ my: 0.5 }} />
-
-      {user?.user?.role === Role.SUPER_ADMIN && (
+      {(user?.user?.role === Role.SUPER_ADMIN || user?.user?.role === Role.ADMIN) && (
         <MenuItem onClick={() => handleMenuClick("MANAGE_USERS")}>
           <Group fontSize="small" />
           <Typography variant="body2">Manage Users</Typography>
         </MenuItem>
-       )} 
+      )}
+
 
       <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
         <AccountCircle fontSize="small" />

@@ -41,7 +41,7 @@ export default function LoginPage() {
         redirect: false,
         email: data.email,
         password: encryptedPassword,
-        callbackUrl: '/',
+        callbackUrl: '/platform',
       });
 
       if (!res) {

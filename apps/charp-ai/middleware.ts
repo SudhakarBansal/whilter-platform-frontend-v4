@@ -1,55 +1,78 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { checkServiceAccess } from './utils/checkAccess';
-import { Role } from './contants/role';
-import { getToken } from 'next-auth/jwt';
 
-interface DecodedToken {
-  role: Role;
-  section: string[];
-  email: string;
-  userId: string;
-  accessToken: string;
-  organization: string;
-}
-const publicPaths = ['/login', '/unauthorized', '/register', '/favicon.ico', '/_next'];
+import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import { checkServiceAccess } from "./utils/checkAccess";
+import { isTokenExpired } from "./utils/tokenUtils";
+import { Role } from "./contants/role";
+
+const PUBLIC = new Set([
+  "/login",
+  "/register",
+  "/unauthorized",
+  "/auth/callback",
+  "/auth/error",
+  "/forgot-password",
+]);
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
 
-  const isPublic = publicPaths.some((path) => pathname.startsWith(path));
-  if (isPublic) {
+  if (
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/static/") ||
+    pathname.startsWith("/images/") ||
+    pathname.startsWith("/assets/") ||
+    pathname.startsWith("/.well-known/") ||
+    pathname === "/favicon.ico" ||
+    pathname === "/robots.txt" ||
+    pathname.startsWith("/api/auth/")
+  ) {
+    return NextResponse.next();
+  }
+
+  if (PUBLIC.has(pathname)) {
     return NextResponse.next();
   }
 
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
-    // secureCookie: process.env.NODE_ENV === 'production',
   });
 
-  if (!token) {
-    return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
+  const accessExp = (token as any)?.accessTokenExp 
+  const expired = isTokenExpired(accessExp as any);
+  const authed = !!token && !expired;
+
+
+  if (!authed) {
+    const base = process.env.NEXT_PUBLIC_MAIN_URL || request.url;
+    const loginUrl = new URL("/login", base);
+
+    const res = NextResponse.redirect(loginUrl);
+    res.cookies.delete("next-auth.session-token");
+    res.cookies.delete("__Secure-next-auth.session-token");
+    res.cookies.delete("next-auth.csrf-token");
+    return res;
   }
 
   try {
-    const typedToken = token as unknown as DecodedToken;
-    const role: Role = typedToken.role;
-    const sections: string[] = typedToken.section || [];
+    const role: Role = (token as any).role as Role;
+    const sections: string[] = (token as any).section ?? [];
     const currentSection = process.env.NEXT_PUBLIC_SECTION_KEY!;
 
     const hasAccess = checkServiceAccess(role, sections, currentSection);
-
     if (!hasAccess) {
-      return NextResponse.redirect(new URL('/unauthorized', process.env.NEXT_PUBLIC_CHARP_AI_URL!));
+      const base = process.env.NEXT_PUBLIC_CHARP_AI_URL || request.url;
+      return NextResponse.redirect(new URL("/unauthorized", base));
     }
 
     return NextResponse.next();
-  } catch (err) {
-    console.error('Token decode or access check error:', err);
-    return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
+  } catch {
+    const base = process.env.NEXT_PUBLIC_MAIN_URL || request.url;
+    return NextResponse.redirect(new URL("/login", base));
   }
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ["/((?!api/auth|_next|static|favicon.ico|robots.txt|images|assets|\\.well-known).*)"],
 };

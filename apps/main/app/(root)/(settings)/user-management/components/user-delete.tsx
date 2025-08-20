@@ -31,16 +31,14 @@ export const DeleteUser = ({
       toast.success("User deleted successfully!");
       onDelete?.(userId);
       router.refresh();
-    } catch (error) {
-      toast.error("Failed to delete user")
-      console.error("Delete error:", error)
+    } catch (error:any) {
+      toast.error( error.message ||"Failed to delete user")
     } finally {
       setDeleting(false);
       toast.dismiss(loadingToastId);
       onClose();
     }
   };
-
 
   return (
     <DialogSection

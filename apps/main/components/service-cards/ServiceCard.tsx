@@ -18,6 +18,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({
   const [showDialog, setShowDialog] = useState(false);
 
   const handleClick = () => {
+ 
     const role = (session?.user as any)?.role;
     const userSections = (session?.user as any)?.section || [];
     const targetSection = serviceId;

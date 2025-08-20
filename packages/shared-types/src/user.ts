@@ -7,6 +7,7 @@ export interface User {
   userId?: string | null;
 },
 refreshToken?: string | null;
+accessToken?:string|null;
 deviceId?: string | null;
 }
 

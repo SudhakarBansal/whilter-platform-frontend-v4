@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 import { logout } from "@whilter/api";
 import type { User, CharpErrorDetail } from "@whilter/shared-types";
 import { toast } from "sonner";
+import { errorMapping } from "@whilter/api";
 
 interface LogoutButtonProps {
   user?: User;
@@ -16,7 +17,8 @@ interface LogoutButtonProps {
 export const LogoutButton: React.FC<LogoutButtonProps> = ({ user, onClose }) => {
 
   const handleLogout = async () => {
-    if (!user?.refreshToken || !user?.deviceId) {
+
+    if (!user?.refreshToken || !user?.deviceId|| !user?.accessToken) {
       toast.error("Missing session details.");
       return;
     }
@@ -24,6 +26,7 @@ export const LogoutButton: React.FC<LogoutButtonProps> = ({ user, onClose }) => 
       const data = new FormData();
       data.append("refreshToken", user.refreshToken);
       data.append("deviceId", user.deviceId);
+      data.append("accessToken", user.accessToken)
       const res = await logout(data);
       
       if (res.status === 200 || res.status === 201) {
@@ -35,8 +38,7 @@ export const LogoutButton: React.FC<LogoutButtonProps> = ({ user, onClose }) => 
          onClose?.();
       }
     } catch (err: any) {
-      const error = err as CharpErrorDetail;
-      toast.error(error.message || "Logout failed.");
+     errorMapping(err, "Logout failed.");
        onClose?.();
     }
   };
