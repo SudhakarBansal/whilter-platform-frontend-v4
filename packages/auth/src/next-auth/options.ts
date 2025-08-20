@@ -33,8 +33,8 @@ export const authOptions: NextAuthOptions = {
               active: decoded.active,
               accessToken: credentials.accessToken,
               refreshToken: credentials.refreshToken,
-              deviceId: credentials.deviceId ?? '',
-              exp: decoded.exp,
+              deviceId: credentials.deviceId,
+              exp: decoded.exp || 0,
             };
           }
 
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
               active: decoded.active,
               organization: decoded.organization,
               section: decoded.section,
-              exp: decoded.exp,
+              exp: decoded.exp || 0,
               accessToken,
               refreshToken,
               deviceId,
@@ -93,9 +93,9 @@ export const authOptions: NextAuthOptions = {
           token.section = decoded.section;
           token.userId = decoded.userId;
           token.email = decoded.email;
-          token.name = decoded.name
-          token.active = decoded.active
-          token.accessTokenExp = decoded.exp
+          token.name = decoded.name;
+          token.active = decoded.active;
+          token.accessTokenExp = decoded.exp || 0;
         }
       }
       return token;
@@ -109,14 +109,14 @@ export const authOptions: NextAuthOptions = {
 
       session.user = {
         ...session.user,
-        role: token.role,
-        organization: token.organization,
-        section: token.section,
-        userId: token.userId,
-        email: token.email,
-        name: token.name,
-        exp: token.accessTokenExp,
-        active: token.active
+        role: token.role as string,
+        organization: token.organization as string,
+        section: token.section as string,
+        userId: token.userId as string,
+        email: token.email as string,
+        name: token.name as string,
+        exp: token.accessTokenExp as number, // Use accessTokenExp and ensure it's a number
+        active: Boolean(token.active),
       };
       return session;
     },
