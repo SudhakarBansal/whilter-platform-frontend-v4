@@ -6,9 +6,9 @@ import { PageLayout } from '@whilter/shared-layouts/styled';
 import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
 import { RecentProjects } from '@whilter/ui-kit/components';
 import { ServiceCardSection } from '@/components/service-cards/ServiceCardSection';
-import { projectsData } from '@/utils/data/projects.data';
+import { projectsData } from '@/app/data/projects.data';
 import { FolderCardSection } from '@whilter/ui-kit/components';
-import { recentProjects } from '@/utils/data/recentProjects.data';
+import { recentProjects } from '@/app/data/recentProjects.data';
 
 function Page() {
   const actionButtons = [

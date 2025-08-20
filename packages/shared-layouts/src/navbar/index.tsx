@@ -31,7 +31,7 @@ export function Navbar({ onMangeUsers, user, onNavigate }: NavbarProps) {
         zIndex: 10,
       }}
     >
-      <Box className="text-white font-semibold text-lg">Whilter</Box>
+      <Box className="text-white font-semibold text-lg"><img src="https://s3.ap-south-1.amazonaws.com/cdn.whilter.com/website/images/Whilter-logo-coloured-fav.png" height="40" width="40" /></Box>
 
       <ProfileSection
         isOpen={Boolean(anchorEl)}

@@ -13,11 +13,13 @@ export const authOptions: NextAuthOptions = {
         accessToken: { label: 'AccessToken', type: 'text' },
         refreshToken: { label: 'RefreshToken', type: 'text' },
         deviceId: { label: 'DeviceId', type: 'text' },
+
       },
       async authorize(credentials) {
         try {
           if (credentials?.accessToken && credentials?.refreshToken) {
             const decoded = decodeJwt(credentials.accessToken);
+     
             if (!decoded) return null;
 
             return {
@@ -32,6 +34,7 @@ export const authOptions: NextAuthOptions = {
               accessToken: credentials.accessToken,
               refreshToken: credentials.refreshToken,
               deviceId: credentials.deviceId ?? '',
+              exp: decoded.exp,
             };
           }
 
@@ -45,6 +48,7 @@ export const authOptions: NextAuthOptions = {
             if (!accessToken) return null;
 
             const decoded = decodeJwt(accessToken);
+
             if (!decoded) return null;
 
             return {
@@ -56,9 +60,11 @@ export const authOptions: NextAuthOptions = {
               active: decoded.active,
               organization: decoded.organization,
               section: decoded.section,
+              exp: decoded.exp,
               accessToken,
               refreshToken,
               deviceId,
+
             };
           }
 
@@ -79,6 +85,7 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
         token.deviceId = user.deviceId;
+
         const decoded = decodeJwt(user.accessToken);
         if (decoded) {
           token.role = decoded.role;
@@ -88,15 +95,18 @@ export const authOptions: NextAuthOptions = {
           token.email = decoded.email;
           token.name = decoded.name
           token.active = decoded.active
+          token.accessTokenExp = decoded.exp
         }
       }
       return token;
     },
 
     async session({ session, token }) {
+
       session.accessToken = token.accessToken as string;
       session.refreshToken = token.refreshToken as string;
       session.deviceId = token.deviceId as string;
+
       session.user = {
         ...session.user,
         role: token.role,
@@ -105,6 +115,7 @@ export const authOptions: NextAuthOptions = {
         userId: token.userId,
         email: token.email,
         name: token.name,
+        exp: token.accessTokenExp,
         active: token.active
       };
       return session;

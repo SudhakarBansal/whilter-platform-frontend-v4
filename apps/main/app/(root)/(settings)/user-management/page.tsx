@@ -39,8 +39,6 @@ function isFilterApplied(params: Record<string, any>): boolean {
 
 export default async function Page({ searchParams }: { searchParams: any }) {
   const params = { ...defaultSearchParams, ...(await searchParams) };
-
-
   const values = params;
   console.log("params -- ", values);
 

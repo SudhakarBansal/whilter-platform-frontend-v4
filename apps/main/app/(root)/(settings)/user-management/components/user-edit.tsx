@@ -36,9 +36,6 @@ const UserEdit = ({
     password: "",
   });
 
-  console.log("userId",userId);
-
-
   const preferredSectionOptions = [
     { id: "MEDIA_TOOLS", label: "Media Tools" },
     { id: "charp-ai", label: "Charp AI" },
@@ -48,7 +45,7 @@ const UserEdit = ({
   
 
   const handleSubmit = async (data: any) => {
-    debugger;
+
     try {
       setLoading(true);
       const { password, ...updateData } = data;
@@ -103,8 +100,7 @@ const UserEdit = ({
       roleOptions={rolesList}
       preferredSectionOptions={preferredSectionOptions}
     />
-    }
-        
+    } 
     </div>
   )
 }
