@@ -61,7 +61,7 @@ export default function Pagination({
         : "text-sky-100 bg-navy-700 hover:bg-blue-500 border border-gray-500",
       disabled && "opacity-40 pointer-events-none"
     )
-  
+
 
   const iconBtnClasses = (disabled?: boolean) =>
     clsx(
@@ -77,7 +77,7 @@ export default function Pagination({
           Showing <span className="text-gray-200">{startItem}-{endItem}</span> of{" "}
           <span className="text-gray-200">{totalItems}</span>
         </div> 
-  
+
         <div className="flex items-center gap-1">
           <button
             className={iconBtnClasses(currentPage === 1)}
@@ -87,7 +87,7 @@ export default function Pagination({
           >
             <ChevronsLeft size={16} className="scale-90" />
           </button>
-  
+
           {/* Prev */}
           <button
             className={iconBtnClasses(currentPage === 1)}
@@ -97,7 +97,7 @@ export default function Pagination({
           >
             <ChevronLeft size={16} className="scale-90" />
           </button>
-  
+
           {/* Pages */}
           {getVisiblePages().map((page, idx) =>
             page === "…" ? (
@@ -118,7 +118,7 @@ export default function Pagination({
               </button>
             )
           )}
-  
+
           {/* Next */}
           <button
             className={iconBtnClasses(currentPage === totalPages)}
@@ -128,7 +128,7 @@ export default function Pagination({
           >
             <ChevronRight size={16} className="scale-90" />
           </button>
-  
+
           {/* Last */}
           <button
             className={iconBtnClasses(currentPage === totalPages)}
@@ -142,3 +142,4 @@ export default function Pagination({
       </div>
     )
   }
+ 

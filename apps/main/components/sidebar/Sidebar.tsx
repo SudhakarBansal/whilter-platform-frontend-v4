@@ -7,15 +7,11 @@ import Link from "next/link";
 import  type { Role } from "@/types/roles.types";
 import { filterMenuByRole } from "@/utils/menuUtils";
 import { useSession } from "next-auth/react";
+import type { AppMenuItem } from "@/types/menuItems.types";
 
-interface MenuItem {
-  icon: React.ElementType;
-  label: string;
-  href: string;
-}
 
 interface SidebarProps {
-  menuItems: MenuItem[];
+  menuItems: AppMenuItem[];
 }
 
 export const Sidebar = ({ menuItems}: SidebarProps) => {
