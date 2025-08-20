@@ -1,9 +1,15 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, {type AxiosInstance } from 'axios';
 import { getSession, signOut } from 'next-auth/react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from "@whilter/auth";
 import { refreshToken } from '@whilter/api'; // Assumes this works on client
 import type { Session } from 'next-auth';
+
+// Define the FailedRequest type
+interface FailedRequest {
+  resolve: (token: string) => void;
+  reject: (error: any) => void;
+}
 
 let isRefreshing = false;
 let failedQueue: FailedRequest[] = [];
@@ -27,7 +33,6 @@ const instance = createAxiosInstance();
 instance.interceptors.request.use(async config => {
   let session: Session | null = null;
 
-  // ✅ Detect client or server
   if (typeof window === 'undefined') {
     // Server-side
     session = await getServerSession(authOptions);
@@ -39,10 +44,7 @@ instance.interceptors.request.use(async config => {
   const token = (session as any)?.accessToken;
 
   if (token) {
-    config.headers = {
-      ...config.headers,
-      Authorization: `Bearer ${token}`,
-    };
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   return config;
@@ -74,8 +76,8 @@ if (typeof window !== 'undefined') {
         isRefreshing = true;
 
         try {
-          const response = await refreshToken(); // Make sure this API is only called client-side
-          const newToken = response.token;
+          const response = await refreshToken({}); // Pass empty object or required data
+          const newToken = response.data.token; // Access token from response.data
           processQueue(null, newToken);
           isRefreshing = false;
 

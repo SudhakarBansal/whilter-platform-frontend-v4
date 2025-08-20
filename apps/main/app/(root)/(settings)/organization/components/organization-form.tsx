@@ -43,14 +43,11 @@ export function OrganizationForm({
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const router = useRouter();
   const organizationId = initialValues.id;
-  const handleSubmit = async (data: Organization) => {
+  const handleCreateOrganization = async (data: Organization) => {
     setLoading(true);
-    const loadingToastId = toast.loading(
-      isEditing ? "Updating organization..." : "Creating organization...",
-    );
+    const loadingToastId = toast.loading("Creating organization...");
 
     try {
-      // Create the payload with the selected file
       const formData: CreateOrganizationRequest & {
         logoUrl: string | File | null;
       } = {
@@ -58,41 +55,63 @@ export function OrganizationForm({
         logoUrl: selectedFile || data.logoUrl,
       };
 
-      console.log("Form data:", formData);
+      console.log("Creating organization with data:", formData);
 
-      let response: string;
+      const response = await createOrganization(formData);
 
-      if (isEditing && organizationId) {
-        // Edit existing organization
-        response = await editOrganization(organizationId, formData);
-      } else {
-        // Create new organization
-        response = await createOrganization(formData);
-      }
-
-      // Show success message
       if (response) {
-        toast.success(
-          isEditing
-            ? "Organization updated successfully!"
-            : "Organization created successfully!",
-        );
-
-        if (isEditing) {
-          router.push("/organization");
-        } else {
-          router.push("/organization");
-        }
+        toast.success("Organization created successfully!");
+        router.push("/organization");
         router.refresh();
       }
     } catch (error) {
-      console.error("Error processing organization:", error);
-      toast.error(
-        `Error ${isEditing ? "updating" : "creating"} organization: ${error}`,
-      );
+      console.error("Error creating organization:", error);
+      toast.error(`Error creating organization: ${error}`);
     } finally {
       toast.dismiss(loadingToastId);
       setLoading(false);
+    }
+  };
+
+  const handleUpdateOrganization = async (
+    data: Organization,
+    organizationId: string,
+  ) => {
+    setLoading(true);
+    const loadingToastId = toast.loading("Updating organization...");
+
+    try {
+      const formData: CreateOrganizationRequest & {
+        logoUrl: string | File | null;
+      } = {
+        ...data,
+        logoUrl: selectedFile || data.logoUrl,
+      };
+
+      console.log("Updating organization with data:", formData);
+
+      const response = await editOrganization(organizationId, formData);
+
+      if (response) {
+        toast.success("Organization updated successfully!");
+        router.push("/organization");
+        router.refresh();
+      }
+    } catch (error) {
+      console.error("Error updating organization:", error);
+      toast.error(`Error updating organization: ${error}`);
+    } finally {
+      toast.dismiss(loadingToastId);
+      setLoading(false);
+    }
+  };
+
+  // Usage in your component:
+  const handleSubmit = async (data: Organization) => {
+    if (isEditing && organizationId) {
+      await handleUpdateOrganization(data, organizationId);
+    } else {
+      await handleCreateOrganization(data);
     }
   };
 

@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     const token = await getToken({
-      req: request,
+      req: request as any,
       secret: process.env.NEXTAUTH_SECRET,
     });
 
@@ -28,12 +28,14 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/', request.url));
     }
 
+    // If user has token and role, redirect from public routes to platform
+    if (token && token.role) {
+      if (pathname === '/' || publicRoutes.includes(pathname)) {
+        return NextResponse.redirect(new URL('/platform', request.url));
+      }
+    }
 
-   if (token && token.role) {
-  if (pathname === '/' || publicRoutes.includes(pathname)) {
-    return NextResponse.redirect(new URL('/platform', request.url));
-  }
-}
+    // If no token and accessing protected route, redirect to login
     if (!token && !publicRoutes.includes(pathname)) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
