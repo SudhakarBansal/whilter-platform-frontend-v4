@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith("/.well-known/") ||
     pathname === "/favicon.ico" ||
     pathname === "/robots.txt" ||
-    pathname.startsWith("/api/auth/") 
+    pathname.startsWith("/api/auth/")
   ) {
     return NextResponse.next();
   }
@@ -29,11 +29,11 @@ export async function middleware(req: NextRequest) {
 
 
   if (authed && (PUBLIC.includes(pathname) || pathname === "/")) {
-    return NextResponse.redirect(new URL('/platform', process.env.NEXT_PUBLIC_MAIN_URL!));
+    return NextResponse.redirect(new URL("/platform", req.url));
   }
 
   if (!authed && !PUBLIC.includes(pathname)) {
-    const loginUrl = new URL("/login", process.env.NEXT_PUBLIC_MAIN_URL!);
+    const loginUrl = new URL("/login", req.url);
 
     const res = NextResponse.redirect(loginUrl);
     res.cookies.delete("next-auth.session-token");
