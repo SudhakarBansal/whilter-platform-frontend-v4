@@ -27,21 +27,13 @@ export async function middleware(req: NextRequest) {
   const expired = isTokenExpired(token?.accessTokenExp as any);
   const authed = !!token && !expired;
 
-  // Helper function to create URLs with proper domain
-  const createUrl = (path: string) => {
-    const url = req.nextUrl.clone();
-    url.pathname = path;
-    return url;
-  };
 
-  // If authenticated and trying to access public routes or root, redirect to platform
   if (authed && (PUBLIC.includes(pathname) || pathname === "/")) {
-    return NextResponse.redirect(createUrl("/platform"));
+    return NextResponse.redirect(new URL("/platform", req.url));
   }
 
-  // If not authenticated and trying to access protected routes, redirect to login
   if (!authed && !PUBLIC.includes(pathname)) {
-    const loginUrl = createUrl("/login");
+    const loginUrl = new URL("/login", req.url);
 
     const res = NextResponse.redirect(loginUrl);
     res.cookies.delete("next-auth.session-token");
