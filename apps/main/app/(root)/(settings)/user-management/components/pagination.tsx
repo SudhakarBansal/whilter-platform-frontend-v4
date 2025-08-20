@@ -25,12 +25,14 @@ export default function Pagination({
   const router = useRouter()
   const searchParams = useSearchParams()
 
+  const safeTotalPages = Math.max(totalPages, 1)
+
   const apiPage = Number(searchParams.get("page")) || 0
   const currentPage = apiPage + 1
   const size = Number(searchParams.get("size")) || itemsPerPage
 
   const startItem = apiPage * size + 1
-  const endItem = Math.min(currentPage * size, totalItems)
+  const endItem = totalItems === 0 ? 0 : Math.min(currentPage * size, totalItems)
 
   const onPageChange = (uiPage: number) => {
     const apiPage = uiPage - 1
@@ -42,13 +44,13 @@ export default function Pagination({
 
   // 🔹 Visible pages logic
   const getVisiblePages = () => {
-    if (totalPages <= 5) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1)
+    if (safeTotalPages <= 5) {
+      return Array.from({ length: safeTotalPages }, (_, i) => i + 1)
     }
-    if (currentPage <= 3) return [1, 2, 3, "…", totalPages]
-    if (currentPage >= totalPages - 2)
-      return [1, "…", totalPages - 2, totalPages - 1, totalPages]
-    return [1, "…", currentPage, currentPage + 1, "…", totalPages]
+    if (currentPage <= 3) return [1, 2, 3, "…", safeTotalPages]
+    if (currentPage >= safeTotalPages - 2)
+      return [1, "…", safeTotalPages - 2, safeTotalPages - 1, safeTotalPages]
+    return [1, "…", currentPage, currentPage + 1, "…", safeTotalPages]
   }
 
   // 🔹 Styled buttons
@@ -74,10 +76,13 @@ export default function Pagination({
     return (
       <div className="flex flex-col sm:flex-row items-center justify-between gap-10">
         <div className="text-sm text-gray-400">
-          Showing <span className="text-gray-200">{startItem}-{endItem}</span> of{" "}
-          <span className="text-gray-200">{totalItems}</span>
-        </div> 
-
+  Showing{" "}
+  <span className="text-gray-200">
+    {startItem}-{endItem}
+  </span>{" "}
+  of <span className="text-gray-200">{totalItems}</span>
+</div>
+  
         <div className="flex items-center gap-1">
           <button
             className={iconBtnClasses(currentPage === 1)}

@@ -45,9 +45,9 @@ const UserEdit = ({
   
 
   const handleSubmit = async (data: any) => {
-
+    setLoading(true);
+    const loadingToastId = toast.loading("Updating user...");
     try {
-      setLoading(true);
       const { password, ...updateData } = data;
       const response = await updateUser(data.email, updateData);
 
@@ -61,6 +61,7 @@ const UserEdit = ({
       toast.error("Failed to Update user");
     } finally {
       setLoading(false);
+      toast.dismiss(loadingToastId);
     }
   };
 

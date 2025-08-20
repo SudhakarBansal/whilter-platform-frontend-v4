@@ -30,8 +30,9 @@ const UserNew = ({ organizationList, rolesList, onClose }: UserNewProps) => {
   }
 
   const handleSubmit = async (data: any) => {
+    setLoading(true);
+    const loadingToastId = toast.loading("Creating user...");
     try {
-      setLoading(true);
       const encryptedPassword = encryptPassword(data.password);
       const payload = {
         ...data,
@@ -47,6 +48,7 @@ const UserNew = ({ organizationList, rolesList, onClose }: UserNewProps) => {
     catch (error: any) {
       toast.error(error?.message || "Failed to register user");
     } finally {
+      toast.dismiss(loadingToastId);
       setLoading(false);
     }
   };
