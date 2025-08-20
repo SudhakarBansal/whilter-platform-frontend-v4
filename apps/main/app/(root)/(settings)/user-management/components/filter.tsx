@@ -3,7 +3,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { TextField, MenuItem, FormControlLabel, Switch } from "@mui/material";
 import debounce from "lodash.debounce";
-import Pagination from "./pagination";
 import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 
 export type UserFiltersState = {
@@ -15,11 +14,8 @@ export type UserFiltersState = {
 };
 
 export type UserFiltersProps = {
-  organizationList: { id: string; name: string }[];
+  organizationList: { id: string; name: string, logoUrl: string }[];
   rolesList: { id: string; name: string }[];
-  // totalPages: number;
-  // totalItems: number;
-  // itemsPerPage: number;
 };
 
 const sections = [
@@ -55,11 +51,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
     debounce((updatedFilters: Partial<UserFiltersState>) => {
       const currentParams = new URLSearchParams(window.location.search);
       Object.entries(updatedFilters).forEach(([key, value]) => {
-        if (
-          value === "" ||
-          value === null ||
-          value === undefined
-        ) {
+        if (!value) {
           currentParams.delete(key);
         } else {
           currentParams.set(key, String(value));
@@ -103,17 +95,32 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
               color: "rgba(255, 255, 255, 0.6)",
             },
           },
+          renderValue: (selected) => {
+            if (!selected) return "All";
+            return selected as string;
+          },
         }}
       >
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="">
+          Null
+        </MenuItem>
         {organizationList.map((org) => (
           <MenuItem key={org.id} value={org.name}>
-            {org.name}
+            <div className="flex items-center gap-2">
+              {org.logoUrl && (
+                <img
+                  src={org.logoUrl}
+                  alt={org.name}
+                  className="w-5 h-5 rounded-full object-cover"
+                />
+              )}
+              <span>{org.name}</span>
+            </div>
           </MenuItem>
         ))}
       </TextField>
 
-      {/* Role */}
+
       <TextField
         select
         label="Role"
@@ -130,7 +137,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
           },
         }}
       >
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="">NULL</MenuItem>
         {rolesList.map((role) => (
           <MenuItem key={role.id} value={role.name}>
             {role.name}
@@ -154,7 +161,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
           },
         }}
       >
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="">Null</MenuItem>
         {sections.map((section) => (
           <MenuItem key={section.id} value={section.id}>
             {section.label}
@@ -165,6 +172,12 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
       <FormControlLabel
         label="Status"
         labelPlacement="start"
+        sx={{
+          '& .MuiSwitch-track': {
+            border: '1px solid white',
+            borderRadius: '20px',
+          }
+        }}
         control={
           <Switch
             checked={localFilters.status}
