@@ -17,9 +17,9 @@ export type UserFiltersState = {
 export type UserFiltersProps = {
   organizationList: { id: string; name: string }[];
   rolesList: { id: string; name: string }[];
-  totalPages: number;
-  totalItems: number;
-  itemsPerPage: number;
+  // totalPages: number;
+  // totalItems: number;
+  // itemsPerPage: number;
 };
 
 const sections = [
@@ -29,7 +29,7 @@ const sections = [
   { id: "DASHBOARD", label: "Dashboard" },
 ];
 
-export const UserFilters = ({ organizationList, rolesList, totalPages, totalItems, itemsPerPage }: UserFiltersProps) => {
+export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -185,11 +185,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
 
 
       <div className="flex-shrink-0 w-[240px]">
-        <Pagination
-          totalPages={totalPages}
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-        />
+        
       </div>
     </div>
   );
