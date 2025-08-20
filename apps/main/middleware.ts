@@ -47,7 +47,6 @@ export async function middleware(req: NextRequest) {
     res.cookies.delete("next-auth.session-token");
     res.cookies.delete("__Secure-next-auth.session-token");
     res.cookies.delete("next-auth.csrf-token");
-    res.cookies.delete("next-auth.callback-url");
     return res;
   }
 
