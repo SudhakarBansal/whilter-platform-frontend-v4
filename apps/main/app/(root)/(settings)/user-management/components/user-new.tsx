@@ -6,10 +6,10 @@ import { Dialog } from '@mui/material';
 import encryptPassword from '@/utils/password-encryption';
 import { registerUser } from '@/services/actions/userService';
 import { toast } from 'sonner';
-import { type OptionType } from '../page';
+import { type OptionType, type OrganizationType } from '../page';
 
 interface UserNewProps {
-  organizationList: OptionType[];
+  organizationList: OrganizationType[];
   rolesList: OptionType[];
   onClose: any;
 }

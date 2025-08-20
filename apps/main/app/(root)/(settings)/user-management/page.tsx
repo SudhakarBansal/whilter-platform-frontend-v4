@@ -12,12 +12,18 @@ import { ListingNotFound } from "@whilter/ui-kit/components";
 
 const defaultSearchParams = {
   page: 0,
-  size: 6,
+  size: 8,
   email: "",
   organization: "",
   role: "",
-  status: "",
+  status: true,
 };
+
+export interface OrganizationType {
+  id: string;
+  name: string;
+  logoUrl: string;
+}
 
 
 export interface OptionType {
@@ -26,11 +32,11 @@ export interface OptionType {
 }
 
 export interface UserActionButtonProps {
-  organizationList: OptionType[];
+  organizationList: OrganizationType[];
   rolesList: OptionType[];
 }
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 8;
 
 function isFilterApplied(params: Record<string, any>): boolean {
   const { page, size, ...filters } = params;
@@ -72,7 +78,6 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     console.error("Error fetching users:", err);
     error = err;
   }
-
 
   const page = Array.isArray(params.page) ? params.page[0] : params.page;
 

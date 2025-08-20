@@ -29,9 +29,6 @@ export default function Pagination({
   const currentPage = apiPage + 1
   const size = Number(searchParams.get("size")) || itemsPerPage
 
-  const startItem = apiPage * size + 1
-  const endItem = Math.min(currentPage * size, totalItems)
-
   const onPageChange = (uiPage: number) => {
     const apiPage = uiPage - 1
     const params = new URLSearchParams(searchParams)
@@ -40,7 +37,6 @@ export default function Pagination({
     router.push(`?${params.toString()}`)
   }
 
-  // 🔹 Visible pages logic
   const getVisiblePages = () => {
     if (totalPages <= 5) {
       return Array.from({ length: totalPages }, (_, i) => i + 1)
@@ -58,7 +54,7 @@ export default function Pagination({
       "text-sm font-medium rounded-[4px]",
       active
         ? "bg-blue-500 text-white shadow-md border-sky-400"
-        : "text-sky-100 bg-navy-700 hover:bg-blue-500 border border-gray-500",
+        : "text-sky-100 bg-navy-700 hover:bg-blue-500 ",
       disabled && "opacity-40 pointer-events-none"
     )
   
@@ -66,17 +62,13 @@ export default function Pagination({
   const iconBtnClasses = (disabled?: boolean) =>
     clsx(
       "w-9 h-9 flex items-center justify-center rounded-[4px]",
-      "text-blue-200 bg-navy-700 hover:bg-navy-700 border border-gray-500",
+      "text-blue-200 bg-navy-700 hover:bg-navy-700 ",
       "transition-all duration-150",
       disabled && "opacity-40 pointer-events-none"
     )
 
     return (
       <div className="flex flex-col sm:flex-row items-center justify-between gap-10">
-        {/* <div className="text-sm text-gray-400">
-          Showing <span className="text-gray-200">{startItem}-{endItem}</span> of{" "}
-          <span className="text-gray-200">{totalItems}</span>
-        </div> */}
   
         <div className="flex items-center gap-1">
           <button
@@ -88,7 +80,6 @@ export default function Pagination({
             <ChevronsLeft size={16} className="scale-90" />
           </button>
   
-          {/* Prev */}
           <button
             className={iconBtnClasses(currentPage === 1)}
             onClick={() => onPageChange(currentPage - 1)}
@@ -98,7 +89,6 @@ export default function Pagination({
             <ChevronLeft size={16} className="scale-90" />
           </button>
   
-          {/* Pages */}
           {getVisiblePages().map((page, idx) =>
             page === "…" ? (
               <span
@@ -119,7 +109,6 @@ export default function Pagination({
             )
           )}
   
-          {/* Next */}
           <button
             className={iconBtnClasses(currentPage === totalPages)}
             onClick={() => onPageChange(currentPage + 1)}
@@ -129,7 +118,6 @@ export default function Pagination({
             <ChevronRight size={16} className="scale-90" />
           </button>
   
-          {/* Last */}
           <button
             className={iconBtnClasses(currentPage === totalPages)}
             onClick={() => onPageChange(totalPages)}

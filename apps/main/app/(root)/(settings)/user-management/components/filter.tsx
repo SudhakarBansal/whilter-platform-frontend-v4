@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { TextField, MenuItem, FormControlLabel, Switch } from "@mui/material";
 import debounce from "lodash.debounce";
 import Pagination from "./pagination";
+import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 
 export type UserFiltersState = {
   status: boolean;
@@ -46,7 +47,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
       organizationName: searchParams.get("organizationName") || "",
       role: searchParams.get("role") || "",
       preferredSection: searchParams.get("preferredSection") || "",
-      status: searchParams.get("status") === "true",
+      status: searchParams.get("status") !== "false",
     });
   }, [searchParams]);
 
@@ -57,15 +58,14 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
         if (
           value === "" ||
           value === null ||
-          value === undefined ||
-          value === false
+          value === undefined 
         ) {
           currentParams.delete(key);
         } else {
           currentParams.set(key, String(value));
         }
       });
-      router.push(`/user-management?${currentParams.toString()}`);
+      router.replace(`/user-management?${currentParams.toString()}`);
     }, 500),
     [router],
   );
@@ -80,7 +80,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
 
   return (
     <div className="flex items-center justify-between gap-4 mb-6">
-      
+
       <div className="flex items-center gap-4 flex-wrap">
         <TextField
           label="Email"
@@ -97,6 +97,14 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
           onChange={(e) => handleChange("organizationName", e.target.value)}
           size="small"
           style={{ width: 150 }}
+          SelectProps={{
+            IconComponent: ArrowDropDownIcon,
+            sx: {
+              "& .MuiSelect-icon": {
+                color: "rgba(255, 255, 255, 0.6)",
+              },
+            },
+          }}
         >
           <MenuItem value="">All</MenuItem>
           {organizationList.map((org) => (
@@ -113,6 +121,14 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
           onChange={(e) => handleChange("role", e.target.value)}
           size="small"
           style={{ width: 150 }}
+          SelectProps={{
+            IconComponent: ArrowDropDownIcon,
+            sx: {
+              "& .MuiSelect-icon": {
+                color: "rgba(255, 255, 255, 0.6)",
+              },
+            },
+          }}
         >
           <MenuItem value="">All</MenuItem>
           {rolesList.map((role) => (
@@ -129,6 +145,14 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
           onChange={(e) => handleChange("preferredSection", e.target.value)}
           size="small"
           style={{ width: 160 }}
+          SelectProps={{
+            IconComponent: ArrowDropDownIcon,
+            sx: {
+              "& .MuiSelect-icon": {
+                color: "rgba(255, 255, 255, 0.6)",
+              },
+            },
+          }}
         >
           <MenuItem value="">All</MenuItem>
           {sections.map((section) => (
@@ -151,6 +175,7 @@ export const UserFilters = ({ organizationList, rolesList, totalPages, totalItem
                   borderRadius: '20px',
                 }
               }}
+
             />
           }
           label="Status"
