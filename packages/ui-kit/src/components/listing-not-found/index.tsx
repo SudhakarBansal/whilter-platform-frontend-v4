@@ -1,6 +1,6 @@
 "use client";
 import { Box, Typography, Button } from "@mui/material";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 type EmptyStateProps = {
   icon?: ReactNode;

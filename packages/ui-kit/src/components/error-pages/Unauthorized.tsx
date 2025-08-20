@@ -2,7 +2,7 @@
 
 import { Typography, Button ,Box} from '@mui/material';
 import { ShieldAlert } from 'lucide-react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export type LinkComponentProps = {
   href: string;

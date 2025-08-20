@@ -1,4 +1,4 @@
-export { Sidebar} from '../sidebar/components/Sidebar'
+// export { Sidebar} from '../sidebar/components/Sidebar'
 // export { MenuItem } from './components/MenuItem';
 // export { SubMenuItem } from './components/SubmenuItem';
 // export { SidebarHeader } from './components/SidebarHeader';
