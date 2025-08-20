@@ -1,7 +1,7 @@
 
 export interface Option {
   id: string;
-  value: string;
+  label: string;
 }
 
 export interface Organization {

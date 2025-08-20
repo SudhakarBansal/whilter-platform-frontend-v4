@@ -14,36 +14,41 @@ declare module 'next-auth' {
       image?: string | null;
       role: string;
       organization: string;
-      section: string;
+      section: string[];
       userId: string;
-      active:boolean,
-      exp:number
+      active:boolean;
+      exp:number;
     };
   }
 
   interface User {
+    id: string;
     accessToken: string;
     refreshToken:string;
     deviceId:string;
-    exp:number;
+    exp: number;
     role: string;
     organization: string;
-    section: string;
+    section: string[];
     userId: string;
     email: string;
-    active:boolean,
+    name: string;
+    active:boolean;
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    accessToken: string;
-    role: string;
-    organization: string;
-    section: string;
-    userId: string;
-    email: string;
-    active:boolean,
-    exp:number
+    accessToken?: string;
+    refreshToken?: string;
+    deviceId?: string;
+    role?: string;
+    organization?: string;
+    section: string[];
+    userId?: string;
+    email?: string;
+    name: string;
+    active: boolean;
+    accessTokenExp: number;
   }
 }
