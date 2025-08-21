@@ -7,7 +7,7 @@ import { isTokenExpired } from "./utils/tokenUtils";
 const PUBLIC = ["/login", "/register", "/auth/callback", "/auth/error", "/forgot-password"];
 
 export async function middleware(req: NextRequest) {
-  const { pathname, search } = req.nextUrl;
+  const { pathname } = req.nextUrl;
 
 
   if (
@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith("/.well-known/") ||
     pathname === "/favicon.ico" ||
     pathname === "/robots.txt" ||
-    pathname.startsWith("/api/auth/") 
+    pathname.startsWith("/api/auth/")
   ) {
     return NextResponse.next();
   }

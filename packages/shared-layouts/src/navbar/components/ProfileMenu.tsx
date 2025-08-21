@@ -1,19 +1,13 @@
-import React from 'react';
-import {
-  Menu,
-  MenuItem,
-  Box,
-  Typography,
-  Divider,
-} from '@mui/material';
+import React from "react";
+import { Menu, MenuItem, Box, Typography, Divider } from "@mui/material";
 import {
   AccountCircle,
   NotificationsOutlined,
   Group,
-} from '@mui/icons-material';
-import { LogoutButton } from './LogoutButton';
-import type { ProfileMenuProps } from '@whilter/shared-types'
-import { Role } from '@whilter/auth'
+} from "@mui/icons-material";
+import { LogoutButton } from "./LogoutButton";
+import type { ProfileMenuProps } from "@whilter/shared-types";
+import { Role } from "@whilter/auth";
 
 export const ProfileMenu: React.FC<ProfileMenuProps> = ({
   anchorEl,
@@ -21,20 +15,19 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
   theme,
   onMangeUsers,
   user,
-  onNavigate
+  onNavigate,
 }) => {
-
   const handleMenuClick = (action: string) => {
     onClose();
 
     switch (action) {
       case "MANAGE_USERS":
-        onMangeUsers?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/user-management`);
+        onMangeUsers?.("/user-management");
 
         break;
 
       case "ACCOUNT":
-        onNavigate?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/my-account`);
+        onNavigate?.("/my-account");
         break;
 
       case "NOTIFICATIONS":
@@ -52,12 +45,12 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
       open={Boolean(anchorEl)}
       onClose={onClose}
       anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
+        vertical: "bottom",
+        horizontal: "right",
       }}
       transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
+        vertical: "top",
+        horizontal: "right",
       }}
       slotProps={{
         paper: {
@@ -69,24 +62,23 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
             borderRadius: 2,
             backgroundColor: theme.palette.background.default,
             boxShadow: theme.shadows[4],
-            '& .MuiMenuItem-root': {
+            "& .MuiMenuItem-root": {
               px: 2,
               py: 1.2,
-              fontSize: '0.875rem',
+              fontSize: "0.875rem",
               borderRadius: 1.5,
-              display: 'flex',
-              alignItems: 'center',
+              display: "flex",
+              alignItems: "center",
               gap: 1.2,
-              transition: 'all 0.2s ease',
-              '& .MuiSvgIcon-root': {
-                fontSize: '1.2rem',
+              transition: "all 0.2s ease",
+              "& .MuiSvgIcon-root": {
+                fontSize: "1.2rem",
                 color: theme.palette.text.secondary,
-                transition: 'color 0.2s ease',
+                transition: "color 0.2s ease",
               },
-              '&:hover': {
+              "&:hover": {
                 backgroundColor: theme.palette.action.hover,
-                transform: 'scale(1.02)',
-
+                transform: "scale(1.02)",
               },
             },
           },
@@ -95,8 +87,11 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
     >
       {/* Profile Info */}
       <Box className="px-4 py-2">
-        <Typography variant="subtitle2" sx={{ fontWeight: 600, fontSize: '0.9rem' }}>
-          {user?.user?.email?.split('@')[0] || 'User'}
+        <Typography
+          variant="subtitle2"
+          sx={{ fontWeight: 600, fontSize: "0.9rem" }}
+        >
+          {user?.user?.email?.split("@")[0] || "User"}
         </Typography>
         <Typography variant="h5" color="text.secondary">
           {user?.user?.email}
@@ -104,13 +99,13 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
       </Box>
 
       <Divider sx={{ my: 0.5 }} />
-      {(user?.user?.role === Role.SUPER_ADMIN || user?.user?.role === Role.ADMIN) && (
+      {(user?.user?.role === Role.SUPER_ADMIN ||
+        user?.user?.role === Role.ADMIN) && (
         <MenuItem onClick={() => handleMenuClick("MANAGE_USERS")}>
           <Group fontSize="small" />
           <Typography variant="body2">Manage Users</Typography>
         </MenuItem>
       )}
-
 
       <MenuItem onClick={() => handleMenuClick("ACCOUNT")}>
         <AccountCircle fontSize="small" />
@@ -129,5 +124,5 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
         <LogoutButton user={user} onClose={onClose} />
       </Box>
     </Menu>
-  )
-}
+  );
+};
