@@ -10,7 +10,7 @@ export interface UserFormValues {
   }
 
   export interface RequestOrgAccess {
-    name:string;
+    name:string|null;
     role: string;
     organizationName: string;
     preferredSections: string[];

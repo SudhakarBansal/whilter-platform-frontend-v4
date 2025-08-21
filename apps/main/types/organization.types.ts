@@ -1,8 +1,8 @@
-// Base interface for creating organizations (API payload)
+
 export interface CreateOrganizationRequest {
     name: string;
     description: string | null;
-    logoUrl: string | File | null; // Can accept File for API submission
+    logoUrl: string | File | null; 
 }
 
 // Interface for fetched organizations (with required ID)

@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 
 export type UserFiltersState = {
-  status: boolean;
+  status: "" | "true" | "false";
   email: string;
   organizationName: string;
   role: string;
@@ -25,6 +25,11 @@ const sections = [
   { id: "DASHBOARD", label: "Dashboard" },
 ];
 
+const statusOptions = [
+  { id: "true", label: "Active" },
+  { id: "false", label: "Inactive" },
+];
+
 export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -34,16 +39,18 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
     organizationName: "",
     role: "",
     preferredSection: "",
-    status: true,
+    status: "",
   });
 
   useEffect(() => {
+    const statusParam = searchParams.get("status");
+    const status = statusParam === "true" || statusParam === "false" ? statusParam : "";
     setLocalFilters({
       email: searchParams.get("email") || "",
       organizationName: searchParams.get("organizationName") || "",
       role: searchParams.get("role") || "",
       preferredSection: searchParams.get("preferredSection") || "",
-      status: searchParams.get("status") !== "false",
+      status
     });
   }, [searchParams]);
 
@@ -95,14 +102,11 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
               color: "rgba(255, 255, 255, 0.6)",
             },
           },
-          renderValue: (selected) => {
-            if (!selected) return "All";
-            return selected as string;
-          },
+          renderValue: (selected) => selected ? (selected as string) : <span>All</span>
         }}
       >
         <MenuItem value="">
-          Null
+          None
         </MenuItem>
         {organizationList.map((org) => (
           <MenuItem key={org.id} value={org.name}>
@@ -137,7 +141,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
           },
         }}
       >
-        <MenuItem value="">NULL</MenuItem>
+        <MenuItem value="">None</MenuItem>
         {rolesList.map((role) => (
           <MenuItem key={role.id} value={role.name}>
             {role.name}
@@ -161,7 +165,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
           },
         }}
       >
-        <MenuItem value="">Null</MenuItem>
+        <MenuItem value="">None</MenuItem>
         {sections.map((section) => (
           <MenuItem key={section.id} value={section.id}>
             {section.label}
@@ -169,23 +173,30 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
         ))}
       </TextField>
 
-      <FormControlLabel
+      <TextField
+        select
         label="Status"
-        labelPlacement="start"
-        sx={{
-          '& .MuiSwitch-track': {
-            border: '1px solid white',
-            borderRadius: '20px',
-          }
+        value={localFilters.status}
+        onChange={(e) => handleChange("status", e.target.value)}
+        size="small"
+        className="w-full sm:w-48 md:w-56 lg:w-40 xl:w-44"
+        SelectProps={{
+          IconComponent: ArrowDropDownIcon,
+          sx: {
+            "& .MuiSelect-icon": {
+              color: "rgba(255, 255, 255, 0.6)",
+            },
+          },
         }}
-        control={
-          <Switch
-            checked={localFilters.status}
-            onChange={(e) => handleChange("status", e.target.checked)}
-          />
-        }
+      >
+        <MenuItem value="">None</MenuItem>
+        {statusOptions.map((status) => (
+          <MenuItem key={status.id} value={status.id}>
+            {status.label}
+          </MenuItem>
+        ))}
+      </TextField>
 
-      />
     </div>
   );
 }

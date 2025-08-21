@@ -18,28 +18,28 @@ export const LogoutButton: React.FC<LogoutButtonProps> = ({ user, onClose }) => 
 
   const handleLogout = async () => {
 
-    if (!user?.refreshToken || !user?.deviceId|| !user?.accessToken) {
+    if (!user?.refreshToken || !user?.deviceId || !user?.accessToken) {
       toast.error("Missing session details.");
       return;
     }
     try {
-      const data = new FormData();
-      data.append("refreshToken", user.refreshToken);
-      data.append("deviceId", user.deviceId);
-      data.append("accessToken", user.accessToken)
+      const data = {
+        "refreshToken": user.refreshToken,
+        "deviceId": user.deviceId
+      }
+
       const res = await logout(data);
-      
       if (res.status === 200 || res.status === 201) {
-         toast.success("Logout successfully");
-       await signOut({ callbackUrl: "/login" });
-         onClose?.();
+        toast.success("Logout successfully");
+        await signOut({ callbackUrl: "/login" });
+        onClose?.();
       } else {
         toast.error("Logout failed. Try again.");
-         onClose?.();
+        onClose?.();
       }
     } catch (err: any) {
-     errorMapping(err, "Logout failed.");
-       onClose?.();
+      errorMapping(err, "Logout failed.");
+      onClose?.();
     }
   };
 

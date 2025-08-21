@@ -24,18 +24,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster
-          position="top-right"
-          expand={true}
-          richColors={true}
-          closeButton={true}
-          toastOptions={{
-            duration: 4000,
-          }}
-        />
         <ThemeConfig>
-          <NavbarClientWrapper user={session}/>
-            <MainLayout>{children}</MainLayout>
+          <NavbarClientWrapper user={session} />
+          <MainLayout>{children}</MainLayout>
         </ThemeConfig>
       </body>
     </html>

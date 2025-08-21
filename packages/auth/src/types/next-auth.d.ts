@@ -5,45 +5,51 @@ import 'next-auth/jwt';
 declare module 'next-auth' {
   interface Session {
     accessToken: string;
-    refreshToken:string;
-    deviceId:string;
-
+    refreshToken: string;
+    deviceId: string;
     user: {
+      id: string;
       name?: string | null;
       email?: string | null;
       image?: string | null;
       role: string;
       organization: string;
-      section: string;
+      section: string[];
       userId: string;
-      active:boolean,
-      exp:string
+      active: boolean;
+      exp: number;
     };
   }
 
   interface User {
+    id: string;
     accessToken: string;
-    refreshToken:string;
-    deviceId:string;
-    exp:string;
+    refreshToken: string;
+    deviceId: string;
+    exp: number;
     role: string;
     organization: string;
-    section: string;
+    section: string[];
     userId: string;
     email: string;
-    active:boolean,
+    name: string;
+    active: boolean;
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
-    accessToken: string;
-    role: string;
-    organization: string;
-    section: string;
-    userId: string;
-    email: string;
-    active:boolean,
-    exp:string
+    id: string;
+    accessToken?: string;
+    refreshToken?: string;
+    deviceId?: string;
+    role?: string;
+    organization?: string;
+    section: string[];
+    userId?: string;
+    email?: string;
+    name: string;
+    active: boolean;
+    accessTokenExp: number;
   }
 }

@@ -1,5 +1,5 @@
 import { toast } from "sonner";
-import { CHARP_ERROR_CODES, CharpErrorDetail, CharpErrorCode } from "@whilter/shared-types";
+import { CHARP_ERROR_CODES,type CharpErrorDetail, type CharpErrorCode } from "@whilter/shared-types";
 
 export function errorMapping(err: any, fallbackMessage = "Something went wrong") {
   const code: CharpErrorCode | undefined = err?.code || err?.errorCode;

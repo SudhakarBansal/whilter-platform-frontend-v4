@@ -14,7 +14,7 @@ const defaultSearchParams = {
   email: "",
   organization: "",
   role: "",
-  status: true,
+  status: "",
 };
 
 export interface OrganizationType {
