@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import { toast } from "sonner";
 import { deleteOrganization } from "@/services/actions/organizationService";
 import type { Organization } from "@/types/organization.types";
 import { DialogSection } from "@whilter/ui-kit/components";
 import { Edit2, Trash2 } from "lucide-react";
+import Link from "next/link";
 
 interface OrganizationProps {
   organizations: Organization[];
@@ -73,13 +73,13 @@ const OrganizationCard = ({ organizations }: OrganizationProps) => {
           >
             {/* Action Icons - positioned at top right */}
             <div className="absolute top-3 right-3 flex gap-1 transition-opacity duration-200 z-10">
-              <button
-                onClick={() => router.push(`/organization/edit/${org.id}`)}
+              <Link
+                href={`/organization/edit/${org.id}`}
                 className="p-1.5 rounded-lg bg-white/90 backdrop-blur-sm border border-transparent hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 transition-all duration-200 shadow-sm"
                 title="Edit organization"
               >
                 <Edit2 size={16} color="blue" />
-              </button>
+              </Link>
               <button
                 onClick={() => handleDeleteClick(org)}
                 disabled={deletingId === org.id}
