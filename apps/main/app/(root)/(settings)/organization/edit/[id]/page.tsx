@@ -9,9 +9,7 @@ interface PageProps {
   params: Promise<{ id: string }> | { id: string };
 }
 
-export default async function EditOrganizationPage({
-  params,
-}: PageProps) {
+export default async function EditOrganizationPage({ params }: PageProps) {
   const resolvedParams = await Promise.resolve(params);
   const { id } = resolvedParams;
 
@@ -21,15 +19,15 @@ export default async function EditOrganizationPage({
   ]);
 
   return (
-    <AdminLayout
-      breadcrumbs={breadcrumbs}
-      heading="Edit Organization"
-      description="Edit the organization"
-      config={pageLayoutPresets.dashboard}
-    >
-      {/* <Suspense fallback={<OrganizationFormSkeleton />}> */}
-        <OrganizationEdit id={id} />
-      {/* </Suspense> */}
-    </AdminLayout>
+    // <AdminLayout
+    //   breadcrumbs={breadcrumbs}
+    //   heading="Edit Organization"
+    //   description="Edit the organization"
+    //   config={pageLayoutPresets.dashboard}
+    // >
+    // <Suspense fallback={<OrganizationFormSkeleton />}>
+     <OrganizationEdit id={id} />
+    // </Suspense>
+    // </AdminLayout>
   );
 }
