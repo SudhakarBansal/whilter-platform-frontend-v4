@@ -2,14 +2,11 @@
   "name": "main",
   "version": "1.0.0",
   "private": true,
-"scripts": {
-  "dev": "next dev --port 3000",
-  "build": "next build",
-  "start": "next start",
-  "lint": "eslint . --max-warnings 0",
-  "export": "next export",
-  "build:static": "next build && next export"
-
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
     "@whilter/api": "workspace:*",
