@@ -28,7 +28,7 @@ jobs:
             media-tools:
               - 'apps/media-tools/**'
 
-  # Deploy Admin
+  # Deploy Main
   deploy-main:
     needs: changes
     if: needs.changes.outputs.main == 'true'
@@ -57,8 +57,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build Next.js (main)
-        run: pnpm --filter main build
+      - name: Build & Export Next.js (main)
+        run: |
+          pnpm --filter main build
+          pnpm --filter main export
+
+      - name: Sanity Check (out folder exists?)
+        run: ls -la apps/main/out || exit 1
 
       - name: Deploy to S3 (main)
         run: aws s3 sync apps/main/out/ s3://platform.whilter.ai/main --delete
