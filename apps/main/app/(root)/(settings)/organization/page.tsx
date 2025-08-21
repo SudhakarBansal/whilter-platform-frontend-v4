@@ -1,9 +1,8 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
-import { OrganizationPageSkeleton } from "./components/skeltons/OrganizationPageSkeleton";
 import { OrganizationDataListing } from "./components/OrganizationDataListing";
 import { OrganizationFilters } from "./components/OrganizationFilters";
 export default async function Page({ searchParams }: { searchParams: any }) {
@@ -21,9 +20,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     >
       New Organization
     </ActionButton>,
-  ];  
-
-
+  ];
 
   return (
     <AdminLayout
@@ -34,9 +31,7 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       buttons={actions}
     >
       <OrganizationFilters />
-      <Suspense fallback={<OrganizationPageSkeleton />}>
-        <OrganizationDataListing searchParams={resolvedSearchParams} />
-      </Suspense>
+      <OrganizationDataListing searchParams={resolvedSearchParams} />
     </AdminLayout>
   );
 }
