@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import { OrganizationDataListing } from "./components/OrganizationDataListing";
 import { OrganizationFilters } from "./components/OrganizationFilters";
+import { OrganizationPageSkeleton } from "./components/skeltons/OrganizationPageSkeleton";
 export default async function Page({ searchParams }: { searchParams: any }) {
   const resolvedSearchParams = await searchParams;
 
@@ -32,7 +33,9 @@ export default async function Page({ searchParams }: { searchParams: any }) {
     // >
     <>
       <OrganizationFilters />
-      <OrganizationDataListing searchParams={resolvedSearchParams} />
+      <Suspense fallback={<OrganizationPageSkeleton />}>
+        <OrganizationDataListing searchParams={resolvedSearchParams} />
+      </Suspense>
     </>
     // </AdminLayout>
   );
