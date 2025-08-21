@@ -61,4 +61,4 @@ jobs:
         run: pnpm --filter main build
 
       - name: Deploy to S3 (main)
-        run: aws s3 sync apps/main/.next/ s3://platform.whilter.ai/main --delete
+        run: aws s3 sync apps/main/out/ s3://platform.whilter.ai/main --delete
