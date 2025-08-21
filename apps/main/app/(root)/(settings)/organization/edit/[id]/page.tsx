@@ -25,9 +25,9 @@ export default async function EditOrganizationPage({ params }: PageProps) {
     //   description="Edit the organization"
     //   config={pageLayoutPresets.dashboard}
     // >
-    // <Suspense fallback={<OrganizationFormSkeleton />}>
-     <OrganizationEdit id={id} />
-    // </Suspense>
+    <Suspense fallback={<OrganizationFormSkeleton />}>
+      <OrganizationEdit id={id} />
+    </Suspense>
     // </AdminLayout>
   );
 }
