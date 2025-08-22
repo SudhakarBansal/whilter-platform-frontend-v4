@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
@@ -19,15 +19,14 @@ export default async function EditOrganizationPage({ params }: PageProps) {
   ]);
 
   return (
-    // <AdminLayout
-    //   breadcrumbs={breadcrumbs}
-    //   heading="Edit Organization"
-    //   description="Edit the organization"
-    //   config={pageLayoutPresets.dashboard}
-    // >
-      <Suspense fallback={<OrganizationFormSkeleton />}>
-        <OrganizationEdit id={id} />
-      </Suspense>
-    // </AdminLayout>
+    <AdminLayout
+      breadcrumbs={breadcrumbs}
+      heading="Edit Organization"
+      description="Edit the organization"
+      config={pageLayoutPresets.dashboard}
+      fallback={<OrganizationFormSkeleton />}
+    >
+      <OrganizationEdit id={id} />
+    </AdminLayout>
   );
 }
