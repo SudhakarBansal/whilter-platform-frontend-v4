@@ -2,10 +2,8 @@ import "@whilter/ui-kit/globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
-import { Toaster } from "sonner";
 import { MainLayout } from "@whilter/shared-layouts/main";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@whilter/auth";
+import { getSession } from "@whilter/auth";
 import { NavbarClientWrapper } from "../components/navbar/NavbarClientWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +18,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   return (
     <html lang="en">
       <body className={inter.className}>

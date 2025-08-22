@@ -5,9 +5,7 @@ import { ThemeConfig } from "@whilter/config";
 import { MainLayout } from "@whilter/shared-layouts/main";
 import { NavbarClientWrapper } from "@/components/navbar/NavbarClientWrapper";
 import { menuItems } from "../../data/menuItems.data";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@whilter/auth";
-import { Toaster } from "sonner";
+import { getSession } from "@whilter/auth";
 import Sidebar from "@/components/sidebar/Sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +20,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   return (
     <html lang="en">
       <body className={inter.className}>
