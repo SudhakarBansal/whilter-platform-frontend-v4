@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
@@ -25,7 +25,9 @@ export default async function EditOrganizationPage({ params }: PageProps) {
       description="Edit the organization"
       config={pageLayoutPresets.dashboard}
     >
-      <OrganizationEdit id={id} />
+      <Suspense fallback={<OrganizationFormSkeleton />}>
+        <OrganizationEdit id={id} />
+      </Suspense>
     </AdminLayout>
   );
 }

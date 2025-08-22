@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
@@ -32,7 +32,9 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       buttons={actions}
     >
       <OrganizationFilters />
-      <OrganizationDataListing searchParams={resolvedSearchParams} />
+      <Suspense fallback={<OrganizationPageSkeleton />}>
+        <OrganizationDataListing searchParams={resolvedSearchParams} />
+      </Suspense>
     </AdminLayout>
   );
 }
