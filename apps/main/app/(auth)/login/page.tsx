@@ -63,7 +63,7 @@ export default function LoginPage() {
   const handleGoogleLogin = () => {
     const params = new URLSearchParams({
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-      redirect_uri: 'https://main-whilter-ai.netlify.app/auth/callback',
+      redirect_uri: 'https://main-whilter-platform.netlify.app/auth/callback',
       response_type: 'code',
       scope: 'openid email profile',
       access_type: 'offline',
