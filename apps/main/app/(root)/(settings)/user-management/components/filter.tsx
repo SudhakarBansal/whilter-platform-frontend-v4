@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { TextField, MenuItem, FormControlLabel, Switch } from "@mui/material";
+import { TextField, MenuItem } from "@mui/material";
 import debounce from "lodash.debounce";
 import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 
@@ -111,13 +111,17 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
         {organizationList.map((org) => (
           <MenuItem key={org.id} value={org.name}>
             <div className="flex items-center gap-2">
-              {org.logoUrl && (
-                <img
-                  src={org.logoUrl}
-                  alt={org.name}
-                  className="w-5 h-5 rounded-full object-cover"
-                />
-              )}
+              {org.logoUrl ? (
+                        <img
+                          src={org.logoUrl}
+                          alt=""
+                          className="w-5 h-5 rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-5 h-5 flex items-center justify-center rounded-full bg-gray-200 text-gray-500 text-xs">
+                          🖼️
+                        </div>
+                      )}
               <span>{org.name}</span>
             </div>
           </MenuItem>

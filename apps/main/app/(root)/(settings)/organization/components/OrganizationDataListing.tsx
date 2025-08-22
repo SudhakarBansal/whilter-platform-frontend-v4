@@ -1,7 +1,7 @@
 import { getPaginatedOrganizationWithFilters } from "@/services/actions/organizationService";
 import type { Organization } from "@/types/organization.types";
 import OrganizationCard from "./OrganizationCard";
-import Pagination from "../../user-management/components/pagination";
+import Pagination from "@/components/pagination/Pagination";
 import { ListingNotFound } from "@whilter/ui-kit/components";
 
 const ITEMS_PER_PAGE = 9;

@@ -1,7 +1,6 @@
 
 
 "use client"
-import { useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import {
   ChevronLeft,
@@ -63,7 +62,7 @@ export default function Pagination({
     )
 
 
-  const iconBtnClasses = (disabled?: boolean) =>
+  const iconBtnClasses = (disabled?: boolean) =>                                                                        
     clsx(
       "w-9 h-9 flex items-center justify-center rounded-[4px]",
       "text-blue-200 bg-navy-700 hover:bg-navy-700 border border-gray-500",

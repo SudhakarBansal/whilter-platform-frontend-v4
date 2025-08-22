@@ -3,9 +3,7 @@ import React from "react";
 import { Box } from "@mui/material";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { menuItems } from "@/app/data/menuItems.data";
-// import { getServerSession } from "next-auth";
 import { getSession } from "@whilter/auth";
-import { authOptions } from "@whilter/auth";
 
 
 export default async function UserMangementLayout({
