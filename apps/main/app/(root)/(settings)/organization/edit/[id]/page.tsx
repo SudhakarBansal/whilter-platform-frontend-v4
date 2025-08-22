@@ -19,15 +19,15 @@ export default async function EditOrganizationPage({ params }: PageProps) {
   ]);
 
   return (
-    <AdminLayout
-      breadcrumbs={breadcrumbs}
-      heading="Edit Organization"
-      description="Edit the organization"
-      config={pageLayoutPresets.dashboard}
-    >
+    // <AdminLayout
+    //   breadcrumbs={breadcrumbs}
+    //   heading="Edit Organization"
+    //   description="Edit the organization"
+    //   config={pageLayoutPresets.dashboard}
+    // >
       <Suspense fallback={<OrganizationFormSkeleton />}>
         <OrganizationEdit id={id} />
       </Suspense>
-    </AdminLayout>
+    // </AdminLayout>
   );
 }

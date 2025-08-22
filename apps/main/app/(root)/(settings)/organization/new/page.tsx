@@ -11,13 +11,13 @@ export default function NewOrganizationPage() {
   ]);
 
   return (
-    // <AdminLayout
-    //   breadcrumbs={breadcrumbs}
-    //   heading="Create New Organization"
-    //   description="Add a new organization to the system"
-    //   config={pageLayoutPresets.dashboard}
-    // >
+    <AdminLayout
+      breadcrumbs={breadcrumbs}
+      heading="Create New Organization"
+      description="Add a new organization to the system"
+      config={pageLayoutPresets.dashboard}
+    >
       <OrganizationForm />
-    // </AdminLayout>
+    </AdminLayout>
   );
 }
