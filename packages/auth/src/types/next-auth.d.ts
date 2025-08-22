@@ -5,10 +5,10 @@ import 'next-auth/jwt';
 declare module 'next-auth' {
   interface Session {
     accessToken: string;
-    refreshToken:string;
-    deviceId:string;
-
+    refreshToken: string;
+    deviceId: string;
     user: {
+      id: string;
       name?: string | null;
       email?: string | null;
       image?: string | null;
@@ -16,16 +16,16 @@ declare module 'next-auth' {
       organization: string;
       section: string[];
       userId: string;
-      active:boolean;
-      exp:number;
+      active: boolean;
+      exp: number;
     };
   }
 
   interface User {
     id: string;
     accessToken: string;
-    refreshToken:string;
-    deviceId:string;
+    refreshToken: string;
+    deviceId: string;
     exp: number;
     role: string;
     organization: string;
@@ -33,12 +33,13 @@ declare module 'next-auth' {
     userId: string;
     email: string;
     name: string;
-    active:boolean;
+    active: boolean;
   }
 }
 
 declare module 'next-auth/jwt' {
   interface JWT {
+    id: string;
     accessToken?: string;
     refreshToken?: string;
     deviceId?: string;

@@ -1,7 +1,5 @@
+// apps/main/app/api/auth/[...nextauth]/route.ts
+import { authHandler } from "@whilter/auth";
 
-import NextAuth from 'next-auth'
-import { authOptions } from '@whilter/auth' 
-
-const handler = NextAuth(authOptions)
-
-export { handler as GET, handler as POST }
+export const GET = authHandler;
+export const POST = authHandler;

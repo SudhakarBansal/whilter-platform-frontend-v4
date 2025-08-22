@@ -24,8 +24,9 @@ export const DeleteUser = ({
   const router = useRouter();
 
   const handleDelete = async () => {
+    setDeleting(true);
+    const loadingToastId = toast.loading("Deleting user...");
     try {
-      setDeleting(true);
       const response = await deleteUser(userId);
       toast.success("User deleted successfully!");
       onDelete?.(userId);
@@ -34,6 +35,7 @@ export const DeleteUser = ({
       toast.error( error.message ||"Failed to delete user")
     } finally {
       setDeleting(false);
+      toast.dismiss(loadingToastId);
       onClose();
     }
   };

@@ -8,7 +8,7 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 
 export default function AccountPage() {
     const breadcrumbs = buildBreadcrumbs([
-        { label: "User", href: "/users" },
+        { label: "Account", href: "/my-account" },
     ]);
     return (
         <AdminLayout

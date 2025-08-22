@@ -1,19 +1,20 @@
 {
   "extends": "@whilter/typescript-config/react-library.json",
   "compilerOptions": {
+    "types": ["next-auth"],
     "baseUrl": ".",
     "paths": {
-  "@whilter/auth": ["../auth/src/index.ts"],
-  "@whilter/auth/*": ["../auth/src/*"]
-}
+      "@whilter/auth": ["../auth/src/index.ts"],
+      "@whilter/auth/*": ["../auth/src/*"]
+    }
   },
   "include": [
-   "src/types",      
-  "src/**/*.ts",
-  "src/**/*.tsx",
-  "src/**/*.d.ts"
-  
-],
+    "src/types/next-auth.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "src"
+  ],
   "exclude": [
     "node_modules"
   ]

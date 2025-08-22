@@ -38,6 +38,7 @@ export async function getPaginatedUsersWithFilters(
 }): Promise<PaginatedFilterUsersResponse> {
   try {
     const response = await axiosInstance.get(ServiceEndpoints.user.paginatedUserWithFilter, {params:params});
+    console.log("response", response);
     return response.data;
   } catch (error: any) {
     const errorResponse = error?.response?.data?.message || "An unexpected error occurred";

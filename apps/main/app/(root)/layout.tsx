@@ -1,15 +1,14 @@
 import { MainLayout } from "@whilter/shared-layouts/main";
 import { ThemeConfig } from "@whilter/config";
 import { NavbarClientWrapper } from "../../components/navbar/NavbarClientWrapper";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@whilter/auth";
+import { getSession } from "@whilter/auth";
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
 
   return (
     <>
