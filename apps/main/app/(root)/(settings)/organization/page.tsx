@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
 import AdminLayout from "@/layouts/admin-layout";
@@ -24,20 +24,16 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   ];
 
   return (
-    // <AdminLayout
-    //   breadcrumbs={breadcrumbs}
-    //   heading="Organization List"
-    //   description="Manage Organizations"
-    //   config={pageLayoutPresets.dashboard}
-    //   buttons={actions}
-    // >
-    <>
-      <p className="text-white">helloo</p>
+    <AdminLayout
+      breadcrumbs={breadcrumbs}
+      heading="Organization List"
+      description="Manage Organizations"
+      config={pageLayoutPresets.dashboard}
+      buttons={actions}
+      fallback={<OrganizationPageSkeleton />}
+    >
       <OrganizationFilters />
-      <Suspense fallback={<OrganizationPageSkeleton />}>
-        <OrganizationDataListing searchParams={resolvedSearchParams} />
-      </Suspense>
-    </>
-    //</AdminLayout>
+      <OrganizationDataListing searchParams={resolvedSearchParams} />
+    </AdminLayout>
   );
 }
