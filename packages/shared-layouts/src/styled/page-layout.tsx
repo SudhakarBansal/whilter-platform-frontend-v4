@@ -13,7 +13,7 @@ import {
 import type { ContainerProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-// Type definitions (keep all your existing interfaces)
+// Type definitions
 interface BreadcrumbItem {
   label: string;
   href?: string;
@@ -112,8 +112,6 @@ export interface PageLayoutProps extends Omit<ContainerProps, "children"> {
   onNavigate?: (path: string) => void;
   // New props for Suspense support
   fallback?: ReactNode;
-  headerFallback?: ReactNode;
-  contentFallback?: ReactNode;
 }
 
 // Styled components (keep all your existing styled components)
@@ -214,22 +212,6 @@ const StyledContent = styled(Box)<{ config: PageLayoutConfig }>(
 );
 
 // Default fallback components
-const DefaultHeaderFallback = () => (
-  <Stack
-    direction={{ xs: "column", sm: "row" }}
-    justifyContent="space-between"
-    alignItems={{ xs: "stretch", sm: "flex-center" }}
-    spacing={2}
-  >
-    <Box sx={{ flex: 1 }}>
-      <Skeleton variant="text" width="60%" height={40} />
-      <Skeleton variant="text" width="80%" height={24} />
-    </Box>
-    <Box sx={{ display: "flex", gap: 1 }}>
-      <Skeleton variant="rectangular" width={120} height={36} />
-    </Box>
-  </Stack>
-);
 
 const DefaultContentFallback = () => (
   <Stack spacing={2}>
@@ -251,11 +233,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   hero,
   onNavigate,
   fallback,
-  headerFallback,
-  contentFallback,
   ...props
 }) => {
-  // Default configuration with faster animations
   const defaultConfig: PageLayoutConfig = {
     container: {
       padding: 0,
@@ -292,8 +271,8 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
       border: "none",
     },
     animations: {
-      enabled: false, // Disable animations by default for better performance
-      timeout: 150,
+      enabled: true,
+      timeout: 300,
     },
     divider: {
       show: true,
@@ -327,12 +306,16 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   const PageContent: React.FC = () => (
     <StyledPageContainer
       config={mergedConfig}
-      className={`${className} max-w-[90vw] px-10`}
+      className={`${className} transition-all duration-300 max-w-[90vw] px-10`}
       {...props}
     >
-      {/* Breadcrumbs Section - Always render immediately */}
+      {/* Breadcrumbs Section */}
       {breadcrumbs && breadcrumbs.length > 0 && (
-        <StyledBreadcrumbs config={mergedConfig} aria-label="breadcrumb">
+        <StyledBreadcrumbs
+          config={mergedConfig}
+          className="animate-fade-in"
+          aria-label="breadcrumb"
+        >
           {breadcrumbs.map((item, index) => {
             const isLast = index === breadcrumbs.length - 1;
 
@@ -364,31 +347,38 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         </StyledBreadcrumbs>
       )}
 
-      {/* Hero Section - Always render immediately if provided */}
-      {hero && <Box className="mb-20">{hero}</Box>}
+      {/* Hero Section */}
+      {hero && <Box className="mb-20 animate-fade-in">{hero}</Box>}
 
-      {/* Header Section with Suspense */}
+      {/* Header Section */}
       <StyledHeader config={mergedConfig}>
-        <Suspense fallback={headerFallback || <DefaultHeaderFallback />}>
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            justifyContent="space-between"
-            alignItems={{ xs: "stretch", sm: "flex-center" }}
-            spacing={2}
-          >
-            {/* Title and Description */}
-            <Box sx={{ flex: 1 }}>
-              {heading && (
-                <StyledHeading variant="h1" config={mergedConfig}>
-                  {heading}
-                </StyledHeading>
-              )}
-              {description && (
-                <StyledDescription variant="body1" config={mergedConfig}>
-                  {description}
-                </StyledDescription>
-              )}
-            </Box>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          justifyContent="space-between"
+          alignItems={{ xs: "stretch", sm: "flex-center" }}
+          spacing={2}
+        >
+          {/* Title and Description */}
+          <Box sx={{ flex: 1 }}>
+                {heading && (
+                  <StyledHeading
+                    variant="h1"
+                    config={mergedConfig}
+                    className="animate-fade-in"
+                  >
+                    {heading}
+                  </StyledHeading>
+                )}
+                {description && (
+                  <StyledDescription
+                    variant="body1"
+                    config={mergedConfig}
+                    className="animate-fade-in animation-delay-100"
+                  >
+                    {description}
+                  </StyledDescription>
+                )}
+          </Box>
 
             {/* Action Buttons */}
             {buttons && buttons.length > 0 && (
@@ -399,13 +389,12 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
               </StyledButtonContainer>
             )}
           </Stack>
-        </Suspense>
       </StyledHeader>
 
       {/* Main Content with Suspense */}
       <StyledContent config={mergedConfig}>
         <Suspense
-          fallback={contentFallback || fallback || <DefaultContentFallback />}
+          fallback={ fallback || <DefaultContentFallback />}
         >
           <Stack spacing={12} paddingY={3}>
             {children}
@@ -415,6 +404,14 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
     </StyledPageContainer>
   );
 
-  // Return without animation wrapper for better performance
-  return <PageContent />;
+  // Return with or without animation based on config
+  return mergedConfig.animations?.enabled ? (
+    <Fade in timeout={mergedConfig.animations.timeout}>
+      <div>
+        <PageContent />
+      </div>
+    </Fade>
+  ) : (
+    <PageContent />
+  );
 };
