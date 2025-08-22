@@ -7,7 +7,6 @@ export const ActionButton = ({ href, children, ...props }: ActionButtonProps) =>
   return (
     <Link
       href={href || "#"}
-      prefetch={true}
     >
       <Button
         {...props}
