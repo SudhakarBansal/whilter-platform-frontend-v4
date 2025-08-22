@@ -7,7 +7,6 @@ export const ToolCard: React.FC<ToolCardProps> = ({ data }) => {
 
     return (
         <Link
-            prefetch={true}
             scroll={true}
             href={data.href}
             className="block"
