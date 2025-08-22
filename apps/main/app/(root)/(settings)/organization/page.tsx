@@ -30,7 +30,6 @@ export default async function Page({ searchParams }: { searchParams: any }) {
       description="Manage Organizations"
       config={pageLayoutPresets.dashboard}
       buttons={actions}
-      // fallback={<OrganizationPageSkeleton />}
     >
       <OrganizationFilters />
       <OrganizationDataListing searchParams={resolvedSearchParams} />

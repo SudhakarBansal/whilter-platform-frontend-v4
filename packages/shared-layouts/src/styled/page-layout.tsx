@@ -1,5 +1,5 @@
 "use client";
-import React, { type ReactNode, Suspense } from "react";
+import React, { type ReactNode } from "react";
 import {
   Box,
   Typography,
@@ -110,8 +110,6 @@ export interface PageLayoutProps extends Omit<ContainerProps, "children"> {
   config?: PageLayoutConfig;
   className?: string;
   onNavigate?: (path: string) => void;
-  // New props for Suspense support
-  fallback?: ReactNode;
 }
 
 // Styled components (keep all your existing styled components)
@@ -211,17 +209,6 @@ const StyledContent = styled(Box)<{ config: PageLayoutConfig }>(
   }),
 );
 
-// Default fallback components
-
-const DefaultContentFallback = () => (
-  <Stack spacing={2}>
-    <Skeleton variant="rectangular" width="100%" height={200} />
-    <Skeleton variant="text" width="60%" />
-    <Skeleton variant="text" width="80%" />
-    <Skeleton variant="text" width="40%" />
-  </Stack>
-);
-
 export const PageLayout: React.FC<PageLayoutProps> = ({
   heading,
   description,
@@ -232,7 +219,6 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
   className = "",
   hero,
   onNavigate,
-  fallback,
   ...props
 }) => {
   const defaultConfig: PageLayoutConfig = {
@@ -360,46 +346,42 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
         >
           {/* Title and Description */}
           <Box sx={{ flex: 1 }}>
-                {heading && (
-                  <StyledHeading
-                    variant="h1"
-                    config={mergedConfig}
-                    className="animate-fade-in"
-                  >
-                    {heading}
-                  </StyledHeading>
-                )}
-                {description && (
-                  <StyledDescription
-                    variant="body1"
-                    config={mergedConfig}
-                    className="animate-fade-in animation-delay-100"
-                  >
-                    {description}
-                  </StyledDescription>
-                )}
+            {heading && (
+              <StyledHeading
+                variant="h1"
+                config={mergedConfig}
+                className="animate-fade-in"
+              >
+                {heading}
+              </StyledHeading>
+            )}
+            {description && (
+              <StyledDescription
+                variant="body1"
+                config={mergedConfig}
+                className="animate-fade-in animation-delay-100"
+              >
+                {description}
+              </StyledDescription>
+            )}
           </Box>
 
-            {/* Action Buttons */}
-            {buttons && buttons.length > 0 && (
-              <StyledButtonContainer config={mergedConfig}>
-                {buttons.map((button, index) => (
-                  <Box key={index}>{button}</Box>
-                ))}
-              </StyledButtonContainer>
-            )}
-          </Stack>
+          {/* Action Buttons */}
+          {buttons && buttons.length > 0 && (
+            <StyledButtonContainer config={mergedConfig}>
+              {buttons.map((button, index) => (
+                <Box key={index}>{button}</Box>
+              ))}
+            </StyledButtonContainer>
+          )}
+        </Stack>
       </StyledHeader>
 
-      {/* Main Content with Suspense */}
+      {/* Main Content */}
       <StyledContent config={mergedConfig}>
-        <Suspense
-          fallback={ fallback || <DefaultContentFallback />}
-        >
-          <Stack spacing={12} paddingY={3}>
-            {children}
-          </Stack>
-        </Suspense>
+        <Stack spacing={12} paddingY={3}>
+          {children}
+        </Stack>
       </StyledContent>
     </StyledPageContainer>
   );

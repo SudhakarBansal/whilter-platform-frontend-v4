@@ -24,7 +24,6 @@ export default async function EditOrganizationPage({ params }: PageProps) {
       heading="Edit Organization"
       description="Edit the organization"
       config={pageLayoutPresets.dashboard}
-      fallback={<OrganizationFormSkeleton />}
     >
       <OrganizationEdit id={id} />
     </AdminLayout>
