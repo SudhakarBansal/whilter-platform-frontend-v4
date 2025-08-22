@@ -12,13 +12,26 @@ import { joinOrganizationRequest } from '@/services/actions/userService';
 import { useOrgAndRoleOptions } from '@/hooks/useRoleAndOrgHook';
 import { Role } from '@whilter/auth';
 
+interface SessionUser {
+    id: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    role: string;
+    organization: string;
+    section: string[];
+    userId: string;
+    active: boolean;
+    exp: number;
+  }
 
 export default function RequestForm() {
     const { data: session } = useSession();
     const { roleOptions, organizationOptions, loading: optionsLoading } = useOrgAndRoleOptions();
+    const sessionUser = session?.user as SessionUser | undefined;
 
-    const defaultName = useMemo(() => session?.user?.name || '', [session]);
-    const isSuperAdmin = session?.user?.role === Role.SUPER_ADMIN;
+    const defaultName = useMemo(() => sessionUser?.name || '', [session]);
+    const isSuperAdmin = sessionUser?.role === Role.SUPER_ADMIN;
 
     const methods = useForm<RequestOrgAccess>({
         defaultValues: {
@@ -55,7 +68,7 @@ export default function RequestForm() {
                 role: data.role,
             };
 
-            const message = await joinOrganizationRequest(payload, session?.user?.email);
+            const message = await joinOrganizationRequest(payload, sessionUser?.email);
             toast.success(message || 'Request submitted successfully');
         } catch (error: any) {
             toast.error(error?.message || 'Error submitting request');
@@ -92,7 +105,7 @@ export default function RequestForm() {
                     <>
                         <div className="w-full sm:flex sm:items-center sm:justify-between flex-col sm:flex-row gap-2">
                             <div className="text-sm text-gray-600">
-                                <strong>Organization Id</strong>: {session?.user?.organization}
+                                <strong>Organization Id</strong>: {sessionUser?.organization}
                             </div>
                         </div>
                     </>

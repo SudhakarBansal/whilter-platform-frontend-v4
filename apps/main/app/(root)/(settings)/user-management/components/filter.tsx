@@ -3,11 +3,10 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { TextField, MenuItem, FormControlLabel, Switch } from "@mui/material";
 import debounce from "lodash.debounce";
-import Pagination from "./pagination";
 import { ArrowDropDownIcon } from "@mui/x-date-pickers";
 
 export type UserFiltersState = {
-  status: boolean;
+  status: "" | "true" | "false";
   email: string;
   organizationName: string;
   role: string;
@@ -15,11 +14,8 @@ export type UserFiltersState = {
 };
 
 export type UserFiltersProps = {
-  organizationList: { id: string; name: string }[];
+  organizationList: { id: string; name: string, logoUrl: string }[];
   rolesList: { id: string; name: string }[];
-  // totalPages: number;
-  // totalItems: number;
-  // itemsPerPage: number;
 };
 
 const sections = [
@@ -27,6 +23,11 @@ const sections = [
   { id: "CHARP_AI", label: "Charp AI" },
   { id: "MARKETPLACE", label: "Marketplace" },
   { id: "DASHBOARD", label: "Dashboard" },
+];
+
+const statusOptions = [
+  { id: "true", label: "Active" },
+  { id: "false", label: "Inactive" },
 ];
 
 export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) => {
@@ -38,16 +39,18 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
     organizationName: "",
     role: "",
     preferredSection: "",
-    status: true,
+    status: "",
   });
 
   useEffect(() => {
+    const statusParam = searchParams.get("status");
+    const status = statusParam === "true" || statusParam === "false" ? statusParam : "";
     setLocalFilters({
       email: searchParams.get("email") || "",
       organizationName: searchParams.get("organizationName") || "",
       role: searchParams.get("role") || "",
       preferredSection: searchParams.get("preferredSection") || "",
-      status: searchParams.get("status") !== "false",
+      status
     });
   }, [searchParams]);
 
@@ -55,11 +58,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
     debounce((updatedFilters: Partial<UserFiltersState>) => {
       const currentParams = new URLSearchParams(window.location.search);
       Object.entries(updatedFilters).forEach(([key, value]) => {
-        if (
-          value === "" ||
-          value === null ||
-          value === undefined
-        ) {
+        if (!value) {
           currentParams.delete(key);
         } else {
           currentParams.set(key, String(value));
@@ -103,17 +102,29 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
               color: "rgba(255, 255, 255, 0.6)",
             },
           },
+          renderValue: (selected) => selected ? (selected as string) : <span>All</span>
         }}
       >
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="">
+          None
+        </MenuItem>
         {organizationList.map((org) => (
           <MenuItem key={org.id} value={org.name}>
-            {org.name}
+            <div className="flex items-center gap-2">
+              {org.logoUrl && (
+                <img
+                  src={org.logoUrl}
+                  alt={org.name}
+                  className="w-5 h-5 rounded-full object-cover"
+                />
+              )}
+              <span>{org.name}</span>
+            </div>
           </MenuItem>
         ))}
       </TextField>
 
-      {/* Role */}
+
       <TextField
         select
         label="Role"
@@ -130,7 +141,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
           },
         }}
       >
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="">None</MenuItem>
         {rolesList.map((role) => (
           <MenuItem key={role.id} value={role.name}>
             {role.name}
@@ -154,7 +165,7 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
           },
         }}
       >
-        <MenuItem value="">All</MenuItem>
+        <MenuItem value="">None</MenuItem>
         {sections.map((section) => (
           <MenuItem key={section.id} value={section.id}>
             {section.label}
@@ -162,17 +173,30 @@ export const UserFilters = ({ organizationList, rolesList }: UserFiltersProps) =
         ))}
       </TextField>
 
-      <FormControlLabel
+      <TextField
+        select
         label="Status"
-        labelPlacement="start"
-        control={
-          <Switch
-            checked={localFilters.status}
-            onChange={(e) => handleChange("status", e.target.checked)}
-          />
-        }
+        value={localFilters.status}
+        onChange={(e) => handleChange("status", e.target.value)}
+        size="small"
+        className="w-full sm:w-48 md:w-56 lg:w-40 xl:w-44"
+        SelectProps={{
+          IconComponent: ArrowDropDownIcon,
+          sx: {
+            "& .MuiSelect-icon": {
+              color: "rgba(255, 255, 255, 0.6)",
+            },
+          },
+        }}
+      >
+        <MenuItem value="">None</MenuItem>
+        {statusOptions.map((status) => (
+          <MenuItem key={status.id} value={status.id}>
+            {status.label}
+          </MenuItem>
+        ))}
+      </TextField>
 
-      />
     </div>
   );
 }

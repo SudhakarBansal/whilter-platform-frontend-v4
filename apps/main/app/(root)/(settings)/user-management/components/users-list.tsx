@@ -2,7 +2,7 @@ import React from "react";
 import { UserFilters } from "./filter";
 import { UserCard } from "./user-card";
 import { type User } from "@/services/service-types";
-import { type OptionType } from "../page";
+import { type OptionType, type OrganizationType } from "../page";
 import Pagination from "./pagination";
 import { getPaginatedUsersWithFilters } from "@/services/actions/userService";
 
@@ -10,7 +10,7 @@ const ITEMS_PER_PAGE = 8;
 
 type UsersListProps = {
   searchParams: Record<string, any>;
-  organizationList: OptionType[];
+  organizationList: OrganizationType[];
   rolesList: OptionType[];
 };
 

@@ -1,9 +1,9 @@
 const UserCardSkeleton = () => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-10 gap-x-[55px] w-full">
       {Array.from({ length: 8 }).map((_, index) => (
         <div
           key={index}
-          className="relative group flex flex-col border border-gray-700 rounded-xl bg-gray-600 shadow-sm overflow-hidden animate-pulse min-h-[180px] p-4"
+          className="relative group flex flex-col border border-gray-700 rounded-xl bg-gray-600 shadow-sm overflow-hidden animate-pulse min-w-[300px] p-4"
         >
           <div className="flex items-center mb-3">
             <div className="h-10 w-10 rounded-full bg-gray-700"></div>

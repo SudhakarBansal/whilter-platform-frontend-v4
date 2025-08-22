@@ -42,7 +42,6 @@ export default function Pagination({
     router.push(`?${params.toString()}`)
   }
 
-  // 🔹 Visible pages logic
   const getVisiblePages = () => {
     if (safeTotalPages <= 5) {
       return Array.from({ length: safeTotalPages }, (_, i) => i + 1)
@@ -53,7 +52,6 @@ export default function Pagination({
     return [1, "…", currentPage, currentPage + 1, "…", safeTotalPages]
   }
 
-  // 🔹 Styled buttons
   const btnClasses = (active?: boolean, disabled?: boolean) =>
     clsx(
       "w-9 h-9 flex items-center justify-center transition-all duration-150",
@@ -73,78 +71,73 @@ export default function Pagination({
       disabled && "opacity-40 pointer-events-none"
     )
 
-    return (
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-10">
-        <div className="text-sm text-gray-400">
-  Showing{" "}
-  <span className="text-gray-200">
-    {startItem}-{endItem}
-  </span>{" "}
-  of <span className="text-gray-200">{totalItems}</span>
-</div>
-  
-        <div className="flex items-center gap-1">
-          <button
-            className={iconBtnClasses(currentPage === 1)}
-            onClick={() => onPageChange(1)}
-            disabled={currentPage === 1}
-            aria-label="First page"
-          >
-            <ChevronsLeft size={16} className="scale-90" />
-          </button>
-
-          {/* Prev */}
-          <button
-            className={iconBtnClasses(currentPage === 1)}
-            onClick={() => onPageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            aria-label="Previous page"
-          >
-            <ChevronLeft size={16} className="scale-90" />
-          </button>
-
-          {/* Pages */}
-          {getVisiblePages().map((page, idx) =>
-            page === "…" ? (
-              <span
-                key={idx}
-                className="w-9 h-9 flex items-center justify-center text-gray-500"
-              >
-                …
-              </span>
-            ) : (
-              <button
-                key={idx}
-                className={btnClasses(page === currentPage)}
-                onClick={() => onPageChange(page as number)}
-                aria-current={page === currentPage ? "page" : undefined}
-              >
-                {page}
-              </button>
-            )
-          )}
-
-          {/* Next */}
-          <button
-            className={iconBtnClasses(currentPage === totalPages)}
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            aria-label="Next page"
-          >
-            <ChevronRight size={16} className="scale-90" />
-          </button>
-
-          {/* Last */}
-          <button
-            className={iconBtnClasses(currentPage === totalPages)}
-            onClick={() => onPageChange(totalPages)}
-            disabled={currentPage === totalPages}
-            aria-label="Last page"
-          >
-            <ChevronsRight size={16} className="scale-90" />
-          </button>
-        </div>
+  return (
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-10">
+      <div className="text-sm text-gray-400">
+        Showing{" "}
+        <span className="text-gray-200">
+          {startItem}-{endItem}
+        </span>{" "}
+        of <span className="text-gray-200">{totalItems}</span>
       </div>
-    )
-  }
- 
+
+      <div className="flex items-center gap-1">
+        <button
+          className={iconBtnClasses(currentPage === 1)}
+          onClick={() => onPageChange(1)}
+          disabled={currentPage === 1}
+          aria-label="First page"
+        >
+          <ChevronsLeft size={16} className="scale-90" />
+        </button>
+
+        <button
+          className={iconBtnClasses(currentPage === 1)}
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label="Previous page"
+        >
+          <ChevronLeft size={16} className="scale-90" />
+        </button>
+
+        {getVisiblePages().map((page, idx) =>
+          page === "…" ? (
+            <span
+              key={idx}
+              className="w-9 h-9 flex items-center justify-center text-gray-500"
+            >
+              …
+            </span>
+          ) : (
+            <button
+              key={idx}
+              className={btnClasses(page === currentPage)}
+              onClick={() => onPageChange(page as number)}
+              aria-current={page === currentPage ? "page" : undefined}
+            >
+              {page}
+            </button>
+          )
+        )}
+
+        <button
+          className={iconBtnClasses(currentPage === totalPages)}
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label="Next page"
+        >
+          <ChevronRight size={16} className="scale-90" />
+        </button>
+
+        <button
+          className={iconBtnClasses(currentPage === totalPages)}
+          onClick={() => onPageChange(totalPages)}
+          disabled={currentPage === totalPages}
+          aria-label="Last page"
+        >
+          <ChevronsRight size={16} className="scale-90" />
+        </button>
+      </div>
+    </div>
+  )
+}
