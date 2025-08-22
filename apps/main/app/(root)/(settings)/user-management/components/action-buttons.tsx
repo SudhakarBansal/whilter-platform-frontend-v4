@@ -1,4 +1,4 @@
-"use client";;
+"use client";
 import { Button, Dialog } from "@mui/material";
 import { Plus } from 'lucide-react';
 import { useState } from "react";

@@ -1,9 +1,9 @@
 import React from "react";
 import { UserFilters } from "./filter";
-import { UserCard } from "./user-card";
+import { UserCard } from "./user-files/user-card";
 import { type User } from "@/services/service-types";
 import { type OptionType, type OrganizationType } from "../page";
-import Pagination from "./pagination";
+import Pagination from "@/components/pagination/Pagination";
 import { getPaginatedUsersWithFilters } from "@/services/actions/userService";
 
 const ITEMS_PER_PAGE = 8;

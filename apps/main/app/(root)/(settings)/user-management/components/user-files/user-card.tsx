@@ -3,10 +3,10 @@ import type { User } from "@/services/service-types";
 import { useState } from "react";
 import { Trash2, Pencil, Building2, Users, Shield } from "lucide-react";
 import clsx from "clsx";
-import UserEdit from "./user-edit";
+import UserEdit from "../user-edit";
 import { Dialog } from "@mui/material";
-import { DeleteUser } from "./user-delete";
-import { type OptionType } from "../page";
+import { DeleteUser } from "../user-delete";
+import { type OptionType } from "../../page";
 
 interface UserCardProps {
   user: User;

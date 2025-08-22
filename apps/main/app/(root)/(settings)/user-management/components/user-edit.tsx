@@ -2,11 +2,10 @@
 import React, { useState, useEffect } from 'react'
 import UserForm from './user-form';
 import { useRouter } from 'next/navigation';
-import { Dialog } from '@mui/material';
-import encryptPassword from '@/utils/password-encryption';
 import { getUserById, updateUser } from '@/services/actions/userService';
 import { toast } from 'sonner';
 import { type UserFormValues } from '@/model/userFormInitialValues';
+import { CircularProgress, Box } from '@mui/material';
 
 interface UserEditProps {
   organizationList?: any;
@@ -45,7 +44,7 @@ const UserEdit = ({
   
 
   const handleSubmit = async (data: any) => {
-    setLoading(true);
+    // setLoading(true);
     const loadingToastId = toast.loading("Updating user...");
     try {
       const { password, ...updateData } = data;
@@ -60,13 +59,14 @@ const UserEdit = ({
     catch (error: any) {
       toast.error("Failed to Update user");
     } finally {
-      setLoading(false);
+      // setLoading(false);
       toast.dismiss(loadingToastId);
     }
   };
 
   const fetchUser = async () => {
     try {
+      setLoading(true);
       const response = await getUserById(userId);
       if (response) {
         setInitialValues({
@@ -82,24 +82,39 @@ const UserEdit = ({
       }
     } catch (err) {
       toast.error("Failed to fetch user data");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => { fetchUser() }, [userId]);
 
+  if (loading) {
+    return (
+      <Box 
+        display="flex" 
+        justifyContent="center" 
+        alignItems="center" 
+        minHeight="400px"
+      >
+        <CircularProgress color="primary" size={40} />
+      </Box>
+    );
+  }
+
   return (
     <div>
-      {initialValues &&
-      <UserForm
-      defaultValues={initialValues}
-      onSubmit={handleSubmit}
-      onClose={onClose}
-      isEdit={true}
-      organizationOptions={organizationList}
-      roleOptions={rolesList}
-      preferredSectionOptions={preferredSectionOptions}
-    />
-    } 
+      {initialValues && (
+        <UserForm
+          defaultValues={initialValues}
+          onSubmit={handleSubmit}
+          onClose={onClose}
+          isEdit={true}
+          organizationOptions={organizationList}
+          roleOptions={rolesList}
+          preferredSectionOptions={preferredSectionOptions}
+        />
+      )}
     </div>
   )
 }

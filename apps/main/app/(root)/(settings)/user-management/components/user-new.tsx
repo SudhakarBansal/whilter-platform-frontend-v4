@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import UserForm from './user-form';
 import { useRouter } from 'next/navigation';
-import { Dialog } from '@mui/material';
 import encryptPassword from '@/utils/password-encryption';
 import { registerUser } from '@/services/actions/userService';
 import { toast } from 'sonner';
