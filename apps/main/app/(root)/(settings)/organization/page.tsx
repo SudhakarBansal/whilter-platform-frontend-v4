@@ -24,19 +24,17 @@ export default async function Page({ searchParams }: { searchParams: any }) {
   ];
 
   return (
-    // <AdminLayout
-    //   breadcrumbs={breadcrumbs}
-    //   heading="Organization List"
-    //   description="Manage Organizations"
-    //   config={pageLayoutPresets.dashboard}
-    //   buttons={actions}
-    // >
-    <>
+    <AdminLayout
+      breadcrumbs={breadcrumbs}
+      heading="Organization List"
+      description="Manage Organizations"
+      config={pageLayoutPresets.dashboard}
+      buttons={actions}
+    >
       <OrganizationFilters />
       <Suspense fallback={<OrganizationPageSkeleton />}>
         <OrganizationDataListing searchParams={resolvedSearchParams} />
       </Suspense>
-    </>
-    // </AdminLayout>
+    </AdminLayout>
   );
 }
