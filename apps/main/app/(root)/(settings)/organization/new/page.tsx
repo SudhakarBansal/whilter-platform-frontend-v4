@@ -5,7 +5,6 @@ import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { OrganizationForm } from "../components/organization-form";
 
 export default function NewOrganizationPage() {
-
   const breadcrumbs = buildBreadcrumbs([
     { label: "Organization", href: "/organization" },
     { label: "New Organization", href: "/organization/new" },
