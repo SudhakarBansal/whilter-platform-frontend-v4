@@ -18,27 +18,27 @@ spec:
           image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-charpai-frontend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 3002
           env:
             - name: NODE_ENV
               value: "production"
             - name: PORT
-              value: "3000"
+              value: "3002"
             # REQUIRED ENVIRONMENT VARIABLES
             - name: NEXT_PUBLIC_MAIN_URL
               value: "https://platform.whilter.ai" 
             - name: NEXT_PUBLIC_MEDIA_TOOLS_URL
-              value: "http://localhost:3001" 
+              value: "https://media-tools.whilter.ai" 
             - name: NEXT_PUBLIC_CHARP_AI_URL
-              value: "http://localhost:3002"
+              value: "https://charpai.whilter.ai"
             - name: NEXT_PUBLIC_MARKETPLACE_URL
-              value: "http://localhost:3003" 
+              value: "https://marketplace.whilter.ai" 
             - name: NEXT_PUBLIC_APP_AUTH_URL
               value: "https://manage.whilter.ai/api/user" 
             - name: NEXTAUTH_SECRET
               value: "LOUk8pQNkLUKmiLetuCsmEW/rHSHbUQt/BtpKSsj4/0="
             - name: NEXTAUTH_URL
-              value: "https://platform.whilter.ai" 
+              value: "https://charpai.whilter.ai" 
             - name: NEXT_PUBLIC_GOOGLE_CLIENT_ID
               value: "410778494117-294nk8cb53hf4bh64b773s3tjbs2tb1p.apps.googleusercontent.com"
             - name: NEXT_PUBLIC_RSA_PUBLIC_KEY

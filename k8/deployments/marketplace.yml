@@ -18,12 +18,12 @@ spec:
           image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-marketplace-frontend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 3003
           env:
             - name: NODE_ENV
               value: "production"
             - name: PORT
-              value: "3000"
+              value: "3003"
             # REQUIRED ENVIRONMENT VARIABLES
             - name: NEXT_PUBLIC_MAIN_URL
               value: "https://platform.whilter.ai" 

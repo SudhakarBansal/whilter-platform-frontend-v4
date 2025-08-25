@@ -40,5 +40,6 @@ COPY --from=builder /app/packages/ ./packages/
 # Install production dependencies
 RUN pnpm install --production --strict-peer-dependencies=false
 
+ENV PORT=3000
 EXPOSE 3000
 CMD ["pnpm", "start"]

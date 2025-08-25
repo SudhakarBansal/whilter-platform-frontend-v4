@@ -1,0 +1,36 @@
+#!/bin/bash
+# deploy.sh
+
+# Build and deploy all apps
+declare -A APPS=(
+  ["main"]="app.example.com:3000"
+  ["media-tools"]="media.example.com:3001" 
+  ["charp-ai"]="ai.example.com:3002"
+  ["marketplace"]="market.example.com:3003"
+)
+
+echo "Building and deploying all applications..."
+
+for APP_NAME in "${!APPS[@]}"; do
+    IFS=':' read -r DOMAIN PORT <<< "${APPS[$APP_NAME]}"
+    
+    echo "Building $APP_NAME for domain $DOMAIN on port $PORT"
+    docker build \
+        --build-arg APP_NAME=$APP_NAME \
+        --build-arg DOMAIN=$DOMAIN \
+        --build-arg PORT=$PORT \
+        -t $APP_NAME-app .
+    
+    echo "Starting $APP_NAME service"
+    docker-compose up -d $APP_NAME
+done
+
+echo "Restarting nginx reverse proxy"
+docker-compose restart nginx
+
+echo "Deployment completed!"
+echo "Apps running:"
+echo "- Main: app.example.com → port 3000"
+echo "- Media Tools: media.example.com → port 3001"
+echo "- Charp AI: ai.example.com → port 3002"
+echo "- Marketplace: market.example.com → port 3003"
