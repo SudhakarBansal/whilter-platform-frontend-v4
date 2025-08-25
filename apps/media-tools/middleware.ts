@@ -42,7 +42,7 @@ export async function middleware(request: NextRequest) {
     const hasAccess = checkServiceAccess(role, sections, currentSection);
 
     if (!hasAccess) {
-      return NextResponse.redirect(new URL('/unauthorized', process.env.NEXT_PUBLIC_CHARP_AI_URL!));
+      return NextResponse.redirect(new URL('/unauthorized', process.env.NEXT_PUBLIC_MEDIA_TOOLS_URL!));
     }
 
   

@@ -11,13 +11,13 @@ metadata:
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
     alb.ingress.kubernetes.io/healthcheck-path: /
     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:390844737706:certificate/9bdb6bb6-62b0-407c-baeb-de7c2b8c816b
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:390844737706:certificate/92f277fb-9beb-48d7-810a-ac6bccffdb69
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80},{"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
 spec:
   ingressClassName: alb
   rules:
-    - host: charpai.whilter.ai
+    - host: charp-ai.whilter.ai
       http:
         paths:
           - path: /
@@ -29,5 +29,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - platform.whilter.ai
+        - charp-ai.whilter.ai
 

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: whilter-platform-frontend
-          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-platform-frontend:latest
+          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-platform-frontend:1.1
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
