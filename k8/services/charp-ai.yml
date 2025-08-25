@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: charpai-frontend-service
+  namespace: dev-charp
+spec:
+  selector:
+    app: whilter-charpai-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: ClusterIP
