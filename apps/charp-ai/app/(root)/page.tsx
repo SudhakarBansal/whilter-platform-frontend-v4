@@ -1,4 +1,3 @@
-
 import DashboardLayout from "@/layouts/dashboard-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
@@ -6,15 +5,14 @@ import { getDashboardStats } from "@/services/actions/dashboardService";
 import { mapMediaStatsToCards } from "@/data/dashboard.data";
 import StatCardSection from "@/components/dashboard-section/StatCardSection";
 import { ActionButton } from "@/components/atoms/ActionButton";
-
+import { BrandDetailsTable } from "@/components/dashboard-section/BrandDetailsTable";
+import { CampaignDetailsTable } from "@/components/dashboard-section/CampaignDetailsTable";
 
 export default async function Page() {
   const data = await getDashboardStats();
   const finalStats = mapMediaStatsToCards(data);
 
-  const breadcrumbs = buildBreadcrumbs([
-    { label: "Dashboard", href: "/" },
-  ]);
+  const breadcrumbs = buildBreadcrumbs([{ label: "Dashboard", href: "/" }]);
 
   const actions = [
     <ActionButton
@@ -24,7 +22,7 @@ export default async function Page() {
       href="/campaigns"
     >
       View Campaigns
-    </ActionButton>
+    </ActionButton>,
   ];
 
   return (
@@ -35,6 +33,8 @@ export default async function Page() {
       buttons={actions}
     >
       <StatCardSection stats={finalStats} />
+      <BrandDetailsTable />
+      <CampaignDetailsTable />
     </DashboardLayout>
   );
 }
