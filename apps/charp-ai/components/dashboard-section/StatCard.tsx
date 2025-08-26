@@ -1,4 +1,3 @@
-
 import React from "react";
 
 interface StatCardProps {
@@ -17,7 +16,7 @@ export default function StatCard({
   subValue,
 }: StatCardProps) {
   return (
-    <div className="w-full h-[160px] rounded-[28px] bg-gradient-to-b from-blue-300 to-blue-600 flex flex-col items-center justify-center shadow-lg">
+    <div className="w-full h-[160px] rounded-[28px] bg-gradient-to-b from-[#2343AA] to-[#0E1B44] flex flex-col items-center justify-center shadow-2xl">
       <div className="text-white text-[18px] font-normal mb-2 text-center">
         {title}
       </div>
