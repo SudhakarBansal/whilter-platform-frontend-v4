@@ -13,6 +13,7 @@ type CampaignRowType = {
   mediaFailed: number;
   mediaPending: number;
   timeDuration: string;
+  totalCost: number;
 };
 
 // Vars
@@ -25,6 +26,7 @@ const campaignData: CampaignRowType[] = [
     mediaFailed: 30,
     mediaPending: 20,
     timeDuration: "20 Seconds",
+    totalCost: 200,
   },
   {
     campaignTitle: "Policy Bazaar- Year End Reel 2024",
@@ -34,6 +36,7 @@ const campaignData: CampaignRowType[] = [
     mediaFailed: 10,
     mediaPending: 10,
     timeDuration: "20 Seconds",
+    totalCost: 150,
   },
   {
     campaignTitle: "Policy Bazaar- Year End Reel 2024",
@@ -43,6 +46,7 @@ const campaignData: CampaignRowType[] = [
     mediaFailed: 20,
     mediaPending: 50,
     timeDuration: "20 Seconds",
+    totalCost: 300,
   },
   {
     campaignTitle: "Policy Bazaar- Year End Reel 2024",
@@ -52,6 +56,7 @@ const campaignData: CampaignRowType[] = [
     mediaFailed: 100,
     mediaPending: 30,
     timeDuration: "20 Seconds",
+    totalCost: 180,
   },
   {
     campaignTitle: "Policy Bazaar- Year End Reel 2024",
@@ -61,6 +66,7 @@ const campaignData: CampaignRowType[] = [
     mediaFailed: 25,
     mediaPending: 127,
     timeDuration: "20 Seconds",
+    totalCost: 500,
   },
 ];
 
@@ -96,6 +102,9 @@ export const CampaignDetailsTable = () => {
                   </th>
                   <th className="text-left p-3 text-base font-medium">
                     Time Duration
+                  </th>
+                  <th className="text-left p-3 text-base font-medium">
+                    Total Cost
                   </th>
                   <th className="text-left p-3 text-base font-medium">
                     Actions
@@ -143,14 +152,13 @@ export const CampaignDetailsTable = () => {
                       </div>
                     </td>
                     <td className="p-4">
-                      <Typography>
-                        {row.mediaPending}
-                      </Typography>
+                      <Typography>{row.mediaPending}</Typography>
                     </td>
                     <td className="p-4">
-                      <Typography>
-                        {row.timeDuration}
-                      </Typography>
+                      <Typography>{row.timeDuration}</Typography>
+                    </td>
+                    <td className="p-4">
+                      <Typography>${row.totalCost}</Typography>
                     </td>
                     <td className="p-4">
                       <IconButton size="small" className="text-white">
