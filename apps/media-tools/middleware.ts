@@ -22,12 +22,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
-    // secureCookie: process.env.NODE_ENV === 'production',
+    cookieName: '__Secure-next-auth.session-token'
   });
-
+  
+  console.log('Token in middleware:', token);
+  
   if (!token) {
     return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
   }
