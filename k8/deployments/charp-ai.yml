@@ -15,11 +15,15 @@ spec:
     spec:
       containers:
         - name: whilter-charpai-frontend
-          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-charpai-frontend:latest
+          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-charpai-frontend:1.1
           imagePullPolicy: Always
           env:
             - name: NODE_ENV
               value: "production"
+            - name: NEXTAUTH_SECRET
+              value: "LOUk8pQNkLUKmiLetuCsmEW/rHSHbUQt/BtpKSsj4/0="
+            - name: NEXTAUTH_URL
+              value: "https://charp-ai.whilter.ai" 
           resources:
             requests:
               memory: "1Gi"

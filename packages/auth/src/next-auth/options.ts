@@ -13,16 +13,13 @@ export const authOptions: NextAuthOptions = {
         accessToken: { label: 'AccessToken', type: 'text' },
         refreshToken: { label: 'RefreshToken', type: 'text' },
         deviceId: { label: 'DeviceId', type: 'text' },
-
       },
       async authorize(credentials) {
         try {
           if (credentials?.accessToken && credentials?.refreshToken) {
             const decoded = decodeJwt(credentials.accessToken);
-     
             if (!decoded) return null;
 
-            // Ensure section is always an array
             const section = Array.isArray(decoded.section)
               ? decoded.section
               : decoded.section
@@ -57,7 +54,6 @@ export const authOptions: NextAuthOptions = {
             const decoded = decodeJwt(accessToken);
             if (!decoded) return null;
 
-            // Ensure section is always an array
             const section = Array.isArray(decoded.section)
               ? decoded.section
               : decoded.section
@@ -77,7 +73,6 @@ export const authOptions: NextAuthOptions = {
               accessToken,
               refreshToken,
               deviceId,
-
             };
           }
 
@@ -119,7 +114,6 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-
       session.accessToken = token.accessToken as string;
       session.refreshToken = token.refreshToken as string;
       session.deviceId = token.deviceId as string;
@@ -128,16 +122,40 @@ export const authOptions: NextAuthOptions = {
         ...session.user,
         role: token.role as string,
         organization: token.organization as string,
-        section:(token.section as string[] | undefined) ?? [],
+        section: (token.section as string[] | undefined) ?? [],
         userId: token.userId as string,
         email: token.email as string,
         name: token.name as string,
-        exp: token.accessTokenExp as number, 
+        exp: token.accessTokenExp as number,
         active: Boolean(token.active),
       };
       return session;
     },
   },
+
+
+cookies: {
+  sessionToken: {
+    name: `__Secure-next-auth.session-token`,
+    options: {
+      httpOnly: true,
+      sameSite: "none", 
+      path: "/",
+      secure: true,
+      domain: ".whilter.ai", 
+    },
+  },
+
+  csrfToken: {
+    name: `__Host-next-auth.csrf-token`,
+    options: {
+      sameSite: "none",
+      path: "/",
+      secure: true,
+
+    },
+  },
+},
 
   secret: process.env.NEXTAUTH_SECRET,
 };

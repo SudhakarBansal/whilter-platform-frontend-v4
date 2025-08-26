@@ -15,24 +15,14 @@ spec:
     spec:
       containers:
         - name: whilter-platform-frontend
-          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-platform-frontend:1.1
+          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-platform-frontend:1.5
           imagePullPolicy: Always
-          ports:
-            - containerPort: 3000
+        
           env:
             - name: NODE_ENV
               value: "production"
-            - name: PORT
-              value: "3000"
+          
             # REQUIRED ENVIRONMENT VARIABLES
-            - name: NEXT_PUBLIC_MAIN_URL
-              value: "https://platform.whilter.ai" 
-            - name: NEXT_PUBLIC_MEDIA_TOOLS_URL
-              value: "http://localhost:3001" 
-            - name: NEXT_PUBLIC_CHARP_AI_URL
-              value: "http://localhost:3002"
-            - name: NEXT_PUBLIC_MARKETPLACE_URL
-              value: "http://localhost:3003" 
             - name: NEXT_PUBLIC_APP_AUTH_URL
               value: "https://manage.whilter.ai/api/user" 
             - name: NEXTAUTH_SECRET
