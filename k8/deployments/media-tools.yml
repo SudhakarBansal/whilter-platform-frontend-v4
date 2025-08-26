@@ -15,11 +15,15 @@ spec:
     spec:
       containers:
         - name: whilter-media-tools-frontend
-          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-media-tools-frontend:1.1
+          image: 390844737706.dkr.ecr.ap-south-1.amazonaws.com/whilter-media-tools-frontend:1.3
           imagePullPolicy: Always
           env:
             - name: NODE_ENV
               value: "production"
+            - name: NEXTAUTH_SECRET
+              value: "LOUk8pQNkLUKmiLetuCsmEW/rHSHbUQt/BtpKSsj4/0="
+            - name: NEXTAUTH_URL
+              value: "https://media-tools.whilter.ai" 
           resources:
             requests:
               memory: "1Gi"

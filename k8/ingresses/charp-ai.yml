@@ -24,7 +24,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: charpai-frontend-service
+                name: whilter-charpai-frontend-service
                 port:
                   number: 80
   tls:
