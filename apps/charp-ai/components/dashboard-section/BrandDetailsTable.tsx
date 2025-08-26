@@ -50,7 +50,7 @@ export const BrandDetailsTable = () => {
   return (
     <div>
       <Typography variant="h4">Brand Details</Typography>
-      <Card className="bg-gradient-to-b from-blue-400 to-blue-600 mt-4">
+      <Card className="bg-[#142762] mt-4">
         <div className="px-4 pt-4">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
