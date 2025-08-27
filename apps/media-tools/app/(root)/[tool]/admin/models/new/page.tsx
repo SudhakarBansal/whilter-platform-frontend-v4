@@ -4,7 +4,7 @@ import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { getToolBySlug } from "@/lib/getToolBySlug";
 import type { ToolPageProps } from "@/types/tool.types";
-import NotFound from "@/app/not-found";
+import NotFound from "@/app/(root)/not-found";
 import { FormContainer } from "@whilter/forms";
 import PageClientLayout from "@/layouts/page-client-layout/PageClientLayout";
 import { toast } from "sonner";

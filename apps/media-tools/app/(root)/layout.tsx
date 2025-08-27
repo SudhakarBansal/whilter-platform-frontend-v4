@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { ThemeConfig } from "@whilter/config";
 import { MainLayout } from "@whilter/shared-layouts/main";
 import { getSession } from "@whilter/auth";
-import { NavbarClientWrapper } from "../components/navbar/NavbarClientWrapper";
+import { NavbarClientWrapper } from "@/components/navbar/NavbarClientWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 

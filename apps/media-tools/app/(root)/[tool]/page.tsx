@@ -6,7 +6,7 @@ import { recentProjects } from '@/data/recentProjects.data';
 import { FolderCardSection, RecentProjects } from '@whilter/ui-kit/components'
 import { Plus, SlidersHorizontal } from 'lucide-react';
 import { projectsData } from "@/data/projects.data";
-import NotFound from "@/app/not-found";
+import NotFound from "@/app/(root)/not-found";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import PageClientLayout from "@/layouts/page-client-layout/PageClientLayout";
 

@@ -4,7 +4,7 @@ import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { getToolBySlug } from "@/lib/getToolBySlug";
 import type { ToolPageProps } from '@/types/tool.types';
-import NotFound from '@/app/not-found';
+import NotFound from '@/app/(root)/not-found';
 import PageClientLayout from "@/layouts/page-client-layout/PageClientLayout";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import { Plus } from "lucide-react";
