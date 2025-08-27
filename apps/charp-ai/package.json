@@ -18,8 +18,8 @@
     "@whilter/ui-kit": "workspace:*",
     "next": "14.2.8",
     "react": "catalog:react18",
-    "react-dom": "catalog:react18"
-  
+    "react-dom": "catalog:react18",
+    "react-pdf": "^10.1.0"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "14.2.8",

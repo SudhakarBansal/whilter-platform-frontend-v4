@@ -1,7 +1,7 @@
 "use client";
 import DashboardLayout from "@/layouts/dashboard-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
-import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
+import { buildBreadcrumbs } from "@/utils/breadcrumbs/buildBreadcrumbs";
 import { Button ,Stack} from "@mui/material";
 import { useRouter } from "next/navigation";
 import { Plus } from 'lucide-react';

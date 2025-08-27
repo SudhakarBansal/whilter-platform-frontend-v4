@@ -1,8 +1,8 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
-import { checkServiceAccess } from "./utils/checkAccess";
-import { isTokenExpired } from "./utils/tokenUtils";
+import { checkServiceAccess } from "./utils/auth/checkAccess";
+import { isTokenExpired } from "./utils/auth/tokenUtils";
 import { Role } from "./contants/role";
 
 const PUBLIC = new Set([

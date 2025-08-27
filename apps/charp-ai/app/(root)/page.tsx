@@ -1,6 +1,6 @@
 import DashboardLayout from "@/layouts/dashboard-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
-import { buildBreadcrumbs } from "@/utils/buildBreadcrumbs";
+import { buildBreadcrumbs } from "@/utils/breadcrumbs/buildBreadcrumbs";
 import { getDashboardStats } from "@/services/actions/dashboardService";
 import { mapMediaStatsToCards } from "@/data/dashboard.data";
 import StatCardSection from "@/components/dashboard-section/StatCardSection";

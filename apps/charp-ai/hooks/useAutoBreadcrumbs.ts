@@ -1,7 +1,7 @@
 import { usePathname } from "next/navigation";
-import { ROUTE_LABELS } from "../utils/breadcrumbsRoute";
-import { buildBreadcrumbs } from "../utils/buildBreadcrumbs";
-import type { BreadcrumbItem } from "../utils/buildBreadcrumbs";
+import { ROUTE_LABELS } from "../utils/breadcrumbs/breadcrumbsRoute";
+import { buildBreadcrumbs } from "../utils/breadcrumbs/buildBreadcrumbs";
+import type { BreadcrumbItem } from "../utils/breadcrumbs/buildBreadcrumbs";
 
 export function useAutoBreadcrumbs(): BreadcrumbItem[] {
   const pathname = usePathname();

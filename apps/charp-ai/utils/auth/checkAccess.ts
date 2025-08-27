@@ -1,7 +1,7 @@
 
-import { roleAccessMatrix } from '../contants/accessMatrix';
-import { Role } from '../contants/role';
-import type { Section } from '../contants/role';
+import { roleAccessMatrix } from '../../contants/accessMatrix';
+import { Role } from '../../contants/role';
+import type { Section } from '../../contants/role';
 
 
 export const checkServiceAccess = (
