@@ -14,6 +14,8 @@ const PUBLIC = new Set([
   "/forgot-password",
 ]);
 
+const isProd = process.env.NODE_ENV === "production";
+
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
 
@@ -34,11 +36,17 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const token = await getToken({
+ const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
-  });
+    cookieName: isProd 
+      ? "__Secure-next-auth.session-token" 
+      : "next-auth.session-token",        
 
+  });
+  
+  console.log('Token in middleware:', token);
+  
   const accessExp = (token as any)?.accessTokenExp 
   const expired = isTokenExpired(accessExp as any);
   const authed = !!token && !expired;
