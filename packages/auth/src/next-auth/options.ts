@@ -3,6 +3,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { login } from '@whilter/api';
 import { decodeJwt } from '../utils/jwt';
 
+const isProd = process.env.NODE_ENV === "production";
+
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -134,28 +136,28 @@ export const authOptions: NextAuthOptions = {
   },
 
 
-cookies: {
-  sessionToken: {
-    name: `__Secure-next-auth.session-token`,
-    options: {
-      httpOnly: true,
-      sameSite: "none", 
-      path: "/",
-      secure: true,
-      domain: ".whilter.ai", 
+...(isProd && {
+    cookies: {
+      sessionToken: {
+        name: `__Secure-next-auth.session-token`,
+        options: {
+          httpOnly: true,
+          sameSite: "none",
+          path: "/",
+          secure: true,
+          domain: ".whilter.ai",
+        },
+      },
+      csrfToken: {
+        name: `__Host-next-auth.csrf-token`,
+        options: {
+          sameSite: "none",
+          path: "/",
+          secure: true,
+        },
+      },
     },
-  },
-
-  csrfToken: {
-    name: `__Host-next-auth.csrf-token`,
-    options: {
-      sameSite: "none",
-      path: "/",
-      secure: true,
-
-    },
-  },
-},
+  }),
 
   secret: process.env.NEXTAUTH_SECRET,
 };

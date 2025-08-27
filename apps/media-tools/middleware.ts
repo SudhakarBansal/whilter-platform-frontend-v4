@@ -14,8 +14,12 @@ interface DecodedToken {
 }
 const publicPaths = ['/login', '/unauthorized', '/register', '/favicon.ico', '/_next'];
 
+
+const isProd = process.env.NODE_ENV === "production";
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
 
   const isPublic = publicPaths.some((path) => pathname.startsWith(path));
   if (isPublic) {
@@ -26,12 +30,16 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
-    cookieName: '__Secure-next-auth.session-token'
+    cookieName: isProd 
+      ? "__Secure-next-auth.session-token" 
+      : "next-auth.session-token",        
+
   });
   
   console.log('Token in middleware:', token);
   
   if (!token) {
+      console.log('No Token in middleware:', token);
     return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
   }
 

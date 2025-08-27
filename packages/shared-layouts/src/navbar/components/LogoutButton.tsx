@@ -31,7 +31,8 @@ export const LogoutButton: React.FC<LogoutButtonProps> = ({ user, onClose }) => 
       const res = await logout(data);
       if (res.status === 200 || res.status === 201) {
         toast.success("Logout successfully");
-        await signOut({ callbackUrl: "/login" });
+        await signOut({ callbackUrl: process.env.NEXT_PUBLIC_MAIN_URL + "/login" });
+
         onClose?.();
       } else {
         toast.error("Logout failed. Try again.");
