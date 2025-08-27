@@ -7,6 +7,7 @@ import StatCardSection from "@/components/dashboard-section/StatCardSection";
 import { ActionButton } from "@/components/atoms/ActionButton";
 import { BrandDetailsTable } from "@/components/dashboard-section/BrandDetailsTable";
 import { CampaignDetailsTable } from "@/components/dashboard-section/CampaignDetailsTable";
+import LeadingBrandsChart from "@/components/dashboard-section/LeadingBrandsChart";
 
 export default async function Page() {
   const data = await getDashboardStats();
@@ -33,6 +34,7 @@ export default async function Page() {
       buttons={actions}
     >
       <StatCardSection stats={finalStats} />
+      <LeadingBrandsChart/>
       <BrandDetailsTable />
       <CampaignDetailsTable />
     </DashboardLayout>
