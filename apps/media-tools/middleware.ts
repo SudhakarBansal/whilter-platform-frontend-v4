@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkServiceAccess } from './utils/checkAccess';
+import { checkServiceAccess } from './utils/auth/checkAccess';
 import { Role } from './constants/role';
 import { getToken } from 'next-auth/jwt';
+import { isTokenExpired } from './utils/auth/tokenUtils';
 
 interface DecodedToken {
-  name:string;
+  name: string;
   role: Role;
   section: string[];
   email: string;
@@ -26,21 +27,31 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  
+
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
-    cookieName: isProd 
-      ? "__Secure-next-auth.session-token" 
-      : "next-auth.session-token",        
+    cookieName: isProd
+      ? "__Secure-next-auth.session-token"
+      : "next-auth.session-token",
 
   });
-  
+
   console.log('Token in middleware:', token);
-  
-  if (!token) {
-      console.log('No Token in middleware:', token);
-    return NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_MAIN_URL!));
+
+  const accessExp = (token as any)?.accessTokenExp
+  const expired = isTokenExpired(accessExp as any);
+  const authed = !!token && !expired;
+
+  if (!authed) {
+    const base = process.env.NEXT_PUBLIC_MAIN_URL || request.url;
+    const loginUrl = new URL("/login", base);
+
+    const res = NextResponse.redirect(loginUrl);
+    res.cookies.delete("next-auth.session-token");
+    res.cookies.delete("__Secure-next-auth.session-token");
+    res.cookies.delete("next-auth.csrf-token");
+    return res;
   }
 
   try {
@@ -56,7 +67,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/unauthorized', process.env.NEXT_PUBLIC_MEDIA_TOOLS_URL!));
     }
 
-  
+
     return NextResponse.next();
   } catch (err) {
     console.error('Token decode or access check error:', err);

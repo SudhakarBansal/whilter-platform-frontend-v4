@@ -24,7 +24,6 @@ export function UnAuthorized({
   homeUrl = '/',
   message = "You don't have permission to view this page.",
 }: UnAuthorizedProps) {
-    
   return (
     <Box
       sx={{

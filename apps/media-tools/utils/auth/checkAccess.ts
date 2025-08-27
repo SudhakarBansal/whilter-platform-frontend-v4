@@ -1,7 +1,7 @@
 
-import { roleAccessMatrix } from '../constants/accessMatrix';
-import { Role } from '../constants/role';
-import type { Section } from '../constants/role';
+import { roleAccessMatrix } from '../../constants/accessMatrix';
+import { Role } from '../../constants/role';
+import type { Section } from '../../constants/role';
 
 
 export const checkServiceAccess = (

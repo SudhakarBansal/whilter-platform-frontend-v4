@@ -6,7 +6,7 @@ import { FeaturedToolsSection as ToolsSection } from '@/components/featured-tool
 import OtherToolsSection from "@/components/other-tools/OtherToolsSection";
 import HeroSection from "@/components/HeroSection";
 import { baseBreadcrumbs } from "@/utils/breadcrumbs/breadcrumbs";
-import PageClientLayout from "../layouts/page-client-layout/PageClientLayout";
+import PageClientLayout from "@/layouts/page-client-layout/PageClientLayout";
 
 export default function Page() {
   const actionButtons = [
