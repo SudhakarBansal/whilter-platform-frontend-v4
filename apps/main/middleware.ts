@@ -34,6 +34,10 @@ export async function middleware(req: NextRequest) {
   if (!authed && !PUBLIC.includes(pathname)) {
     const loginUrl = new URL("/login", process.env.NEXT_PUBLIC_MAIN_URL!);
 
+    // Store the original URL as a query parameter
+    const originalUrl = req.url;
+    loginUrl.searchParams.set("callbackUrl", originalUrl);
+
     const res = NextResponse.redirect(loginUrl);
     res.cookies.delete("next-auth.session-token");
     res.cookies.delete("__Secure-next-auth.session-token");
