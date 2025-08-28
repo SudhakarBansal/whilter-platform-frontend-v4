@@ -1,10 +1,15 @@
-
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isTokenExpired } from "./utils/tokenUtils";
 
-const PUBLIC = ["/login", "/register", "/auth/callback", "/auth/error", "/forgot-password"];
+const PUBLIC = [
+  "/login",
+  "/register",
+  "/auth/callback",
+  "/auth/error",
+  "/forgot-password",
+];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -26,9 +31,10 @@ export async function middleware(req: NextRequest) {
   const expired = isTokenExpired(token?.accessTokenExp as any);
   const authed = !!token && !expired;
 
-
   if (authed && (PUBLIC.includes(pathname) || pathname === "/")) {
-     return NextResponse.redirect(new URL('/platform', process.env.NEXT_PUBLIC_MAIN_URL!));
+    return NextResponse.redirect(
+      new URL("/platform", process.env.NEXT_PUBLIC_MAIN_URL!),
+    );
   }
 
   if (!authed && !PUBLIC.includes(pathname)) {
@@ -36,6 +42,7 @@ export async function middleware(req: NextRequest) {
 
     // Store the original URL as a query parameter
     const originalUrl = req.url;
+    console.log("originalUrl", originalUrl);
     loginUrl.searchParams.set("callbackUrl", originalUrl);
 
     const res = NextResponse.redirect(loginUrl);
@@ -49,5 +56,7 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api/auth|_next|static|favicon.ico|robots.txt|images|assets|\\.well-known).*)"],
+  matcher: [
+    "/((?!api/auth|_next|static|favicon.ico|robots.txt|images|assets|\\.well-known).*)",
+  ],
 };

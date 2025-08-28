@@ -14,24 +14,28 @@ interface LogoutButtonProps {
   onClose?: () => void;
 }
 
-export const LogoutButton: React.FC<LogoutButtonProps> = ({ user, onClose }) => {
-
+export const LogoutButton: React.FC<LogoutButtonProps> = ({
+  user,
+  onClose,
+}) => {
   const handleLogout = async () => {
-
     if (!user?.refreshToken || !user?.deviceId || !user?.accessToken) {
       toast.error("Missing session details.");
       return;
     }
     try {
       const data = {
-        "refreshToken": user.refreshToken,
-        "deviceId": user.deviceId
-      }
+        refreshToken: user.refreshToken,
+        deviceId: user.deviceId,
+      };
 
       const res = await logout(data);
       if (res.status === 200 || res.status === 201) {
         toast.success("Logout successfully");
-        await signOut({ callbackUrl: process.env.NEXT_PUBLIC_MAIN_URL + "/login" });
+
+        await signOut({
+          callbackUrl: process.env.NEXT_PUBLIC_MAIN_URL + "/login",
+        });
 
         onClose?.();
       } else {
