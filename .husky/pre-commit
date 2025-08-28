@@ -1,0 +1,8 @@
+# Run lint-staged for staged files
+npx lint-staged
+
+# Optional: Run type checking (only if TypeScript files changed)
+if git diff --cached --name-only | grep -E '\.(ts|tsx)$' > /dev/null; then
+  echo "TypeScript files changed, running type check..."
+  pnpm run type-check
+fi
