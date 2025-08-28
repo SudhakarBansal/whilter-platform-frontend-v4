@@ -25,7 +25,7 @@ switch (action) {
     onMangeUsers?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/user-management`);
     break;
       case "ACCOUNT":
-        onNavigate?.("/my-account");
+        onNavigate?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/my-account`);
         break;
 
       case "NOTIFICATIONS":
