@@ -47,6 +47,10 @@ export async function middleware(request: NextRequest) {
     const base = process.env.NEXT_PUBLIC_MAIN_URL || request.url;
     const loginUrl = new URL("/login", base);
 
+    // Store the original URL (including the current domain) as callbackUrl
+    const originalUrl = request.url;
+    loginUrl.searchParams.set("callbackUrl", originalUrl);
+
     const res = NextResponse.redirect(loginUrl);
     res.cookies.delete("next-auth.session-token");
     res.cookies.delete("__Secure-next-auth.session-token");
@@ -76,5 +80,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ["/((?!api/auth|_next|static|favicon.ico|robots.txt|images|assets|\\.well-known).*)"],
 };

@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { useRouter } from 'next/navigation';
+import { useRouter,useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import encryptPassword from '@/utils/password-encryption';
 import { toast } from 'sonner';
@@ -31,6 +31,10 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Get callback URL from query parameters
+  const callbackUrl = searchParams.get("callbackUrl") || "/platform";
 
   const onSubmit = async (data: LoginFormValues) => {
     setLoading(true);
@@ -41,14 +45,14 @@ export default function LoginPage() {
         redirect: false,
         email: data.email,
         password: encryptedPassword,
-        callbackUrl: '/platform',
+        callbackUrl: callbackUrl,
       });
 
       if (!res) {
         toast.error('Unexpected error. Please try again.');
       } else if (res.ok && res.url) {
-        toast.success('LoggedIn successfully');
-        router.push(res.url);
+        toast.success("Logged in successfully");
+        router.push(callbackUrl);
       } else {
         toast.error('Invalid credentials. Please try again.');
       }
