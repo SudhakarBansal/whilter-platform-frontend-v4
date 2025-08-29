@@ -8,7 +8,7 @@ export default function BrandListingPage(): JSX.Element {
       heading="Add New Brand"
       description="Fill details to create a new brand"
     >
-      <AddNewBrand />
+      {/* <AddNewBrand /> */}
     </DashboardLayout>
   );
 }
