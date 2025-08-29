@@ -50,7 +50,7 @@ export async function middleware(request: NextRequest) {
     const loginUrl = new URL("/login", base);
 
     // Store the original URL (including the current domain) as callbackUrl
-    const originalUrl = `${process.env.NEXT_PUBLIC_MEDIA_TOOLS_URL}`;
+    const originalUrl = `${process.env.NEXT_PUBLIC_MEDIA_TOOLS_URL}${request.nextUrl.pathname}${request.nextUrl.search}`;
     console.log("originalUrl", originalUrl);
     loginUrl.searchParams.set("callbackUrl", originalUrl);
 
