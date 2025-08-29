@@ -41,7 +41,7 @@ export async function middleware(req: NextRequest) {
     const loginUrl = new URL("/login", process.env.NEXT_PUBLIC_MAIN_URL!);
 
     // Store the original URL as a query parameter
-    const originalUrl = req.url;
+    const originalUrl = `${process.env.NEXT_PUBLIC_MAIN_URL}`;
     console.log("originalUrl", originalUrl);
     loginUrl.searchParams.set("callbackUrl", originalUrl);
 
