@@ -2,13 +2,12 @@
 
 import { CssBaseline } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
 import React, { useMemo, type ReactNode } from "react";
 import type { Direction } from "@mui/material/styles";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+
 import { colors } from "./variables";
 import componentsOverride from "../../../ui-kit/src/atoms";
 import themePalette from "./palette";
@@ -17,11 +16,6 @@ import themeTypography from "./typography";
 interface ThemeConfigProps {
   children: ReactNode;
 }
-
-const emotionCache = createCache({
-  key: "mui-theme",
-  prepend: true,
-});
 
 export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
   const color = colors;
@@ -87,15 +81,18 @@ export const ThemeConfig: React.FC<ThemeConfigProps> = ({ children }) => {
   themes.components = componentsOverride(themes, themeOption);
 
   return (
-    <CacheProvider value={emotionCache}>
-      <AppRouterCacheProvider>
-        <ThemeProvider theme={themes}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <CssBaseline />
-            {children}
-          </LocalizationProvider>
-        </ThemeProvider>
-      </AppRouterCacheProvider>
-    </CacheProvider>
+    <AppRouterCacheProvider
+      options={{
+        prepend: true,
+        key: "mui-theme",
+      }}
+    >
+      <ThemeProvider theme={themes}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <CssBaseline />
+          {children}
+        </LocalizationProvider>
+      </ThemeProvider>
+    </AppRouterCacheProvider>
   );
 };
