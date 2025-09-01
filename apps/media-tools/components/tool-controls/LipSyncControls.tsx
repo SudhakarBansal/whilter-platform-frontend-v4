@@ -1,62 +1,59 @@
-import React from 'react';
-import {
-  Box,
-  Typography,
-  Stack,
-  Divider,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Button,
-} from '@mui/material';
-import {
-  ExpandMore,
-  PlayArrow,
-  Download,
-} from '@mui/icons-material';
-import {
-  SelectElement,
-  TextFieldElement,
-  SwitchElement
-} from '@whilter/forms';
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Button from "@mui/material/Button";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import PlayArrow from "@mui/icons-material/PlayArrow";
+import Download from "@mui/icons-material/Download";
+
+import { SelectElement, TextFieldElement, SwitchElement } from "@whilter/forms";
 
 export const LipSyncControls = () => {
   const speakerOptions = [
-    { id: 'default', label: 'Default Voice' },
-    { id: 'female1', label: 'Female Voice 1' },
-    { id: 'male1', label: 'Male Voice 1' },
-    { id: 'child', label: 'Child Voice' },
-    { id: 'robotic', label: 'Robotic Voice' },
+    { id: "default", label: "Default Voice" },
+    { id: "female1", label: "Female Voice 1" },
+    { id: "male1", label: "Male Voice 1" },
+    { id: "child", label: "Child Voice" },
+    { id: "robotic", label: "Robotic Voice" },
   ];
 
   const speakingRateOptions = [
-    { id: 0.5, label: '0.5x' },
-    { id: 0.75, label: '0.75x' },
-    { id: 1.0, label: '1.0x (Normal)' },
-    { id: 1.25, label: '1.25x' },
-    { id: 1.5, label: '1.5x' },
-    { id: 2.0, label: '2.0x' },
+    { id: 0.5, label: "0.5x" },
+    { id: 0.75, label: "0.75x" },
+    { id: 1.0, label: "1.0x (Normal)" },
+    { id: 1.25, label: "1.25x" },
+    { id: 1.5, label: "1.5x" },
+    { id: 2.0, label: "2.0x" },
   ];
 
   const samplingRateOptions = [
-    { id: '16000', label: '16kHz' },
-    { id: '22050', label: '22.05kHz' },
-    { id: '44100', label: '44.1kHz' },
-    { id: '48000', label: '48kHz' },
+    { id: "16000", label: "16kHz" },
+    { id: "22050", label: "22.05kHz" },
+    { id: "44100", label: "44.1kHz" },
+    { id: "48000", label: "48kHz" },
   ];
 
   const formatOptions = [
-    { id: 'wav', label: 'WAV' },
-    { id: 'mp3', label: 'MP3' },
-    { id: 'flac', label: 'FLAC' },
-    { id: 'ogg', label: 'OGG' },
+    { id: "wav", label: "WAV" },
+    { id: "mp3", label: "MP3" },
+    { id: "flac", label: "FLAC" },
+    { id: "ogg", label: "OGG" },
   ];
 
   return (
     <Stack spacing={3}>
       {/* Project Header */}
       <Box>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={1}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+          mb={1}
+        >
           {/* <Typography variant="h6">
               Projects Name
             </Typography> */}
@@ -68,7 +65,7 @@ export const LipSyncControls = () => {
           variant="outlined"
           placeholder="Name your project"
           size="small"
-          autoComplete='off'
+          autoComplete="off"
           label="Project Name"
           required
         />
@@ -168,7 +165,8 @@ export const LipSyncControls = () => {
             />
             <Box>
               <Typography variant="caption" color="text.secondary">
-                Additional processing options will appear here based on the selected tool.
+                Additional processing options will appear here based on the
+                selected tool.
               </Typography>
             </Box>
           </Stack>
@@ -176,7 +174,7 @@ export const LipSyncControls = () => {
       </Accordion>
 
       {/* Action Buttons */}
-      <Box sx={{ mt: 'auto', pt: 2 }}>
+      <Box sx={{ mt: "auto", pt: 2 }}>
         <Button
           fullWidth
           variant="flatPrimary"

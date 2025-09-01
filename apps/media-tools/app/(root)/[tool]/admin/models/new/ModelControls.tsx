@@ -1,6 +1,9 @@
-import React from "react";
-import { Box, Typography, Stack, Divider, Button } from "@mui/material";
-import { Save } from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import Button from "@mui/material/Button";
+import Save from "@mui/icons-material/Save";
 import { SliderElement, SwitchElement } from "@whilter/forms";
 
 export const ModelControls = () => {
@@ -16,7 +19,7 @@ export const ModelControls = () => {
         >
           Model Configuration
         </Typography>
-        <Typography variant="body2" >
+        <Typography variant="body2">
           Set parameters and switches for this voice model
         </Typography>
       </Box>
