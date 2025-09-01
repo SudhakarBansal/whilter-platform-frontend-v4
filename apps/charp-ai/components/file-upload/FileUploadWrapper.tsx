@@ -126,6 +126,7 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
       )}
 
       {/* Uploaded File with Player - Show when file is uploaded */}
+
       {uploadedFile && (
         <UploadedFile
           uploadedFile={uploadedFile}

@@ -1,11 +1,23 @@
 "use client";
 import React, { useState } from "react";
 import { MoreVertical, Download, ExternalLink, FileText } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { Document, Page, pdfjs } from "react-pdf";
+import { Close } from "@mui/icons-material";
+
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.mjs",
+  import.meta.url,
+).toString();
 
 interface DocumentPlayerProps {
   url: string;
@@ -16,18 +28,23 @@ export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({
   url,
   name,
 }) => {
-  url =
-    "https://s3.ap-south-1.amazonaws.com/whilter.cdn.com/testing/ADFlow.pdf";
+  url = url;
   const [showMenu, setShowMenu] = useState(false);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showPdfDialog, setShowPdfDialog] = useState(false);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
+    setNumPages(numPages);
+  }
 
   const fileName = name || url.split("/").pop() || "Document";
 
   const toggleMenu = () => setShowMenu(!showMenu);
 
   return (
-    <div className="border rounded-lg shadow-sm w-full max-w-md bg-white">
+    <div>
       {/* Preview Header */}
       <div className="relative bg-gray-100 h-60 flex items-center justify-center overflow-hidden">
         {error ? (
@@ -36,16 +53,52 @@ export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({
             <p>{error}</p>
           </div>
         ) : (
-          <Document
-            file={url}
-            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-            onLoadError={() =>
-              setError("Failed to preview. Try downloading instead.")
-            }
-            loading={<p className="text-gray-500">Loading preview...</p>}
-          >
-            <Page pageNumber={1} width={400} />
-          </Document>
+          <>
+            <div
+              onClick={() => setShowPdfDialog(true)}
+              className="mx-auto my-4 flex flex-col items-center  border border-gray-200 bg-gray-50 p-4 shadow hover:shadow-lg cursor-pointer transition"
+              style={{ maxWidth: 220 }}
+            >
+              <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+                <Page pageNumber={1} width={180} />
+              </Document>
+              <Typography
+                variant="caption"
+                className="text-blue-600 mt-2 text-center"
+              >
+                Click to view full document
+              </Typography>
+            </div>
+            <Dialog
+              open={showPdfDialog}
+              onClose={() => setShowPdfDialog(false)}
+              maxWidth="md"
+              fullWidth
+              PaperProps={{
+                className:
+                  "rounded-2xl bg-white min-h-[400px] max-h-[80vh] overflow-y-auto",
+              }}
+            >
+              <DialogTitle className="flex items-center justify-between pb-0">
+                <span className="font-semibold text-lg">{name}</span>
+                <IconButton onClick={() => setShowPdfDialog(false)}>
+                  <Close className="text-red-500" />
+                </IconButton>
+              </DialogTitle>
+              <DialogContent className="pt-2 pb-2 flex flex-col items-center bg-gray-50">
+                <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+                  {Array.from(new Array(numPages), (el, index) => (
+                    <Page
+                      key={`page_${index + 1}`}
+                      pageNumber={index + 1}
+                      width={600}
+                      className="mb-4 shadow"
+                    />
+                  ))}
+                </Document>
+              </DialogContent>
+            </Dialog>
+          </>
         )}
 
         {/* 3-dot menu */}
