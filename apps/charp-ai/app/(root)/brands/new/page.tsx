@@ -1,7 +1,6 @@
 import React from "react";
 import DashboardLayout from "@/layouts/dashboard-layout";
-import { Add } from "@mui/icons-material";
-import AddNewBrand from "./AddNewBrand";
+import AddNewBrand from "../../../../components/brand-section/AddNewBrand";
 export default function BrandListingPage(): JSX.Element {
 
     return (

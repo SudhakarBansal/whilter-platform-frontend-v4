@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { Box, Typography, Alert, Card, CardContent } from '@mui/material';
 import type { FileUploadWrapperProps } from '../../types/fileUploadWrapper.types'
 import { getMimeTypes } from '@/utils/file-upload-wrapper/fileUploadWrapperUtils';
-import { useFileUpload} from '../../hooks/useFileUpload'
+import { useFileUpload } from '../../hooks/useFileUpload'
 import { useMediaPlayer } from '../../hooks/useMediaPlayer';
 import { DropZone } from '../file-upload/DropZone';
 import { SelectedFile } from '../file-upload/SelectedFile';
@@ -76,17 +76,20 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                 {label}
             </Typography>)}
             {/* Upload Area - Only show when no file is selected/uploaded */}
-            {showUploadArea && (
-                <Card>
-                    <CardContent className="p-8 text-start">
-                        <Typography variant="h5" className="text-black mb-2">
-                            {heading}
-                        </Typography>
-                        <Typography variant="body2" className="text-gray-500 mb-4">
-                            {subheading}
-                        </Typography>
-                        <div {...getRootProps()}>
-                            <input {...getInputProps()} />
+            <div {...getRootProps()}>
+                <input {...getInputProps()} />
+
+                {/* Upload Area */}
+                {showUploadArea && (
+                    <Card>
+                        <CardContent className="p-8 text-start">
+                            <Typography variant="h5" className="text-black mb-2">
+                                {heading}
+                            </Typography>
+                            <Typography variant="body2" className="text-gray-500 mb-4">
+                                {subheading}
+                            </Typography>
+
                             <DropZone
                                 isDragActive={isDragActive}
                                 isDragAccept={isDragAccept}
@@ -94,13 +97,14 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
                                 onBrowseClick={open}
                                 maxFileSize={maxFileSize}
                             />
-                        </div>
-                        <Typography variant="body2" className="text-gray-500 mt-4">
-                            {footer}
-                        </Typography>
-                    </CardContent>
-                </Card>
-            )}
+
+                            <Typography variant="body2" className="text-gray-500 mt-4">
+                                {footer}
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                )}
+            </div>
 
             {/* Selected File - Show when file is selected but not uploaded */}
             {file && !uploadedFile && (
@@ -140,4 +144,3 @@ const FileUploadWrapper: React.FC<FileUploadWrapperProps> = ({
 };
 
 export default FileUploadWrapper;
- 

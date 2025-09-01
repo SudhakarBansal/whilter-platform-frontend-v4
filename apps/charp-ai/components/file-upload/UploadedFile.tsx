@@ -88,11 +88,14 @@ export const UploadedFile: React.FC<UploadedFileProps> = ({
                             onTogglePlayPause={onTogglePlayPause}
                             onMediaEnded={onMediaEnded}
                         />
-                    ) : mediaType === 'image' ? (
+                    )
+                     : mediaType === 'image' ? (
                         <ImagePlayer url={uploadedFile.url} />
-                    ) : mediaType === 'document' ? (
+                    ) 
+                    : mediaType === 'document' ? (
                         <DocumentPlayer url={uploadedFile.url} name={uploadedFile.name} />
-                    ) : null}
+                    ) : null
+                    }
                 </CardContent>
             </Card>
 

@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { TextFieldElement, FormContainer } from '@whilter/forms';
-import { brandFormInitialValues, type BrandFormValues } from "../../../../model/formInitialValues";
+import { brandFormInitialValues, type BrandFormValues } from "../../model/formInitialValues";
 import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
 
 export default function AddNewBrand(): JSX.Element {
@@ -74,7 +74,7 @@ export default function AddNewBrand(): JSX.Element {
         />
         </Box>
 
-      <Box textAlign="center" mt={2}>
+      <Box textAlign="center" mt={4}>
         <Button
           variant="flatPrimary"
           type="submit"
