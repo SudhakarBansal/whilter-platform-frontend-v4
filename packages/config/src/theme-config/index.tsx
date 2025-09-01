@@ -1,6 +1,6 @@
 "use client";
 
-import { CssBaseline } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import React, { useMemo, type ReactNode } from "react";
 import type { Direction } from "@mui/material/styles";
