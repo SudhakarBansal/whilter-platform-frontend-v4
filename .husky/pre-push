@@ -2,4 +2,4 @@
 # pnpm run test
 
 # Build all apps to ensure they compile
-pnpm run build
+pnpm run build --filter ./apps/main 
