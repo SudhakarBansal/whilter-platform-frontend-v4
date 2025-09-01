@@ -1,10 +1,15 @@
-
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { isTokenExpired } from "./utils/tokenUtils";
 
-const PUBLIC = ["/login", "/register", "/auth/callback", "/auth/error", "/forgot-password"];
+const PUBLIC = [
+  "/login",
+  "/register",
+  "/auth/callback",
+  "/auth/error",
+  "/forgot-password",
+];
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -26,13 +31,18 @@ export async function middleware(req: NextRequest) {
   const expired = isTokenExpired(token?.accessTokenExp as any);
   const authed = !!token && !expired;
 
-
   if (authed && (PUBLIC.includes(pathname) || pathname === "/")) {
-     return NextResponse.redirect(new URL('/platform', process.env.NEXT_PUBLIC_MAIN_URL!));
+    return NextResponse.redirect(
+      new URL("/platform", process.env.NEXT_PUBLIC_MAIN_URL!),
+    );
   }
 
   if (!authed && !PUBLIC.includes(pathname)) {
     const loginUrl = new URL("/login", process.env.NEXT_PUBLIC_MAIN_URL!);
+
+    // Store the original URL as a query parameter
+    const originalUrl = `${process.env.NEXT_PUBLIC_MAIN_URL}${req.nextUrl.pathname}${req.nextUrl.search}`;
+    loginUrl.searchParams.set("callbackUrl", originalUrl);
 
     const res = NextResponse.redirect(loginUrl);
     res.cookies.delete("next-auth.session-token");
@@ -45,5 +55,7 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api/auth|_next|static|favicon.ico|robots.txt|images|assets|\\.well-known).*)"],
+  matcher: [
+    "/((?!api/auth|_next|static|favicon.ico|robots.txt|images|assets|\\.well-known).*)",
+  ],
 };

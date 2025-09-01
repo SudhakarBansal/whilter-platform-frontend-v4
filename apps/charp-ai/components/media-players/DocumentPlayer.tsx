@@ -12,14 +12,20 @@ interface DocumentPlayerProps {
   name?: string;
 }
 
-export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({ url, name }) => {
+export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({
+  url,
+  name,
+}) => {
   // url = '';
   const [showMenu, setShowMenu] = useState(false);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // ✅ don’t override prop
   const fileName = name || url.split("/").pop() || "Document";
+
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
+    setNumPages(numPages);
+  }
 
   const toggleMenu = () => setShowMenu((prev) => !prev);
 
@@ -34,7 +40,7 @@ export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({ url, name }) => 
           </div>
         ) : (
           <div className="w-full flex justify-center items-center">
-            <Document
+            {/* <Document
               file={url}
               onLoadSuccess={({ numPages }) => setNumPages(numPages)}
               onLoadError={() =>
@@ -43,6 +49,9 @@ export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({ url, name }) => 
               loading={<p className="text-gray-500">Loading preview...</p>}
             >
               <Page pageNumber={1} width={220} className="mx-auto" />
+            </Document> */}
+            <Document file={url} onLoadSuccess={onDocumentLoadSuccess}>
+              <Page pageNumber={1} />
             </Document>
           </div>
         )}

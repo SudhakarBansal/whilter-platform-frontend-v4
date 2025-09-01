@@ -6,13 +6,15 @@
     "dev": "next dev --port 3003",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "type-check": "tsc --noEmit",
+    "test": "jest"
   },
   "dependencies": {
     "@whilter/config": "workspace:*",
     "@whilter/shared-layouts": "workspace:*",
     "@whilter/ui-kit": "workspace:*",
-     "@whilter/auth": "workspace:*",
+    "@whilter/auth": "workspace:*",
     "next": "14.2.8",
     "react": "catalog:react18",
     "react-dom": "catalog:react18"
