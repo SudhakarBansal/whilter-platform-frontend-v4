@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { MoreVertical, Download, ExternalLink, FileText } from "lucide-react";
 import { Document, Page, pdfjs } from "react-pdf";
@@ -11,8 +12,12 @@ interface DocumentPlayerProps {
   name?: string;
 }
 
-export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({ url, name }) => {
-    url = "https://s3.ap-south-1.amazonaws.com/whilter.cdn.com/testing/ADFlow.pdf";
+export const DocumentPlayer: React.FC<DocumentPlayerProps> = ({
+  url,
+  name,
+}) => {
+  url =
+    "https://s3.ap-south-1.amazonaws.com/whilter.cdn.com/testing/ADFlow.pdf";
   const [showMenu, setShowMenu] = useState(false);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);

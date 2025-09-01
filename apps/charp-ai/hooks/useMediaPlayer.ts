@@ -1,29 +1,29 @@
-import { useState, useRef } from 'react';
+import { useState, useRef } from "react";
 
 export const useMediaPlayer = () => {
-    const [currentPlaying, setCurrentPlaying] = useState<boolean>(false);
-    const mediaRef = useRef<HTMLAudioElement | HTMLVideoElement | null>(null);
+  const [currentPlaying, setCurrentPlaying] = useState<boolean>(false);
+  const mediaRef = useRef<HTMLAudioElement | HTMLVideoElement | null>(null);
 
-    const togglePlayPause = (): void => {
-        if (!mediaRef.current) return;
+  const togglePlayPause = (): void => {
+    if (!mediaRef.current) return;
 
-        if (currentPlaying) {
-            mediaRef.current.pause();
-            setCurrentPlaying(false);
-        } else {
-            mediaRef.current.play();
-            setCurrentPlaying(true);
-        }
-    };
+    if (currentPlaying) {
+      mediaRef.current.pause();
+      setCurrentPlaying(false);
+    } else {
+      mediaRef.current.play();
+      setCurrentPlaying(true);
+    }
+  };
 
-    const handleMediaEnded = (): void => {
-        setCurrentPlaying(false);
-    };
+  const handleMediaEnded = (): void => {
+    setCurrentPlaying(false);
+  };
 
-    return {
-        currentPlaying,
-        mediaRef,
-        togglePlayPause,
-        handleMediaEnded
-    };
+  return {
+    currentPlaying,
+    mediaRef,
+    togglePlayPause,
+    handleMediaEnded,
+  };
 };

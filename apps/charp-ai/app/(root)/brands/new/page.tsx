@@ -7,6 +7,10 @@ export default function BrandListingPage(): JSX.Element {
     <DashboardLayout
       heading="Add New Brand"
       description="Fill details to create a new brand"
+      // breadcrumbs={breadcrumbs}
+
+      //     config={pageLayoutPresets.dashboard}
+      //     buttons={actionButtons}
     >
       <AddNewBrand />
     </DashboardLayout>

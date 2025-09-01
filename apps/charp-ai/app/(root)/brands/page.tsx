@@ -1,31 +1,22 @@
-"use client";
 import DashboardLayout from "@/layouts/dashboard-layout";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 import { buildBreadcrumbs } from "@/utils/breadcrumbs/buildBreadcrumbs";
-import { Button ,Stack} from "@mui/material";
-import { useRouter } from "next/navigation";
-import { Plus } from 'lucide-react';
-import { RecentProjects } from '@whilter/ui-kit/components'
-import {recentCampaigns} from "../../../data/recentCampaigns.data";
+import { Plus } from "lucide-react";
+import { RecentProjects } from "@whilter/ui-kit/components";
+import { recentCampaigns } from "../../../data/recentCampaigns.data";
 import BrandsCardSection from "@/components/brand-section/BrandCardSection";
-
+import { ActionButton } from "@/components/atoms/ActionButton";
 
 export default function ViewBrandPage() {
-  const router = useRouter();
-
-  const handleAddNewBrand = () => {
-    router.push("/brands/new");
-  };
-
   const actionButtons = [
-    <Button
-      key="view-campaign"
+    <ActionButton
+      key="add-brand"
       startIcon={<Plus />}
       variant="glassmorphism"
-      onClick={handleAddNewBrand}
+      href="/brands/new"
     >
       Add New Brand
-    </Button>,
+    </ActionButton>,
   ];
 
   const breadcrumbs = buildBreadcrumbs([
@@ -41,7 +32,7 @@ export default function ViewBrandPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <BrandsCardSection onAddClick={handleAddNewBrand} />
+      <BrandsCardSection />
       <RecentProjects data={recentCampaigns} label="Recent Campaigns" />
     </DashboardLayout>
   );
