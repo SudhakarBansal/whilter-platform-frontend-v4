@@ -12,6 +12,10 @@ export default async function ViewCampaignPage({
   params: Promise<{ brandId: string }>;
 }) {
   const { brandId } = await params;
+  const brandName = brandId
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .replace(/'\S/g, (match) => match.toLowerCase());
 
   const actionButtons = [
     <ActionButton
@@ -34,7 +38,7 @@ export default async function ViewCampaignPage({
   return (
     <DashboardLayout
       breadcrumbs={breadcrumbs}
-      heading="Campaigns"
+      heading={`${brandName} Campaigns`}
       description="Choose Campaigns to manage"
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
