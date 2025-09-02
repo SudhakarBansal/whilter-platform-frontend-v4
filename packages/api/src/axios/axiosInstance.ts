@@ -1,11 +1,10 @@
-import axios, {type AxiosInstance } from 'axios';
-import { getSession, signOut } from 'next-auth/react';
-import { getServerSession } from 'next-auth/next';
+import axios, { type AxiosInstance } from "axios";
+import { getSession, signOut } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "@whilter/auth";
-import { refreshToken } from '@whilter/api'; 
-import type { Session } from 'next-auth';
-import { CHARP_ERROR_CODES } from '@whilter/shared-types';
-
+import { refreshToken } from "@whilter/api";
+import type { Session } from "next-auth";
+import { CHARP_ERROR_CODES } from "@whilter/shared-types";
 
 interface FailedRequest {
   resolve: (token: string) => void;
@@ -34,10 +33,10 @@ const createAxiosInstance = (): AxiosInstance => {
 
 const instance = createAxiosInstance();
 
-instance.interceptors.request.use(async config => {
+instance.interceptors.request.use(async (config) => {
   let session: Session | null = null;
 
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     // Server-side
     session = await getServerSession(authOptions);
   } else {
@@ -53,7 +52,7 @@ instance.interceptors.request.use(async config => {
 });
 
 instance.interceptors.response.use(
-   response => {
+  (response) => {
     console.log(" Axios Response:", {
       url: response.config?.url,
       method: response.config?.method,
@@ -64,7 +63,7 @@ instance.interceptors.response.use(
 
     return response;
   },
-  async error => {
+  async (error) => {
     console.error("Axios Error:", {
       url: error.config?.url,
       method: error.config?.method,
@@ -87,45 +86,44 @@ instance.interceptors.response.use(
       return Promise.reject(error);
     }
 
-    if (status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+    // if (status === 401 && !originalRequest._retry) {
+    //   originalRequest._retry = true;
 
-      if (isRefreshing) {
-        return new Promise((resolve, reject) => {
-          failedQueue.push({
-            resolve: (token: string) => {
-              originalRequest.headers["Authorization"] = `Bearer ${token}`;
-              resolve(instance(originalRequest));
-            },
-            reject: (err: any) => reject(err),
-          });
-        });
-      }
+    //   if (isRefreshing) {
+    //     return new Promise((resolve, reject) => {
+    //       failedQueue.push({
+    //         resolve: (token: string) => {
+    //           originalRequest.headers["Authorization"] = `Bearer ${token}`;
+    //           resolve(instance(originalRequest));
+    //         },
+    //         reject: (err: any) => reject(err),
+    //       });
+    //     });
+    //   }
 
-      isRefreshing = true;
+    //   isRefreshing = true;
 
-        try {
-          const response = await refreshToken({}); 
-          const newToken = response.data.token; 
-          processQueue(null, newToken);
-          isRefreshing = false;
+    //     try {
+    //       const response = await refreshToken({});
+    //       const newToken = response.data.token;
+    //       processQueue(null, newToken);
+    //       isRefreshing = false;
 
-      //  originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
-        return instance(originalRequest);
-      } catch (err) {
-        processQueue(err, null);
-        isRefreshing = false;
+    //   //  originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+    //     return instance(originalRequest);
+    //   } catch (err) {
+    //     processQueue(err, null);
+    //     isRefreshing = false;
 
-        if (typeof window !== "undefined") {
-          await signOut({ callbackUrl: "/login" });
-        }
-        return Promise.reject(err);
-      }
-    }
+    //     if (typeof window !== "undefined") {
+    //      // await signOut({ callbackUrl: "/login" });
+    //     }
+    //     return Promise.reject(err);
+    //   }
+    // }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export const axiosInstance = instance;
-
