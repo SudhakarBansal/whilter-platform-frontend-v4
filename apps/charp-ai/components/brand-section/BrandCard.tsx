@@ -29,9 +29,7 @@ export default function BrandCard({
     if (onManageClick) {
       onManageClick();
     } else {
-      router.push(
-        `/brands/${companyName?.toLowerCase().replace(/\s+/g, "-")}/campaigns`,
-      );
+      router.push(`/brands/${companyName?.replace(/\s+/g, "-")}/campaigns`);
     }
   };
 
