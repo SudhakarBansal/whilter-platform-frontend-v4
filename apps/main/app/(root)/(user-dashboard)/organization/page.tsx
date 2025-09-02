@@ -6,6 +6,7 @@ import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
 import { OrganizationDataListing } from "./components/OrganizationDataListing";
 import { OrganizationFilters } from "./components/OrganizationFilters";
 import { OrganizationPageSkeleton } from "./components/skeltons/OrganizationPageSkeleton";
+
 export default async function Page({ searchParams }: { searchParams: any }) {
   const resolvedSearchParams = await searchParams;
 

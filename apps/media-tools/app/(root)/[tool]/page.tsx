@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
-import { buildToolBreadcrumbs } from '@/utils/breadcrumbs/buildToolBreadcrumbs';
-import { getToolBySlug } from '@/lib/getToolBySlug';
-import { pageLayoutPresets } from '@whilter/shared-layouts/styled';
-import { recentProjects } from '@/data/recentProjects.data';
-import { FolderCardSection, RecentProjects } from '@whilter/ui-kit/components'
-import { Plus, SlidersHorizontal } from 'lucide-react';
+import Box from "@mui/material/Box";
+import { buildToolBreadcrumbs } from "@/utils/breadcrumbs/buildToolBreadcrumbs";
+import { getToolBySlug } from "@/lib/getToolBySlug";
+import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
+import { recentProjects } from "@/data/recentProjects.data";
+import { FolderCardSection, RecentProjects } from "@whilter/ui-kit/components";
+import { Plus, SlidersHorizontal } from "lucide-react";
 import { projectsData } from "@/data/projects.data";
 import NotFound from "@/app/(root)/not-found";
 import { ActionButton } from "@/components/atoms/ActionButton/ActionButton";
@@ -18,11 +18,11 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
   // Check if params or params.tool is undefined
   if (!params || !params.tool) {
     console.error("No tool parameter found in params");
-    return <NotFound/>;
+    return <NotFound />;
   }
 
   const tool = getToolBySlug(params.tool);
-  if (!tool) return <NotFound/>;
+  if (!tool) return <NotFound />;
 
   const breadcrumbs = buildToolBreadcrumbs(params.tool);
 
@@ -33,7 +33,7 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
       description={tool.description}
       config={pageLayoutPresets.dashboard}
     >
-      <Box display={"flex"} sx={{gap:2}}>
+      <Box display={"flex"} sx={{ gap: 2 }}>
         <ActionButton
           variant="outlineSecondary"
           startIcon={<Plus />}
@@ -41,7 +41,7 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
         >
           New Project
         </ActionButton>
-         <ActionButton
+        <ActionButton
           variant="outlineSecondary"
           startIcon={<SlidersHorizontal />}
           href={`/${params.tool}/admin/models`}
@@ -49,7 +49,7 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
           Manage Models
         </ActionButton>
       </Box>
-      <RecentProjects data={recentProjects}  label="Recent Projects"/>
+      <RecentProjects data={recentProjects} label="Recent Projects" />
       <FolderCardSection data={projectsData} />
     </PageClientLayout>
   );
