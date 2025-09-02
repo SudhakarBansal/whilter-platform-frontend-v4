@@ -6,7 +6,7 @@ import {
   brandFormInitialValues,
   type BrandFormValues,
 } from "../../model/formInitialValues";
-import FileUploadWrapper from "@/components/file-upload/FileUploadWrapper";
+import FileUploadWrapper from "../file-upload/FileUploadWrapper";
 
 export default function AddNewBrand(): JSX.Element {
   const handleSubmit = (data: BrandFormValues) => {};
@@ -27,28 +27,6 @@ export default function AddNewBrand(): JSX.Element {
           autoComplete="off"
           required
         />
-
-        {/* <Typography sx={{ mt: 2 }}>Brand logo</Typography>
-        <TextFieldElement
-          name="brandLogo"
-          fullWidth
-          variant="outlined"
-          placeholder="Add logo"
-          size="small"
-          autoComplete='off'
-          required
-        />
-
-        <Typography sx={{ mt: 2 }}>Reference Document</Typography>
-        <TextFieldElement
-          name="referenceDoc"
-          fullWidth
-          variant="outlined"
-          placeholder="Add reference document"
-          size="small"
-          autoComplete='off'
-          required
-        /> */}
       </Box>
 
       <Box sx={{ mt: 4 }}>

@@ -20,10 +20,10 @@ export const ProfileMenu: React.FC<ProfileMenuProps> = ({
   const handleMenuClick = (action: string) => {
     onClose();
 
-switch (action) {
-  case "MANAGE_USERS":
-    onMangeUsers?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/user-management`);
-    break;
+    switch (action) {
+      case "MANAGE_USERS":
+        onMangeUsers?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/user-management`);
+        break;
       case "ACCOUNT":
         onNavigate?.(`${process.env.NEXT_PUBLIC_MAIN_URL}/my-account`);
         break;
