@@ -32,7 +32,7 @@ export default function BrandCard({ items }: BrandCardProps) {
     if (onManageClick) {
       onManageClick();
     } else if (companyName) {
-      router.push(`/brands/${companyName?.replace(/\s+/g, "-")}/campaigns`);
+      router.push(`/brands/${companyName?.replace(/\s+/g, "-")}`);
     }
   };
 
