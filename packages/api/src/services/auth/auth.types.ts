@@ -1,4 +1,3 @@
-
 export interface LoginPayload {
   email: string;
   password: string;
@@ -12,9 +11,7 @@ export interface SignupPayload {
 
 export interface GoogleLoginPayload {
   googleIdToken: string;
-
 }
-
 
 export interface LogoutPayload {
   refreshToken: string;
@@ -30,11 +27,16 @@ export interface ResetPasswordPayload {
   newPassword: string;
 }
 
+export interface ResetPasswordPayload {
+  token: string;
+  newPassword: string;
+}
+
 export interface LoginResponse {
   accessToken?: string;
   refreshToken?: string;
-  tokenType:string;
-  deviceId:string
+  tokenType: string;
+  deviceId: string;
 }
 
 // Generic API Response Types
@@ -47,5 +49,3 @@ export interface ApiErrorResponse {
   status: number;
   error: string;
 }
-
-
