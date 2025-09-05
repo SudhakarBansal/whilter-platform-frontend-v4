@@ -1,8 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
+import { DeleteBrand } from "../brand-delete";
 
 interface CampaignCardProps {
   type?: "campaign" | "add";
@@ -24,14 +26,13 @@ interface BrandCardProps {
 export default function BrandCard({ items }: BrandCardProps) {
   const router = useRouter();
   const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleClick = (companyName?: string, onManageClick?: () => void) => {
     if (onManageClick) {
       onManageClick();
     } else if (companyName) {
-      router.push(
-        `/campaigns/${companyName.toLowerCase().replace(/\s+/g, "-")}`,
-      );
+      router.push(`/brands/${companyName?.replace(/\s+/g, "-")}/campaigns`);
     }
   };
 
@@ -59,24 +60,29 @@ export default function BrandCard({ items }: BrandCardProps) {
 
             {openMenuIndex === idx && (
               <div className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded-lg shadow-lg z-20 overflow-hidden">
-                <button
-                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
-                  onClick={() => {
-                    brand.onEditClick?.();
-                    setOpenMenuIndex(null);
-                  }}
+                <Link
+                  className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-colors"
+                  href={`/brands/edit/${idx}`}
+                  title="Edit Brand"
                 >
-                  ✏️ Edit
-                </button>
+                  <Pencil size={14} />
+                  <span>Edit</span>
+                </Link>
                 <button
-                  className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors"
-                  onClick={() => {
-                    brand.onDeleteClick?.();
-                    setOpenMenuIndex(null);
-                  }}
+                  className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100 hover:text-red-700 transition-colors"
+                  title="Delete brand"
+                  onClick={() => setConfirmOpen(true)}
                 >
-                  🗑️ Delete
+                  <Trash2 size={14} />
+                  <span>Delete</span>
                 </button>
+                <DeleteBrand
+                  open={confirmOpen}
+                  // userId={id}
+                  // userName={name}
+                  // onDelete={() => onDelete?.(idx)}
+                  onClose={() => setConfirmOpen(false)}
+                />
               </div>
             )}
           </div>

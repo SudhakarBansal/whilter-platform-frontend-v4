@@ -5,6 +5,7 @@ import BrandForm from "../components/brand-form";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 export default function BrandListingPage(): JSX.Element {
   const breadcrumbs = buildBreadcrumbs([
+    { label: "Dashboard", href: "/" },
     { label: "Brands", href: "/brands" },
     { label: "New Brand", href: "/brands/new" },
   ]);
