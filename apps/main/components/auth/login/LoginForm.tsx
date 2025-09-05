@@ -45,11 +45,15 @@ export const LoginForm = () => {
       } else if (res.ok && res.url) {
         toast.success("Logged in successfully");
         router.push(callbackUrl);
-      } else {
+      } else if (res.error) {
         toast.error("Invalid credentials. Please try again.");
       }
-    } catch {
-      toast.error("Something went wrong. Please try again later.");
+    } catch (error: any) {
+      toast.error(
+        error?.message ||
+          String(error) ||
+          "Something went wrong. Please try again later.",
+      );
     } finally {
       setLoading(false);
     }
@@ -132,6 +136,13 @@ export const LoginForm = () => {
               {errors.password.message}
             </p>
           )}
+          <button
+            type="button"
+            className="mt-2 mb-4 text-sm text-blue-500 hover:underline float-left"
+            onClick={() => router.push("/forgot-password")}
+          >
+            Forgot password?
+          </button>
         </div>
 
         {/* Login Button */}
