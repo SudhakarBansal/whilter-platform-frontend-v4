@@ -12,7 +12,7 @@ type ResetForm = ResetPasswordPayload & {
   confirmPassword: string;
 };
 
-export default function ForgotPasswordPage() {
+export default function ResetPasswordPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

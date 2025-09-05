@@ -1,5 +1,5 @@
 import DashboardLayout from "@/layouts/dashboard-layout";
-import AddNewBrand from "@/components/brand-section/AddNewBrand";
+import AddNewBrand from "../../../components/brand-form";
 import { buildBreadcrumbs } from "@/utils/breadcrumbs/buildBreadcrumbs";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 
