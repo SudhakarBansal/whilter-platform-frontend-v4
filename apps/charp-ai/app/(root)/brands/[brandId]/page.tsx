@@ -32,7 +32,6 @@ export default async function ViewCampaignPage({
     { label: "Dashboard", href: "/" },
     { label: "Brands", href: "/brands" },
     { label: `${brandId}`, href: `/brands/${brandId}` },
-    { label: "Campaigns", href: `/brands/${brandId}/campaigns` },
   ]);
 
   return (

@@ -1,5 +1,5 @@
 import DashboardLayout from "@/layouts/dashboard-layout";
-import AddNewBrand from "@/components/brand-section/AddNewBrand";
+import AddNewCampaign from "@/components/campaign-section/AddNewCampaign";
 import { buildBreadcrumbs } from "@/utils/breadcrumbs/buildBreadcrumbs";
 import { pageLayoutPresets } from "@whilter/shared-layouts/styled";
 
@@ -18,8 +18,7 @@ export default async function NewCampaignPage({
     { label: "Dashboard", href: "/" },
     { label: "Brands", href: "/brands" },
     { label: `${brandId}`, href: `/brands/${brandId}` },
-    { label: "Campaigns", href: `/brands/${brandId}/campaigns` },
-    { label: "New", href: `/brands/${brandId}/campaigns/new` },
+    { label: "New Campaign", href: `/brands/${brandId}/campaigns/new` },
   ]);
 
   return (
@@ -29,7 +28,7 @@ export default async function NewCampaignPage({
       breadcrumbs={breadcrumbs}
       config={pageLayoutPresets.dashboard}
     >
-      <AddNewBrand />
+      <AddNewCampaign />
     </DashboardLayout>
   );
 }
