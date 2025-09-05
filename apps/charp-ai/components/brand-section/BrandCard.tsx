@@ -14,23 +14,22 @@ interface CampaignCardProps {
 }
 
 export default function BrandCard({
-    type = "campaign",
-    companyName,
-    logoUrl,
-    totalCampaigns = 0,
-    liveCampaigns = 0,
-    activeCampaigns = 0,
-    isSelected = false,
-    onManageClick,
+  type = "campaign",
+  companyName,
+  logoUrl,
+  totalCampaigns = 0,
+  liveCampaigns = 0,
+  activeCampaigns = 0,
+  isSelected = false,
+  onManageClick,
 }: CampaignCardProps) {
-
   const router = useRouter();
 
   const handleClick = () => {
     if (onManageClick) {
       onManageClick();
     } else {
-      router.push(`/campaigns/${companyName?.toLowerCase().replace(/\s+/g, "-")}`);
+      router.push(`/brands/${companyName?.replace(/\s+/g, "-")}/campaigns`);
     }
   };
 
@@ -77,6 +76,4 @@ export default function BrandCard({
       </button>
     </div>
   );
-};
-
-
+}

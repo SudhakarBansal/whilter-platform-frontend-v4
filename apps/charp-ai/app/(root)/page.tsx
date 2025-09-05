@@ -21,9 +21,9 @@ export default async function Page() {
       key="view-campaign"
       variant="flatPrimary"
       className="text-lg p-4"
-      href="/campaigns"
+      href="/brands"
     >
-      View Campaigns
+      View Brands
     </ActionButton>,
   ];
 
@@ -35,8 +35,8 @@ export default async function Page() {
       buttons={actions}
     >
       <StatCardSection stats={finalStats} />
-      <LeadingBrandsChart/>
-      <MediaDashboard/>
+      <LeadingBrandsChart />
+      <MediaDashboard />
       <BrandDetailsTable />
       <CampaignDetailsTable />
     </DashboardLayout>
