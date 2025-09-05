@@ -5,10 +5,10 @@ import { TextFieldElement, FormContainer } from "@whilter/forms";
 import {
   brandFormInitialValues,
   type BrandFormValues,
-} from "../../model/formInitialValues";
-import FileUploadWrapper from "../file-upload/FileUploadWrapper";
+} from "../../../../model/formInitialValues";
+import FileUploadWrapper from "../../../../components/file-upload/FileUploadWrapper";
 
-export default function AddNewBrand(): JSX.Element {
+export default function BrandForm(): JSX.Element {
   const handleSubmit = (data: BrandFormValues) => {};
 
   return (

@@ -4,7 +4,7 @@ import { buildBreadcrumbs } from "@/utils/breadcrumbs/buildBreadcrumbs";
 import { Plus } from "lucide-react";
 import { RecentProjects } from "@whilter/ui-kit/components";
 import { recentCampaigns } from "../../../data/recentCampaigns.data";
-import BrandsCardSection from "@/components/brand-section/BrandCardSection";
+import { BrandsDataListing } from "@/app/(root)/brands/components/brands-list";
 import { ActionButton } from "@/components/atoms/ActionButton";
 
 export default function ViewBrandPage() {
@@ -32,7 +32,7 @@ export default function ViewBrandPage() {
       config={pageLayoutPresets.dashboard}
       buttons={actionButtons}
     >
-      <BrandsCardSection />
+      <BrandsDataListing />
       <RecentProjects data={recentCampaigns} label="Recent Campaigns" />
     </DashboardLayout>
   );
