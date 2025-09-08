@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, IconButton, Tooltip } from "@mui/material";
-import Image from "next/image";
 import Link from "next/link";
 import type { SvgIconComponent } from "@mui/icons-material";
 
