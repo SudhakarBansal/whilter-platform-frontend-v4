@@ -69,7 +69,7 @@ export const Sidebar = ({ menuItems }: SidebarProps) => {
                     className="relative group/item flex justify-center"
                   >
                     <Tooltip title={item.label} placement="right" arrow>
-                      <Link href={item.href} prefetch scroll>
+                      <Link href={item.href} scroll>
                         <IconButton
                           component="span"
                           className="relative rounded-xl transition-all duration-200 hover:bg-white/20 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto text-white"
