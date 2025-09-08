@@ -21,28 +21,21 @@ export default function ForgotPasswordPage() {
   const onSubmit = async (data: ForgotPasswordPayload) => {
     setLoading(true);
 
-    // try {
-    //   const response = await forgotPassword(data);
+    try {
+      const response = await forgotPassword(data);
 
-    //if (response) {
-    // const token = response.data;
-
-    //   if (token) {
-    //     toast.success("Password reset link sent successfully");
-    //     router.push(`/reset-password?token=${encodeURIComponent(token)}`);
-    //   } else {
-    //     toast.error("Token not found in response");
-    //   }
-    // }
-    // } catch (error: any) {
-    //   toast.error(
-    //     error?.message ||
-    //       String(error) ||
-    //       "Error occurred while sending reset link"
-    //   );
-    // } finally {
-    //   setLoading(false);
-    // }
+      if (response) {
+        toast.success("Password reset link sent successfully");
+      }
+    } catch (error: any) {
+      toast.error(
+        error?.message ||
+          String(error) ||
+          "Error occurred while sending reset link",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

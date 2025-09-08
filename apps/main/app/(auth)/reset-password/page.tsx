@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { Button, CircularProgress } from "@mui/material";
 import { toast } from "sonner";
 import { resetPassword } from "@whilter/api";
+import { useSearchParams } from "next/navigation";
 import type { ResetPasswordPayload } from "@whilter/api/src/services/auth/auth.types";
 
 type ResetForm = ResetPasswordPayload & {
@@ -13,6 +14,8 @@ type ResetForm = ResetPasswordPayload & {
 };
 
 export default function ResetPasswordPage() {
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -31,11 +34,21 @@ export default function ResetPasswordPage() {
       return;
     }
 
+    if (!token) {
+      toast.error("Reset token is missing.");
+      return;
+    }
+
     setLoading(true);
     try {
       const { confirmPassword, ...payload } = data;
-      const response = await resetPassword(payload);
+      const response = await resetPassword({
+        ...payload,
+        token,
+      });
+
       if (response) {
+        router.push("/login");
         toast.success("Password reset successfully");
       }
     } catch (error: any) {
@@ -113,13 +126,13 @@ export default function ResetPasswordPage() {
 
         {/* Actions */}
         <div className="flex justify-end gap-3 pt-2">
-          <Button
+          {/* <Button
             type="button"
             variant="outlinePrimary"
             onClick={() => router.back()}
           >
             Back
-          </Button>
+          </Button> */}
           <Button
             type="submit"
             disabled={loading}

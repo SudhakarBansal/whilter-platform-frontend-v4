@@ -76,7 +76,7 @@ export async function resetPassword(
       message: "Password has been reset successfully.",
     };
   } catch (error: any) {
-    const errorMsg = error?.response?.data || "Reset password failed.";
+    const errorMsg = error?.response?.data?.message || "Reset password failed.";
     throw new Error(errorMsg);
   }
 }
