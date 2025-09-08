@@ -9,10 +9,13 @@ export const brandFormInitialValues: BrandFormValues = {
   brandLogo: "",
   referenceDoc: "",
 };
+
+export type MediaType = "image" | "video";
+
 export interface CampaignFormValues {
   campaignName: string;
   referenceDoc: string;
-  mediaType: "image" | "video";
+  mediaType: MediaType;
   width: string;
   height: string;
   aspectRatio:
