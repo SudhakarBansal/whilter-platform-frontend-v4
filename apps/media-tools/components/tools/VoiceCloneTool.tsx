@@ -1,0 +1,21 @@
+import { VoiceCloneControls } from "../tool-controls/VoiceCloneControls";
+import { VoiceCloneMediaPanel } from "../tool-media-panels/VoiceCloneMediaPanel";
+
+const VoiceCloneTool = () => {
+  return (
+    <div className="flex flex-col min-h-screen gap-2">
+      <div className="flex flex-col flex-1 gap-3 md:gap-4">
+        <div className="grid gap-3 lg:gap-8 flex-1 grid-cols-1 lg:grid-cols-12 items-start">
+          <div className="lg:col-span-8 flex flex-col min-h-[500px] bg-transparent">
+            <VoiceCloneMediaPanel />
+          </div>
+          <div className="lg:col-span-4 p-6 md:p-6 flex flex-col min-h-[500px] h-full bg-gradient-to-b from-blue-400 to-blue-800 shadow-sm rounded-[1rem] lg:sticky lg:top-2 lg:self-start lg:h-auto">
+            <VoiceCloneControls />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default VoiceCloneTool;
