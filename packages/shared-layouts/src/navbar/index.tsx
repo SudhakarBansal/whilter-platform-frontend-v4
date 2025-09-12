@@ -1,7 +1,6 @@
 "use client";
-
 import React, { useState } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { ProfileSection } from "./components/ProfileSection";
 import { ProfileMenu } from "./components/ProfileMenu";
 import type { NavbarProps } from "@whilter/shared-types";
@@ -14,24 +13,35 @@ export function Navbar({ onMangeUsers, user, onNavigate }: NavbarProps) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const handleMenuClose = () => setAnchorEl(null);
 
   return (
     <Box
-      className="w-full h-16 flex items-center justify-between px-6"
       sx={{
-        background: `linear-gradient(to right, ${theme.palette.blue[700]}, ${theme.palette.blue[900]})`,
-        transition: theme.transitions.create("background", {
-          easing: theme.transitions.easing.easeInOut,
-          duration: theme.transitions.duration.standard,
-        }),
-        boxShadow: theme.shadows[4],
+        width: "100%",
+        height: 64,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        px: 3,
+        background: theme.palette.blue[700],
+        boxShadow: 2,
         zIndex: 10,
+        borderBottom: 2,
+        borderColor: theme.palette.blue[800],
       }}
     >
-      <Box className="text-white font-semibold text-lg"><img src="https://s3.ap-south-1.amazonaws.com/cdn.whilter.com/website/images/Whilter-logo-coloured-fav.png" height="40" width="40" /></Box>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 2.5 }}>
+        <img
+          src="https://s3.ap-south-1.amazonaws.com/cdn.whilter.com/website/images/Whilter-logo-coloured-fav.png"
+          alt="Whilter Logo"
+          height="40"
+          width="40"
+        />
+        {/* <Typography variant="h5" sx={{fontWeight: 600 }}>
+          Media Tools - Virtual Try-On
+        </Typography> */}
+      </Box>
 
       <ProfileSection
         isOpen={Boolean(anchorEl)}
