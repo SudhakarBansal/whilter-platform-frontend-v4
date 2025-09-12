@@ -7,7 +7,7 @@ export default function ToolsListingLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <Box className="relative flex min-h-screen">
+    <Box className="relative flex">
       <Sidebar />
       <Box component="main" className="flex-1">
         {children}
