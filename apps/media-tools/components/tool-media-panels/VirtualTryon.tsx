@@ -2,20 +2,16 @@
 
 import React, { useState } from "react";
 import {
-  Container,
   Paper,
   Typography,
   Tabs,
   Tab,
   Box,
-  Grid,
+  Stack,
   Button,
-  Fab,
 } from "@mui/material";
-import { AutoAwesome, PlayArrow } from "@mui/icons-material";
-// import ImageUploadArea from './ImageUploadArea';
-// import ModelGallery from './ModelGallery';
-// import OutputDisplay from './OutputDisplay';
+import { PlayArrow } from "@mui/icons-material";
+import ImageUploader from "../ImageUploader";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,11 +35,11 @@ function TabPanel(props: TabPanelProps) {
 }
 
 const garmentTypes = [
-  { label: "Top", value: "top" },
-  { label: "Bottom", value: "bottom" },
-  { label: "Both", value: "both" },
-  { label: "Auto", value: "auto" },
-  { label: "One Piece", value: "onepiece" },
+  { label: "Top", value: "top", uploaders: 1 },
+  { label: "Bottom", value: "bottom", uploaders: 1 },
+  { label: "Both", value: "both", uploaders: 2 },
+  { label: "Auto", value: "auto", uploaders: 1 },
+  { label: "One Piece", value: "onepiece", uploaders: 1 },
 ];
 
 export default function VirtualTryOnScreen() {
@@ -82,76 +78,71 @@ export default function VirtualTryOnScreen() {
 
   return (
     <div className="w-full">
-      <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
-        <Tabs
-          value={selectedTab}
-          onChange={handleTabChange}
-          variant="fullWidth"
-          centered
+      <Paper elevation={2} sx={{ p: 2, height: "fit-content" }}>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={4}
+          sx={{ mb: 4 }}
         >
-          {garmentTypes.map((type, index) => (
-            <Tab
-              key={type.value}
-              label={type.label}
-              id={`garment-tab-${index}`}
-              aria-controls={`garment-tabpanel-${index}`}
-            />
-          ))}
-        </Tabs>
-      </Box>
-
-      {garmentTypes.map((type, index) => (
-        <TabPanel key={type.value} value={selectedTab} index={index}>
-          <Grid container spacing={4}>
-            {/* Garment Selection */}
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6" className="mb-4 flex items-center">
-                <AutoAwesome className="mr-2 text-purple-600" />
-                Select Garment ({type.label})
-              </Typography>
-              {/* <ImageUploadArea
-                  title="Upload Garment Image"
-                  subtitle={`Upload ${type.label.toLowerCase()} garment photo`}
-                  onImageSelect={handleGarmentImageSelect}
-                  acceptedTypes="image/*"
-                  selectedImage={garmentImage}
-                /> */}
-            </Grid>
-
-            {/* Model Selection */}
-            <Grid item xs={12} md={4}>
-              <Typography variant="h6" className="mb-4 flex items-center">
-                <AutoAwesome className="mr-2 text-blue-600" />
-                Select Model
-              </Typography>
-              <div className="space-y-4">
-                {/* <ImageUploadArea
-                    title="Upload Model Image"
-                    subtitle="Upload your own model photo"
-                    onImageSelect={handleModelImageSelect}
-                    acceptedTypes="image/*"
-                    selectedImage={typeof modelImage === 'string' ? null : modelImage}
+          {/* Left Section - Garment Selection */}
+          <Box sx={{ flex: 1 }}>
+            <Box>
+              <Tabs
+                value={selectedTab}
+                onChange={handleTabChange}
+                variant="fullWidth"
+                centered
+                sx={{ borderBottom: 1, borderColor: "divider" }}
+              >
+                {garmentTypes.map((type, index) => (
+                  <Tab
+                    key={type.value}
+                    label={type.label}
+                    id={`garment-tab-${index}`}
+                    aria-controls={`garment-tabpanel-${index}`}
+                    sx={{ color: "gray.400" }}
                   />
-                  */}
-              </div>
-            </Grid>
-          </Grid>
+                ))}
+              </Tabs>
 
-          {/* Try-On Button */}
-          <Box className="flex justify-center mt-8">
-            <Button
-              variant="generateButton"
-              size="large"
-              onClick={handleTryOn}
-              disabled={!canProcess}
-              className="px-8 py-4"
-            >
-              <PlayArrow sx={{ mr: 1 }} />
-              {isProcessing ? "Processing..." : "Generate Try-On"}
-            </Button>
+              {garmentTypes.map((type, index) => (
+                <TabPanel key={type.value} value={selectedTab} index={index}>
+                  {type.uploaders === 2 ? (
+                    <Stack direction="row" spacing={2}>
+                      <ImageUploader />
+                      <ImageUploader />
+                    </Stack>
+                  ) : (
+                    <ImageUploader />
+                  )}
+                </TabPanel>
+              ))}
+            </Box>
           </Box>
-        </TabPanel>
-      ))}
+
+          {/* Right Section - Model Selection */}
+          <Box sx={{ flex: 1 }}>
+            <Typography variant="h4" className="text-gray-800">
+              Select Model
+            </Typography>
+            <ImageUploader />
+          </Box>
+        </Stack>
+      </Paper>
+
+      {/* Try-On Button */}
+      <Box className="flex justify-center mt-8">
+        <Button
+          variant="generateButton"
+          size="large"
+          onClick={handleTryOn}
+          disabled={!canProcess}
+          className="px-8 py-4"
+        >
+          <PlayArrow sx={{ mr: 1 }} />
+          {isProcessing ? "Processing..." : "Generate Try-On"}
+        </Button>
+      </Box>
     </div>
   );
 }
