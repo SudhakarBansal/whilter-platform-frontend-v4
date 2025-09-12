@@ -4,8 +4,8 @@ import ThemedLayout from "../ThemedLayout/ThemedLayout";
 import { Toaster } from "sonner";
 
 export function MainLayout({ children }: { children: ReactNode }) {
-   return (
-    <div className="flex min-h-screen">
+  return (
+    <div className="flex">
       <ThemedLayout>{children}</ThemedLayout>
       <Toaster
         position="top-right"
@@ -19,4 +19,3 @@ export function MainLayout({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
