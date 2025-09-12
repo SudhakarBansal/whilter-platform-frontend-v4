@@ -20,7 +20,7 @@ export default function ThemedLayout({ children }: { children: ReactNode }) {
         component="main"
         sx={{
           flexGrow: 1,
-          pt: "3rem",
+          pt: "1rem",
           background: `linear-gradient(to bottom, ${theme.palette.blue[700]}, ${theme.palette.blue[900]})`,
           transition: theme.transitions.create("margin", {
             easing: theme.transitions.easing.sharp,

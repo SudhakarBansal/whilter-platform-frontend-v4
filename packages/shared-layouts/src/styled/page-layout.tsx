@@ -379,7 +379,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({
 
       {/* Main Content */}
       <StyledContent config={mergedConfig}>
-        <Stack spacing={12} paddingY={3}>
+        <Stack spacing={12} paddingY={2}>
           {children}
         </Stack>
       </StyledContent>
