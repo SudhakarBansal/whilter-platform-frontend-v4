@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 
 export function NavbarClientWrapper({
   user,
+  children,
 }: {
-  user: any
+  user: any;
+  children: React.ReactNode;
 }) {
   const router = useRouter();
 
@@ -15,6 +17,8 @@ export function NavbarClientWrapper({
       onMangeUsers={(path) => router.push(path)}
       onNavigate={(path) => router.push(path)}
       user={user}
-    />
+    >
+      {children}
+    </Navbar>
   );
 }

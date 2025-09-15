@@ -5,6 +5,7 @@ import { ThemeConfig } from "@whilter/config";
 import { MainLayout } from "@whilter/shared-layouts/main";
 import { getSession } from "@whilter/auth";
 import { NavbarClientWrapper } from "@/components/navbar/NavbarClientWrapper";
+import NavbarContent from "@/components/navbar/NavbarContent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getSession();
- console.log("Session in layout:", session);
+  console.log("Session in layout:", session);
   return (
     <html lang="en">
       <body className={inter.className}>
         <ThemeConfig>
-          <NavbarClientWrapper user={session} />
+          <NavbarClientWrapper user={session}>
+            <NavbarContent />
+          </NavbarClientWrapper>
           <MainLayout>{children}</MainLayout>
         </ThemeConfig>
       </body>

@@ -5,7 +5,12 @@ import { ProfileSection } from "./components/ProfileSection";
 import { ProfileMenu } from "./components/ProfileMenu";
 import type { NavbarProps } from "@whilter/shared-types";
 
-export function Navbar({ onMangeUsers, user, onNavigate }: NavbarProps) {
+export function Navbar({
+  onMangeUsers,
+  user,
+  onNavigate,
+  children,
+}: NavbarProps & { children?: React.ReactNode }) {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -38,9 +43,11 @@ export function Navbar({ onMangeUsers, user, onNavigate }: NavbarProps) {
           height="40"
           width="40"
         />
-        {/* <Typography variant="h5" sx={{fontWeight: 600 }}>
-          Media Tools - Virtual Try-On
-        </Typography> */}
+        {children || (
+          <Typography variant="h5" sx={{ fontWeight: 600 }}>
+            Whilter AI
+          </Typography>
+        )}
       </Box>
 
       <ProfileSection
