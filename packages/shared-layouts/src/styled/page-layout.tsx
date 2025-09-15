@@ -123,6 +123,7 @@ const StyledPageContainer = styled(Container)<{ config: PageLayoutConfig }>(
 const StyledBreadcrumbs = styled(Breadcrumbs)<{ config: PageLayoutConfig }>(
   ({ theme, config }) => ({
     marginBottom: theme.spacing(config?.breadcrumbs?.marginBottom || 2),
+    marginTop: theme.spacing(config?.breadcrumbs?.marginBottom || 3),
     "& .MuiBreadcrumbs-separator": {
       color:
         config?.breadcrumbs?.separatorColor || theme.palette.text.secondary,
@@ -156,7 +157,7 @@ const StyledBreadcrumbText = styled(Typography)<{ config: PageLayoutConfig }>(
 
 const StyledHeader = styled(Box)<{ config: PageLayoutConfig }>(
   ({ theme, config }) => ({
-    marginBottom: theme.spacing(config?.header?.marginBottom || 3),
+    marginBottom: theme.spacing(config?.header?.marginBottom || 0),
     padding: config?.header?.padding ? theme.spacing(config.header.padding) : 0,
     backgroundColor: config?.header?.backgroundColor || "transparent",
     borderRadius: config?.header?.borderRadius
