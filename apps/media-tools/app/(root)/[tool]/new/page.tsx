@@ -134,9 +134,7 @@ export default function ToolPage({ params }: ToolPageProps) {
     <FormContainer defaultValues={defaultValues} onSuccess={onSubmit}>
       <PageClientLayout
         breadcrumbs={breadcrumbs}
-        heading={tool.title}
-        description={tool.description}
-        config={pageLayoutPresets.dashboard}
+        config={pageLayoutPresets.noHeaderDashboard}
       >
         <ToolComponent />
       </PageClientLayout>

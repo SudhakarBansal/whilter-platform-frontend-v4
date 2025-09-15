@@ -29,9 +29,9 @@ export default function ToolsListingPage({ params }: ToolsListingPageProps) {
   return (
     <PageClientLayout
       breadcrumbs={breadcrumbs}
-      heading={tool.title + " Projects Library"}
-      description={tool.description}
-      config={pageLayoutPresets.dashboard}
+      // heading={tool.title + " Projects Library"}
+      // description={tool.description}
+      config={pageLayoutPresets.noHeaderDashboard}
     >
       <Box display={"flex"} sx={{ gap: 2 }}>
         <ActionButton
