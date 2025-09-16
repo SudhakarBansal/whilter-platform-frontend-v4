@@ -21,7 +21,13 @@ function NavbarContent() {
           <Typography variant="h5" sx={{ fontWeight: 600 }}>
             {tool.title}
           </Typography>
-          <Typography sx={{ fontSize: "0.75rem", color: "gray.400" }}>
+          <Typography
+            sx={{
+              fontSize: "0.75rem",
+              color: "gray.400",
+              display: { xs: "none", md: "block" },
+            }}
+          >
             {tool?.description}
           </Typography>
         </>
